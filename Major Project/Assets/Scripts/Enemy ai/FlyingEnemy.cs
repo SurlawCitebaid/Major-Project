@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class FlyingEnemy : MonoBehaviour
 {
+    private Rigidbody2D rigid;
+    private float thrust = 20f;
     public float speed;
     private GameObject player;
     private bool attacked = true;
@@ -12,6 +14,7 @@ public class FlyingEnemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        rigid = GetComponent<Rigidbody2D>();
         flightHeight = Random.Range(1f, 4f);
         player = GameObject.FindGameObjectWithTag("Player");
     }
@@ -22,30 +25,28 @@ public class FlyingEnemy : MonoBehaviour
 
         if (player == null)
             return;
-        if(attacked == false)
-            flightHeight = Random.Range(1f, 4f);
-        if (transform.position.y- flightHeight <= player.transform.position.y && attacked == true)
-        {
-            Debug.Log(flightHeight);
-            rePosition();
-            if (Mathf.Abs(player.transform.position.y - transform.position.y) >= flightHeight)
-            {
-                attacked = false;
 
-            }
-        }
-        if(attacked == false)
+        if (transform.position.y - flightHeight <= player.transform.position.y && attacked == true)
         {
+            rePosition();                                           //enemy below player
+        } else if (transform.position.y - flightHeight >= player.transform.position.y && attacked == true)
+        {
+            attacked = false;                                       //enemy above player
+        }else
+        {
+            flightHeight = Random.Range(1f, 4f);
             float dist = Vector2.Distance(player.transform.position, transform.position);
-            Debug.Log(flightHeight);
             if (dist > attackRange)
             {
                 chase();
             }
+            else
+                attack();
         }
-
-
-
+    }
+    private void attack()
+    {
+        rigid.AddForce(transform.right * thrust);
     }
     private void chase()
     {
@@ -54,5 +55,9 @@ public class FlyingEnemy : MonoBehaviour
     private void rePosition()
     {
         transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, player.transform.position.y+ flightHeight), speed * Time.deltaTime);
+        if (Mathf.Abs(transform.position.y) == Mathf.Abs(flightHeight +player.transform.position.y) ) //you cant compare float values by themselves
+        {
+            attacked = false;
+        }
     }
 }
