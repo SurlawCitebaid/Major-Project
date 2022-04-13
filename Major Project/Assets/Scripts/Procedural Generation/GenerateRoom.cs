@@ -15,6 +15,7 @@ public class GenerateRoom : MonoBehaviour
     {
         room = new Room(roomSizeX, roomSizeY, RoomType.CIRCUS);
         roomData = new int[roomSizeX, roomSizeY];
+        //Populates the data with an in representing, walls, platforms objcts
         fillRoomData();
         generateRoom();
     }
@@ -31,11 +32,12 @@ public class GenerateRoom : MonoBehaviour
         {
             for (int y = 0; y < roomSizeY; y++)
             {
-                //Border and a border
+                //Border 
                 if (x == 0 || x == roomSizeX-1 || y == 0 || y == roomSizeY - 1)
                 {
                     roomData[x, y] = 1;
                 }
+                //Air Blocks
                 else
                 {
                     roomData[x, y] = 0;

@@ -24,7 +24,7 @@ public class FlyingEnemy : MonoBehaviour
             return;
         if(attacked == false)
             flightHeight = Random.Range(1f, 4f);
-        if (transform.position.y- flightHeight <= player.transform.position.y && attacked == true)
+        if (transform.position.y - flightHeight <= player.transform.position.y && attacked == true)
         {
             Debug.Log(flightHeight);
             rePosition();
