@@ -9,11 +9,13 @@ public class Room
     RoomType roomType;
     int[,] roomData;
 
+
     public Room(int roomSizeX, int roomSizeY, RoomType roomType)
     {
         this.roomType = roomType;
         this.roomSizeX = roomSizeX;
         this.roomSizeY = roomSizeY;
+        //a grid of solid and air tiles in the room
         int[,] roomData = new int[roomSizeX,roomSizeY];
         for(int x = 0; x < roomSizeX; x++)
         {
@@ -24,12 +26,16 @@ public class Room
         }
     }
 
+
     public int[,] getRoomData()
     {
         return roomData;
     }
+
+    
 }
 
+//Types of themed rooms
 public enum RoomType
 {
     CIRCUS

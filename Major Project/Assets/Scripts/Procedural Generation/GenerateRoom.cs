@@ -2,29 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GenerateRoom : MonoBehaviour
+public class GenerateRoom
 {
     Room room;
+    Vector2 spawnPosition;
     public int roomSizeX;
     public int roomSizeY;
     int[,] roomData;
     //Wall prefab
     public GameObject wall;
-    // Start is called before the first frame update
-    void Start()
+
+    public GenerateRoom(Vector2 spawnPosition, int roomSizeX, int roomSizeY, GameObject wall)
+    {
+        this.spawnPosition = spawnPosition;
+        this.roomSizeX = roomSizeX;
+        this.roomSizeY = roomSizeY;
+        this.wall = wall;
+    }
+
+    public void createRoom()
     {
         room = new Room(roomSizeX, roomSizeY, RoomType.CIRCUS);
         roomData = new int[roomSizeX, roomSizeY];
-        //Populates the data with an in representing, walls, platforms objcts
+        //Populates the data with an in representing, walls, platforms objects
         fillRoomData();
         generateRoom();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     void fillRoomData()
     {
@@ -55,7 +59,7 @@ public class GenerateRoom : MonoBehaviour
                 //Border and a border
                 if (roomData[x, y] == 1)
                 {
-                   Instantiate(wall, new Vector3((float)x, (float)y), Quaternion.identity);
+                   GameObject.Instantiate(wall, new Vector3(spawnPosition.x+(float)x, spawnPosition.y+(float)y), Quaternion.identity);
                 }
             }
         }
