@@ -20,7 +20,7 @@ public class FlyingEnemy : MonoBehaviour
         x = transform.rotation;
         yPos = transform.position.y;                                    //consistent yPos
         rigid = GetComponent<Rigidbody2D>();                                //get ai physics
-        flightHeight = Random.Range(0f, 8f);
+        flightHeight = Random.Range(1f, 9f);
         player = GameObject.FindGameObjectWithTag("Player");                //so ai knows where player is
     }
 
@@ -34,7 +34,7 @@ public class FlyingEnemy : MonoBehaviour
         switch (state)
         {
             case State.MOVING:
-                if (yPos < player.transform.position.y)
+                if (yPos <= player.transform.position.y)
                 {
                     rePosition();
                 }
@@ -96,7 +96,7 @@ public class FlyingEnemy : MonoBehaviour
     private void rePosition()
     {
         transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, player.transform.position.y + flightHeight), speed * Time.deltaTime);
-        if ((Mathf.Round(transform.position.y*100)/100) > (Mathf.Round((flightHeight + player.transform.position.y) * 101)/101)) //you cant compare float values by themselves
+        if (Mathf.Round(transform.position.y) == Mathf.Round((flightHeight + player.transform.position.y))) //you cant compare float values by themselves
         {
             
             yPos = transform.position.y;
@@ -111,7 +111,7 @@ public class FlyingEnemy : MonoBehaviour
         }
         else
         {
-            flightHeight = Random.Range(0f, 9f);
+            flightHeight = Random.Range(1f, 9f);
             yPos = transform.position.y;
             state = State.MOVING;
             attacked = false;
