@@ -5,6 +5,8 @@ using UnityEngine;
 public class GenerateLevel : MonoBehaviour
 {
     [SerializeField]
+    int seed;
+    [SerializeField]
     int maxRooms;
     [SerializeField]
     int gridSizeX;
@@ -13,16 +15,20 @@ public class GenerateLevel : MonoBehaviour
     [SerializeField]
     int maxRoomSize;
     [SerializeField]
-    int seed;
-    int[,] grid;
-    GenerateRoom[,] rooms;
+    int maxNumberOfPlatforms;
     [SerializeField]
-    GameObject tiles;
+    int platformMaxSize;
+    [SerializeField]
+    int platformMinSize;
+    int[,] grid;
+    List<Room> rooms;
+    [SerializeField]
+    List<GameObject> tiles;
     // Start is called before the first frame update
     void Start()
     {
         grid = new int[gridSizeX,gridSizeY];
-        rooms = new GenerateRoom[gridSizeX, gridSizeY];
+        rooms = new List<Room>();
         Random.seed = seed;
 
         populateGrid();
@@ -32,7 +38,7 @@ public class GenerateLevel : MonoBehaviour
 
     void populateGrid()
     {
-        //Sets inital values 0 being no room
+        //Sets inital values 0 being no room 1 being a room
         for (int x = 0; x < gridSizeX; x++)
         {
             for (int y = 0; y < gridSizeY; y++)
@@ -45,21 +51,58 @@ public class GenerateLevel : MonoBehaviour
         int roomsCreated = 0;
         int currentRoomX = gridSizeX/2;
         int currentRoomY = gridSizeY/2;
+        //Stores a list of  created rooms
+        int[,] createdRooms = new int[maxRooms, 2];
+
+        int roomCountCycler = 0;
         //Loop until the number of rooms have been created
         while (roomsCreated != maxRooms)
         {
-            grid[currentRoomX, currentRoomY] = 1;
+            //Checking if this cell already has a room
+            if(grid[currentRoomX, currentRoomY] != 1)
+            {
+                //Add a room created
+                createdRooms[roomsCreated, 0] = currentRoomX;
+                createdRooms[roomsCreated, 1] = currentRoomY;
+
+                roomsCreated++;
+                grid[currentRoomX, currentRoomY] = 1;
+            }
+
+            //Cycle the current room of rooms that have been created
+            currentRoomX = createdRooms[roomCountCycler, 0];
+            currentRoomY = createdRooms[roomCountCycler, 1];
+
+            roomCountCycler++;
+            //Resets the cycler
+            if (roomCountCycler > roomsCreated - 1)
+            {
+                roomCountCycler = 0;
+            }
+
             //Select next room to look at
             //So that it only can move NESW
             if (Random.Range(-1, 2) > 0) { 
-                
-                currentRoomX = currentRoomX + (int)Mathf.Round(Random.Range(-1, 1));
+                //The potential next room to place if conditions are met
+                int nextRoomX = currentRoomX + (int)Mathf.Round(Random.Range(-1, 2));
+                //So that we don't just place them all next to each other
+                if (!hasMaxNeighbours(nextRoomX, currentRoomY))
+                {
+                    currentRoomX = nextRoomX;
+                }
             }
             else
-                currentRoomY = currentRoomY + (int)Mathf.Round(Random.Range(-1, 1));
+            {
+                int nextRoomY = currentRoomY + (int)Mathf.Round(Random.Range(-1, 2));
+                if (!hasMaxNeighbours(currentRoomX, nextRoomY))
+                {
+                    currentRoomY = nextRoomY;
+                }
+            }
 
-            roomsCreated++;
-            Debug.Log(currentRoomX + " " + currentRoomY);
+            
+            
+
         }
     }
 
@@ -69,13 +112,40 @@ public class GenerateLevel : MonoBehaviour
         {
             for (int y = 0; y < gridSizeY; y++)
             {
-                //Place room
+                //Place room if there is a 1 in the grid
                 if(grid[x,y] == 1)
                 {
-                    GenerateRoom generateRoom = new GenerateRoom(new Vector2(x * maxRoomSize, y * maxRoomSize),maxRoomSize, maxRoomSize, tiles);
-                    generateRoom.createRoom();
+                    Vector2 roomPostion = new Vector2(x * maxRoomSize, y * maxRoomSize);
+                    Room room = new Room(roomPostion,maxRoomSize, maxRoomSize, tiles, transform, maxNumberOfPlatforms, platformMaxSize, platformMinSize);
+                    room.createRoom();
+                    rooms.Add(room);
                 }
             }
         }
+    }
+
+    //Checks for neighbours to the room
+    bool hasMaxNeighbours(int x, int y)
+    {
+        //How many neighbours a room can have
+        int maxNeighbours = 2;
+        int neighbourCount = 0;
+
+        //Top
+        if (grid[x, y+1] == 1)
+            neighbourCount += 1;
+        //Bottom
+        if (grid[x, y-1] == 1)
+            neighbourCount += 1;
+        //Right
+        if (grid[x + 1, y] == 1)
+            neighbourCount += 1;
+        //Left
+        if (grid[x - 1, y] == 1)
+            neighbourCount += 1;
+
+        if (neighbourCount >= maxNeighbours)
+            return true;
+        return false;
     }
 }
