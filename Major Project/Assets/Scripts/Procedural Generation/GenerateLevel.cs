@@ -6,6 +6,8 @@ public class GenerateLevel : MonoBehaviour
 {
     [SerializeField]
     int seed;
+
+    [Header("Room Settings")]
     [SerializeField]
     int maxRooms;
     [SerializeField]
@@ -15,13 +17,20 @@ public class GenerateLevel : MonoBehaviour
     [SerializeField]
     int maxRoomSize;
     [SerializeField]
+    int minRoomSize;
+
+    [Header("Platform Settings")]
+    [SerializeField]
     int maxNumberOfPlatforms;
     [SerializeField]
     int platformMaxSize;
     [SerializeField]
     int platformMinSize;
+
     int[,] grid;
     List<Room> rooms;
+
+    [Header("Tile Assets")]
     [SerializeField]
     List<GameObject> tiles;
     // Start is called before the first frame update
@@ -116,7 +125,10 @@ public class GenerateLevel : MonoBehaviour
                 if(grid[x,y] == 1)
                 {
                     Vector2 roomPostion = new Vector2(x * maxRoomSize, y * maxRoomSize);
-                    Room room = new Room(roomPostion,maxRoomSize, maxRoomSize, tiles, transform, maxNumberOfPlatforms, platformMaxSize, platformMinSize);
+                    //So we can have random room sizes
+                    int randomRoomSizeX = Random.Range(maxRoomSize / 2, maxRoomSize);
+                    int randomRoomSizeY = Random.Range(maxRoomSize / 2, maxRoomSize);
+                    Room room = new Room(roomPostion,randomRoomSizeX, randomRoomSizeY, tiles, transform, maxNumberOfPlatforms, platformMaxSize, platformMinSize);
                     room.createRoom();
                     rooms.Add(room);
                 }
