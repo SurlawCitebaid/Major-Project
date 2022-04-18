@@ -4,22 +4,20 @@ using UnityEngine;
 
 public class FlyingEnemy : MonoBehaviour
 {
-    private Rigidbody2D rigid;
     private float thrust = 14f, speed = 5f, attackRange = 7f, flightHeight, yPos, angle;
-    private GameObject player;
     private enum State { MOVING, CHASE, AIMING, ATTACKING, COOLDOWN };
-    private State state;
     private bool attacked = false, predictionLine = true;
-    private Quaternion q, x;
-    private Vector3 vectorToTarget, startRot;
-    public LineRenderer lineOfSight;
     private LineRendererController lr;
+    private Rigidbody2D rigid;
+    private GameObject player;
+    private Quaternion x;
+    private State state;
+
     // Start is called before the first frame update
     void Start()
     {
         lr = GetComponent<LineRendererController>();
         state = State.MOVING;
-        startRot = transform.position;
         x = transform.rotation;
         yPos = transform.position.y;                                    //consistent yPos
         rigid = GetComponent<Rigidbody2D>();                                //get ai physics
@@ -70,10 +68,10 @@ public class FlyingEnemy : MonoBehaviour
                 if(predictionLine)
                 { 
                     lr.DrawLine(new Vector3(transform.position.x, transform.position.y, 1), new Vector3(hitInfo.point.x, hitInfo.point.y, 1));
-                    predictionLine = false;
+                    predictionLine = false;                 //Line has higher z so its behind everything
                 }
 
-                lr.updateStartPoint(transform.position);
+                lr.updateStartPoint(new Vector3(transform.position.x, transform.position.y, 1));
                 Invoke("attack", 1f);
                 break;
 
@@ -87,9 +85,9 @@ public class FlyingEnemy : MonoBehaviour
         Vector3 dirFromAtoB = (player.transform.position - transform.position).normalized;
         float dotProd = Vector3.Dot(dirFromAtoB, transform.up);
 
-        vectorToTarget = player.transform.position - transform.position;
+        Vector3 vectorToTarget = player.transform.position - transform.position;
         angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg - 90f;
-        q = Quaternion.AngleAxis(angle, Vector3.forward);
+        Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
         transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * speed);
         if (dotProd == 1)
         {
@@ -114,7 +112,6 @@ public class FlyingEnemy : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, player.transform.position.y + flightHeight), speed * Time.deltaTime);
         if (Mathf.Round(transform.position.y) == Mathf.Round((flightHeight + player.transform.position.y))) //you cant compare float values by themselves
         {
-            
             yPos = transform.position.y;
         }
     }

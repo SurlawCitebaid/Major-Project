@@ -15,7 +15,8 @@ public class LineRendererController : MonoBehaviour
         lr = line.GetComponent<LineRenderer>();
         lr.material = m_Material;
         lr.startColor = Color.red;
-        lr.SetWidth(0.1f, 0.1f);
+        lr.startWidth = 0.1f;
+        lr.endWidth =0.1f ;
         lr.SetPosition(0,start);
         lr.SetPosition(1, end);
     }
