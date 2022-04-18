@@ -9,12 +9,15 @@ public class FlyingEnemy : MonoBehaviour
     private GameObject player;
     private enum State { MOVING, CHASE, AIMING, ATTACKING, COOLDOWN };
     private State state;
-    private bool inPosition = false, attacked = false, aiming = false;
+    private bool attacked = false, predictionLine = true;
     private Quaternion q, x;
     private Vector3 vectorToTarget, startRot;
+    public LineRenderer lineOfSight;
+    private LineRendererController lr;
     // Start is called before the first frame update
     void Start()
     {
+        lr = GetComponent<LineRendererController>();
         state = State.MOVING;
         startRot = transform.position;
         x = transform.rotation;
@@ -24,13 +27,9 @@ public class FlyingEnemy : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");                //so ai knows where player is
     }
 
-    // Update is called once per frame
+    // Update is called once per frame 
     void Update()
     {
-
-        if (player == null)
-            return;
-
         switch (state)
         {
             case State.MOVING:
@@ -59,8 +58,25 @@ public class FlyingEnemy : MonoBehaviour
                 aimAttack();
                 break;
             case State.ATTACKING:
+
+                Vector3 endPoint = new Vector3(0, 0, 0);
+                RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.up));
+
+                if (hitInfo.transform.tag == "Wall")
+                {
+                    endPoint = hitInfo.point;
+                }
+
+                if(predictionLine)
+                { 
+                    lr.DrawLine(new Vector3(transform.position.x, transform.position.y, 1), new Vector3(hitInfo.point.x, hitInfo.point.y, 1));
+                    predictionLine = false;
+                }
+
+                lr.updateStartPoint(transform.position);
                 Invoke("attack", 1f);
                 break;
+
             case State.COOLDOWN:
                 Invoke("reset", 1f);
                 break;
@@ -115,6 +131,7 @@ public class FlyingEnemy : MonoBehaviour
             yPos = transform.position.y;
             state = State.MOVING;
             attacked = false;
+            predictionLine = true;
         }
     }
     void OnTriggerEnter2D(Collider2D col)
@@ -123,6 +140,7 @@ public class FlyingEnemy : MonoBehaviour
         {
             rigid.velocity = Vector3.zero;
             rigid.angularVelocity = 0f;
+            lr.destroyLine();
             state = State.COOLDOWN;
         }
     }
