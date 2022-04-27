@@ -28,4 +28,8 @@ public class LineRendererController : MonoBehaviour
     {
         Destroy(line);
     }
+    public void setPos(int index, Vector3 position)
+    {
+        lr.SetPosition(index, position);
+    }
 }
