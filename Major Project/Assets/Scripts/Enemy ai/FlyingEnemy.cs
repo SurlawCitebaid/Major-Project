@@ -5,19 +5,18 @@ using UnityEngine;
 public class FlyingEnemy : MonoBehaviour
 {
     private float thrust = 14f, speed = 5f, attackRange = 7f, flightHeight, yPos, angle;
-    private enum State { MOVING, CHASE, AIMING, ATTACKING, COOLDOWN };
     private bool attacked = false, predictionLine = true;
     private LineRendererController lr;
     private Rigidbody2D rigid;
     private GameObject player;
     private Quaternion x;
-    private State state;
+    private EnemyAiController states;
 
     // Start is called before the first frame update
     void Start()
     {
+        states = GetComponent<EnemyAiController>();
         lr = GetComponent<LineRendererController>();
-        state = State.MOVING;
         x = transform.rotation;
         yPos = transform.position.y;                                    //consistent yPos
         rigid = GetComponent<Rigidbody2D>();                                //get ai physics
@@ -28,57 +27,57 @@ public class FlyingEnemy : MonoBehaviour
     // Update is called once per frame 
     void Update()
     {
-        switch (state)
+        states.states();
+        if (states.currentState() == EnemyAiController.State.MOVING)                //moving state
         {
-            case State.MOVING:
-                if (yPos <= player.transform.position.y)
-                {
-                    rePosition();
-                }
-                else 
-                {
-                    state = State.CHASE;
-
-                }
-                break;
-            case State.CHASE:
-                float dist = Mathf.Abs(transform.position.x - player.transform.position.x);
-                if (dist > attackRange)
-                {
-                    chase();
-                }
-                else
-                {
-                    state = State.AIMING;
-                }
-                break;
-            case State.AIMING:
-                aimAttack();
-                break;
-            case State.ATTACKING:
-
-                Vector3 endPoint = new Vector3(0, 0, 0);
-                RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.up));
-
-                if (hitInfo.transform.tag == "Wall")
-                {
-                    endPoint = hitInfo.point;
-                }
-
-                if(predictionLine)
-                { 
-                    lr.DrawLine(new Vector3(transform.position.x, transform.position.y, 1), new Vector3(hitInfo.point.x, hitInfo.point.y, 1));
-                    predictionLine = false;                 //Line has higher z so its behind everything
-                }
-
-                lr.updateStartPoint(new Vector3(transform.position.x, transform.position.y, 1));
-                Invoke("attack", 1f);
-                break;
-
-            case State.COOLDOWN:
-                Invoke("reset", 1f);
-                break;
+            if (yPos <= player.transform.position.y)
+            {
+                rePosition();
+            }
+            else
+            {
+                states.setState(1);
+            }
         }
+        if(states.currentState() == EnemyAiController.State.CHASE)                  //chase state
+        {
+            float dist = Mathf.Abs(transform.position.x - player.transform.position.x);
+            if (dist > attackRange)
+            {
+                chase();
+            }
+            else
+            {
+                states.setState(2);
+            }
+        }
+        if (states.currentState() == EnemyAiController.State.AIMING)
+        {
+            aimAttack();
+        }
+        if (states.currentState() == EnemyAiController.State.ATTACKING)
+        {
+            Vector3 endPoint = new Vector3(0, 0, 0);
+            RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.up));
+
+            if (hitInfo.transform.tag == "Wall")
+            {
+                endPoint = hitInfo.point;
+            }
+
+            if (predictionLine)
+            {
+                lr.DrawLine(new Vector3(transform.position.x, transform.position.y, 1), new Vector3(hitInfo.point.x, hitInfo.point.y, 1));
+                predictionLine = false;                 //Line has higher z so its behind everything
+            }
+
+            lr.updateStartPoint(new Vector3(transform.position.x, transform.position.y, 1));
+            Invoke("attack", 1f);
+        }
+        if(states.currentState() == EnemyAiController.State.COOLDOWN)
+        {
+            Invoke("reset", 1f);
+        } 
     }
     private void aimAttack()
     {
@@ -91,7 +90,7 @@ public class FlyingEnemy : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * speed);
         if (dotProd == 1)
         {
-            state = State.ATTACKING;
+            states.setState(3);
         }
     }
     private void attack()
@@ -126,7 +125,7 @@ public class FlyingEnemy : MonoBehaviour
         {
             flightHeight = Random.Range(1f, 9f);
             yPos = transform.position.y;
-            state = State.MOVING;
+            states.setState(0);
             attacked = false;
             predictionLine = true;
         }
@@ -138,7 +137,7 @@ public class FlyingEnemy : MonoBehaviour
             rigid.velocity = Vector3.zero;
             rigid.angularVelocity = 0f;
             lr.destroyLine();
-            state = State.COOLDOWN;
+            states.setState(4);
         }
     }
 }
