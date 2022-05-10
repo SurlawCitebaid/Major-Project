@@ -6,7 +6,8 @@ using UnityEngine;
 public class EnemyScriptableObject : ScriptableObject
 {
     public new string name;
-    public enum TYPE {GROUND, AERIAL, STATIONARY};
+    public bool boss;
+    public enum TYPE {GROUND, AERIAL, STATIONARY};//DOESNT DO ANYTHING
     public Sprite sprite;
     public int health;
     public int damage;
@@ -14,5 +15,6 @@ public class EnemyScriptableObject : ScriptableObject
     public float slowSpeed = 0.5f; //speed multiplier when slowed
     public float stunSpeed = 0.0f; //speed multiplier when stunned
     public float range; //distance from the player required to initiate attack
+    public float jumpHeight; //how high the entity can jump, if cannot jump set to 0
 
 }
