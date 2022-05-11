@@ -335,14 +335,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbae91adbe37aa44696ac5edfd13e62a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seed: 4344
+  seed: 43534543
   maxRooms: 10
   gridSizeX: 20
   gridSizeY: 20
   maxRoomSize: 50
   minRoomSize: 10
   maxNumberOfPlatforms: 5
-  platformMaxSize: 8
+  platformMaxSize: 50
   platformMinSize: 5
   tiles:
   - {fileID: 1163382861}
