@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f960b100eb8df44692579eb1a95ab16, type: 3}
+  m_Name: Charger
+  m_EditorClassIdentifier: 
+  name: Charger
+  sprite: {fileID: 1253348280, guid: 856d022411e49fa42abb976c531a28d3, type: 3}
+  health: 100
+  damage: 1
+  moveSpeed: 5
+  slowSpeed: 0.5
+  stunSpeed: 0
+  range: 5

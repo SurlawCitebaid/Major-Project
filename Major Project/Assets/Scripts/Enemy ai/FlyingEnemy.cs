@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class FlyingEnemy : MonoBehaviour
 {
-    private Rigidbody2D rigid;
     private float thrust = 14f, speed = 5f, attackRange = 7f, flightHeight, yPos, angle;
+    private bool attacked = false, predictionLine = true;
+    private LineRendererController lr;
+    private Rigidbody2D rigid;
     private GameObject player;
-    private enum State { MOVING, CHASE, AIMING, ATTACKING, COOLDOWN };
-    private State state;
-    private bool inPosition = false, attacked = false, aiming = false;
-    private Quaternion q, x;
-    private Vector3 vectorToTarget, startRot;
+    private Quaternion x;
+    private EnemyAiController states;
+
     // Start is called before the first frame update
     void Start()
     {
-        state = State.MOVING;
-        startRot = transform.position;
+        states = GetComponent<EnemyAiController>();
+        lr = GetComponent<LineRendererController>();
         x = transform.rotation;
         yPos = transform.position.y;                                    //consistent yPos
         rigid = GetComponent<Rigidbody2D>();                                //get ai physics
@@ -24,60 +24,73 @@ public class FlyingEnemy : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");                //so ai knows where player is
     }
 
-    // Update is called once per frame
+    // Update is called once per frame 
     void Update()
     {
-
-        if (player == null)
-            return;
-
-        switch (state)
+        states.states();
+        if (states.currentState() == EnemyAiController.State.MOVING)                //moving state
         {
-            case State.MOVING:
-                if (yPos <= player.transform.position.y)
-                {
-                    rePosition();
-                }
-                else 
-                {
-                    state = State.CHASE;
-
-                }
-                break;
-            case State.CHASE:
-                float dist = Mathf.Abs(transform.position.x - player.transform.position.x);
-                if (dist > attackRange)
-                {
-                    chase();
-                }
-                else
-                {
-                    state = State.AIMING;
-                }
-                break;
-            case State.AIMING:
-                aimAttack();
-                break;
-            case State.ATTACKING:
-                Invoke("attack", 1f);
-                break;
-            case State.COOLDOWN:
-                Invoke("reset", 1f);
-                break;
+            if (yPos <= player.transform.position.y)
+            {
+                rePosition();
+            }
+            else
+            {
+                states.setState(1);
+            }
         }
+        if(states.currentState() == EnemyAiController.State.CHASE)                  //chase state
+        {
+            float dist = Mathf.Abs(transform.position.x - player.transform.position.x);
+            if (dist > attackRange)
+            {
+                chase();
+            }
+            else
+            {
+                states.setState(2);
+            }
+        }
+        if (states.currentState() == EnemyAiController.State.AIMING)
+        {
+            aimAttack();
+        }
+        if (states.currentState() == EnemyAiController.State.ATTACKING)
+        {
+            Vector3 endPoint = new Vector3(0, 0, 0);
+            RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.up));
+
+            if (hitInfo.transform.tag == "Wall")
+            {
+                endPoint = hitInfo.point;
+            }
+
+            if (predictionLine)
+            {
+                lr.DrawLine(new Vector3(transform.position.x, transform.position.y, 1), new Vector3(hitInfo.point.x, hitInfo.point.y, 1));
+                predictionLine = false;                 //Line has higher z so its behind everything
+            }
+
+            lr.updateStartPoint(new Vector3(transform.position.x, transform.position.y, 1));
+            Invoke("attack", 1f);
+        }
+        if(states.currentState() == EnemyAiController.State.COOLDOWN)
+        {
+            Invoke("reset", 1f);
+        } 
     }
     private void aimAttack()
     {
         Vector3 dirFromAtoB = (player.transform.position - transform.position).normalized;
         float dotProd = Vector3.Dot(dirFromAtoB, transform.up);
 
-        vectorToTarget = player.transform.position - transform.position;
+        Vector3 vectorToTarget = player.transform.position - transform.position;
         angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg - 90f;
-        q = Quaternion.AngleAxis(angle, Vector3.forward);
+        Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
         transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * speed);
         if (dotProd == 1)
         {
-            state = State.ATTACKING;
+            states.setState(3);
         }
     }
     private void attack()
@@ -98,7 +111,6 @@ public class FlyingEnemy : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, player.transform.position.y + flightHeight), speed * Time.deltaTime);
         if (Mathf.Round(transform.position.y) == Mathf.Round((flightHeight + player.transform.position.y))) //you cant compare float values by themselves
         {
-            
             yPos = transform.position.y;
         }
     }
@@ -113,8 +125,9 @@ public class FlyingEnemy : MonoBehaviour
         {
             flightHeight = Random.Range(1f, 9f);
             yPos = transform.position.y;
-            state = State.MOVING;
+            states.setState(0);
             attacked = false;
+            predictionLine = true;
         }
     }
     void OnTriggerEnter2D(Collider2D col)
@@ -123,7 +136,8 @@ public class FlyingEnemy : MonoBehaviour
         {
             rigid.velocity = Vector3.zero;
             rigid.angularVelocity = 0f;
-            state = State.COOLDOWN;
+            lr.destroyLine();
+            states.setState(4);
         }
     }
 }
