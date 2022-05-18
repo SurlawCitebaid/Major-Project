@@ -128,9 +128,13 @@ public class GenerateLevel : MonoBehaviour
                     //So we can have random room sizes
                     int randomRoomSizeX = Random.Range(maxRoomSize / 2, maxRoomSize);
                     int randomRoomSizeY = Random.Range(maxRoomSize / 2, maxRoomSize);
-                    Room room = new Room(roomPostion,randomRoomSizeX, randomRoomSizeY, tiles, transform, maxNumberOfPlatforms, platformMaxSize, platformMinSize);
+                    Room room = new Room(roomPostion,randomRoomSizeX, randomRoomSizeY, tiles, transform, maxNumberOfPlatforms, platformMaxSize, platformMinSize, grid, x, y);
                     room.createRoom();
                     rooms.Add(room);
+                }
+                else if (grid[x, y] == 2)
+                {
+
                 }
             }
         }
