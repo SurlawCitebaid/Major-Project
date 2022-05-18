@@ -51,6 +51,7 @@ public class FlyyingProjectileEnemy : MonoBehaviour
         Debug.Log("ASS");
         states.setState(1);
         attacked = false;
+        predictionLine = true;
     }
     private IEnumerator attack()
     {
@@ -88,9 +89,9 @@ public class FlyyingProjectileEnemy : MonoBehaviour
             {
                 lr.DrawLine(new Vector3(transform.position.x, transform.position.y, 1), new Vector3(hitInfo.point.x, hitInfo.point.y, 1));
                 predictionLine = false;                 //Line has higher z so its behind everything
-                lr.destroyLineAfterPeriod(2f);
             }
             if (!attacked) {
+                lr.destroyLineAfterPeriod(2f);
                 states.setState(3);
                 StartCoroutine(attack());
             }
