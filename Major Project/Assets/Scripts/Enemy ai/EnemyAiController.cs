@@ -8,24 +8,6 @@ public class EnemyAiController : MonoBehaviour
     private State state = State.MOVING;
     // Start is called before the first frame update
     // Update is called once per frame
-    public void states()
-    {
-        switch (state)
-        {
-            case State.MOVING:
-                break;
-            case State.CHASE:
-                break;
-            case State.AIMING:
-                break;
-            case State.ATTACKING:
-                break;
-            case State.COOLDOWN:
-                break;
-            case State.STUNNED:
-                break;
-        }
-    }
     public void setState(int changeState)
     {
         state = (State) changeState;

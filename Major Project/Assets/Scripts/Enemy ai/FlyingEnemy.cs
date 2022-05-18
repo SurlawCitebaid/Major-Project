@@ -7,10 +7,10 @@ public class FlyingEnemy : MonoBehaviour
     private float thrust = 14f, speed = 5f, attackRange = 7f, flightHeight, yPos, angle;
     private bool attacked = false, predictionLine = true;
     private LineRendererController lr;
+    private EnemyAiController states;
     private Rigidbody2D rigid;
     private GameObject player;
     private Quaternion x;
-    private EnemyAiController states;
 
     // Start is called before the first frame update
     void Start()
@@ -27,57 +27,56 @@ public class FlyingEnemy : MonoBehaviour
     // Update is called once per frame 
     void Update()
     {
-        states.states();
-        if (states.currentState() == EnemyAiController.State.MOVING)                //moving state
+        switch(states.currentState())
         {
-            if (yPos <= player.transform.position.y)
-            {
-                rePosition();
-            }
-            else
-            {
-                states.setState(1);
-            }
-        }
-        if(states.currentState() == EnemyAiController.State.CHASE)                  //chase state
-        {
-            float dist = Mathf.Abs(transform.position.x - player.transform.position.x);
-            if (dist > attackRange)
-            {
-                chase();
-            }
-            else
-            {
-                states.setState(2);
-            }
-        }
-        if (states.currentState() == EnemyAiController.State.AIMING)
-        {
-            aimAttack();
-        }
-        if (states.currentState() == EnemyAiController.State.ATTACKING)
-        {
-            Vector3 endPoint = new Vector3(0, 0, 0);
-            RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.up));
+            case EnemyAiController.State.MOVING:
+                if (yPos <= player.transform.position.y)
+                {
+                    rePosition();
+                }
+                else
+                {
+                    states.setState(1);
+                }
+                break;
+            case EnemyAiController.State.CHASE:
+                float dist = Mathf.Abs(transform.position.x - player.transform.position.x);
+                if (dist > attackRange)
+                {
+                    chase();
+                }
+                else
+                {
+                    states.setState(2);
+                }
+                break;
+            case EnemyAiController.State.AIMING:
+                aimAttack();
+                break;
+            case EnemyAiController.State.ATTACKING:
+                Vector3 endPoint = new Vector3(0, 0, 0);
+                RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.up));
 
-            if (hitInfo.transform.tag == "Wall")
-            {
-                endPoint = hitInfo.point;
-            }
+                if (hitInfo.transform.tag == "Wall")
+                {
+                    endPoint = hitInfo.point;
+                }
 
-            if (predictionLine)
-            {
-                lr.DrawLine(new Vector3(transform.position.x, transform.position.y, 1), new Vector3(hitInfo.point.x, hitInfo.point.y, 1));
-                predictionLine = false;                 //Line has higher z so its behind everything
-            }
+                if (predictionLine)
+                {
+                    lr.DrawLine(new Vector3(transform.position.x, transform.position.y, 1), new Vector3(hitInfo.point.x, hitInfo.point.y, 1));
+                    predictionLine = false;                 //Line has higher z so its behind everything
+                }
 
-            lr.updateStartPoint(new Vector3(transform.position.x, transform.position.y, 1));
-            Invoke("attack", 1f);
+                lr.updateStartPoint(new Vector3(transform.position.x, transform.position.y, 1));
+                Invoke("attack", 1f);
+                break;
+            case EnemyAiController.State.COOLDOWN:
+                Invoke("reset", 1f);
+                break;
+            case EnemyAiController.State.STUNNED:
+                break;
         }
-        if(states.currentState() == EnemyAiController.State.COOLDOWN)
-        {
-            Invoke("reset", 1f);
-        } 
     }
     private void aimAttack()
     {
