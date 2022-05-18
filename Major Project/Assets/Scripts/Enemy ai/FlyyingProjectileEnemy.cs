@@ -28,7 +28,6 @@ public class FlyyingProjectileEnemy : MonoBehaviour
         switch (states.currentState())
         {
             case EnemyAiController.State.CHASE:
-                Debug.Log("ASS");
                 float dist = Mathf.Abs(transform.position.x - player.transform.position.x);
                 if (dist > attackRange)
                 {
@@ -42,41 +41,32 @@ public class FlyyingProjectileEnemy : MonoBehaviour
                 }
                 break;
             case EnemyAiController.State.AIMING:
-                StartCoroutine(aimAttack());
+                aimAttack();
                 Debug.Log("AIM");
                 break;
-            case EnemyAiController.State.ATTACKING:
-                if (!attacked)
-                {
-                    Debug.Log("ATTACK");
-                    attack();
-                }
-                break;
-            case EnemyAiController.State.COOLDOWN:
-                Debug.Log("COOLDOWN");
-                Invoke("setStateMoving", 1f);
-                break;
-
         }
     }
     public void setStateMoving()
     {
         Debug.Log("ASS");
         states.setState(1);
+        attacked = false;
     }
-    private void attack()
+    private IEnumerator attack()
     {
         attacked = true;
+        yield return new WaitForSeconds(1f);
         Transform bullet = Instantiate(projectile, transform.position, Quaternion.identity).transform;
         Vector3 shootDir = (endPoint - transform.position).normalized;
         bullet.GetComponent<Projectile>().Setup(shootDir);
         states.setState(4);
+        Invoke("setStateMoving", 1f);
     }
     private void chase()
     {
         transform.position = Vector2.MoveTowards(transform.position, new Vector2(player.transform.position.x, transform.position.y), speed * Time.deltaTime);
     }
-    IEnumerator aimAttack()
+    private void aimAttack()
     {
         Vector3 dirFromAtoB = (player.transform.position - transform.position).normalized;
         float dotProd = Vector3.Dot(dirFromAtoB, transform.up);
@@ -100,10 +90,10 @@ public class FlyyingProjectileEnemy : MonoBehaviour
                 predictionLine = false;                 //Line has higher z so its behind everything
                 lr.destroyLineAfterPeriod(2f);
             }
-            yield return new WaitForSeconds(1);
-            states.setState(3);
-
+            if (!attacked) {
+                states.setState(3);
+                StartCoroutine(attack());
+            }
         }
-        yield return null;
     }
 }
