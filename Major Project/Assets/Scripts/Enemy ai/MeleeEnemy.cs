@@ -1,16 +1,14 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChargingEnemy : MonoBehaviour
+public class MeleeEnemy : MonoBehaviour
 {
     [SerializeField] EnemyScriptableObject enemy;
     EnemyAiController states;
     //0:MOVING 1:CHASE 2:AIMING 3:ATTACKING 4:COOLDOWN 5:STUNNED
     GameObject player;
-    [SerializeField] float chargeSpeed; //speed of the charging attack
-    Vector2 distance;
+    Vector2 distance; //distance from the player
     Rigidbody2D rb;
 
     // Start is called before the first frame update
@@ -21,7 +19,6 @@ public class ChargingEnemy : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
 
         GetComponent<SpriteRenderer>().sprite = enemy.sprite;
-        rb.drag = UnityEngine.Random.Range(1f, 2f);
     }
 
     // Update is called once per frame
@@ -51,7 +48,7 @@ public class ChargingEnemy : MonoBehaviour
     //waits before attacking 
     IEnumerator Aiming() {
         states.setState(2);
-
+        //yield return new WaitForSecondsRealtime(2);
         float timePassed = 0;
         while (timePassed < 2f){
             if (distance.magnitude > enemy.maxRange){
@@ -63,7 +60,6 @@ public class ChargingEnemy : MonoBehaviour
             yield return null;
         }
         
-        //if still in range after two seconds
         if (timePassed < 2f){
             states.setState(0);
         } else {
@@ -75,7 +71,6 @@ public class ChargingEnemy : MonoBehaviour
     void ChargePlayer()
     {
         states.setState(3); //ATTACKING
-        rb.velocity = new Vector2(distance.normalized.x * chargeSpeed, rb.velocity.y);
         
         StartCoroutine(CooldownAttack());
     }
@@ -84,7 +79,6 @@ public class ChargingEnemy : MonoBehaviour
     IEnumerator CooldownAttack(){
         states.setState(4);//COOLDOWN
         yield return new WaitForSecondsRealtime(2);
-        
 
         states.setState(0);//MOVING
     }
@@ -95,13 +89,14 @@ public class ChargingEnemy : MonoBehaviour
         if (distance.magnitude > enemy.range) {
             //attempt to move towards player
             rb.velocity = new Vector2(distance.normalized.x * speed, rb.velocity.y);
-        } else if (distance.magnitude < enemy.minRange) {
-            //attempt to move away from player
-            rb.velocity = new Vector2(-distance.normalized.x * speed, rb.velocity.y);
         } else {
             //Aiming
             StartCoroutine(Aiming());
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other) {
+            
     }
 
 }
