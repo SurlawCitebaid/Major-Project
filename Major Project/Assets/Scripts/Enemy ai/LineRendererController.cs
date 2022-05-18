@@ -28,6 +28,10 @@ public class LineRendererController : MonoBehaviour
     {
         Destroy(line);
     }
+    public void destroyLineAfterPeriod(float time)
+    {
+        Destroy(line, time);
+    }
     public void setPos(int index, Vector3 position)
     {
         lr.SetPosition(index, position);

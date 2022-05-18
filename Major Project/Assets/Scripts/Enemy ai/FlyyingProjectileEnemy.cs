@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FlyyingProjectileEnemy : MonoBehaviour
 {
-    private float speed = 5f, attackRange = 14f, flightHeight, yPos, angle;
+    private float speed = 5f, attackRange = 14f, flightHeight, angle;
     private bool attacked = false, predictionLine = true;
     private LineRendererController lr;
     private EnemyAiController states;
@@ -20,7 +20,6 @@ public class FlyyingProjectileEnemy : MonoBehaviour
         states = GetComponent<EnemyAiController>();
         flightHeight = Random.Range(1f, 9f);
         states.setState(1);
-        yPos = transform.position.y;
     }
 
     // Update is called once per frame
@@ -29,34 +28,41 @@ public class FlyyingProjectileEnemy : MonoBehaviour
         switch (states.currentState())
         {
             case EnemyAiController.State.CHASE:
+                Debug.Log("ASS");
                 float dist = Mathf.Abs(transform.position.x - player.transform.position.x);
                 if (dist > attackRange)
                 {
                     chase();
+                    Debug.Log("CHASE");
                 }
                 else
                 {
+                    Debug.Log("CHASE2");
                     states.setState(2);
                 }
                 break;
             case EnemyAiController.State.AIMING:
-                aimAttack();
-                attacked = false;
-                Debug.Log("AIMING");
+                StartCoroutine(aimAttack());
+                Debug.Log("AIM");
                 break;
             case EnemyAiController.State.ATTACKING:
-
                 if (!attacked)
                 {
+                    Debug.Log("ATTACK");
                     attack();
                 }
-
                 break;
             case EnemyAiController.State.COOLDOWN:
+                Debug.Log("COOLDOWN");
+                Invoke("setStateMoving", 1f);
                 break;
-            case EnemyAiController.State.STUNNED:
-                break;
+
         }
+    }
+    public void setStateMoving()
+    {
+        Debug.Log("ASS");
+        states.setState(1);
     }
     private void attack()
     {
@@ -64,14 +70,13 @@ public class FlyyingProjectileEnemy : MonoBehaviour
         Transform bullet = Instantiate(projectile, transform.position, Quaternion.identity).transform;
         Vector3 shootDir = (endPoint - transform.position).normalized;
         bullet.GetComponent<Projectile>().Setup(shootDir);
-        states.setState(3);
-
+        states.setState(4);
     }
     private void chase()
     {
         transform.position = Vector2.MoveTowards(transform.position, new Vector2(player.transform.position.x, transform.position.y), speed * Time.deltaTime);
     }
-    private void aimAttack()
+    IEnumerator aimAttack()
     {
         Vector3 dirFromAtoB = (player.transform.position - transform.position).normalized;
         float dotProd = Vector3.Dot(dirFromAtoB, transform.up);
@@ -82,6 +87,7 @@ public class FlyyingProjectileEnemy : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * speed);
         if (dotProd == 1)
         {
+
             RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.up));
             if (hitInfo.transform.tag == "Wall")
             {
@@ -92,8 +98,12 @@ public class FlyyingProjectileEnemy : MonoBehaviour
             {
                 lr.DrawLine(new Vector3(transform.position.x, transform.position.y, 1), new Vector3(hitInfo.point.x, hitInfo.point.y, 1));
                 predictionLine = false;                 //Line has higher z so its behind everything
+                lr.destroyLineAfterPeriod(2f);
             }
+            yield return new WaitForSeconds(1);
             states.setState(3);
+
         }
+        yield return null;
     }
 }

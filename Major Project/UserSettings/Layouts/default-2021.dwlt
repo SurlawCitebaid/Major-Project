@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 997
   m_ShowMode: 4
-  m_Title: Console
+  m_Title: Game
   m_RootView: {fileID: 6}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 58
+  controlID: 83
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -223,11 +223,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-<<<<<<< Updated upstream
-  controlID: 44
-=======
-  controlID: 59
->>>>>>> Stashed changes
+  controlID: 84
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -252,11 +248,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-<<<<<<< Updated upstream
-  controlID: 45
-=======
-  controlID: 60
->>>>>>> Stashed changes
+  controlID: 85
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -338,15 +330,9 @@ MonoBehaviour:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-<<<<<<< Updated upstream
-    m_SelectedIDs: fc510000
-    m_LastClickedID: 20988
-    m_ExpandedIDs: 00000000f6510000
-=======
-    m_SelectedIDs: 2a600000
-    m_LastClickedID: 24618
-    m_ExpandedIDs: 00000000c65100001864000000ca9a3bffffff7f
->>>>>>> Stashed changes
+    m_SelectedIDs: 38520000
+    m_LastClickedID: 21048
+    m_ExpandedIDs: 00000000f65100000852000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -374,11 +360,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-<<<<<<< Updated upstream
     m_ExpandedIDs: 00000000f6510000
-=======
-    m_ExpandedIDs: 00000000c6510000
->>>>>>> Stashed changes
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -403,8 +385,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: c2680000
-    m_LastClickedInstanceID: 26818
+    m_SelectedInstanceIDs: 100c0000
+    m_LastClickedInstanceID: 3088
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:
@@ -468,7 +450,7 @@ MonoBehaviour:
     m_CachedPref: 160
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
-  m_LastInspectedObjectInstanceID: -1
+  m_LastInspectedObjectInstanceID: 3088
   m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0
@@ -506,15 +488,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-<<<<<<< Updated upstream
-      m_SelectedIDs: ae510000
-      m_LastClickedID: 20910
-      m_ExpandedIDs: 2efbffff
-=======
-      m_SelectedIDs: 78680000
-      m_LastClickedID: 26744
-      m_ExpandedIDs: 2c17fcff204cfdff0e53fdff1efbffff7e660000
->>>>>>> Stashed changes
+      m_SelectedIDs: 100c0000
+      m_LastClickedID: 0
+      m_ExpandedIDs: 6cf8ffff0efbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -785,15 +761,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-<<<<<<< Updated upstream
-    m_Target: {x: 1.6161168, y: 3.645339, z: 5.31143}
+    m_Target: {x: 0.5250059, y: 0.44914392, z: -0.09096726}
     speed: 2
-    m_Value: {x: 1.6161168, y: 3.645339, z: 5.31143}
-=======
-    m_Target: {x: 0.2838224, y: 0.24781878, z: -0.08705161}
-    speed: 2
-    m_Value: {x: 0.2838224, y: 0.24781878, z: -0.08705161}
->>>>>>> Stashed changes
+    m_Value: {x: 0.5250059, y: 0.44914392, z: -0.09096726}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -844,15 +814,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-<<<<<<< Updated upstream
-    m_Target: 9.039467
+    m_Target: 11.101183
     speed: 2
-    m_Value: 9.039467
-=======
-    m_Target: 10.709625
-    speed: 2
-    m_Value: 10.709625
->>>>>>> Stashed changes
+    m_Value: 11.101183
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -928,13 +892,8 @@ MonoBehaviour:
     vZoomLockedByDefault: 0
     m_HBaseRangeMin: -550.5
     m_HBaseRangeMax: 550.5
-<<<<<<< Updated upstream
-    m_VBaseRangeMin: -267.5
-    m_VBaseRangeMax: 267.5
-=======
     m_VBaseRangeMin: -259.5
     m_VBaseRangeMax: 259.5
->>>>>>> Stashed changes
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -951,17 +910,11 @@ MonoBehaviour:
     m_DrawArea:
       serializedVersion: 2
       x: 0
-      y: 0
+      y: 21
       width: 1101
-<<<<<<< Updated upstream
-      height: 535
-    m_Scale: {x: 1, y: 1}
-    m_Translation: {x: 550.5, y: 267.5}
-=======
       height: 519
     m_Scale: {x: 1, y: 1}
     m_Translation: {x: 550.5, y: 259.5}
->>>>>>> Stashed changes
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
@@ -969,15 +922,9 @@ MonoBehaviour:
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
       x: -550.5
-<<<<<<< Updated upstream
-      y: -267.5
-      width: 1101
-      height: 535
-=======
       y: -259.5
       width: 1101
       height: 519
->>>>>>> Stashed changes
     m_MinimalGUI: 1
   m_defaultScale: 1
   m_LastWindowPixelSize: {x: 1101, y: 540}
