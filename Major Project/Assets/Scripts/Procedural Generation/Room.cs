@@ -23,7 +23,12 @@ public class Room
     //Chance of an item spawning in a room
     float itemSpawnChance = 50f;
 
-    public Room(Vector2 spawnPosition, int roomSizeX, int roomSizeY, List<GameObject> tiles, Transform parent, int maxNumberOfPlatforms, int maxPlatformSize, int minPlatformSize)
+    //Reference where the room is compare to all the other rooms
+    int[,] levelLayoutGrid;
+    int levelGridX;
+    int levelGridY;
+
+    public Room(Vector2 spawnPosition, int roomSizeX, int roomSizeY, List<GameObject> tiles, Transform parent, int maxNumberOfPlatforms, int maxPlatformSize, int minPlatformSize, int[,] levelLayoutGrid, int gridX, int gridY)
     {
         this.spawnPosition = spawnPosition;
         this.roomSizeX = roomSizeX;
@@ -33,6 +38,10 @@ public class Room
         this.maxNumberOfPlatforms = maxNumberOfPlatforms;
         this.maxPlatformSize = maxPlatformSize;
         this.minPlatformSize = minPlatformSize;
+
+        this.levelLayoutGrid = levelLayoutGrid;
+        this.levelGridX = gridX;
+        this.levelGridY = gridY;
     }
 
     public void createRoom()
@@ -53,7 +62,8 @@ public class Room
         placePlatforms();
         //Add item pedestals
         placeItem();
-
+        //Add Doors
+        placeDoors();
     }
 
     void generateRoom()
@@ -81,6 +91,11 @@ public class Room
                 else if(roomGrid[x, y] == 3)
                 {
                     GameObject.Instantiate(tiles[3], new Vector3(spawnPosition.x + (float)x, spawnPosition.y + (float)y), Quaternion.identity, parent);
+                }
+                //Door
+                else if (roomGrid[x, y] == 4)
+                {
+                    GameObject.Instantiate(tiles[4], new Vector3(spawnPosition.x + (float)x, spawnPosition.y + (float)y), Quaternion.identity, parent);
                 }
             }
         }
@@ -170,5 +185,47 @@ public class Room
         
 
         
+    }
+
+    void placeDoors()
+    {
+        //Place doors if there is a coresponding room
+
+        //Up 
+        if (levelLayoutGrid[levelGridX, levelGridY + 1] == 1)
+        {
+            //Any X postion with a Max Heght of Y
+            roomGrid[(roomSizeX / 2) - 1, roomSizeY - 1] = 4;
+            roomGrid[roomSizeX / 2, roomSizeY - 1] = 4;
+            roomGrid[(roomSizeX / 2) + 1, roomSizeY - 1] = 4;
+        }
+        //Down 
+        if (levelLayoutGrid[levelGridX, levelGridY - 1] == 1)
+        {
+            //Any X postion with a Max Heght of Y
+            roomGrid[(roomSizeX / 2) - 1, 0] = 4;
+            roomGrid[roomSizeX / 2, 0] = 4;
+            roomGrid[(roomSizeX / 2) + 1, 0] = 4;
+        }
+        //Left 
+        if (levelLayoutGrid[levelGridX - 1, levelGridY] == 1)
+        {
+            roomGrid[0, 1] = 4;
+            roomGrid[0, 2] = 4;
+            roomGrid[0, 3] = 4;
+        }
+        //Right 
+        if (levelLayoutGrid[levelGridX + 1, levelGridY] == 1)
+        {
+            //Any X postion with a Max Heght of Y
+            roomGrid[roomSizeX-1, 1] = 4;
+            roomGrid[roomSizeX-1, 2] = 4;
+            roomGrid[roomSizeX-1, 3] = 4;
+        }
+    }
+
+    public void getDoorPostions()
+    {
+
     }
 }
