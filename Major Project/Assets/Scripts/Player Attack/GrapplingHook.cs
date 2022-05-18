@@ -20,10 +20,11 @@ public class GrapplingHook : MonoBehaviour {
 
     private void Update() {
         if (Input.GetMouseButtonDown(1)) {
-            if (sj ?? false)
-                Unhook();
-            else
-                Grapple();
+            Grapple();
+        }
+
+        if (Input.GetMouseButtonUp(1)) {
+            Unhook();
         }
 
         if (Input.mouseScrollDelta.y > 0) {

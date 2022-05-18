@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour {
     private Rigidbody2D rb;
 
+    private const float HORIZONTAL_SPEED_CLAMP = 5f;
+
     [SerializeField] private float moveSpeed = 12f;
     [SerializeField] private float jumpForce = 7f;
     [SerializeField] private float gravityScale = 10f;
@@ -27,7 +29,7 @@ public class PlayerMovement : MonoBehaviour {
             rb.gravityScale = 0;
             Move();
         } else {
-            rb.gravityScale = 1;
+            rb.gravityScale = 9f;
             MoveOnHook();
         }
 
@@ -55,11 +57,19 @@ public class PlayerMovement : MonoBehaviour {
         float vertical = rb.velocity.y - gravityScale * Time.deltaTime;
         if (((rb.velocity.x != 0) && (Input.GetAxis("Horizontal") == 0)) || ((rb.velocity.x > 0) && (Input.GetAxis("Horizontal") < 0)) || ((rb.velocity.x < 0) && (Input.GetAxis("Horizontal") > 0)))
             horizontal = Mathf.Lerp(rb.velocity.x, 0, frictionForce * Time.deltaTime);
+        if (horizontal > HORIZONTAL_SPEED_CLAMP)
+            horizontal = HORIZONTAL_SPEED_CLAMP;
+        if (horizontal < -HORIZONTAL_SPEED_CLAMP)
+            horizontal = -HORIZONTAL_SPEED_CLAMP;
         rb.velocity = new Vector2(horizontal, vertical);
     }
 
     private void MoveOnHook() {
         rb.AddForce(Vector2.right * moveSpeed * Input.GetAxis("Horizontal"), ForceMode2D.Force);
+        if (rb.velocity.x > HORIZONTAL_SPEED_CLAMP)
+            rb.velocity = new Vector2(HORIZONTAL_SPEED_CLAMP, rb.velocity.y);
+        if (rb.velocity.x < -HORIZONTAL_SPEED_CLAMP)
+            rb.velocity = new Vector2(-HORIZONTAL_SPEED_CLAMP, rb.velocity.y);
     }
 
     private void Jump() {

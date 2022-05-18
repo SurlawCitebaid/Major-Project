@@ -159,7 +159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lm_walls:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 1536
   hook: {fileID: 4857735093305100375, guid: 73f81f0a285bbd344933c2ab7ba7bd22, type: 3}
   hookClimbSpeed: 0.33333334
 --- !u!114 &541874531
