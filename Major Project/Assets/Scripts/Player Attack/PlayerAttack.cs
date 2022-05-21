@@ -41,7 +41,8 @@ public class PlayerAttack : MonoBehaviour {
 
         Collider2D[] hits = Physics2D.OverlapAreaAll(attackLocation, new Vector2(attackLocation.x + attackRange * attackDir, 0), lm_enemies);
         foreach (Collider2D enemy in hits) {
-            enemy.GetComponent<EnemyController>().Damage(attackDamage, 5, attackDir);
+            enemy.GetComponent<GroundEnemyController>().Damage(attackDamage, 5, attackDir); //EnemyController merged with other AI behaviour
+            //enemy.GetComponent<EnemyController>().Damage(attackDamage, 5, attackDir);//Dans code works on this
         }
 
         canAttack = false;

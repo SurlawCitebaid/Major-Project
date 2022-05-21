@@ -5,7 +5,7 @@ using UnityEngine;
 public class MeleeEnemy : MonoBehaviour
 {
     [SerializeField] EnemyScriptableObject enemy;
-    EnemyAiController states;
+    EnemyAIController states;
     //0:MOVING 1:CHASE 2:AIMING 3:ATTACKING 4:COOLDOWN 5:STUNNED
     GameObject player;
     Vector2 distance; //distance from the player
@@ -15,10 +15,11 @@ public class MeleeEnemy : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        states = GetComponent<EnemyAiController>();
+        states = GetComponent<EnemyAIController>();
         player = GameObject.FindGameObjectWithTag("Player");
 
         GetComponent<SpriteRenderer>().sprite = enemy.sprite;
+        rb.drag = UnityEngine.Random.Range(1f, 2f);
     }
 
     // Update is called once per frame
@@ -27,18 +28,18 @@ public class MeleeEnemy : MonoBehaviour
         distance = new Vector2(player.transform.position.x - gameObject.transform.position.x, 0); //track the distance from the player
 
         switch(states.currentState()){
-            case EnemyAiController.State.MOVING:
+            case EnemyAIController.State.MOVING:
                 MoveEnemy(enemy.moveSpeed);
                 break;
-            case EnemyAiController.State.CHASE:
+            case EnemyAIController.State.CHASE:
                 break;
-            case EnemyAiController.State.AIMING:
+            case EnemyAIController.State.AIMING:
                 break;
-            case EnemyAiController.State.ATTACKING:
+            case EnemyAIController.State.ATTACKING:
                 break;
-            case EnemyAiController.State.COOLDOWN:
+            case EnemyAIController.State.COOLDOWN:
                 break;
-            case EnemyAiController.State.STUNNED:
+            case EnemyAIController.State.STUNNED:
                 MoveEnemy(enemy.stunSpeed);
                 break;
         }
@@ -51,7 +52,7 @@ public class MeleeEnemy : MonoBehaviour
         //yield return new WaitForSecondsRealtime(2);
         float timePassed = 0;
         while (timePassed < 2f){
-            if (distance.magnitude > enemy.maxRange){
+            if (distance.magnitude > enemy.attack.maxRange){
                 //too far away
                 break;
             }
@@ -86,7 +87,7 @@ public class MeleeEnemy : MonoBehaviour
     void MoveEnemy(float speed){
         //states.setState(0);
 
-        if (distance.magnitude > enemy.range) {
+        if (distance.magnitude > enemy.attack.range) {
             //attempt to move towards player
             rb.velocity = new Vector2(distance.normalized.x * speed, rb.velocity.y);
         } else {

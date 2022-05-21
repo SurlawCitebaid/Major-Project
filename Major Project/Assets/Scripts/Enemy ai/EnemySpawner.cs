@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] EnemyScriptableObject[] enemies; //list of enemies that can spawn here
+    [SerializeField] GameObject[] enemies;
     [SerializeField] float timeBetweenSpawns = 5f; //fixed time between spawns
-    float countdown;//current between spawns
+    [SerializeField] int maxSpawns = 10; //total number of enemy spawns from this spawner
+    int currentSpawns = 0;
+    float countdown;//current time till spawn
 
     void Start() {
         countdown = timeBetweenSpawns;
@@ -15,7 +17,7 @@ public class EnemySpawner : MonoBehaviour
     void Update() {
         if (countdown < 0)
         {
-            //SpawnEnemy();
+            SpawnEnemy();
             countdown = timeBetweenSpawns;
         }
 
@@ -25,7 +27,19 @@ public class EnemySpawner : MonoBehaviour
     //continuously spawn enemies or
     //spawn a set amount in the room
     void SpawnEnemy(){
+        int enemyNum = Random.Range(0, enemies.Length);
+
+        Debug.Log("Spawning " + enemies[enemyNum].name);
+        Instantiate(enemies[enemyNum], transform.position, transform.rotation);
+
+        currentSpawns++;
         
+        
+        if (currentSpawns >= maxSpawns)
+        {
+            Debug.Log("Max Spawns Reached");
+            Destroy(gameObject, 1f);
+        }
     }
 
 }

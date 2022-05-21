@@ -6,10 +6,10 @@ using UnityEngine;
 public class ChargingEnemy : MonoBehaviour
 {
     [SerializeField] EnemyScriptableObject enemy;
-    EnemyAiController states;
+    EnemyAIController states;
     //0:MOVING 1:CHASE 2:AIMING 3:ATTACKING 4:COOLDOWN 5:STUNNED
     GameObject player;
-    [SerializeField] float chargeSpeed; //speed of the charging attack
+    float chargeSpeed = 20f; //speed of the charging attack
     Vector2 distance;
     Rigidbody2D rb;
 
@@ -17,7 +17,7 @@ public class ChargingEnemy : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        states = GetComponent<EnemyAiController>();
+        states = GetComponent<EnemyAIController>();
         player = GameObject.FindGameObjectWithTag("Player");
 
         GetComponent<SpriteRenderer>().sprite = enemy.sprite;
@@ -30,18 +30,18 @@ public class ChargingEnemy : MonoBehaviour
         distance = new Vector2(player.transform.position.x - gameObject.transform.position.x, 0); //track the distance from the player
 
         switch(states.currentState()){
-            case EnemyAiController.State.MOVING:
+            case EnemyAIController.State.MOVING:
                 MoveEnemy(enemy.moveSpeed);
                 break;
-            case EnemyAiController.State.CHASE:
+            case EnemyAIController.State.CHASE:
                 break;
-            case EnemyAiController.State.AIMING:
+            case EnemyAIController.State.AIMING:
                 break;
-            case EnemyAiController.State.ATTACKING:
+            case EnemyAIController.State.ATTACKING:
                 break;
-            case EnemyAiController.State.COOLDOWN:
+            case EnemyAIController.State.COOLDOWN:
                 break;
-            case EnemyAiController.State.STUNNED:
+            case EnemyAIController.State.STUNNED:
                 MoveEnemy(enemy.stunSpeed);
                 break;
         }
@@ -54,7 +54,7 @@ public class ChargingEnemy : MonoBehaviour
 
         float timePassed = 0;
         while (timePassed < 2f){
-            if (distance.magnitude > enemy.maxRange){
+            if (distance.magnitude > enemy.attack.maxRange){
                 //too far away
                 break;
             }
@@ -84,7 +84,6 @@ public class ChargingEnemy : MonoBehaviour
     IEnumerator CooldownAttack(){
         states.setState(4);//COOLDOWN
         yield return new WaitForSecondsRealtime(2);
-        
 
         states.setState(0);//MOVING
     }
@@ -92,10 +91,10 @@ public class ChargingEnemy : MonoBehaviour
     void MoveEnemy(float speed){
         //states.setState(0);
 
-        if (distance.magnitude > enemy.range) {
+        if (distance.magnitude > enemy.attack.range) {
             //attempt to move towards player
             rb.velocity = new Vector2(distance.normalized.x * speed, rb.velocity.y);
-        } else if (distance.magnitude < enemy.minRange) {
+        } else if (distance.magnitude < enemy.attack.minRange) {
             //attempt to move away from player
             rb.velocity = new Vector2(-distance.normalized.x * speed, rb.velocity.y);
         } else {
@@ -103,5 +102,5 @@ public class ChargingEnemy : MonoBehaviour
             StartCoroutine(Aiming());
         }
     }
-
+    
 }

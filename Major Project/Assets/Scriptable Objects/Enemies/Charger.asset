@@ -17,10 +17,7 @@ MonoBehaviour:
   boss: 0
   sprite: {fileID: 1253348280, guid: 856d022411e49fa42abb976c531a28d3, type: 3}
   health: 100
-  damage: 1
-  range: 5
-  maxRange: 8
-  minRange: 2
+  attack: {fileID: 11400000, guid: 266d56f118b1fd748821f5aad18c26a8, type: 2}
   moveSpeed: 5
   slowSpeed: 0.5
   stunSpeed: 0
