@@ -7,19 +7,40 @@ public class char_movement : MonoBehaviour
     public movement controller;
     public Animator animator;
     float move_horizontal = 0f;
-    float move_speed = 20f;
+    float jump_charge = 1f;
+    float jump_charge_max = 2f;
     bool jump = false;
     bool crouch = false;
-    bool run = false;
+    bool dash = false;
 
     void Update()
     {
-        move_horizontal = Input.GetAxisRaw("Horizontal") * move_speed;
+        move_horizontal = Input.GetAxisRaw("Horizontal");
         animator.SetFloat("Speed", Mathf.Abs(move_horizontal));    // link movement speed to animator speed parameter
-
-        if (Input.GetButtonDown("Jump"))
+        bool grounded = controller.GetGrounded();
+        if (grounded == true)
         {
-            jump = true;
+            if (Input.GetButton("Jump"))
+            {
+                crouch = true;
+                if (jump_charge < jump_charge_max)
+                {
+                    jump_charge += Time.deltaTime * 1.2f;
+                } else {
+                    jump_charge = jump_charge_max;
+                }
+            }
+            if (Input.GetButtonUp("Jump"))
+            {
+                crouch = false;
+                jump = true;
+            }
+        } else {
+            if (Input.GetButtonDown("Jump"))
+            {
+                jump = true;
+            }
+            jump_charge = 1;
         }
 
         if (Input.GetButtonDown("Crouch"))
@@ -31,15 +52,15 @@ public class char_movement : MonoBehaviour
 
         if (Input.GetButtonDown("Rush_B"))
         {
-            run = true;
+            dash = true;
         } else if (Input.GetButtonUp("Rush_B")) {
-            run = false;
+            dash = false;
         }
     }
 
     void FixedUpdate()
     {
-        controller.Move(move_horizontal * Time.fixedDeltaTime, crouch, jump, run);
+        controller.Move(move_horizontal * Time.fixedDeltaTime, crouch, jump, jump_charge, dash);
         jump = false;
     }
 }
