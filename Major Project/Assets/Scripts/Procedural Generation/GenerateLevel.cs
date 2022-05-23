@@ -28,7 +28,7 @@ public class GenerateLevel : MonoBehaviour
     int platformMinSize;
 
     int[,] grid;
-    List<Room> rooms;
+    Room[,] rooms;
 
     [Header("Tile Assets")]
     [SerializeField]
@@ -37,7 +37,7 @@ public class GenerateLevel : MonoBehaviour
     void Start()
     {
         grid = new int[gridSizeX,gridSizeY];
-        rooms = new List<Room>();
+        rooms = new Room[gridSizeX,gridSizeY];
         Random.seed = seed;
 
         populateGrid();
@@ -128,9 +128,9 @@ public class GenerateLevel : MonoBehaviour
                     //So we can have random room sizes
                     int randomRoomSizeX = Random.Range(maxRoomSize / 2, maxRoomSize);
                     int randomRoomSizeY = Random.Range(maxRoomSize / 2, maxRoomSize);
-                    Room room = new Room(roomPostion,randomRoomSizeX, randomRoomSizeY, tiles, transform, maxNumberOfPlatforms, platformMaxSize, platformMinSize, grid, x, y);
+                    Room room = new Room(roomPostion,randomRoomSizeX, randomRoomSizeY, tiles, transform, maxNumberOfPlatforms, platformMaxSize, platformMinSize, grid, x, y, this);
                     room.createRoom();
-                    rooms.Add(room);
+                    rooms[x, y] = room;
                 }
                 else if (grid[x, y] == 2)
                 {
@@ -163,5 +163,19 @@ public class GenerateLevel : MonoBehaviour
         if (neighbourCount >= maxNeighbours)
             return true;
         return false;
+    }
+
+    public int getRoomX(int x, int y)
+    {
+        return rooms[x, y].roomSizeX;
+    }
+    public int getRoomY(int x, int y)
+    {
+        return rooms[x, y].roomSizeY;
+    }
+
+    public int getMaxRoomSize()
+    {
+        return maxRoomSize;
     }
 }

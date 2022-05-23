@@ -28,7 +28,10 @@ public class Room
     int levelGridX;
     int levelGridY;
 
-    public Room(Vector2 spawnPosition, int roomSizeX, int roomSizeY, List<GameObject> tiles, Transform parent, int maxNumberOfPlatforms, int maxPlatformSize, int minPlatformSize, int[,] levelLayoutGrid, int gridX, int gridY)
+    //Get the script for level gen and finding other rooms
+    GenerateLevel generateLevelScript;
+
+    public Room(Vector2 spawnPosition, int roomSizeX, int roomSizeY, List<GameObject> tiles, Transform parent, int maxNumberOfPlatforms, int maxPlatformSize, int minPlatformSize, int[,] levelLayoutGrid, int gridX, int gridY, GenerateLevel generateLevelScript)
     {
         this.spawnPosition = spawnPosition;
         this.roomSizeX = roomSizeX;
@@ -42,6 +45,8 @@ public class Room
         this.levelLayoutGrid = levelLayoutGrid;
         this.levelGridX = gridX;
         this.levelGridY = gridY;
+
+        this.generateLevelScript = generateLevelScript;
     }
 
     public void createRoom()
@@ -63,7 +68,7 @@ public class Room
         //Add item pedestals
         placeItem();
         //Add Doors
-        placeDoors();
+        //placeCorridors();
     }
 
     void generateRoom()
@@ -187,14 +192,23 @@ public class Room
         
     }
 
-    void placeDoors()
+    void placeCorridors()
     {
-        //Place doors if there is a coresponding room
-
+        //DO it based of the fact that the bottonm left hand corner is the actually postion of the room in the grid
+        //So you can determine the room with smallest x or y roomsize to determine which room centre can be chosen to have to corridor follow to the other rooom
         //Up 
         if (levelLayoutGrid[levelGridX, levelGridY + 1] == 1)
         {
-            //Any X postion with a Max Heght of Y
+            //Centre of the current room
+            int centreCurrentRoomX = ((levelGridX * generateLevelScript.getMaxRoomSize()) + roomSizeX) / 2;
+            int centreCurrentRoomY = ((levelGridY * generateLevelScript.getMaxRoomSize()) + roomSizeY) / 2;
+
+            //Find the centre of the neighbour room
+            int centreNeighbourX = ((levelGridX * generateLevelScript.getMaxRoomSize()) + generateLevelScript.getRoomX(levelGridX,levelGridY + 1)) / 2;
+            int centreNeighbourY = (((levelGridY + 1) * generateLevelScript.getMaxRoomSize()) + generateLevelScript.getRoomY(levelGridX, levelGridY + 1)) / 2;
+
+
+            //Any X postion with a Max Height of Y
             roomGrid[(roomSizeX / 2) - 1, roomSizeY - 1] = 4;
             roomGrid[roomSizeX / 2, roomSizeY - 1] = 4;
             roomGrid[(roomSizeX / 2) + 1, roomSizeY - 1] = 4;
@@ -224,6 +238,14 @@ public class Room
         }
     }
 
+    public int getRoomSizeX()
+    {
+        return roomSizeX;
+    }
+    public int getRoomSizeY()
+    {
+        return roomSizeY;
+    }
     public void getDoorPostions()
     {
 
