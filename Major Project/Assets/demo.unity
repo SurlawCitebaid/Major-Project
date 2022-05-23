@@ -613,8 +613,8 @@ GameObject:
   - component: {fileID: 1550791141}
   - component: {fileID: 1550791140}
   - component: {fileID: 1550791139}
-  - component: {fileID: 1550791138}
-  - component: {fileID: 1550791137}
+  - component: {fileID: 1550791143}
+  - component: {fileID: 1550791142}
   - component: {fileID: 1550791136}
   - component: {fileID: 1550791135}
   m_Layer: 0
@@ -676,47 +676,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.5091633}
   m_EdgeRadius: 0
---- !u!114 &1550791137
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1550791134}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1536866cdf9bec74c9c6c716fb4f2a17, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controller: {fileID: 1550791138}
-  animator: {fileID: 0}
---- !u!114 &1550791138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1550791134}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a933f3f8049ab54fb057b5ef1eba6ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_MoveSpeed: 200
-  m_MovementSlippery: 0.05
-  m_GroundLayer:
-    serializedVersion: 2
-    m_Bits: 1024
-  m_JumpForce: 400
-  m_JumpStack: 2
-  m_BottomDetection: {fileID: 1417547945}
-  m_TopDetection: {fileID: 1043434481}
-  m_CrouchMultiplier: 0.4
-  m_CrouchDisableCollider: {fileID: 1550791136}
-  m_DashDistance: 30
-  m_DashDuration: 0.2
-  m_DashCooldown: 1
-  m_DashGravitySwitch: 0
 --- !u!50 &1550791139
 Rigidbody2D:
   serializedVersion: 4
@@ -736,7 +695,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!212 &1550791140
 SpriteRenderer:
@@ -807,3 +766,45 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1550791142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1550791134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58e10ea9d08877c41a35136f8561a914, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MoveSpeed: 200
+  m_MovementSlippery: 0.05
+  m_GroundLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  m_JumpForce: 20
+  m_JumpStack: 2
+  m_JumpDuration: 0.5
+  m_BottomDetection: {fileID: 1417547945}
+  m_TopDetection: {fileID: 1043434481}
+  m_CrouchMultiplier: 0.4
+  m_CrouchDisableCollider: {fileID: 0}
+  m_DashDistance: 25
+  m_DashDuration: 0.2
+  m_DashCooldown: 1
+  m_DashGravitySwitch: 0
+--- !u!114 &1550791143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1550791134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db4974ae37c1c3246b39937cb753a0ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 1550791142}
+  animator: {fileID: 0}
