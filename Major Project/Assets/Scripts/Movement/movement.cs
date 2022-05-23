@@ -28,7 +28,7 @@ public class movement : MonoBehaviour
 	[Space][Space]
 
 	[Header("Dash")][Space]
-	[Range(0, 10)][SerializeField] private float m_DashDistance = 5f;
+	[Range(0, 100)][SerializeField] private float m_DashDistance = 5f;
 	[SerializeField] private float m_DashDuration = 0.2f;
 	[Range(0, 5)][SerializeField] private float m_DashCooldown = 3f; // in seconds
 	[SerializeField] private bool m_DashGravitySwitch = false;
@@ -111,7 +111,7 @@ public class movement : MonoBehaviour
 		FlipCharacter(speed);
 
 		//only jump when player is on ground or have extra jumps left
-		if ((grounded && jump) || ((jumpCount <= m_JumpStack) && jump))	
+		if ((grounded && jump) || ((jumpCount < m_JumpStack) && jump))	
 		{
 			grounded = false;
 
@@ -122,7 +122,9 @@ public class movement : MonoBehaviour
 				m_Rigidbody2D.AddForce(new Vector2(0.0f, m_JumpForce));
 			} else if (jumpCount == 0) {
 				m_Rigidbody2D.AddForce(new Vector2(0.0f, m_JumpForce * jump_charge));
-			} 
+			} else {
+				m_Rigidbody2D.AddForce(new Vector2(0.0f, m_JumpForce));
+			}
 			jumpCount++;
 		}
 	}

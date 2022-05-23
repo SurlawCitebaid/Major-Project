@@ -16,7 +16,7 @@ public class char_movement : MonoBehaviour
     void Update()
     {
         move_horizontal = Input.GetAxisRaw("Horizontal");
-        animator.SetFloat("Speed", Mathf.Abs(move_horizontal));    // link movement speed to animator speed parameter
+        //animator.SetFloat("Speed", Mathf.Abs(move_horizontal));    // link movement speed to animator speed parameter
         bool grounded = controller.GetGrounded();
         if (grounded == true)
         {
