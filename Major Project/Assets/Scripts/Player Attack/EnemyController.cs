@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour {
+    [SerializeField] private float invulnerabilityDelay = 0.5f;
+    [SerializeField] private Color32 defaultColour = new Color32();
+
     private Rigidbody2D rb;
     private SpriteRenderer sr;
-    [SerializeField] private Color32 defaultColour = new Color32();
 
     private void Awake() {
         rb = this.gameObject.GetComponent<Rigidbody2D>();
@@ -25,7 +27,7 @@ public class EnemyController : MonoBehaviour {
 
     private IEnumerator HitFlash() {
         sr.color = Color.white;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(invulnerabilityDelay);
         sr.color = defaultColour;
     }
 }

@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] private LayerMask lm_ground;
     [SerializeField] private Transform groundCheckPos;
 
-    private bool isGrounded = false;
+    public bool isGrounded { get; private set; }
     public bool isHooked = false;
 
     private void Awake() {

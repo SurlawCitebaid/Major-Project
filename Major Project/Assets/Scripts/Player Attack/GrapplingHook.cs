@@ -5,7 +5,8 @@ using UnityEditor;
 
 public class GrapplingHook : MonoBehaviour {
     private Camera cam;
-    private SpringJoint2D sj;
+    //private SpringJoint2D sj;
+    private DistanceJoint2D dj;
 
     [SerializeField] private LayerMask lm_walls;
     [SerializeField] private Transform hook;
@@ -27,13 +28,25 @@ public class GrapplingHook : MonoBehaviour {
             Unhook();
         }
 
+        if (dj ?? true) {
+            if (!this.gameObject.GetComponent<PlayerMovement>().isGrounded) {
+                if (Input.mouseScrollDelta.y < 0) {
+                    dj.distance += hookClimbSpeed;
+                }
+            }
+            if (Input.mouseScrollDelta.y > 0) {
+                dj.distance -= hookClimbSpeed;
+            }
+        }
+
+        /*
         if (Input.mouseScrollDelta.y > 0) {
             if (sj ?? true)
                 sj.distance -= hookClimbSpeed;
         } else if (Input.mouseScrollDelta.y < 0) {
             if (sj ?? true)
                 sj.distance += hookClimbSpeed;
-        }
+        }*/
     }
 
     private void Grapple() {
@@ -42,6 +55,7 @@ public class GrapplingHook : MonoBehaviour {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, mousePos - transform.position, 100f, lm_walls);
         hookPos = hit.point;
 
+        /*
         sj = this.gameObject.AddComponent<SpringJoint2D>();
         sj.connectedAnchor = hookPos;
         sj.autoConfigureDistance = false;
@@ -50,6 +64,16 @@ public class GrapplingHook : MonoBehaviour {
         sj.enableCollision = true;
         if (hookPos.y < this.gameObject.transform.position.y)
             sj.distance = 0f;
+        */
+
+        dj = this.gameObject.AddComponent<DistanceJoint2D>();
+        dj.connectedAnchor = hookPos;
+        dj.autoConfigureDistance = false;
+        //dj.distance = 3.5f;
+        dj.distance = 0.5f;
+        dj.enableCollision = true;
+        //if (hookPos.y < this.gameObject.transform.position.y)
+            //dj.distance = 1f;
 
         Vector3 vectorToTarget = hookPos - this.gameObject.transform.position;
         float hookAngle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg - 90f;
@@ -60,8 +84,15 @@ public class GrapplingHook : MonoBehaviour {
     }
 
     private void Unhook() {
-        if (sj ?? false) {
+        /*
+         if (sj ?? false) {
             Destroy(sj);
+            Destroy(hookObj.gameObject);
+            this.gameObject.GetComponent<PlayerMovement>().isHooked = false;
+        }
+         */
+        if (dj ?? false) {
+            Destroy(dj);
             Destroy(hookObj.gameObject);
             this.gameObject.GetComponent<PlayerMovement>().isHooked = false;
         }
