@@ -15,4 +15,29 @@ public class EnemyAIController : MonoBehaviour
     {
         return state;
     }
+    public void Die()
+    {
+        Destroy(gameObject, 0.5f);
+    }
+    public IEnumerator HitFlash(SpriteRenderer sprite , Color32 originalColor)
+    {
+        setState(5);
+        sprite.color = Color.white;
+        yield return new WaitForSeconds(0.5f);
+        sprite.color = originalColor;
+
+        setState(0);
+    }
+    public IEnumerator CooldownAttack(float cooldownTime, int newStateIndex)
+    {
+        setState(4);//COOLDOWN
+        yield return new WaitForSeconds(cooldownTime);
+
+        setState(newStateIndex);// state set based on enemy data
+    }
+    public IEnumerator Immunity(float immunityTime, bool value)
+    {
+        yield return new WaitForSeconds(immunityTime);
+        value = false;
+    }
 }

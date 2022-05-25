@@ -17,4 +17,4 @@ MonoBehaviour:
   maxRange: 2
   minRange: 0
   cooldownTime: 1
-  immunityTime: 0.25
+  immunityTime: 3

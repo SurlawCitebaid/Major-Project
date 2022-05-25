@@ -126,20 +126,8 @@ public class GroundEnemyController : MonoBehaviour
                 Debug.Log("No attack type for " + enemy.name);
             break;
         }
-        StartCoroutine(Immunity());
-        StartCoroutine(CooldownAttack());
-    }
-
-    IEnumerator CooldownAttack(){
-        states.setState(4);//COOLDOWN
-        yield return new WaitForSeconds(enemy.attack.cooldownTime);
-
-        states.setState(0);//MOVING
-    }
-
-    IEnumerator Immunity(){
-        yield return new WaitForSeconds(enemy.attack.immunityTime);
-        immune = false;
+        StartCoroutine(states.Immunity(enemy.attack.immunityTime, immune));
+        StartCoroutine(states.CooldownAttack(enemy.attack.cooldownTime,0));
     }
     
     public void Damage(float damageAmount, float knockbackForce, float knockbackDirection) {
@@ -148,26 +136,17 @@ public class GroundEnemyController : MonoBehaviour
         Debug.Log("Hit for " + damageAmount);
         health -= (int)damageAmount;//damageAmount may be changed to int
         Knockback(knockbackForce, knockbackDirection);
-        StartCoroutine(HitFlash());
+        StartCoroutine(states.HitFlash(sr,defaultColour));
 
         if (health < 0)
-            Die();
+            states.Die();
     }
 
     private void Knockback(float knockbackForce, float knockbackDirection) {
         rb.AddForce(Vector2.right * knockbackDirection * knockbackForce, ForceMode2D.Impulse);
     }
 
-    private IEnumerator HitFlash() {
-        states.setState(5);
-        sr.color = Color.white;
-        yield return new WaitForSeconds(0.5f);
-        sr.color = defaultColour;
 
-        states.setState(0);
-    }
 
-    void Die(){
-        Destroy(gameObject, 0.5f);
-    }
+
 }
