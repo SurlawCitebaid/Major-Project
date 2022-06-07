@@ -43,10 +43,6 @@ public class EnemyAIController : MonoBehaviour
     {
         immune = state;
     }
-    public bool getImmune()
-    {
-        return immune;
-    }
     public State currentState()
     {
         return state;
@@ -58,7 +54,7 @@ public class EnemyAIController : MonoBehaviour
     public IEnumerator HitFlash(SpriteRenderer sprite , Color32 originalColor)
     {
         setState(5);
-        sprite.color = Color.white;
+        sprite.color = Color.red;
         yield return new WaitForSeconds(0.5f);
         sprite.color = originalColor;
 
@@ -71,10 +67,10 @@ public class EnemyAIController : MonoBehaviour
 
         setState(newStateIndex);// state set based on enemy data
     }
-    public IEnumerator Immunity(float immunityTime, bool value)
+    public IEnumerator Immunity()
     {
-        yield return new WaitForSeconds(immunityTime);
-        value = false;
+        yield return new WaitForSeconds(enemy.attack.immunityTime);
+        immune = false;
     }
     public void Damage(float damageAmount, float knockbackForce, float knockbackDirection)
     {

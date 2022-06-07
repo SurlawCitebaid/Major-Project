@@ -125,7 +125,7 @@ public class GroundEnemyController : MonoBehaviour
                 Debug.Log("No attack type for " + states.enemy.name);
             break;
         }
-        StartCoroutine(states.Immunity(states.enemy.attack.immunityTime, states.getImmune()));
+        StartCoroutine(states.Immunity());
         StartCoroutine(states.CooldownAttack(states.enemy.attack.cooldownTime,0));
     }
     
