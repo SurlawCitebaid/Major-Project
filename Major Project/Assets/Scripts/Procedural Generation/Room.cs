@@ -75,7 +75,8 @@ public class Room
         placePlatforms();
         //Add item pedestals
         placeItem();
-
+        //Add Enemy Spawners
+        placeSpawners();
     }
 
     //Has to be done after as it requires all the rooms to function
@@ -115,6 +116,11 @@ public class Room
                 else if (roomGrid[x, y] == 4)
                 {
                     GameObject.Instantiate(tiles[0], new Vector3(spawnPosition.x + (float)x, spawnPosition.y + (float)y), Quaternion.identity, parent);
+                }
+                //EnemySpawners
+                else if (roomGrid[x, y] == 5)
+                {
+                    GameObject.Instantiate(tiles[5], new Vector3(spawnPosition.x + (float)x, spawnPosition.y + (float)y), Quaternion.identity, parent);
                 }
             }
         }
@@ -323,6 +329,27 @@ public class Room
                     roomGrid[xCentre, roomSizeY / 2 + 1] = 0;
                     roomGrid[xCentre, roomSizeY / 2 + 2] = 1;
                 }
+            }
+        }
+    }
+
+    void placeSpawners()
+    {
+        //Add a inspector field for max spawwners
+        int numberOfSpawners = 0;
+        int maxNumberOfSpawners = 2;
+
+        while(numberOfSpawners < maxNumberOfSpawners)
+        {
+            //Random postion with in the box
+            int positionX = Random.Range(2, roomSizeX - 2);
+            int positionY = Random.Range(2, roomSizeY - 2);
+            //checks if there is an airblock at its postion and above and also that there is solid ground below
+            if (roomGrid[positionX, positionY] == 0)
+            {
+                //add item location to grid
+                roomGrid[positionX, positionY] = 5;
+                numberOfSpawners++;
             }
         }
     }
