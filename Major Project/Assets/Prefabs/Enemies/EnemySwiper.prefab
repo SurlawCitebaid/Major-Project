@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7686275, g: 0.7686275, b: 0.7686275, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -148,6 +148,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9258b1e561239204190610eb130ec11f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultColour:
+    serializedVersion: 2
+    rgba: 0
+  enemy: {fileID: 11400000, guid: 2eb419e7cb2fe6344b791c242d5883fe, type: 2}
+  immune: 0
 --- !u!114 &188282402990007038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,11 +165,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b82e38425300f794cbf9f269c2440a8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultColour:
-    serializedVersion: 2
-    rgba: 4278255360
-  enemy: {fileID: 11400000, guid: 2eb419e7cb2fe6344b791c242d5883fe, type: 2}
-  immune: 0
   lm_ground:
     serializedVersion: 2
     m_Bits: 1024
