@@ -42,6 +42,7 @@ public class GenerateLevel : MonoBehaviour
 
         populateGrid();
         placeRooms();
+        centreLevel();
     }
 
 
@@ -67,15 +68,29 @@ public class GenerateLevel : MonoBehaviour
         //Loop until the number of rooms have been created
         while (roomsCreated != maxRooms)
         {
-            //Checking if this cell already has a room
-            if(grid[currentRoomX, currentRoomY] != 1)
+            //Checking if this cell doesn't have a room
+            if(grid[currentRoomX, currentRoomY] == 0)
             {
-                //Add a room created
-                createdRooms[roomsCreated, 0] = currentRoomX;
-                createdRooms[roomsCreated, 1] = currentRoomY;
+                //Add boss room at begining
+                if(roomsCreated == 0)
+                {
+                    //Add a room created
+                    createdRooms[roomsCreated, 0] = currentRoomX;
+                    createdRooms[roomsCreated, 1] = currentRoomY;
 
-                roomsCreated++;
-                grid[currentRoomX, currentRoomY] = 1;
+                    roomsCreated++;
+                    grid[currentRoomX, currentRoomY] = 2;
+                }
+                else
+                {
+                    //Add a room created
+                    createdRooms[roomsCreated, 0] = currentRoomX;
+                    createdRooms[roomsCreated, 1] = currentRoomY;
+
+                    roomsCreated++;
+                    grid[currentRoomX, currentRoomY] = 1;
+                }
+                
             }
 
             //Cycle the current room of rooms that have been created
@@ -124,17 +139,44 @@ public class GenerateLevel : MonoBehaviour
                 //Place room if there is a 1 in the grid
                 if(grid[x,y] == 1)
                 {
+                    //So that it is smaller then the boss room
+                    float roomDescaler = 0.75f;
                     Vector2 roomPostion = new Vector2(x * maxRoomSize, y * maxRoomSize);
                     //So we can have random room sizes
-                    int randomRoomSizeX = Random.Range(maxRoomSize / 2, maxRoomSize);
-                    int randomRoomSizeY = Random.Range(maxRoomSize / 2, maxRoomSize);
+                    int randomRoomSizeX = Random.Range(minRoomSize, Mathf.FloorToInt(maxRoomSize * roomDescaler));
+                    int randomRoomSizeY = Random.Range(minRoomSize, Mathf.FloorToInt(maxRoomSize * roomDescaler));
                     Room room = new Room(roomPostion,randomRoomSizeX, randomRoomSizeY, tiles, transform, maxNumberOfPlatforms, platformMaxSize, platformMinSize, grid, x, y, this);
                     room.createRoom();
+                    room.fillRoomData();
                     rooms[x, y] = room;
                 }
                 else if (grid[x, y] == 2)
                 {
+                    Vector2 roomPostion = new Vector2(x * maxRoomSize, y * maxRoomSize);
+                    //So we can have random room sizes
+                    int randomRoomSizeX = maxRoomSize;
+                    int randomRoomSizeY = maxRoomSize;
+                    Room room = new Room(roomPostion, randomRoomSizeX, randomRoomSizeY, tiles, transform, maxNumberOfPlatforms, platformMaxSize, platformMinSize, grid, x, y, this);
+                    room.createRoom();
+                    room.fillRoomData();
+                    rooms[x, y] = room;
+                }
+            }
+        }
 
+        for (int x = 0; x < gridSizeX; x++)
+        {
+            for (int y = 0; y < gridSizeY; y++) {
+                //Place room if there is a 1 in the grid
+                if (grid[x, y] == 1)
+                {
+                    rooms[x, y].fillCorridorData();
+                    rooms[x, y].generateRoom();
+                }
+                else if (grid[x, y] == 2)
+                {
+                    rooms[x, y].fillCorridorData();
+                    rooms[x, y].generateRoom();
                 }
             }
         }
@@ -165,11 +207,11 @@ public class GenerateLevel : MonoBehaviour
         return false;
     }
 
-    public int getRoomX(int x, int y)
+    public int getRoomXSize(int x, int y)
     {
         return rooms[x, y].roomSizeX;
     }
-    public int getRoomY(int x, int y)
+    public int getRoomYSize(int x, int y)
     {
         return rooms[x, y].roomSizeY;
     }
@@ -177,5 +219,11 @@ public class GenerateLevel : MonoBehaviour
     public int getMaxRoomSize()
     {
         return maxRoomSize;
+    }
+
+    void centreLevel()
+    {
+        //have the boss room in the centre
+        transform.position = new Vector2(-(gridSizeX * maxRoomSize)/2, -(gridSizeX * maxRoomSize)/2);
     }
 }

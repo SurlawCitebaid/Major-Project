@@ -31,6 +31,8 @@ public class Room
     //Get the script for level gen and finding other rooms
     GenerateLevel generateLevelScript;
 
+    int maxRoomSize;
+
     public Room(Vector2 spawnPosition, int roomSizeX, int roomSizeY, List<GameObject> tiles, Transform parent, int maxNumberOfPlatforms, int maxPlatformSize, int minPlatformSize, int[,] levelLayoutGrid, int gridX, int gridY, GenerateLevel generateLevelScript)
     {
         this.spawnPosition = spawnPosition;
@@ -47,35 +49,47 @@ public class Room
         this.levelGridY = gridY;
 
         this.generateLevelScript = generateLevelScript;
+        maxRoomSize = generateLevelScript.getMaxRoomSize();
     }
 
     public void createRoom()
     {
         roomData = new RoomData(roomSizeX, roomSizeY, RoomType.CIRCUS);
-        roomGrid = new int[roomSizeX, roomSizeY];
-        //Populates the data with an in representing, walls, platforms objects
-        fillRoomData();
-        generateRoom();
+        roomGrid = new int[generateLevelScript.getMaxRoomSize(), generateLevelScript.getMaxRoomSize()];
+        for (int x = 0; x < maxRoomSize; x++)
+        {
+            for (int y = 0; y < maxRoomSize; y++) {
+                roomGrid[x, y] = tiles.Count;
+            }
+        }
     }
 
 
-    void fillRoomData()
+    public void fillRoomData()
     {
+        //Back ground
+        placeBackGround();
         //Walls 
         placeWalls();
         //Platforms
         placePlatforms();
         //Add item pedestals
         placeItem();
-        //Add Doors
-        //placeCorridors();
+
     }
 
-    void generateRoom()
+    //Has to be done after as it requires all the rooms to function
+    public void fillCorridorData()
     {
-        for (int x = 0; x < roomSizeX; x++)
+        //Add Doors
+        placeCorridors();
+    }
+
+    public void generateRoom()
+    {
+        for (int x = 0; x < maxRoomSize; x++)
         {
-            for (int y = 0; y < roomSizeY; y++)
+            for (int y = 0; y < maxRoomSize; y++)
             {
                 //Air/BackGround
                 if (roomGrid[x, y] == 0)
@@ -85,7 +99,7 @@ public class Room
                 //Wall
                 else if (roomGrid[x, y] == 1)
                 {
-                   GameObject.Instantiate(tiles[1], new Vector3(spawnPosition.x+(float)x, spawnPosition.y+(float)y), Quaternion.identity, parent);
+                    GameObject.Instantiate(tiles[1], new Vector3(spawnPosition.x + (float)x, spawnPosition.y + (float)y), Quaternion.identity, parent);
                 }
                 //Platform
                 else if (roomGrid[x, y] == 2)
@@ -93,15 +107,25 @@ public class Room
                     GameObject.Instantiate(tiles[2], new Vector3(spawnPosition.x + (float)x, spawnPosition.y + (float)y), Quaternion.identity, parent);
                 }
                 //Item
-                else if(roomGrid[x, y] == 3)
+                else if (roomGrid[x, y] == 3)
                 {
                     GameObject.Instantiate(tiles[3], new Vector3(spawnPosition.x + (float)x, spawnPosition.y + (float)y), Quaternion.identity, parent);
                 }
                 //Door
                 else if (roomGrid[x, y] == 4)
                 {
-                    GameObject.Instantiate(tiles[4], new Vector3(spawnPosition.x + (float)x, spawnPosition.y + (float)y), Quaternion.identity, parent);
+                    GameObject.Instantiate(tiles[0], new Vector3(spawnPosition.x + (float)x, spawnPosition.y + (float)y), Quaternion.identity, parent);
                 }
+            }
+        }
+    }
+
+    void placeBackGround()
+    {
+        for (int x = 0; x < roomSizeX; x++)
+        {
+            for (int y = 0; y < roomSizeY; y++) {
+                roomGrid[x, y] = 0;
             }
         }
     }
@@ -127,7 +151,7 @@ public class Room
         //Runs until all platforms are placed
         while (currentNumberOfPlatforms < maxNumberOfPlatforms)
         {
-           
+
             //A random range out side of the borders
             int xPos = Random.Range(0 + 2, roomSizeX - 1);
             int yPos = Random.Range(0 + 2, roomSizeY - 1);
@@ -137,13 +161,13 @@ public class Room
 
             //Used for the platform counter
             bool platformAdded = false;
-            for(int i = 0; i < randomPlatformSize; i++)
+            for (int i = 0; i < randomPlatformSize; i++)
             {
                 //Makes sure we arent out of bound of the roomGrid
-                if (xPos + i < roomSizeX-1)
+                if (xPos + i < roomSizeX - 1)
                 {
                     //Checks to see if there is an air block underneath the platform and above also looking for diagonal platforms
-                    if (roomGrid[xPos + i, yPos - 1] == 0 && roomGrid[xPos + i, yPos + 1] == 0 
+                    if (roomGrid[xPos + i, yPos - 1] == 0 && roomGrid[xPos + i, yPos + 1] == 0
                         && roomGrid[xPos + i, yPos - 2] == 0 && roomGrid[xPos + i, yPos + 2] == 0
                         && roomGrid[xPos + i - 1, yPos + 1] == 0 && roomGrid[xPos + i + 1, yPos + 1] == 0)
                     {
@@ -152,7 +176,7 @@ public class Room
                         platformAdded = true;
                     }
                 }
-                
+
             }
             //Add to the platforms count if one was added
             if (platformAdded)
@@ -160,7 +184,7 @@ public class Room
                 platformAdded = false;
                 currentNumberOfPlatforms++;
             }
-              
+
         }
     }
 
@@ -168,7 +192,7 @@ public class Room
     {
         bool itemPlaced = false;
         //chance for item to spawn
-        if(Random.Range(0,100) < itemSpawnChance)
+        if (Random.Range(0, 100) < itemSpawnChance)
         {
             //loop until a suitible postion is found
             while (!itemPlaced)
@@ -177,19 +201,19 @@ public class Room
                 int positionX = Random.Range(2, roomSizeX - 2);
                 int positionY = Random.Range(2, roomSizeY - 2);
                 //checks if there is an airblock at its postion and above and also that there is solid ground below
-                if(roomGrid[positionX,positionY] == 0 && roomGrid[positionX, positionY+1] == 0 && roomGrid[positionX, positionY - 1] != 0)
+                if (roomGrid[positionX, positionY] == 0 && roomGrid[positionX, positionY + 1] == 0 && roomGrid[positionX, positionY - 1] != 0)
                 {
                     //add item location to grid
-                    roomGrid[positionX, positionY] = 3;
+                    roomGrid[positionX, positionY] = 4;
                     itemPlaced = true;
                 }
-                
+
             }
         }
-        
-        
 
-        
+
+
+
     }
 
     void placeCorridors()
@@ -197,44 +221,109 @@ public class Room
         //DO it based of the fact that the bottonm left hand corner is the actually postion of the room in the grid
         //So you can determine the room with smallest x or y roomsize to determine which room centre can be chosen to have to corridor follow to the other rooom
         //Up 
-        if (levelLayoutGrid[levelGridX, levelGridY + 1] == 1)
+        if (levelLayoutGrid[levelGridX, levelGridY + 1] == 1 || levelLayoutGrid[levelGridX, levelGridY + 1] == 2)
         {
-            //Centre of the current room
-            int centreCurrentRoomX = ((levelGridX * generateLevelScript.getMaxRoomSize()) + roomSizeX) / 2;
-            int centreCurrentRoomY = ((levelGridY * generateLevelScript.getMaxRoomSize()) + roomSizeY) / 2;
-
-            //Find the centre of the neighbour room
-            int centreNeighbourX = ((levelGridX * generateLevelScript.getMaxRoomSize()) + generateLevelScript.getRoomX(levelGridX,levelGridY + 1)) / 2;
-            int centreNeighbourY = (((levelGridY + 1) * generateLevelScript.getMaxRoomSize()) + generateLevelScript.getRoomY(levelGridX, levelGridY + 1)) / 2;
-
-
-            //Any X postion with a Max Height of Y
-            roomGrid[(roomSizeX / 2) - 1, roomSizeY - 1] = 4;
-            roomGrid[roomSizeX / 2, roomSizeY - 1] = 4;
-            roomGrid[(roomSizeX / 2) + 1, roomSizeY - 1] = 4;
+            int neighbourRoomXSize = generateLevelScript.getRoomXSize(levelGridX, levelGridY + 1);
+            //This room is Wider
+            if (roomSizeX > neighbourRoomXSize)
+            {
+                //Centre of neighbouir room X
+                int neighbourRoomCentreX = neighbourRoomXSize / 2;
+                for (int yCentre = roomSizeY - 1; yCentre < generateLevelScript.getMaxRoomSize(); yCentre++)
+                {
+                    roomGrid[neighbourRoomCentreX - 1, yCentre] = 1;
+                    roomGrid[neighbourRoomCentreX, yCentre] = 0;
+                    roomGrid[neighbourRoomCentreX + 1, yCentre] = 0;
+                    roomGrid[neighbourRoomCentreX + 2, yCentre] = 1;
+                }
+            }
+            //Neighbor room is Wider
+            else
+            {
+                for (int yCentre = roomSizeY - 1; yCentre < generateLevelScript.getMaxRoomSize(); yCentre++)
+                {
+                    roomGrid[roomSizeX / 2 - 1, yCentre] = 1;
+                    roomGrid[roomSizeX / 2, yCentre] = 0;
+                    roomGrid[roomSizeX / 2 + 1, yCentre] = 0;
+                    roomGrid[roomSizeX / 2 + 2, yCentre] = 1;
+                }
+            }
         }
         //Down 
-        if (levelLayoutGrid[levelGridX, levelGridY - 1] == 1)
+        if (levelLayoutGrid[levelGridX, levelGridY - 1] == 1 || levelLayoutGrid[levelGridX, levelGridY - 1] == 2)
         {
-            //Any X postion with a Max Heght of Y
-            roomGrid[(roomSizeX / 2) - 1, 0] = 4;
-            roomGrid[roomSizeX / 2, 0] = 4;
-            roomGrid[(roomSizeX / 2) + 1, 0] = 4;
+            int neighbourRoomXSize = generateLevelScript.getRoomXSize(levelGridX, levelGridY - 1);
+            //This room is Wider
+            if (roomSizeX > neighbourRoomXSize)
+            {
+                //Centre of neighbouir room X
+                int neighbourRoomCentreX = neighbourRoomXSize / 2;
+                roomGrid[neighbourRoomCentreX - 1, 0] = 1;
+                roomGrid[neighbourRoomCentreX, 0] = 0;
+                roomGrid[neighbourRoomCentreX + 1, 0] = 0;
+                roomGrid[neighbourRoomCentreX + 2, 0] = 1;
+            }
+            //Neighbor room is Wider
+            else
+            {
+                roomGrid[roomSizeX / 2 - 1, 0] = 1;
+                roomGrid[roomSizeX / 2, 0] = 0;
+                roomGrid[roomSizeX / 2 + 1, 0] = 0;
+                roomGrid[roomSizeX / 2 + 2, 0] = 1;
+            }
         }
         //Left 
-        if (levelLayoutGrid[levelGridX - 1, levelGridY] == 1)
+        if (levelLayoutGrid[levelGridX - 1, levelGridY] == 1 || levelLayoutGrid[levelGridX - 1, levelGridY] == 2)
         {
-            roomGrid[0, 1] = 4;
-            roomGrid[0, 2] = 4;
-            roomGrid[0, 3] = 4;
+            int neighbourRoomYSize = generateLevelScript.getRoomYSize(levelGridX - 1, levelGridY);
+            //This room is Wider
+            if (roomSizeY > neighbourRoomYSize)
+            {
+                //Centre of neighbouir room X
+                int neighbourRoomCentreY = neighbourRoomYSize / 2;
+                roomGrid[0, neighbourRoomCentreY - 1] = 1;
+                roomGrid[0, neighbourRoomCentreY] = 0;
+                roomGrid[0, neighbourRoomCentreY + 1] = 0;
+                roomGrid[0, neighbourRoomCentreY + 2] = 1;
+            }
+            //Neighbor room is Wider
+            else
+            {
+                roomGrid[0, roomSizeY / 2 - 1] = 1;
+                roomGrid[0, roomSizeY / 2] = 0;
+                roomGrid[0, roomSizeY / 2 + 1] = 0;
+                roomGrid[0, roomSizeY / 2 + 2] = 1;
+            }
         }
         //Right 
-        if (levelLayoutGrid[levelGridX + 1, levelGridY] == 1)
+        if (levelLayoutGrid[levelGridX + 1, levelGridY] == 1 || levelLayoutGrid[levelGridX + 1, levelGridY] == 2)
         {
-            //Any X postion with a Max Heght of Y
-            roomGrid[roomSizeX-1, 1] = 4;
-            roomGrid[roomSizeX-1, 2] = 4;
-            roomGrid[roomSizeX-1, 3] = 4;
+            int neighbourRoomYSize = generateLevelScript.getRoomYSize(levelGridX+1, levelGridY);
+            //This room is Wider
+            if (roomSizeY > neighbourRoomYSize)
+            {
+                //Centre of neighbouir room X
+                int neighbourRoomCentreY = neighbourRoomYSize / 2;
+                for (int xCentre = roomSizeX - 1; xCentre < generateLevelScript.getMaxRoomSize(); xCentre++)
+                {
+                    roomGrid[xCentre, neighbourRoomCentreY - 1] = 1;
+                    roomGrid[xCentre, neighbourRoomCentreY] = 0;
+                    roomGrid[xCentre, neighbourRoomCentreY + 1] = 0;
+                    roomGrid[xCentre, neighbourRoomCentreY + 2] = 1;
+                }
+            }
+            //Neighbor room is Wider
+            else
+            {
+                int neighbourRoomCentreY = neighbourRoomYSize / 2;
+                for (int xCentre = roomSizeX - 1; xCentre < generateLevelScript.getMaxRoomSize(); xCentre++)
+                {
+                    roomGrid[xCentre, roomSizeY/2 - 1] = 1;
+                    roomGrid[xCentre, roomSizeY / 2] = 0;
+                    roomGrid[xCentre, roomSizeY / 2 + 1] = 0;
+                    roomGrid[xCentre, roomSizeY / 2 + 2] = 1;
+                }
+            }
         }
     }
 
