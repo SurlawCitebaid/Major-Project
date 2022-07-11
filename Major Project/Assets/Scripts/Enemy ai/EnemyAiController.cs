@@ -14,7 +14,7 @@ public class EnemyAIController : MonoBehaviour
     private Rigidbody2D rb;
 
     //Local Enemy Values
-    int health;
+    public int health;
     // Update is called once per frame
     private void Start()
     {

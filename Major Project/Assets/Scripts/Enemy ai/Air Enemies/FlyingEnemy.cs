@@ -17,9 +17,9 @@ public class FlyingEnemy : MonoBehaviour
     {
         states = GetComponent<EnemyAIController>();
         lr = GetComponent<LineRendererController>();
+        rigid = GetComponent<Rigidbody2D>();
         x = transform.rotation;
         yPos = transform.position.y;                                    //consistent yPos
-        rigid = GetComponent<Rigidbody2D>();                                //get ai physics
         flightHeight = Random.Range(1f, 9f);
         player = GameObject.FindGameObjectWithTag("Player");                //so ai knows where player is
     }
@@ -54,14 +54,7 @@ public class FlyingEnemy : MonoBehaviour
                 aimAttack();
                 break;
             case EnemyAIController.State.ATTACKING:
-                Vector3 endPoint = new Vector3(0, 0, 0);
                 RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.up));
-
-                if (hitInfo.transform.tag == "Wall")
-                {
-                    endPoint = hitInfo.point;
-                }
-
                 if (predictionLine)
                 {
                     lr.DrawLine(new Vector3(transform.position.x, transform.position.y, 1), new Vector3(hitInfo.point.x, hitInfo.point.y, 1));
@@ -96,7 +89,7 @@ public class FlyingEnemy : MonoBehaviour
     {
         if (!attacked)
         {
-            rigid.AddForce(transform.up * thrust, ForceMode2D.Impulse);
+            rigid.AddForce(transform.up * 15, ForceMode2D.Impulse);
             attacked = true;
         }
     }

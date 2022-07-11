@@ -15,9 +15,32 @@ public class LineRendererController : MonoBehaviour
         lr = line.GetComponent<LineRenderer>();
         lr.material = m_Material;
         lr.startColor = Color.red;
+        lr.endColor = Color.red;
         lr.startWidth = 0.1f;
         lr.endWidth =0.1f ;
         lr.SetPosition(0,start);
+        lr.SetPosition(1, end);
+        lr.sortingOrder = 8;
+    }
+    public void changeAlpha(bool num)
+    {
+        if(num)
+        {
+            lr.startColor = Color.clear;
+            lr.endColor = Color.clear;
+        } else
+        {
+            lr.startColor = Color.red;
+            lr.endColor = Color.red;
+        }
+    }
+    public void changeSortingOrder(int num)
+    {
+        lr.sortingOrder = num;
+    }
+    public void moveLine(Vector3 start, Vector3 end)
+    {
+        lr.SetPosition(0, start);
         lr.SetPosition(1, end);
     }
     public void updateStartPoint (Vector3 ass)
