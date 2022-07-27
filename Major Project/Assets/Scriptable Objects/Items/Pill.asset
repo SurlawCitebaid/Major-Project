@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4997d6650931d9a428949ce16d8660f3, type: 3}
-  m_Name: Worry Doll
+  m_Name: Pill
   m_EditorClassIdentifier: 
-  name: Worry Doll
-  item_id: 0
-  sprite: {fileID: 21300000, guid: 3caff24f0a1bd634c9c667b4a6d09882, type: 3}
+  name: Melatonin Capsule
+  item_id: 1
+  sprite: {fileID: 21300000, guid: ee9c4d1fae9bec6499356589bb3b61cc, type: 3}

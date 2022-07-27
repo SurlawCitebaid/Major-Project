@@ -46,7 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9036f958faf953418eaad6525f80f84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item_scriptableObject: {fileID: 11400000, guid: 87c371bb3172fbf4e836d324dc131ce1, type: 2}
+  item_list:
+  - {fileID: 11400000, guid: 87c371bb3172fbf4e836d324dc131ce1, type: 2}
+  - {fileID: 11400000, guid: 4e2cb522bfb0e264fad9dd2876873540, type: 2}
 --- !u!212 &2784106442713013163
 SpriteRenderer:
   m_ObjectHideFlags: 0

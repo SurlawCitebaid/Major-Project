@@ -24,7 +24,7 @@ public class DisplayGrappleRope : MonoBehaviour {
         float yLen = (Mathf.Sin(angle * Mathf.Deg2Rad) * (width / 2));
         ssc.spline.SetPosition(0, new Vector3(xLen, -yLen));
         ssc.spline.SetPosition(1, new Vector3(-xLen, yLen));
-        ssc.spline.SetPosition(2, new Vector3(-this.gameObject.transform.parent.localPosition.x + player.position.x - xLen, player.position.y - this.gameObject.transform.parent.localPosition.y + yLen));
-        ssc.spline.SetPosition(3, new Vector3(-this.gameObject.transform.parent.localPosition.x + player.position.x + xLen, player.position.y - this.gameObject.transform.parent.localPosition.y - yLen));
+        ssc.spline.SetPosition(2, new Vector3(-this.gameObject.transform.parent.localPosition.x + player.position.x - xLen, -this.gameObject.transform.parent.localPosition.y + player.position.y + yLen));
+        ssc.spline.SetPosition(3, new Vector3(-this.gameObject.transform.parent.localPosition.x + player.position.x + xLen, -this.gameObject.transform.parent.localPosition.y + player.position.y - yLen));
     }
 }

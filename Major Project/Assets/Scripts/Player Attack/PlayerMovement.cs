@@ -7,16 +7,17 @@ public class PlayerMovement : MonoBehaviour {
 
     private const float HORIZONTAL_SPEED_CLAMP = 5f;
 
-    [SerializeField] private float moveSpeed = 12f;
-    [SerializeField] private float jumpForce = 7f;
-    [SerializeField] private float gravityScale = 10f;
-    [SerializeField] private float frictionForce = 10f;
-    [SerializeField] private int jumpCount = 2;
+    [SerializeField] private float moveSpeed = 50f;
+    [SerializeField] private float jumpForce = 10f;
+    [SerializeField] private float gravityScale = 30f;
+    [SerializeField] private float lerpSpeed = 0.5f;
+    [SerializeField] private int maxJumps = 2;
     [SerializeField] private LayerMask lm_ground;
     [SerializeField] private Transform groundCheckPos;
 
     public bool isGrounded { get; private set; }
     public bool isHooked = false;
+    private int jumpCount;
 
     private void Awake() {
         rb = this.gameObject.GetComponent<Rigidbody2D>();
@@ -29,20 +30,21 @@ public class PlayerMovement : MonoBehaviour {
             rb.gravityScale = 0;
             Move();
         } else {
-            rb.gravityScale = 9f;
+            rb.gravityScale = 10f;
             MoveOnHook();
         }
 
-        if (isGrounded)
+        if (jumpCount > 0)
             if (Input.GetKeyDown(KeyCode.W))
                 Jump();
     }
 
     private void GroundCheck() {
         Collider2D[] hits = Physics2D.OverlapCircleAll(new Vector2(groundCheckPos.position.x, groundCheckPos.position.y), 0.1f, lm_ground);
-        if (hits.Length > 0)
+        if (hits.Length > 0) {
             isGrounded = true;
-        else {
+            jumpCount = maxJumps;
+        } else {
             isGrounded = false;
         }
     }
@@ -55,13 +57,11 @@ public class PlayerMovement : MonoBehaviour {
     private void Move() {
         float horizontal = rb.velocity.x + Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
         float vertical = rb.velocity.y - gravityScale * Time.deltaTime;
-        if (((rb.velocity.x != 0) && (Input.GetAxis("Horizontal") == 0)) || ((rb.velocity.x > 0) && (Input.GetAxis("Horizontal") < 0)) || ((rb.velocity.x < 0) && (Input.GetAxis("Horizontal") > 0)))
-            horizontal = Mathf.Lerp(rb.velocity.x, 0, frictionForce * Time.deltaTime);
         if (horizontal > HORIZONTAL_SPEED_CLAMP)
             horizontal = HORIZONTAL_SPEED_CLAMP;
         if (horizontal < -HORIZONTAL_SPEED_CLAMP)
             horizontal = -HORIZONTAL_SPEED_CLAMP;
-        rb.velocity = new Vector2(horizontal, vertical);
+        rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, horizontal, lerpSpeed), Mathf.Lerp(rb.velocity.y, vertical, lerpSpeed));
     }
 
     private void MoveOnHook() {
@@ -75,5 +75,6 @@ public class PlayerMovement : MonoBehaviour {
     private void Jump() {
         Vector2 velocityVector = new Vector2(rb.velocity.x, jumpForce);
         rb.velocity = velocityVector;
+        jumpCount--;
     }
 }
