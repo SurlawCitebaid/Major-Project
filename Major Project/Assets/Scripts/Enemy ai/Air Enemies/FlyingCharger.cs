@@ -6,6 +6,7 @@ public class FlyingCharger : MonoBehaviour
 {
     //0:MOVING 1:CHASE 2:AIMING 3:ATTACKING 4:COOLDOWN 5:STUNNED
     [SerializeField] float flightSpeed = .5f;
+    [SerializeField] int field=0;
     private LineRendererController lr;
     private EnemyAIController states;
     private Quaternion originalRot;
@@ -24,10 +25,10 @@ public class FlyingCharger : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(Input.GetKey("space"))
+        if (Input.GetKey("space"))
         {
             Debug.Log(states.health);
-           states.Damage(1,0,0);
+            states.Damage(1, 0, 0);
         }
         switch (states.currentState())
         {
@@ -47,8 +48,8 @@ public class FlyingCharger : MonoBehaviour
                 StartCoroutine(Aiming());
                 break;
             case EnemyAIController.State.ATTACKING:
-                RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.up));
-
+                int layer_mask = LayerMask.GetMask("Walls");
+                RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.up) , layer_mask);
                 predLine(hitInfo);
 
 
@@ -66,13 +67,13 @@ public class FlyingCharger : MonoBehaviour
 
         if (predictionLine)
         {
-            lr.DrawLine(new Vector3(transform.position.x, transform.position.y, 1), new Vector3(hitInfo.point.x, hitInfo.point.y, 1));
+            lr.DrawLine(new Vector3(transform.position.x, transform.position.y, 1), hitInfo.point, this.transform);
             lr.enabled = false;
             predictionLine = false;
         }
         else
         {
-            lr.moveLine(new Vector3(transform.position.x, transform.position.y, 1), new Vector3(hitInfo.point.x, hitInfo.point.y, 1));
+            lr.moveLine(new Vector3(transform.position.x, transform.position.y, 1), hitInfo.point);
         }
         if (lr.enabled)
         {
@@ -147,6 +148,10 @@ public class FlyingCharger : MonoBehaviour
     void reset()
     {
         states.setState(0);
+        if (!lr.enabled)
+        {
+             lr.changeAlpha(true);
+        }
         movePos = false;
         attacked = true;
     }
@@ -158,8 +163,6 @@ public class FlyingCharger : MonoBehaviour
             rigid.velocity = Vector2.zero;
             rigid.angularVelocity = 0f;
             lr.enabled = false;
-            lr.changeSortingOrder(1);
-            lr.changeAlpha(true);
         }
     }
 }

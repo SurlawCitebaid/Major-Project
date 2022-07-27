@@ -20,7 +20,7 @@ public class RotatingLaserEnemyAI : MonoBehaviour
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.down));               
         if(!spawnLine)
         {
-            lr.DrawLine(transform.position, hitInfo.point);             //spawns the line
+            lr.DrawLine(transform.position, hitInfo.point, this.transform);             //spawns the line
             spawnLine = true;
         }
 

@@ -7,7 +7,7 @@ public class LineRendererController : MonoBehaviour
     public Material m_Material;
     private GameObject line;
     private LineRenderer lr;
-    public void DrawLine(Vector3 start, Vector3 end)
+    public void DrawLine(Vector3 start, Vector3 end, Transform parent)
     {
         line = new GameObject();
         line.transform.position = start;
@@ -21,6 +21,7 @@ public class LineRendererController : MonoBehaviour
         lr.SetPosition(0,start);
         lr.SetPosition(1, end);
         lr.sortingOrder = 8;
+        line.transform.parent = parent;
     }
     public void changeAlpha(bool num)
     {
@@ -49,7 +50,7 @@ public class LineRendererController : MonoBehaviour
     }
     public void destroyLine()
     {
-        Destroy(line);
+        lr.enabled = false;
     }
     public void destroyLineAfterPeriod(float time)
     {

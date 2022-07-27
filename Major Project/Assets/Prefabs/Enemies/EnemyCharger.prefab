@@ -181,9 +181,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultColour:
     serializedVersion: 2
-    rgba: 0
+    rgba: 4278190080
   enemy: {fileID: 11400000, guid: 43e3cc2d90bc69e439a9f7d56634fec3, type: 2}
   immune: 0
+  health: 0
 --- !u!114 &2907236684830940721
 MonoBehaviour:
   m_ObjectHideFlags: 0

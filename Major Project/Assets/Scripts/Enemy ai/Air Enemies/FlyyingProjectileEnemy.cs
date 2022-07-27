@@ -87,7 +87,7 @@ public class FlyyingProjectileEnemy : MonoBehaviour
 
             if (predictionLine)
             {
-                lr.DrawLine(new Vector3(transform.position.x, transform.position.y, 1), new Vector3(hitInfo.point.x, hitInfo.point.y, 1));
+                lr.DrawLine(new Vector3(transform.position.x, transform.position.y, 1), new Vector3(hitInfo.point.x, hitInfo.point.y, 1),this.transform);
                 predictionLine = false;                 //Line has higher z so its behind everything
             }
             if (!attacked) {
