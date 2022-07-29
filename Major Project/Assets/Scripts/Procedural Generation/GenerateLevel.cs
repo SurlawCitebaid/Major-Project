@@ -150,6 +150,7 @@ public class GenerateLevel : MonoBehaviour
                     room.fillRoomData();
                     rooms[x, y] = room;
                 }
+                //Boss room is bigger then the rest and represented by 2
                 else if (grid[x, y] == 2)
                 {
                     Vector2 roomPostion = new Vector2(x * maxRoomSize, y * maxRoomSize);

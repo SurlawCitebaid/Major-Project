@@ -394,6 +394,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2874412952309439000, guid: 2ce406a2b58aaf54d84a629899a03357, type: 3}
+      propertyPath: seed
+      value: 35857
+      objectReference: {fileID: 0}
+    - target: {fileID: 2874412952309439000, guid: 2ce406a2b58aaf54d84a629899a03357, type: 3}
       propertyPath: tiles.Array.data[0]
       value: 
       objectReference: {fileID: 1163382861}
