@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2874412952309439005
+--- !u!1 &632631579009480166
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2874412952309439007}
-  - component: {fileID: 2874412952309439000}
+  - component: {fileID: 632631579009480164}
+  - component: {fileID: 632631579009480163}
   m_Layer: 0
-  m_Name: Level Gen
+  m_Name: Level Gen 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2874412952309439007
+--- !u!4 &632631579009480164
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2874412952309439005}
+  m_GameObject: {fileID: 632631579009480166}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,19 +32,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2874412952309439000
+--- !u!114 &632631579009480163
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2874412952309439005}
+  m_GameObject: {fileID: 632631579009480166}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbae91adbe37aa44696ac5edfd13e62a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seed: 34534
+  seed: 5665
   maxRooms: 10
   gridSizeX: 20
   gridSizeY: 20
@@ -53,10 +53,11 @@ MonoBehaviour:
   maxNumberOfPlatforms: 5
   platformMaxSize: 50
   platformMinSize: 5
+  tileMap: {fileID: 0}
   tiles:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 8598353709655766633, guid: 437115ca5375da24bb2856584185f65d, type: 3}
+  - {fileID: 11400000, guid: f18a254a0e2386a40ad5731b63d97f21, type: 2}
+  - {fileID: 11400000, guid: ff0b9efbac69ac245b118293bdafde6a, type: 2}
+  - {fileID: 11400000, guid: 945c4b10920bc724a8aa14704a91e903, type: 2}
+  - {fileID: 11400000, guid: 1e3023b3f5f94fc4f8c921ca5f8dbe6f, type: 2}
+  - {fileID: 11400000, guid: 1e3023b3f5f94fc4f8c921ca5f8dbe6f, type: 2}
+  - {fileID: 11400000, guid: 4d82bd1aec82fdc49b7acd1736e9d292, type: 2}

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Room
 {
@@ -10,8 +11,10 @@ public class Room
     public int roomSizeY;
     int[,] roomGrid;
 
-    //Wall prefab
-    public List<GameObject> tiles;
+    //The tile map for tiles
+    Tilemap tileMap;
+    //Is a custom scripatable tile for the tile map
+    public List<TileBase> tiles;
 
     int maxNumberOfPlatforms;
     //The widest and narrowist a platform can be
@@ -33,12 +36,21 @@ public class Room
 
     int maxRoomSize;
 
-    public Room(Vector2 spawnPosition, int roomSizeX, int roomSizeY, List<GameObject> tiles, Transform parent, int maxNumberOfPlatforms, int maxPlatformSize, int minPlatformSize, int[,] levelLayoutGrid, int gridX, int gridY, GenerateLevel generateLevelScript)
+    List<Door> doors;
+
+    float detailChance;
+
+    public Room(Vector2 spawnPosition, int roomSizeX, int roomSizeY, List<TileBase> tiles, Transform parent, 
+        int maxNumberOfPlatforms, int maxPlatformSize, int minPlatformSize, int[,] levelLayoutGrid, int gridX, 
+        int gridY, GenerateLevel generateLevelScript, Tilemap tileMap, float detailChance)
     {
         this.spawnPosition = spawnPosition;
         this.roomSizeX = roomSizeX;
         this.roomSizeY = roomSizeY;
+
         this.tiles = tiles;
+        this.tileMap = tileMap;
+
         this.parent = parent;
         this.maxNumberOfPlatforms = maxNumberOfPlatforms;
         this.maxPlatformSize = maxPlatformSize;
@@ -50,6 +62,9 @@ public class Room
 
         this.generateLevelScript = generateLevelScript;
         maxRoomSize = generateLevelScript.getMaxRoomSize();
+        doors = new List<Door>();
+
+        this.detailChance = detailChance;
     }
 
     public void createRoom()
@@ -84,6 +99,8 @@ public class Room
     {
         //Add Doors
         placeCorridors();
+        //Place Details
+        placeDetails();
     }
 
     public void generateRoom()
@@ -95,32 +112,46 @@ public class Room
                 //Air/BackGround
                 if (roomGrid[x, y] == 0)
                 {
-                    GameObject.Instantiate(tiles[0], new Vector3(spawnPosition.x + (float)x, spawnPosition.y + (float)y), Quaternion.identity, parent);
+                    Vector3Int cell = tileMap.WorldToCell(new Vector3(spawnPosition.x + (float)x, spawnPosition.y + (float)y));
+                    tileMap.SetTile(cell, tiles[0]);
                 }
                 //Wall
                 else if (roomGrid[x, y] == 1)
                 {
-                    GameObject.Instantiate(tiles[1], new Vector3(spawnPosition.x + (float)x, spawnPosition.y + (float)y), Quaternion.identity, parent);
+                    //Convert it to tilemap position
+                    Vector3Int cell = tileMap.WorldToCell(new Vector3(spawnPosition.x + (float)x, spawnPosition.y + (float)y));
+                    tileMap.SetTile(cell, tiles[1]);
+                    //GameObject.Instantiate(tiles[1], new Vector3(spawnPosition.x + (float)x, spawnPosition.y + (float)y), Quaternion.identity, parent);
                 }
                 //Platform
                 else if (roomGrid[x, y] == 2)
                 {
-                    GameObject.Instantiate(tiles[2], new Vector3(spawnPosition.x + (float)x, spawnPosition.y + (float)y), Quaternion.identity, parent);
+                    Vector3Int cell = tileMap.WorldToCell(new Vector3(spawnPosition.x + (float)x, spawnPosition.y + (float)y));
+                    tileMap.SetTile(cell, tiles[2]);
                 }
                 //Item
                 else if (roomGrid[x, y] == 3)
                 {
-                    GameObject.Instantiate(tiles[3], new Vector3(spawnPosition.x + (float)x, spawnPosition.y + (float)y), Quaternion.identity, parent);
+                    Vector3Int cell = tileMap.WorldToCell(new Vector3(spawnPosition.x + (float)x, spawnPosition.y + (float)y));
+                    tileMap.SetTile(cell, tiles[3]);
                 }
-                //Door
-                else if (roomGrid[x, y] == 4)
-                {
-                    GameObject.Instantiate(tiles[0], new Vector3(spawnPosition.x + (float)x, spawnPosition.y + (float)y), Quaternion.identity, parent);
-                }
+                ////Door
+                //else if (roomGrid[x, y] == 4)
+                //{
+                //    Vector3Int cell = tileMap.WorldToCell(new Vector3(spawnPosition.x + (float)x, spawnPosition.y + (float)y));
+                //    tileMap.SetTile(cell, tiles[4]);
+                //}
                 //EnemySpawners
                 else if (roomGrid[x, y] == 5)
                 {
-                    GameObject.Instantiate(tiles[5], new Vector3(spawnPosition.x + (float)x, spawnPosition.y + (float)y), Quaternion.identity, parent);
+                    Vector3Int cell = tileMap.WorldToCell(new Vector3(spawnPosition.x + (float)x, spawnPosition.y + (float)y));
+                    tileMap.SetTile(cell, tiles[5]);
+                }
+                //Details
+                else if(roomGrid[x, y] == 6)
+                {
+                    Vector3Int cell = tileMap.WorldToCell(new Vector3(spawnPosition.x + (float)x, spawnPosition.y + (float)y));
+                    tileMap.SetTile(cell, tiles[6]);
                 }
             }
         }
@@ -143,7 +174,8 @@ public class Room
             for (int y = 0; y < roomSizeY; y++)
             {
                 //Adds a border around the room
-                if (x == 0 || x == roomSizeX - 1 || y == 0 || y == roomSizeY - 1)
+                if (x == 0 || x == roomSizeX - 1 || y == 0 || y == roomSizeY - 1 ||
+                    x == 1 || x == roomSizeX - 2 || y == 1 || y == roomSizeY - 2)
                     roomGrid[x, y] = 1;
             }
         }
@@ -210,7 +242,7 @@ public class Room
                 if (roomGrid[positionX, positionY] == 0 && roomGrid[positionX, positionY + 1] == 0 && roomGrid[positionX, positionY - 1] != 0)
                 {
                     //add item location to grid
-                    roomGrid[positionX, positionY] = 4;
+                    roomGrid[positionX, positionY] = 3;
                     itemPlaced = true;
                 }
 
@@ -221,6 +253,7 @@ public class Room
 
 
     }
+
 
     void placeCorridors()
     {
@@ -235,24 +268,31 @@ public class Room
             {
                 //Centre of neighbouir room X
                 int neighbourRoomCentreX = neighbourRoomXSize / 2;
-                for (int yCentre = roomSizeY - 1; yCentre < generateLevelScript.getMaxRoomSize(); yCentre++)
+                for (int yCentre = roomSizeY - 2; yCentre < roomSizeY; yCentre++)
                 {
                     roomGrid[neighbourRoomCentreX - 1, yCentre] = 1;
                     roomGrid[neighbourRoomCentreX, yCentre] = 0;
                     roomGrid[neighbourRoomCentreX + 1, yCentre] = 0;
                     roomGrid[neighbourRoomCentreX + 2, yCentre] = 1;
+
+                    
                 }
+
+                //Door
+                createDoor(neighbourRoomCentreX, roomSizeY - 2, doorType.Up);
             }
             //Neighbor room is Wider
             else
             {
-                for (int yCentre = roomSizeY - 1; yCentre < generateLevelScript.getMaxRoomSize(); yCentre++)
+                for (int yCentre = roomSizeY - 2; yCentre < roomSizeY; yCentre++)
                 {
                     roomGrid[roomSizeX / 2 - 1, yCentre] = 1;
                     roomGrid[roomSizeX / 2, yCentre] = 0;
                     roomGrid[roomSizeX / 2 + 1, yCentre] = 0;
                     roomGrid[roomSizeX / 2 + 2, yCentre] = 1;
                 }
+                //Door
+                createDoor(roomSizeX / 2, roomSizeY - 2, doorType.Up);
             }
         }
         //Down 
@@ -268,14 +308,29 @@ public class Room
                 roomGrid[neighbourRoomCentreX, 0] = 0;
                 roomGrid[neighbourRoomCentreX + 1, 0] = 0;
                 roomGrid[neighbourRoomCentreX + 2, 0] = 1;
+
+                //4 is doors
+                roomGrid[neighbourRoomCentreX - 1, 1] = 1;
+                //Door
+                createDoor(neighbourRoomCentreX, 0, doorType.Down);
+                roomGrid[neighbourRoomCentreX, 1] = 0;
+                roomGrid[neighbourRoomCentreX + 1, 1] = 0;
+                roomGrid[neighbourRoomCentreX + 2, 1] = 1;
             }
             //Neighbor room is Wider
             else
             {
+                //Do this twice as the wall is 2 thick
                 roomGrid[roomSizeX / 2 - 1, 0] = 1;
-                roomGrid[roomSizeX / 2, 0] = 0;
+                //Door
+                createDoor(roomSizeX / 2, 0, doorType.Down);
                 roomGrid[roomSizeX / 2 + 1, 0] = 0;
                 roomGrid[roomSizeX / 2 + 2, 0] = 1;
+
+                roomGrid[roomSizeX / 2 - 1, 1] = 1;
+                roomGrid[roomSizeX / 2, 1] = 0;
+                roomGrid[roomSizeX / 2 + 1, 1] = 0;
+                roomGrid[roomSizeX / 2 + 2, 1] = 1;
             }
         }
         //Left 
@@ -288,17 +343,30 @@ public class Room
                 //Centre of neighbouir room X
                 int neighbourRoomCentreY = neighbourRoomYSize / 2;
                 roomGrid[0, neighbourRoomCentreY - 1] = 1;
-                roomGrid[0, neighbourRoomCentreY] = 0;
+                //Door
+                createDoor(0, neighbourRoomCentreY, doorType.Left);
                 roomGrid[0, neighbourRoomCentreY + 1] = 0;
                 roomGrid[0, neighbourRoomCentreY + 2] = 1;
+
+                roomGrid[1, neighbourRoomCentreY - 1] = 1;
+                roomGrid[1, neighbourRoomCentreY] = 0;
+                roomGrid[1, neighbourRoomCentreY + 1] = 0;
+                roomGrid[1, neighbourRoomCentreY + 2] = 1;
             }
             //Neighbor room is Wider
             else
             {
                 roomGrid[0, roomSizeY / 2 - 1] = 1;
-                roomGrid[0, roomSizeY / 2] = 0;
+                //Door
+                createDoor(0, roomSizeY / 2, doorType.Left);
+                roomGrid[0, roomSizeY / 2] = 4;
                 roomGrid[0, roomSizeY / 2 + 1] = 0;
                 roomGrid[0, roomSizeY / 2 + 2] = 1;
+
+                roomGrid[1, roomSizeY / 2 - 1] = 1;           
+                roomGrid[1, roomSizeY / 2] = 0;
+                roomGrid[1, roomSizeY / 2 + 1] = 0;
+                roomGrid[1, roomSizeY / 2 + 2] = 1;
             }
         }
         //Right 
@@ -310,27 +378,46 @@ public class Room
             {
                 //Centre of neighbouir room X
                 int neighbourRoomCentreY = neighbourRoomYSize / 2;
-                for (int xCentre = roomSizeX - 1; xCentre < generateLevelScript.getMaxRoomSize(); xCentre++)
+                for (int xCentre = roomSizeX - 2; xCentre < roomSizeX; xCentre++)
                 {
                     roomGrid[xCentre, neighbourRoomCentreY - 1] = 1;
                     roomGrid[xCentre, neighbourRoomCentreY] = 0;
                     roomGrid[xCentre, neighbourRoomCentreY + 1] = 0;
                     roomGrid[xCentre, neighbourRoomCentreY + 2] = 1;
+
                 }
+                //Door
+                createDoor(roomSizeX - 2, neighbourRoomCentreY, doorType.Right);
             }
             //Neighbor room is Wider
             else
             {
                 int neighbourRoomCentreY = neighbourRoomYSize / 2;
-                for (int xCentre = roomSizeX - 1; xCentre < generateLevelScript.getMaxRoomSize(); xCentre++)
+                for (int xCentre = roomSizeX - 2; xCentre < roomSizeX; xCentre++)
                 {
                     roomGrid[xCentre, roomSizeY/2 - 1] = 1;
                     roomGrid[xCentre, roomSizeY / 2] = 0;
                     roomGrid[xCentre, roomSizeY / 2 + 1] = 0;
                     roomGrid[xCentre, roomSizeY / 2 + 2] = 1;
+
                 }
+                //Door
+                createDoor(roomSizeX - 2, roomSizeY / 2, doorType.Right);
             }
         }
+    }
+
+    //Helper function for creating doors
+    void createDoor(int xPos, int yPos, doorType direction)
+    {
+        roomGrid[xPos, yPos] = 4;
+        Vector3Int cell = tileMap.WorldToCell(new Vector3(spawnPosition.x + (float)xPos, spawnPosition.y + (float)yPos));
+        tileMap.SetTile(cell, tiles[4]);
+        //Get the game object attached to the tile that is created
+        Door door = tileMap.GetInstantiatedObject(cell).GetComponent<Door>();
+        //Gets the grid value
+        door.setDoor(direction, (int)spawnPosition.x/maxRoomSize, (int)spawnPosition.y/ maxRoomSize);
+        doors.Add(door);
     }
 
     void placeSpawners()
@@ -354,6 +441,23 @@ public class Room
         }
     }
 
+    //Rocks, Bushes, Flowers ID 6
+    void placeDetails()
+    {
+        int aboveGroundHeight = 2;
+        //Ground Details
+        for(int x = 0; x < roomSizeX-1; x++)
+        {
+            //If the chance is met and there is an empty air block above the ground
+            if (Random.Range(0f,1f) < detailChance && roomGrid[x,aboveGroundHeight] == 0 && roomGrid[x, aboveGroundHeight-1] == 1)
+            {
+                roomGrid[x, aboveGroundHeight] = 6;
+                Debug.Log("Details Placed");
+            }
+        }
+        //Ceiling Details
+    }
+
     public int getRoomSizeX()
     {
         return roomSizeX;
@@ -362,8 +466,9 @@ public class Room
     {
         return roomSizeY;
     }
-    public void getDoorPostions()
-    {
 
+    public List<Door> getDoors()
+    {
+        return doors;
     }
 }

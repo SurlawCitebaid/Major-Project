@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class GenerateLevel : MonoBehaviour
 {
     [SerializeField]
+    bool randomSeed;
+    [SerializeField]
     int seed;
 
-    [Header("Room Settings")]
+    [Header("Rooms")]
     [SerializeField]
     int maxRooms;
     [SerializeField]
@@ -18,8 +21,16 @@ public class GenerateLevel : MonoBehaviour
     int maxRoomSize;
     [SerializeField]
     int minRoomSize;
+    
+    [SerializeField]
+    [Range(0, 1)]
+    float roomDescalerX = 0.75f;
+    [SerializeField]
+    [Tooltip("Having Y lower then X will cause more rectangular rooms")]
+    [Range(0,1)]
+    float roomDescalerY = 0.75f;
 
-    [Header("Platform Settings")]
+    [Header("Platforms")]
     [SerializeField]
     int maxNumberOfPlatforms;
     [SerializeField]
@@ -27,18 +38,30 @@ public class GenerateLevel : MonoBehaviour
     [SerializeField]
     int platformMinSize;
 
+    [Header("Details")]
+    [SerializeField]
+    [Range(0, 1)]
+    float detailSpawnChance;
+
     int[,] grid;
-    Room[,] rooms;
+    public static Room[,] rooms;
 
     [Header("Tile Assets")]
     [SerializeField]
-    List<GameObject> tiles;
+    public Tilemap tileMap;
+    [SerializeField]
+    List<TileBase> tiles;
     // Start is called before the first frame update
     void Start()
     {
         grid = new int[gridSizeX,gridSizeY];
         rooms = new Room[gridSizeX,gridSizeY];
-        Random.seed = seed;
+
+        if (!randomSeed)
+        {
+            Random.seed = seed;
+        }
+        
 
         populateGrid();
         placeRooms();
@@ -140,12 +163,14 @@ public class GenerateLevel : MonoBehaviour
                 if(grid[x,y] == 1)
                 {
                     //So that it is smaller then the boss room
-                    float roomDescaler = 0.75f;
+                    float roomDescalerX = 0.75f;
                     Vector2 roomPostion = new Vector2(x * maxRoomSize, y * maxRoomSize);
                     //So we can have random room sizes
-                    int randomRoomSizeX = Random.Range(minRoomSize, Mathf.FloorToInt(maxRoomSize * roomDescaler));
-                    int randomRoomSizeY = Random.Range(minRoomSize, Mathf.FloorToInt(maxRoomSize * roomDescaler));
-                    Room room = new Room(roomPostion,randomRoomSizeX, randomRoomSizeY, tiles, transform, maxNumberOfPlatforms, platformMaxSize, platformMinSize, grid, x, y, this);
+                    int randomRoomSizeX = Random.Range(minRoomSize, Mathf.FloorToInt(maxRoomSize * roomDescalerX));
+                    int randomRoomSizeY = Random.Range(minRoomSize, Mathf.FloorToInt(maxRoomSize * roomDescalerY));
+                    //Wall is a scriptable tile
+                    Room room = new Room(roomPostion,randomRoomSizeX, randomRoomSizeY, tiles, transform, maxNumberOfPlatforms, 
+                        platformMaxSize, platformMinSize, grid, x, y, this, tileMap, detailSpawnChance);
                     room.createRoom();
                     room.fillRoomData();
                     rooms[x, y] = room;
@@ -157,7 +182,8 @@ public class GenerateLevel : MonoBehaviour
                     //So we can have random room sizes
                     int randomRoomSizeX = maxRoomSize;
                     int randomRoomSizeY = maxRoomSize;
-                    Room room = new Room(roomPostion, randomRoomSizeX, randomRoomSizeY, tiles, transform, maxNumberOfPlatforms, platformMaxSize, platformMinSize, grid, x, y, this);
+                    Room room = new Room(roomPostion, randomRoomSizeX, randomRoomSizeY, tiles, transform, maxNumberOfPlatforms,
+                        platformMaxSize, platformMinSize, grid, x, y, this, tileMap, detailSpawnChance);
                     room.createRoom();
                     room.fillRoomData();
                     rooms[x, y] = room;
