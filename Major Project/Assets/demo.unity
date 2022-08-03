@@ -1161,7 +1161,7 @@ MonoBehaviour:
   m_FrontDetection: {fileID: 537330926}
   m_BottomDetection: {fileID: 1417547945}
   m_TopDetection: {fileID: 1043434481}
-  m_WallFriction: 1
+  m_WallFriction: 0
   m_WallGrabDuration: 2
 --- !u!114 &1550791143
 MonoBehaviour:
