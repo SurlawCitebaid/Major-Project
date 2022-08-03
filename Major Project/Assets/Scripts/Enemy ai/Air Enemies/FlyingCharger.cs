@@ -6,7 +6,6 @@ public class FlyingCharger : MonoBehaviour
 {
     //0:MOVING 1:CHASE 2:AIMING 3:ATTACKING 4:COOLDOWN 5:STUNNED
     [SerializeField] float flightSpeed = .5f;
-    [SerializeField] int field=0;
     private LineRendererController lr;
     private EnemyAIController states;
     private Quaternion originalRot;
