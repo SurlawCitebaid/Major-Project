@@ -181,7 +181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultColour:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 4278255360
   enemy: {fileID: 11400000, guid: 43e3cc2d90bc69e439a9f7d56634fec3, type: 2}
   immune: 0
   health: 0

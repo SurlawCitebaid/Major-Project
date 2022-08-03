@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAIController : MonoBehaviour
+public class EnemyAiController : MonoBehaviour
 {
     public enum State { MOVING, CHASE, AIMING, ATTACKING, COOLDOWN, STUNNED };
 
@@ -20,7 +20,6 @@ public class EnemyAIController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 
-        
         health = enemy.health;
         sr = GetComponent<SpriteRenderer>();
         sr.color = defaultColour;
@@ -60,12 +59,6 @@ public class EnemyAIController : MonoBehaviour
 
         setState(0);
     }
-    public IEnumerator damageIndicator(SpriteRenderer sprite, Color32 originalColor)
-    {
-        sprite.color = Color.red;
-        yield return new WaitForSeconds(0.5f);
-        sprite.color = originalColor;
-    }
     public IEnumerator CooldownAttack(float cooldownTime, int newStateIndex)
     {
         setState(4);//COOLDOWN
@@ -84,11 +77,8 @@ public class EnemyAIController : MonoBehaviour
 
         Debug.Log("Hit for " + damageAmount);
         health -= (int)damageAmount;//damageAmount may be changed to int
-        if (knockbackForce != 0)
-        {
-            Knockback(knockbackForce, knockbackDirection);
-        }
-        StartCoroutine(damageIndicator(sr, defaultColour));
+        Knockback(knockbackForce, knockbackDirection);
+        StartCoroutine(HitFlash(sr, defaultColour));
 
         if (health < 0)
             Die();

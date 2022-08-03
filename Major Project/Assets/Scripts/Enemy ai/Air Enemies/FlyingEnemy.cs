@@ -7,7 +7,7 @@ public class FlyingEnemy : MonoBehaviour
     private float thrust = 14f, speed = 5f, attackRange = 14f, flightHeight, yPos, angle;
     private bool attacked = false, predictionLine = true;
     private LineRendererController lr;
-    private EnemyAIController states;
+    private EnemyAiController states;
     private Rigidbody2D rigid;
     private GameObject player;
     private Quaternion x;
@@ -15,7 +15,7 @@ public class FlyingEnemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        states = GetComponent<EnemyAIController>();
+        states = GetComponent<EnemyAiController>();
         lr = GetComponent<LineRendererController>();
         rigid = GetComponent<Rigidbody2D>();
         x = transform.rotation;
@@ -29,7 +29,7 @@ public class FlyingEnemy : MonoBehaviour
     {
         switch(states.currentState())
         {
-            case EnemyAIController.State.MOVING:
+            case EnemyAiController.State.MOVING:
                 if (yPos <= player.transform.position.y)
                 {
                     rePosition();
@@ -39,7 +39,7 @@ public class FlyingEnemy : MonoBehaviour
                     states.setState(1);
                 }
                 break;
-            case EnemyAIController.State.CHASE:
+            case EnemyAiController.State.CHASE:
                 float dist = Mathf.Abs(transform.position.x - player.transform.position.x);
                 if (dist > attackRange)
                 {
@@ -50,10 +50,10 @@ public class FlyingEnemy : MonoBehaviour
                     states.setState(2);
                 }
                 break;
-            case EnemyAIController.State.AIMING:
+            case EnemyAiController.State.AIMING:
                 aimAttack();
                 break;
-            case EnemyAIController.State.ATTACKING:
+            case EnemyAiController.State.ATTACKING:
                 RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.up));
                 if (predictionLine)
                 {
@@ -64,10 +64,10 @@ public class FlyingEnemy : MonoBehaviour
                 lr.updateStartPoint(new Vector3(transform.position.x, transform.position.y, 1));
                 Invoke("attack", 1f);
                 break;
-            case EnemyAIController.State.COOLDOWN:
+            case EnemyAiController.State.COOLDOWN:
                 Invoke("reset", 1f);
                 break;
-            case EnemyAIController.State.STUNNED:
+            case EnemyAiController.State.STUNNED:
                 break;
         }
     }

@@ -7,7 +7,7 @@ public class FlyyingProjectileEnemy : MonoBehaviour
     private float speed = 5f, attackRange = 14f, flightHeight, angle;
     private bool attacked = false, predictionLine = true;
     private LineRendererController lr;
-    private EnemyAIController states;
+    private EnemyAiController states;
     private Rigidbody2D rigid;
     private GameObject player;
     [SerializeField] private Transform projectile;
@@ -17,7 +17,7 @@ public class FlyyingProjectileEnemy : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         lr = GetComponent<LineRendererController>();
-        states = GetComponent<EnemyAIController>();
+        states = GetComponent<EnemyAiController>();
         flightHeight = Random.Range(1f, 9f);
         states.setState(1);
     }
@@ -27,7 +27,7 @@ public class FlyyingProjectileEnemy : MonoBehaviour
     {
         switch (states.currentState())
         {
-            case EnemyAIController.State.CHASE:
+            case EnemyAiController.State.CHASE:
                 float dist = Mathf.Abs(transform.position.x - player.transform.position.x);
                 if (dist > attackRange)
                 {
@@ -40,7 +40,7 @@ public class FlyyingProjectileEnemy : MonoBehaviour
                     states.setState(2);
                 }
                 break;
-            case EnemyAIController.State.AIMING:
+            case EnemyAiController.State.AIMING:
                 aimAttack();
                 Debug.Log("AIM");
                 break;

@@ -7,7 +7,7 @@ public class FlyingCharger : MonoBehaviour
     //0:MOVING 1:CHASE 2:AIMING 3:ATTACKING 4:COOLDOWN 5:STUNNED
     [SerializeField] float flightSpeed = .5f;
     private LineRendererController lr;
-    private EnemyAIController states;
+    private EnemyAiController states;
     private Quaternion originalRot;
     private GameObject player;
     private Rigidbody2D rigid;
@@ -16,7 +16,7 @@ public class FlyingCharger : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         lr = GetComponent<LineRendererController>();
-        states = GetComponent<EnemyAIController>();
+        states = GetComponent<EnemyAiController>();
         rigid = GetComponent<Rigidbody2D>();
         originalRot = transform.rotation;
     }
@@ -31,7 +31,7 @@ public class FlyingCharger : MonoBehaviour
         }
         switch (states.currentState())
         {
-            case EnemyAIController.State.MOVING:
+            case EnemyAiController.State.MOVING:
                 float dist = Vector3.Distance(transform.position, player.transform.position);
                 if (dist > states.enemy.attack.range)
                 {
@@ -43,10 +43,10 @@ public class FlyingCharger : MonoBehaviour
                     Invoke("setStateAiming",1f);
                 }
                 break;
-            case EnemyAIController.State.AIMING:
+            case EnemyAiController.State.AIMING:
                 StartCoroutine(Aiming());
                 break;
-            case EnemyAIController.State.ATTACKING:
+            case EnemyAiController.State.ATTACKING:
                 int layer_mask = LayerMask.GetMask("Walls");
                 RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.up) , layer_mask);
                 predLine(hitInfo);
@@ -54,10 +54,10 @@ public class FlyingCharger : MonoBehaviour
 
                 Invoke("attack",1f);
                 break;
-            case EnemyAIController.State.COOLDOWN:
+            case EnemyAiController.State.COOLDOWN:
                 reset();
                 break;
-            case EnemyAIController.State.STUNNED:
+            case EnemyAiController.State.STUNNED:
                 break;
         }
     }

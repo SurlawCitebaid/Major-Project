@@ -28,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 188282402990007035}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.65, y: -2.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -150,9 +150,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultColour:
     serializedVersion: 2
-    rgba: 0
+    rgba: 4294901760
   enemy: {fileID: 11400000, guid: 2eb419e7cb2fe6344b791c242d5883fe, type: 2}
   immune: 0
+  health: 0
 --- !u!114 &188282402990007038
 MonoBehaviour:
   m_ObjectHideFlags: 0

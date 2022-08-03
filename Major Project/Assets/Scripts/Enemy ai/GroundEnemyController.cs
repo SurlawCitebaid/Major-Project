@@ -6,7 +6,7 @@ public class GroundEnemyController : MonoBehaviour
 {
 
 
-    EnemyAIController states;
+    EnemyAiController states;
     //0:MOVING 1:CHASE 2:AIMING 3:ATTACKING 4:COOLDOWN 5:STUNNED
     GameObject player;
 
@@ -21,16 +21,8 @@ public class GroundEnemyController : MonoBehaviour
 
 
     private void Awake() {
-
-
-        states = GetComponent<EnemyAIController>();
+        states = GetComponent<EnemyAiController>();
         player = GameObject.FindGameObjectWithTag("Player");
-
-
-
-
-
-
     }
 
     // Update is called once per frame
@@ -41,18 +33,18 @@ public class GroundEnemyController : MonoBehaviour
 
         if (isGrounded){
             switch(states.currentState()){
-                case EnemyAIController.State.MOVING:
+                case EnemyAiController.State.MOVING:
                     MoveEnemy(states.enemy.moveSpeed);
                     break;
-                case EnemyAIController.State.CHASE:
+                case EnemyAiController.State.CHASE:
                     break;
-                case EnemyAIController.State.AIMING:
+                case EnemyAiController.State.AIMING:
                     break;
-                case EnemyAIController.State.ATTACKING:
+                case EnemyAiController.State.ATTACKING:
                     break;
-                case EnemyAIController.State.COOLDOWN:
+                case EnemyAiController.State.COOLDOWN:
                     break;
-                case EnemyAIController.State.STUNNED:
+                case EnemyAiController.State.STUNNED:
                     MoveEnemy(states.enemy.stunSpeed);
                     break;
             }
@@ -88,7 +80,7 @@ public class GroundEnemyController : MonoBehaviour
         states.setState(2);
 
         float timePassed = 0;
-        while (timePassed < 2f && states.currentState() == EnemyAIController.State.AIMING){
+        while (timePassed < 2f && states.currentState() == EnemyAiController.State.AIMING){
             if (distance.magnitude > states.enemy.attack.maxRange){
                 //too far away
                 break;

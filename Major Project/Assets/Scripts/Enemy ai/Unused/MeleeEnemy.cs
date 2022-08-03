@@ -5,7 +5,7 @@ using UnityEngine;
 public class MeleeEnemy : MonoBehaviour
 {
     [SerializeField] EnemyScriptableObject enemy;
-    EnemyAIController states;
+    EnemyAiController states;
     //0:MOVING 1:CHASE 2:AIMING 3:ATTACKING 4:COOLDOWN 5:STUNNED
     GameObject player;
     Vector2 distance; //distance from the player
@@ -15,7 +15,7 @@ public class MeleeEnemy : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        states = GetComponent<EnemyAIController>();
+        states = GetComponent<EnemyAiController>();
         player = GameObject.FindGameObjectWithTag("Player");
 
         GetComponent<SpriteRenderer>().sprite = enemy.sprite;
@@ -28,18 +28,18 @@ public class MeleeEnemy : MonoBehaviour
         distance = new Vector2(player.transform.position.x - gameObject.transform.position.x, 0); //track the distance from the player
 
         switch(states.currentState()){
-            case EnemyAIController.State.MOVING:
+            case EnemyAiController.State.MOVING:
                 MoveEnemy(enemy.moveSpeed);
                 break;
-            case EnemyAIController.State.CHASE:
+            case EnemyAiController.State.CHASE:
                 break;
-            case EnemyAIController.State.AIMING:
+            case EnemyAiController.State.AIMING:
                 break;
-            case EnemyAIController.State.ATTACKING:
+            case EnemyAiController.State.ATTACKING:
                 break;
-            case EnemyAIController.State.COOLDOWN:
+            case EnemyAiController.State.COOLDOWN:
                 break;
-            case EnemyAIController.State.STUNNED:
+            case EnemyAiController.State.STUNNED:
                 MoveEnemy(enemy.stunSpeed);
                 break;
         }
