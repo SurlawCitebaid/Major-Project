@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 5428061368323000934}
   - component: {fileID: 5428061368323000935}
   - component: {fileID: 5428061368323000932}
-  m_Layer: 2
+  m_Layer: 8
   m_Name: FlyingCharger
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -141,7 +141,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flightSpeed: 0.5
-  field: 0
 --- !u!114 &5428061368323000935
 MonoBehaviour:
   m_ObjectHideFlags: 0
