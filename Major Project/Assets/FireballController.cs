@@ -6,24 +6,15 @@ public class FireballController : MonoBehaviour {
     public enum State { CASTING, FIRING };
     public State state { get; private set; }
 
-    private Rigidbody2D rb;
     private ParticleSystem ps;
-    [SerializeField] private TrailRenderer trail;
-    private Vector3 offset;
 
     private float castTime;
     private float projectileSpeed;
     private float attackDir;
 
     private void Start() {
-        rb = this.gameObject.GetComponent<Rigidbody2D>();
         ps = this.gameObject.GetComponent<ParticleSystem>();
         state = State.CASTING;
-        offset = this.gameObject.transform.position;
-    }
-
-    private void Update() {
-        this.gameObject.transform.position = this.gameObject.transform.parent.position + offset;
     }
 
     public void Create(float _castTime, float _projectileSpeed, float _attackDir) {
@@ -36,12 +27,10 @@ public class FireballController : MonoBehaviour {
     private IEnumerator Fire(float delay) {
         yield return new WaitForSeconds(delay);
         state = State.FIRING;
+        Rigidbody2D rb = this.gameObject.AddComponent<Rigidbody2D>();
+        rb.gravityScale = 0;
         rb.velocity = Vector2.right * attackDir * projectileSpeed;
         this.gameObject.transform.parent = null;
-        UpdateParticleSystem();
-    }
-
-    private void UpdateParticleSystem() {
-        
+        ps.subEmitters.AddSubEmitter(this.gameObject.GetComponentInChildren<ParticleSystem>(), ParticleSystemSubEmitterType.Birth, ParticleSystemSubEmitterProperties.InheritNothing);
     }
 }
