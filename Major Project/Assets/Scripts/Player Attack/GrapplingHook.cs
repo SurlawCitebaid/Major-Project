@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class GrapplingHook : MonoBehaviour {
     private const float MIN_HOOK_DISTANCE = 0.6f;
 
-    private Camera cam;
+    [SerializeField] private Camera cam;
+
     private DistanceJoint2D dj;
 
     private enum GrappleMode { PULL, SWING };
@@ -22,10 +23,6 @@ public class GrapplingHook : MonoBehaviour {
 
     private Vector3 hookPos;
     private Transform hookObj;
-
-    private void Awake() {
-        cam = Camera.main;
-    }
 
     private void Start() {
         grapple_mode = GrappleMode.PULL;
@@ -50,7 +47,7 @@ public class GrapplingHook : MonoBehaviour {
         }
 
         if (dj ?? true) {
-            if (!this.gameObject.GetComponent<PlayerMovement>().isGrounded) {
+            if (!this.gameObject.GetComponent<movement_Mario>().getGrounded()) {
                 if (Input.mouseScrollDelta.y < 0) {
                     dj.distance += hookClimbSpeed;
                 }
@@ -65,6 +62,9 @@ public class GrapplingHook : MonoBehaviour {
     }
 
     private void UpdateGrappleGUI() {
+        if (grapple_mode_gui == null)
+            return;
+
         if (grapple_mode == GrappleMode.PULL)
             grapple_mode_gui.GetComponent<Image>().sprite = grapple_mode_pull_sprite;
 

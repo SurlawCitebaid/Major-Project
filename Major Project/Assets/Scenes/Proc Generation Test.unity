@@ -273,6 +273,7 @@ GameObject:
   - component: {fileID: 678126109}
   - component: {fileID: 678126108}
   - component: {fileID: 678126115}
+  - component: {fileID: 678126116}
   m_Layer: 7
   m_Name: player
   m_TagString: Player
@@ -460,13 +461,12 @@ Transform:
   m_GameObject: {fileID: 678126107}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.15, y: 6.69, z: 0}
-  m_LocalScale: {x: 0.5495, y: 0.5282, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 818129533}
   - {fileID: 1576721539}
   - {fileID: 1587611862}
-  - {fileID: 1474541669}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -482,14 +482,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f452df14850d704aa851f751d7a57ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 1474541671}
   grapple_mode_gui: {fileID: 0}
   grapple_mode_pull_sprite: {fileID: 0}
   grapple_mode_swing_sprite: {fileID: 0}
   lm_walls:
     serializedVersion: 2
     m_Bits: 1536
-  hook: {fileID: 0}
-  hookClimbSpeed: 0
+  hook: {fileID: 4857735093305100375, guid: 73f81f0a285bbd344933c2ab7ba7bd22, type: 3}
+  hookClimbSpeed: 1
+--- !u!114 &678126116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678126107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad05e1567dfdca14987ab666b3d60e1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon: 0
+  cam: {fileID: 1474541671}
+  lm_enemies:
+    serializedVersion: 2
+    m_Bits: 256
+  pfSwordSlash: {fileID: 6596137238538120483, guid: af488dacb9c4d8b49bfdf3475abc0281, type: 3}
+  attackDuration: 0.5
+  attackRange: 2
+  attackDamage: 5
+  pfFireball: {fileID: 5559782725964706461, guid: ce0d0d891a59d6c489d3949a955bf4bd, type: 3}
+  projectileSpeed: 10
+  castTime: 1
 --- !u!1 &818129532
 GameObject:
   m_ObjectHideFlags: 0
@@ -811,6 +836,7 @@ GameObject:
   - component: {fileID: 1474541669}
   - component: {fileID: 1474541671}
   - component: {fileID: 1474541670}
+  - component: {fileID: 1474541672}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -825,13 +851,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1474541668}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 4.15, y: 6.69, z: -10}
+  m_LocalScale: {x: 0.5495, y: 0.5282, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 678126114}
-  m_RootOrder: 3
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!81 &1474541670
 AudioListener:
@@ -884,6 +910,20 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &1474541672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474541668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 375297fc4085dd4499142c44f8c8c1ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 678126114}
+  lerpSpeed: 0.075
 --- !u!1 &1576721538
 GameObject:
   m_ObjectHideFlags: 0

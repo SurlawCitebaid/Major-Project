@@ -11,7 +11,7 @@ public class PlayerAttack : MonoBehaviour {
     private float attackDir;
     private bool canAttack = true;
 
-    private Camera cam;
+    [SerializeField] private Camera cam;
 
     [SerializeField] private LayerMask lm_enemies;
 
@@ -27,10 +27,6 @@ public class PlayerAttack : MonoBehaviour {
     [SerializeField] private Transform pfFireball;
     [SerializeField] private float projectileSpeed = 10f;
     [SerializeField] private float castTime = 1f;
-
-    private void Awake() {
-        cam = Camera.main;
-    }
 
     private void Update() {
         if (Input.GetMouseButton(0)) {
@@ -61,9 +57,9 @@ public class PlayerAttack : MonoBehaviour {
         if (cam.ScreenToWorldPoint(Input.mousePosition).x < this.gameObject.transform.position.x)
             attackDir = -1f;
 
-        attackLocation = new Vector3(this.gameObject.transform.position.x + attackDir * 0.5f, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
-        Transform swordSlash = Instantiate(pfSwordSlash, attackLocation + new Vector3(attackDir, 0, 0), Quaternion.identity, this.gameObject.transform);
-        swordSlash.localScale = new Vector3(1 * attackDir, 1, 1);
+        attackLocation = new Vector3(this.gameObject.transform.position.x - attackDir * 0.5f, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
+        Transform swordSlash = Instantiate(pfSwordSlash, attackLocation + new Vector3(-attackDir, 0, 0), Quaternion.identity, null); //this.gameObject.transform
+        swordSlash.localScale = new Vector3(1 * -attackDir, 1, 1);
 
         Collider2D[] hits = Physics2D.OverlapAreaAll(attackLocation, new Vector2(attackLocation.x + attackRange * attackDir, 0), lm_enemies);
         foreach (Collider2D enemy in hits) {
