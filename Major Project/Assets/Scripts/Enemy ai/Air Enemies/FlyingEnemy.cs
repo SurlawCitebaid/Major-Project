@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FlyingEnemy : MonoBehaviour
 {
-    private float thrust = 14f, speed = 5f, attackRange = 14f, flightHeight, yPos, angle;
+    private float speed = 5f, attackRange = 14f, flightHeight, yPos, angle;
     private bool attacked = false, predictionLine = true;
     private LineRendererController lr;
     private EnemyAiController states;

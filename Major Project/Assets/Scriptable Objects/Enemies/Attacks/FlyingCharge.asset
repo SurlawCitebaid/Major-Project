@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FlyingCharge
   m_EditorClassIdentifier: 
   damage: 1
-  range: 10
+  range: 8
   maxRange: 0
   minRange: 0
   cooldownTime: 2

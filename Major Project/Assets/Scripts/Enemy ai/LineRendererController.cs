@@ -20,7 +20,7 @@ public class LineRendererController : MonoBehaviour
         lr.endWidth =0.1f ;
         lr.SetPosition(0,start);
         lr.SetPosition(1, end);
-        lr.sortingOrder = 8;
+        lr.sortingOrder = 1;
         line.transform.parent = parent;
     }
     public void changeAlpha(bool num)

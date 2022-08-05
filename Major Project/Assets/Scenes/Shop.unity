@@ -418,7 +418,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Buy
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -787,7 +787,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Shop
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -959,6 +959,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: shopPanel (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 2442144328521069897, guid: 26b7be5a89f16804b9c2c3d38f296e34, type: 3}
+      propertyPath: m_text
+      value: INFO
+      objectReference: {fileID: 0}
+    - target: {fileID: 2442144328521069897, guid: 26b7be5a89f16804b9c2c3d38f296e34, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26b7be5a89f16804b9c2c3d38f296e34, type: 3}
 --- !u!224 &1243400865 stripped
@@ -1024,7 +1032,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: 3/3
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1196,6 +1204,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: shopPanel (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2442144328521069897, guid: 26b7be5a89f16804b9c2c3d38f296e34, type: 3}
+      propertyPath: m_text
+      value: INFO
+      objectReference: {fileID: 0}
+    - target: {fileID: 2442144328521069897, guid: 26b7be5a89f16804b9c2c3d38f296e34, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26b7be5a89f16804b9c2c3d38f296e34, type: 3}
 --- !u!1001 &1525863178
@@ -1292,6 +1308,14 @@ PrefabInstance:
     - target: {fileID: 2442144326985843503, guid: 26b7be5a89f16804b9c2c3d38f296e34, type: 3}
       propertyPath: m_Name
       value: shopPanel (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2442144328521069897, guid: 26b7be5a89f16804b9c2c3d38f296e34, type: 3}
+      propertyPath: m_text
+      value: INFO
+      objectReference: {fileID: 0}
+    - target: {fileID: 2442144328521069897, guid: 26b7be5a89f16804b9c2c3d38f296e34, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26b7be5a89f16804b9c2c3d38f296e34, type: 3}
@@ -1836,7 +1860,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Loadout
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2141,6 +2165,14 @@ PrefabInstance:
     - target: {fileID: 2442144326985843503, guid: 26b7be5a89f16804b9c2c3d38f296e34, type: 3}
       propertyPath: m_Name
       value: shopPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 2442144328521069897, guid: 26b7be5a89f16804b9c2c3d38f296e34, type: 3}
+      propertyPath: m_text
+      value: INFO
+      objectReference: {fileID: 0}
+    - target: {fileID: 2442144328521069897, guid: 26b7be5a89f16804b9c2c3d38f296e34, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26b7be5a89f16804b9c2c3d38f296e34, type: 3}
