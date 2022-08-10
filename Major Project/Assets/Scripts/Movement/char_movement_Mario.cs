@@ -8,7 +8,7 @@ public class char_movement_Mario : MonoBehaviour
     public Animator animator;
     float move_horizontal = 0f;
     bool jump = false;
-    bool isGrounded, canCharge;
+    bool isGrounded, isTouchingWall, canCharge;
     bool crouch = false;
     bool dash = false;
     float jumpDuration;
@@ -18,6 +18,7 @@ public class char_movement_Mario : MonoBehaviour
     {
         move_horizontal = Input.GetAxisRaw("Horizontal");
         isGrounded = controller.getGrounded();
+        isTouchingWall = controller.getTouchingWall();
         if (isGrounded)
         {
             canCharge = true;
@@ -25,10 +26,15 @@ public class char_movement_Mario : MonoBehaviour
         //animator.SetFloat("Speed", Mathf.Abs(move_horizontal));    // link movement speed to animator speed parameter
         if (Input.GetButtonDown("Jump"))
         {
-            controller.addJumpCount();
-            jumpDuration = controller.getJumpDuration();
-            controller.Jump();
-            jump = true;
+            if (!isGrounded && isTouchingWall && move_horizontal != 0)
+            {
+                controller.WallJump();
+            } else {
+                controller.addJumpCount();
+                jumpDuration = controller.getJumpDuration();
+                controller.Jump();
+                jump = true;
+            }
         }
         // keep adding force midair until time out or key released
         if((Input.GetButton("Jump")) && jump && canCharge)

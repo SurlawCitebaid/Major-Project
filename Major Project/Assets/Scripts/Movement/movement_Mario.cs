@@ -49,6 +49,7 @@ public class movement_Mario : MonoBehaviour
 	private bool isGrounded, isTouchingWall, canGrab;
 	private Rigidbody2D m_Rigidbody2D;
 	private bool m_isFacingRight = true;
+	private bool isWallJumping = false;
 	private Vector3 m_Velocity = Vector3.zero;
 	private float speed;
 	private float gravity;
@@ -74,9 +75,10 @@ public class movement_Mario : MonoBehaviour
 				jumpCount = 0;
 			}
 		}
-		if (isTouchingWall && !isGrounded && speed != 0)
+		if (isTouchingWall && !isGrounded && speed != 0 && !isWallJumping)
 		{
 			m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, m_WallFriction);
+			jumpCount = 0;
 		}
 	}
 	public void Move(float move_direction, bool crouch, bool dash)
@@ -137,14 +139,14 @@ public class movement_Mario : MonoBehaviour
 	{
 		if (speed > 0 && m_isFacingRight == false)	// moving right but facing left
 		{
-			m_isFacingRight = !m_isFacingRight;
+			m_isFacingRight = true;
 			Vector3 scale = transform.localScale;
 			scale.x *= -1;					// reverse object
 			transform.localScale = scale;
 		}
 		else if (speed < 0 && m_isFacingRight == true)	// moving left but facing right
 		{
-			m_isFacingRight = !m_isFacingRight;
+			m_isFacingRight = false;
 			Vector3 scale = transform.localScale;
 			scale.x *= -1;						// reverse object
 			transform.localScale = scale;
@@ -176,6 +178,15 @@ public class movement_Mario : MonoBehaviour
 			m_Rigidbody2D.gravityScale = gravity;
 		}
 	}
+	private IEnumerator disableMovement()
+	{
+		m_DisableMovement = true;
+		m_Rigidbody2D.gravityScale = 0;
+		yield return new WaitForSeconds(0.2f);
+		m_DisableMovement = false;
+		isWallJumping = false;
+		m_Rigidbody2D.gravityScale = gravity;
+	}
 	public void Jump()
 	{
 		if (jumpCount < m_JumpStack)
@@ -184,6 +195,21 @@ public class movement_Mario : MonoBehaviour
 			m_Rigidbody2D.velocity = new Vector3(m_Rigidbody2D.velocity.x, 0f);
 			m_Rigidbody2D.AddForce(new Vector2(0.0f, m_JumpForce), ForceMode2D.Impulse);
 		}
+	}
+	public void WallJump()
+	{
+		isWallJumping = true;
+		float force = 0;
+		if (m_isFacingRight)
+		{
+			force = -7f;
+		} else {
+			force = 7f;
+		}
+		m_Rigidbody2D.velocity = new Vector3(m_Rigidbody2D.velocity.x, 0f);
+		m_Rigidbody2D.AddForce(new Vector2(force, m_JumpForce), ForceMode2D.Impulse);
+		FlipCharacter(force);
+		StartCoroutine(disableMovement());
 	}
 	public void addJumpCount()
 	{
@@ -196,5 +222,9 @@ public class movement_Mario : MonoBehaviour
 	public bool getGrounded()
 	{
 		return isGrounded;
+	}
+	public bool getTouchingWall()
+	{
+		return isTouchingWall;
 	}
 }
