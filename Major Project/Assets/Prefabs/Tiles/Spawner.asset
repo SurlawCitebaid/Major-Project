@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Spawner
   m_EditorClassIdentifier: 
   m_DefaultSprite: {fileID: 0}
-  m_DefaultGameObject: {fileID: 0}
+  m_DefaultGameObject: {fileID: 8598353709655766633, guid: 437115ca5375da24bb2856584185f65d, type: 3}
   m_DefaultColliderType: 1
   m_TilingRules: []

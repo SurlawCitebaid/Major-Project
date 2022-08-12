@@ -16,7 +16,7 @@ public class char_movement_Mario : MonoBehaviour
 
     void Update()
     {
-        move_horizontal = Input.GetAxisRaw("Horizontal");
+        move_horizontal = Input.GetAxis("Horizontal");
         isGrounded = controller.getGrounded();
         isTouchingWall = controller.getTouchingWall();
         if (isGrounded)
@@ -51,12 +51,6 @@ public class char_movement_Mario : MonoBehaviour
         {
             canCharge = false;
         }
-        if (Input.GetButtonDown("Crouch"))
-        {
-            crouch = true;
-        } else if (Input.GetButtonUp("Crouch")) {
-            crouch = false;
-        }
 
         if (Input.GetButtonDown("Rush_B"))
         {
@@ -66,8 +60,9 @@ public class char_movement_Mario : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         controller.Move(move_horizontal * Time.fixedDeltaTime, crouch, dash);
     }
+
 }

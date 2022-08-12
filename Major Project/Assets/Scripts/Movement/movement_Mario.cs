@@ -12,7 +12,7 @@ public class movement_Mario : MonoBehaviour
 	[Space][Space]
 
 	[Header("Movement")][Space]
-	[Range(0, 400)] [SerializeField] private float m_MoveSpeed = 200f;
+	[Range(0, 1000)] [SerializeField] private float m_MoveSpeed = 200f;
 	[Range(0, .3f)] [SerializeField] private float m_MovementSlippery = 0.05f;
 	private bool m_DisableMovement = false;
 	[Space][Space]
@@ -85,33 +85,6 @@ public class movement_Mario : MonoBehaviour
 	{
 		speed = move_direction * m_MoveSpeed;
 
-		// forces character to crouch when there's no room to stand
-		if (!crouch)
-		{
-			if (Physics2D.OverlapCircle(m_TopDetection.position, m_CollisionRadius, m_GroundLayer))
-			{
-				crouch = true;
-			}
-		}
-
-		// triggered when crouching
-		if (crouch)
-		{
-			speed *= m_CrouchMultiplier;
-
-			//	disable selected collider to half character's collision area
-			if (m_CrouchDisableCollider != null)
-			{
-				m_CrouchDisableCollider.enabled = false;
-			}
-
-		} else {
-			//	reenable collider when not crouching
-			if (m_CrouchDisableCollider != null)
-			{
-				m_CrouchDisableCollider.enabled = true;
-			}
-		}
 
 		// triggered when running
 		if (dash && dashable == true)
