@@ -10,25 +10,20 @@ public class FlyingCharger : MonoBehaviour
     private EnemyAiController states;
     private Quaternion originalRot;
     private GameObject player;
-    private Rigidbody2D rigid;
+    //private Rigidbody2D rigid;
     private bool attacked = false, predictionLine = true, movePos = false;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         lr = GetComponent<LineRendererController>();
         states = GetComponent<EnemyAiController>();
-        rigid = GetComponent<Rigidbody2D>();
+        //rigid = GetComponent<Rigidbody2D>();
         originalRot = transform.rotation;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (Input.GetKey("space"))
-        {
-            Debug.Log(states.health);
-            states.Damage(1, 0, 0);
-        }
         switch (states.currentState())
         {
             case EnemyAiController.State.MOVING:
@@ -159,8 +154,8 @@ public class FlyingCharger : MonoBehaviour
         if (col.gameObject.tag == "Wall")
         {
             attacked = true;
-            rigid.velocity = Vector2.zero;
-            rigid.angularVelocity = 0f;
+            //rigid.velocity = Vector2.zero;
+            //rigid.angularVelocity = 0f;
             lr.enabled = false;
         }
     }
