@@ -4,21 +4,15 @@ using UnityEngine;
 
 public class GroundEnemyController : MonoBehaviour
 {
-
-
     EnemyAiController states;
     //0:MOVING 1:CHASE 2:AIMING 3:ATTACKING 4:COOLDOWN 5:STUNNED
     GameObject player;
-
-
-
     Vector2 distance;
-    
     bool isGrounded;
     [SerializeField] private LayerMask lm_ground;
     [SerializeField] private Transform groundCheckPos;
-
-
+    EnemyScriptableObject enemy;
+    //Attack attack;
 
     private void Awake() {
         states = GetComponent<EnemyAiController>();
@@ -103,20 +97,24 @@ public class GroundEnemyController : MonoBehaviour
         states.setState(3); //ATTACKING
         states.setImmune(true);
 
+        states.enemy.attack.attackLogic.DoAttack(states, distance);
+
         switch (states.enemy.attack.name) {
             case "Charge":
-                float chargeSpeed = 20f; //speed of the charging attack
-                states.changeVelocity(new Vector2(distance.normalized.x * chargeSpeed, states.getYVelocity()));
+                //states.enemy.attack.DoAttack();
+                //float chargeSpeed = 20f; //speed of the charging attack
+                //states.changeVelocity(new Vector2(distance.normalized.x * chargeSpeed, states.getYVelocity()));
             break;
 
             case "Swipe":
-                Debug.Log("Swiper no swipe yet");
+                //Debug.Log("Swiper no swipe yet");
             break;
 
             default:
                 Debug.Log("No attack type for " + states.enemy.name);
             break;
         }
+
         StartCoroutine(states.Immunity());
         StartCoroutine(states.CooldownAttack(states.enemy.attack.cooldownTime,0));
     }

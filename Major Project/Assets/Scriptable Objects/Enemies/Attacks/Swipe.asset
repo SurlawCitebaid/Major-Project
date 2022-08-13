@@ -9,12 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc20c13f6d1a6194cbcfedab1b08cd7f, type: 3}
+  m_Script: {fileID: 11500000, guid: 1071cb641731d99499b178515dea6b96, type: 3}
   m_Name: Swipe
   m_EditorClassIdentifier: 
-  damage: 10
-  range: 2
-  maxRange: 2
-  minRange: 0
-  cooldownTime: 1
-  immunityTime: 3

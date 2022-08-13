@@ -1,0 +1,15 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+//[CreateAssetMenu (menuName = "ScriptableObjects/Enemy Attack/Default")]
+/*
+    Children of this contain the logic for the attacks
+*/
+public abstract class Attack : ScriptableObject
+{
+   public abstract void DoAttack(EnemyAiController states, Vector2 distance);
+
+   public Transform animation;
+
+}
