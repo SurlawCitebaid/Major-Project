@@ -8,7 +8,7 @@ using UnityEngine;
 */
 public abstract class Attack : ScriptableObject
 {
-   public abstract void DoAttack(EnemyAiController states, Vector2 distance, Vector2 position);
+   public abstract void DoAttack(EnemyAiController states, Vector2 distance, GameObject parent);
 
    public Transform animation;
 

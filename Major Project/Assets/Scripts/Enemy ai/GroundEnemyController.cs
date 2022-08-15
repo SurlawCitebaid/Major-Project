@@ -97,7 +97,7 @@ public class GroundEnemyController : MonoBehaviour
         states.setState(3); //ATTACKING
         states.setImmune(true);
 
-        states.enemy.attack.attackLogic.DoAttack(states, distance, gameObject.transform.position);
+        states.enemy.attack.attackLogic.DoAttack(states, distance, gameObject);
 
         /*
         switch (states.enemy.attack.name) {
