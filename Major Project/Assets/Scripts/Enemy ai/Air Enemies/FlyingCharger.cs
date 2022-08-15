@@ -11,7 +11,7 @@ public class FlyingCharger : MonoBehaviour
     private Quaternion originalRot;
     private GameObject player;
     //private Rigidbody2D rigid;
-    private bool attacked = false, predictionLine = true, movePos = false;
+    private bool attacked = false, predictionLine = true, movePos = false, attackReady = false;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -28,50 +28,49 @@ public class FlyingCharger : MonoBehaviour
         {
             case EnemyAiController.State.MOVING:
                 float dist = Vector3.Distance(transform.position, player.transform.position);
-                if (dist > states.enemy.attack.range)
+                if (dist > states.enemy.attack.range && !attackReady)
                 {
-                    Invoke("rePosition", 1f);
-                }
-                else
-                {
-
-                    Invoke("setStateAiming",1f);
+                    rePosition();
+                } else {
+                    states.setState(2);
                 }
                 break;
+
             case EnemyAiController.State.AIMING:
                 StartCoroutine(Aiming());
                 break;
+
             case EnemyAiController.State.ATTACKING:
                 int layer_mask = LayerMask.GetMask("Walls");
-                RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.up) , layer_mask);
-                predLine(hitInfo);
-
+                RaycastHit2D[] hitInfo = Physics2D.RaycastAll(transform.position, transform.TransformDirection(Vector2.up), layer_mask);
+                for (int i = 0; i < hitInfo.Length; ++i)
+                {
+                    if (hitInfo[i].collider.gameObject.tag == "Walls")
+                        Debug.LogFormat("The name of collider {0} is \"{1}\".",
+                            i, hitInfo[i].collider.gameObject.name);
+                                    predLine(hitInfo[i]);
+                }
 
                 Invoke("attack",1f);
                 break;
+
             case EnemyAiController.State.COOLDOWN:
                 reset();
-                break;
-            case EnemyAiController.State.STUNNED:
                 break;
         }
     }
     private void predLine(RaycastHit2D hitInfo)
     {
-
         if (predictionLine)
         {
             lr.DrawLine(new Vector3(transform.position.x, transform.position.y, 1), hitInfo.point, this.transform);
             lr.enabled = false;
             predictionLine = false;
-        }
-        else
-        {
-            lr.moveLine(new Vector3(transform.position.x, transform.position.y, 1), hitInfo.point);
+        } else {
+            lr.moveLine(new Vector3(transform.position.x, transform.position.y, 1), new Vector3(hitInfo.point.x, hitInfo.point.y, 1));
         }
         if (lr.enabled)
         {
-
             lr.updateStartPoint(new Vector3(transform.position.x, transform.position.y, 1));
         }
         if (!attacked)
@@ -82,46 +81,32 @@ public class FlyingCharger : MonoBehaviour
     IEnumerator Aiming()
     {
         Vector3 dirFromAtoB = (player.transform.position - transform.position).normalized;
+        Vector3 vectorToTarget = player.transform.position - transform.position;
         float dotProd = Vector3.Dot(dirFromAtoB, transform.up);
         float angle;
-        Vector3 vectorToTarget = player.transform.position - transform.position;
         angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg - 90f;
         Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
         transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * 5f);
-        if (dotProd == 1)
+        if (dotProd >= .99)
         {
             yield return null;
             attacked = false;
             states.setState(3);
-            Debug.Log("ASS");
         }
-
-
     }
     private void attack()
     {
-
         if (!attacked)
         {
-            if (flightSpeed > 1f)
+            if (flightSpeed > 2f)
             {
-                flightSpeed = 1;
-                transform.Translate(Vector2.up * flightSpeed);
-            } else if (flightSpeed < 0.1f)
-            {
+                flightSpeed = 2;  
+            } else if (flightSpeed < 0.1f){
                 flightSpeed = 0.1f;
-                transform.Translate(Vector2.up * flightSpeed);
             }
-            else
-            {
-                transform.Translate(Vector2.up * flightSpeed);
-            }
+            transform.Translate(Vector2.up * flightSpeed);
         }
         Invoke("setStateCooldown", 2f);
-    }
-    private void setStateAiming()
-    {
-        states.setState(2);
     }
     private void setStateCooldown()
     {
@@ -129,12 +114,13 @@ public class FlyingCharger : MonoBehaviour
     }
     private void rePosition()
     {
-        if(!movePos)
+        if(!movePos)                        // runs method once
         {
             movePos = true;
             transform.rotation = originalRot;
             float angle = Random.Range(0, 2f * Mathf.PI);
             transform.position = player.transform.position + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * (states.enemy.attack.range-1f);
+            attackReady = true;
         }
 
     }
@@ -148,6 +134,7 @@ public class FlyingCharger : MonoBehaviour
         }
         movePos = false;
         attacked = true;
+        attackReady = false;
     }
     void OnTriggerEnter2D(Collider2D col)
     {
