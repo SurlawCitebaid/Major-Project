@@ -97,8 +97,9 @@ public class GroundEnemyController : MonoBehaviour
         states.setState(3); //ATTACKING
         states.setImmune(true);
 
-        states.enemy.attack.attackLogic.DoAttack(states, distance);
+        states.enemy.attack.attackLogic.DoAttack(states, distance, gameObject.transform.position);
 
+        /*
         switch (states.enemy.attack.name) {
             case "Charge":
                 //states.enemy.attack.DoAttack();
@@ -114,6 +115,7 @@ public class GroundEnemyController : MonoBehaviour
                 Debug.Log("No attack type for " + states.enemy.name);
             break;
         }
+        */
 
         StartCoroutine(states.Immunity());
         StartCoroutine(states.CooldownAttack(states.enemy.attack.cooldownTime,0));

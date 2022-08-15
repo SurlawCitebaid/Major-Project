@@ -6,14 +6,14 @@ using UnityEngine;
 public class Charge : Attack
 {
     
-    public override void DoAttack(EnemyAiController states, Vector2 distance){
+    public override void DoAttack(EnemyAiController states, Vector2 distance, Vector2 position){
         float chargeSpeed = 20f; //speed of the charging attack
         states.changeVelocity(new Vector2(distance.normalized.x * chargeSpeed, states.getYVelocity()));
 
         //animate
-        //attackLocation = new Vector3(this.gameObject.transform.position.x - attackDir * 0.5f, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
-        //Vector2 location
-        //Transform swordSlash = Instantiate(animation, attackLocation + new Vector3(-attackDir, 0, 0), Quaternion.identity, null); //this.gameObject.transform
-        //swordSlash.localScale = new Vector3(1 * -attackDir, 1, 1);
+        Vector2 attackLocation = position;
+        Vector2 direction = new Vector2(distance.normalized.x,0);
+        Transform chargeA = Instantiate(animation, attackLocation + new Vector2(direction.x, 0), Quaternion.identity, null); //this.gameObject.transform
+        chargeA.localScale = new Vector3(1 * direction.x, 1, 1);
     }
 }
