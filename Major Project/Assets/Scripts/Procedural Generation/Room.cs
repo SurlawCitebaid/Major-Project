@@ -74,7 +74,7 @@ public class Room
         for (int x = 0; x < maxRoomSize; x++)
         {
             for (int y = 0; y < maxRoomSize; y++) {
-                roomGrid[x, y] = tiles.Count;
+                roomGrid[x, y] = 7;//This danger block out of level
             }
         }
     }
@@ -470,5 +470,13 @@ public class Room
     public List<Door> getDoors()
     {
         return doors;
+    }
+
+    public bool enemyLocationValid(Vector2 enemyPosition)
+    {
+        int roomPositionX = (int)enemyPosition.x;
+        int roomPositionY = (int)enemyPosition.y;
+
+        return false;
     }
 }
