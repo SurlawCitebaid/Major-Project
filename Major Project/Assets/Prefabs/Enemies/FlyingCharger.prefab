@@ -12,9 +12,8 @@ GameObject:
   - component: {fileID: 5428061368323000859}
   - component: {fileID: 5428061368323000856}
   - component: {fileID: 5428061368323000857}
-  - component: {fileID: 5428061368323000934}
-  - component: {fileID: 5428061368323000935}
   - component: {fileID: 5428061368323000932}
+  - component: {fileID: 4308464651637428106}
   m_Layer: 8
   m_Name: FlyingCharger
   m_TagString: Enemy
@@ -128,33 +127,6 @@ MonoBehaviour:
   enemy: {fileID: 11400000, guid: 9da80d4109f02b044b0e0adc78dfca26, type: 2}
   immune: 0
   health: 0
---- !u!114 &5428061368323000934
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5428061368323000933}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07b9b256dacb56a408512cbc3c4b9ef1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flightSpeed: 0.5
---- !u!114 &5428061368323000935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5428061368323000933}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a88f41b8ca51dae4db901f77c84b8cc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  line: {fileID: 4221450178247427976, guid: 6bc2b3bab14109d42b582080bf13e0f5, type: 3}
 --- !u!58 &5428061368323000932
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -168,6 +140,20 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.2}
+  m_Offset: {x: -0.01883411, y: -0.1941935}
   serializedVersion: 2
-  m_Radius: 0.20463176
+  m_Radius: 0.1198664
+--- !u!114 &4308464651637428106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5428061368323000933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47254d08dfcb9504faf9baa9328dc4d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flightSpeed: 0.5
+  m_Material: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
