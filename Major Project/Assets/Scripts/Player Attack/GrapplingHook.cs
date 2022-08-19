@@ -99,7 +99,7 @@ public class GrapplingHook : MonoBehaviour {
             hookObj = Instantiate(hook, hookPos, Quaternion.identity, null);
             hookObj.eulerAngles = new Vector3(0, 0, hookAngle);
 
-            this.gameObject.GetComponent<PlayerMovement>().isHooked = true;
+            
         }
     }
 
@@ -107,7 +107,7 @@ public class GrapplingHook : MonoBehaviour {
         if (dj ?? false) {
             Destroy(dj);
             Destroy(hookObj.gameObject);
-            this.gameObject.GetComponent<PlayerMovement>().isHooked = false;
+
         }
     }
 }

@@ -45,18 +45,27 @@ public class AirEnemy_1 : MonoBehaviour
                 StartCoroutine(Aiming());
                 break;
             case EnemyAiController.State.ATTACKING:
-                int index = 0;
-                RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.TransformDirection(Vector2.up));
+                int index = 999;
+                RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.TransformDirection(Vector2.up), Mathf.Infinity);
                 for (int i = 0; i < hits.Length; i++)
                 {
                     if (hits[i].transform.gameObject.tag == "Wall")
-                    {
-                        alphaSolid();
+                    {    
                         index = i;                              // get first wall collision
                         break;
                     }
                 }
-                moveLine(new Vector3(this.transform.position.x, this.transform.position.y, 1), new Vector3(hits[index].point.x, hits[index].point.y, 1));    // line position accounts of knockback
+                if (index != 999)
+                {
+                    moveLine(new Vector3(this.transform.position.x, this.transform.position.y, 1), new Vector3(hits[index].point.x, hits[index].point.y, 1));    // line position accounts of knockback
+
+                }
+                if(predictionLine)
+                {
+                    predictionLine = false;
+                    alphaSolid();
+                }
+                
                 Invoke("attack", 1f);
                 break;
             case EnemyAiController.State.COOLDOWN:
@@ -71,7 +80,9 @@ public class AirEnemy_1 : MonoBehaviour
     }
     void reset()
     {
+        alphaInvis();
         states.setState(0);
+        predictionLine = true;
         movePos = false;
         attacked = true;
         attackReady = false;
@@ -147,10 +158,17 @@ public class AirEnemy_1 : MonoBehaviour
     private void rePosition()
     {
         if (!movePos)
-        {
-            movePos = true;
+        { 
             float angle = Random.Range(0, 2f * Mathf.PI);
-            transform.position = player.transform.position + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * (states.enemy.attack.range - 1f);
+            Vector3 validPos = player.transform.position + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * (states.enemy.attack.range - 1f);
+            while (!Room.enemyLocationValid(validPos))
+            {
+                angle = Random.Range(0, 2f * Mathf.PI);
+                validPos = player.transform.position + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * (states.enemy.attack.range - 1f);
+            }
+            transform.position = validPos;
+            movePos = true;
+
         }
 
     }
@@ -161,6 +179,11 @@ public class AirEnemy_1 : MonoBehaviour
             alphaInvis();
             attacked = true;
             predictionLine = false;
+        }
+        if(col.gameObject.tag == "Player")
+        {
+            
+            Debug.Log("DDDDDD");
         }
     }
 }

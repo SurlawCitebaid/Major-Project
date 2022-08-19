@@ -32,7 +32,6 @@ public class EnemySpawner : MonoBehaviour
         //Updates coeficient for spawning
         spawnCoeff = (playerFactor + Time.realtimeSinceStartup / 60 * timeFactor) * constantFactor;
         scalingMaxSpawns = startSpawns * spawnCoeff;
-        Debug.Log(scalingMaxSpawns);
 
         if(!enemiesAlive)
         {

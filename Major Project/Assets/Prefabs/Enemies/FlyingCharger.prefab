@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 5428061368323000859}
   - component: {fileID: 5428061368323000856}
   - component: {fileID: 5428061368323000857}
-  - component: {fileID: 5428061368323000932}
   - component: {fileID: 4308464651637428106}
+  - component: {fileID: 8326276401724702556}
   m_Layer: 8
   m_Name: FlyingCharger
   m_TagString: Enemy
@@ -127,22 +127,6 @@ MonoBehaviour:
   enemy: {fileID: 11400000, guid: 9da80d4109f02b044b0e0adc78dfca26, type: 2}
   immune: 0
   health: 0
---- !u!58 &5428061368323000932
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5428061368323000933}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.01883411, y: -0.1941935}
-  serializedVersion: 2
-  m_Radius: 0.1198664
 --- !u!114 &4308464651637428106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,3 +141,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flightSpeed: 0.5
   m_Material: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+--- !u!70 &8326276401724702556
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5428061368323000933}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1, y: 1.0000001}
+  m_Direction: 0
