@@ -49,4 +49,5 @@ MonoBehaviour:
   - {fileID: 188282402990007035, guid: 081c96048cfca4c45977edffed0672cb, type: 3}
   - {fileID: 5428061368323000933, guid: aaff11e6360a11d49b99c4c9be13984d, type: 3}
   timeBetweenSpawns: 1
-  maxSpawns: 20
+  startSpawns: 2
+  difficultyValue: 30

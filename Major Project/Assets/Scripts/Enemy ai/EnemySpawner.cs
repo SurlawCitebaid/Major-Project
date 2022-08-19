@@ -6,22 +6,54 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] GameObject[] enemies;
     [SerializeField] float timeBetweenSpawns = 5f; //fixed time between spawns
-    [SerializeField] int maxSpawns = 10; //total number of enemy spawns from this spawner
-    int currentSpawns = 0;
+    [SerializeField] int startSpawns = 1;
+    [SerializeField] float difficultyValue = 30;//increasing this will increase the spawn rate faster
+
+    public static int maxSpawns;
+    public static int currentSpawned = 0;
+    public static int totalEnemiesAlive;
+    public static bool enemiesAlive = true;
     float countdown;//current time till spawn
+
+    //Spawning Scaling
+    float scalingMaxSpawns = 0;
+    float playerFactor = 1f + 0.3f * (1 - 1);
+    float timeFactor;
+    float constantFactor = 1.15f;
+    float spawnCoeff;
 
     void Start() {
         countdown = timeBetweenSpawns;
+        timeFactor = 0.0506f * difficultyValue * 1 * 0.2f;
+        maxSpawns = startSpawns;
     }
 
     void Update() {
-        if (countdown < 0)
-        {
-            SpawnEnemy();
-            countdown = timeBetweenSpawns;
-        }
+        //Updates coeficient for spawning
+        spawnCoeff = (playerFactor + Time.realtimeSinceStartup / 60 * timeFactor) * constantFactor;
+        scalingMaxSpawns = startSpawns * spawnCoeff;
+        Debug.Log(scalingMaxSpawns);
 
-        countdown -= Time.deltaTime;
+        if(!enemiesAlive)
+        {
+            Door.unlockDoors();
+            currentSpawned = 0;
+            maxSpawns = (int)scalingMaxSpawns;
+        }
+        //enemies alive
+        else if(enemiesAlive)
+        {
+            //Spawn until the max is reached
+            if(currentSpawned < maxSpawns)
+            {
+                if (countdown < 0)
+                {
+                    SpawnEnemy();
+                    countdown = timeBetweenSpawns;
+                }
+                countdown -= Time.deltaTime;
+            }
+        } 
     }
 
     //continuously spawn enemies or
@@ -33,15 +65,10 @@ public class EnemySpawner : MonoBehaviour
         {
             Instantiate(enemies[enemyNum], transform.position, transform.rotation);
 
-            currentSpawns++;
+            currentSpawned++;
+            totalEnemiesAlive++;
         }
         
-        
-        
-        if (currentSpawns >= maxSpawns)
-        {
-            Destroy(gameObject, 1f);
-        }
     }
 
 }

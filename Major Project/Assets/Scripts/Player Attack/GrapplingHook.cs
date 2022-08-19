@@ -75,25 +75,32 @@ public class GrapplingHook : MonoBehaviour {
     private void Grapple() {
         Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, mousePos - transform.position, 100f, lm_walls);
-        hookPos = hit.point;
 
-        dj = this.gameObject.AddComponent<DistanceJoint2D>();
-        dj.connectedAnchor = new Vector3(hookPos.x, hookPos.y);
-        dj.autoConfigureDistance = false;
-        if (grapple_mode == GrappleMode.PULL) {
-            dj.distance = MIN_HOOK_DISTANCE;
-        } else if (grapple_mode == GrappleMode.SWING) {
-            dj.autoConfigureDistance = true;
-            dj.distance = dj.distance / 1.1f;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, mousePos - transform.position, 6f, lm_walls);
+        if (hit.collider != null)
+        {
+            hookPos = hit.point;
+
+            dj = this.gameObject.AddComponent<DistanceJoint2D>();
+            dj.connectedAnchor = new Vector3(hookPos.x, hookPos.y);
+            dj.autoConfigureDistance = false;
+            if (grapple_mode == GrappleMode.PULL)
+            {
+                dj.distance = MIN_HOOK_DISTANCE;
+            }
+            else if (grapple_mode == GrappleMode.SWING)
+            {
+                dj.autoConfigureDistance = true;
+                dj.distance = dj.distance / 1.1f;
+            }
+            dj.enableCollision = true;
+            Vector3 vectorToTarget = hookPos - this.gameObject.transform.position;
+            float hookAngle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg - 90f;
+            hookObj = Instantiate(hook, hookPos, Quaternion.identity, null);
+            hookObj.eulerAngles = new Vector3(0, 0, hookAngle);
+
+            this.gameObject.GetComponent<PlayerMovement>().isHooked = true;
         }
-        dj.enableCollision = true;
-        Vector3 vectorToTarget = hookPos - this.gameObject.transform.position;
-        float hookAngle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg - 90f;
-        hookObj = Instantiate(hook, hookPos, Quaternion.identity, null);
-        hookObj.eulerAngles = new Vector3(0, 0, hookAngle);
-
-        this.gameObject.GetComponent<PlayerMovement>().isHooked = true;
     }
 
     private void Unhook() {

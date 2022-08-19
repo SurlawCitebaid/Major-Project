@@ -7,13 +7,50 @@ public class Door : MonoBehaviour
     int roomX;
     int roomY;
     doorType type;
-    
+
+    private void Start()
+    {
+        //Lock doors at begining
+        gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
+    }
+
+    //Unlocks doors of current room
+    public static void unlockDoors()
+    {
+        Room room = GenerateLevel.rooms[(int)GenerateLevel.currentPlayerRoom.x, (int)GenerateLevel.currentPlayerRoom.y];
+        foreach(Door door in room.getDoors())
+        {
+            door.unlockDoor();
+        }
+    }
+
+    public static void lockDoors()
+    {
+        Room room = GenerateLevel.rooms[(int)GenerateLevel.currentPlayerRoom.x, (int)GenerateLevel.currentPlayerRoom.y];
+        foreach (Door door in room.getDoors())
+        {
+            door.lockDoor();
+        }
+    }
+
+    public void unlockDoor()
+    {
+        gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+    }
+
+    public void lockDoor()
+    {
+        gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
+    }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             collision.transform.position = getDoorToTravelTo();
+            lockDoors();
+            EnemySpawner.enemiesAlive = true;
         }
     }
 

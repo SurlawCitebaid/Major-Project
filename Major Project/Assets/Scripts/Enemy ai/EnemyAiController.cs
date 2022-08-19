@@ -48,6 +48,12 @@ public class EnemyAiController : MonoBehaviour
     }
     public void Die()
     {
+        //Minus an enemy alive
+        EnemySpawner.totalEnemiesAlive--;
+        if(EnemySpawner.totalEnemiesAlive == 0)
+        {
+            EnemySpawner.enemiesAlive = false;
+        }
         Destroy(gameObject, 0.5f);
     }
     public IEnumerator HitFlash(SpriteRenderer sprite , Color32 originalColor)
