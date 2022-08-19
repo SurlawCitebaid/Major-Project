@@ -490,9 +490,9 @@ public class Room
         Vector2 roomPosition = room.spawnPosition;
         
         roomPosition = new Vector2(roomPosition.x + (-(room.generateLevelScript.getGridX() * room.maxRoomSize) / 2), roomPosition.y + (-(room.generateLevelScript.getGridX() * room.maxRoomSize) / 2));
-        if (enemyPosition.x >= roomPosition.x && enemyPosition.x <= (room.roomSizeX + roomPosition.x))
+        if (enemyPosition.x >= roomPosition.x + 2 && enemyPosition.x <= (room.roomSizeX + roomPosition.x - 2))
         {
-            if (enemyPosition.y >= roomPosition.y && enemyPosition.y <= (room.roomSizeY + roomPosition.y))
+            if (enemyPosition.y >= roomPosition.y + 2 && enemyPosition.y <= (room.roomSizeY + roomPosition.y - 2))
             {
                 return true;
             }

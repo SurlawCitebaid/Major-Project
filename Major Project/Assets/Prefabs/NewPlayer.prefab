@@ -178,6 +178,7 @@ GameObject:
   - component: {fileID: 2978935126544322178}
   - component: {fileID: 2978935126544322237}
   - component: {fileID: 2978935126544322234}
+  - component: {fileID: 6361945099437669768}
   m_Layer: 7
   m_Name: NewPlayer
   m_TagString: Player
@@ -420,6 +421,19 @@ MonoBehaviour:
   pfFireball: {fileID: 5559782725964706461, guid: ce0d0d891a59d6c489d3949a955bf4bd, type: 3}
   projectileSpeed: 10
   castTime: 1
+--- !u!114 &6361945099437669768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2978935126544322181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a14b707db913fbe43ae685f51172c2d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerScriptableObject: {fileID: 11400000, guid: 532bd32f1f365ec4a97c0b4b80ed2f60, type: 2}
 --- !u!1 &2978935126671705826
 GameObject:
   m_ObjectHideFlags: 0

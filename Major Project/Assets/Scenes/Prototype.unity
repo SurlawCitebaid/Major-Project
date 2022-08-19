@@ -140,6 +140,7 @@ GameObject:
   - component: {fileID: 678126108}
   - component: {fileID: 678126115}
   - component: {fileID: 678126116}
+  - component: {fileID: 678126117}
   m_Layer: 7
   m_Name: player
   m_TagString: Player
@@ -351,8 +352,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 1474541671}
   grapple_mode_gui: {fileID: 0}
-  grapple_mode_pull_sprite: {fileID: 0}
-  grapple_mode_swing_sprite: {fileID: 0}
+  grapple_mode_pull_sprite: {fileID: -1292432617, guid: 254b695aaee6b1545b878c5e4287c2bf, type: 3}
+  grapple_mode_swing_sprite: {fileID: -2144192804, guid: 254b695aaee6b1545b878c5e4287c2bf, type: 3}
   lm_walls:
     serializedVersion: 2
     m_Bits: 1536
@@ -382,6 +383,19 @@ MonoBehaviour:
   pfFireball: {fileID: 5559782725964706461, guid: ce0d0d891a59d6c489d3949a955bf4bd, type: 3}
   projectileSpeed: 10
   castTime: 1
+--- !u!114 &678126117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678126107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a14b707db913fbe43ae685f51172c2d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerScriptableObject: {fileID: 11400000, guid: 532bd32f1f365ec4a97c0b4b80ed2f60, type: 2}
 --- !u!1 &818129532
 GameObject:
   m_ObjectHideFlags: 0
