@@ -452,7 +452,6 @@ public class Room
             if (Random.Range(0f,1f) < detailChance && roomGrid[x,aboveGroundHeight] == 0 && roomGrid[x, aboveGroundHeight-1] == 1)
             {
                 roomGrid[x, aboveGroundHeight] = 6;
-                Debug.Log("Details Placed");
             }
         }
         //Ceiling Details
@@ -472,11 +471,32 @@ public class Room
         return doors;
     }
 
-    public bool enemyLocationValid(Vector2 enemyPosition)
+    public int getMaxRoomSize()
     {
-        int roomPositionX = (int)enemyPosition.x;
-        int roomPositionY = (int)enemyPosition.y;
+        return maxRoomSize;
+    }
 
+    public GenerateLevel getGenerateLevel()
+    {
+        return generateLevelScript;
+    }
+
+    //Checks if an enemy can spawn here or be here
+    public static bool enemyLocationValid(Vector2 enemyPosition)
+    {
+        //Get current room and compare positions
+        Room room = GenerateLevel.rooms[(int)GenerateLevel.currentPlayerRoom.x, (int)GenerateLevel.currentPlayerRoom.y];
+        //0,0 of this room
+        Vector2 roomPosition = room.spawnPosition;
+        
+        roomPosition = new Vector2(roomPosition.x + (-(room.generateLevelScript.getGridX() * room.maxRoomSize) / 2), roomPosition.y + (-(room.generateLevelScript.getGridX() * room.maxRoomSize) / 2));
+        if (enemyPosition.x >= roomPosition.x && enemyPosition.x <= (room.roomSizeX + roomPosition.x))
+        {
+            if (enemyPosition.y >= roomPosition.y && enemyPosition.y <= (room.roomSizeY + roomPosition.y))
+            {
+                return true;
+            }
+        }
         return false;
     }
 }

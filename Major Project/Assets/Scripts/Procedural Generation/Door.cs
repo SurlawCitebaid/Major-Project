@@ -26,22 +26,27 @@ public class Door : MonoBehaviour
             case doorType.Up:
                 doorPosition = getDoorByType(doorType.Down, GenerateLevel.rooms[roomX, roomY + 1].getDoors()).transform.position;
                 doorPosition = new Vector2(doorPosition.x+2, doorPosition.y+2);
+                GenerateLevel.currentPlayerRoom = new Vector2(roomX, roomY + 1);
                 break;
             case doorType.Down:
                 doorPosition = getDoorByType(doorType.Up, GenerateLevel.rooms[roomX, roomY - 1].getDoors()).transform.position;
                 doorPosition = new Vector2(doorPosition.x, doorPosition.y - 2);
+                GenerateLevel.currentPlayerRoom = new Vector2(roomX, roomY - 1);
                 break;
             case doorType.Left:
                 doorPosition = getDoorByType(doorType.Right, GenerateLevel.rooms[roomX - 1, roomY].getDoors()).transform.position;
                 doorPosition = new Vector2(doorPosition.x - 2, doorPosition.y);
+                GenerateLevel.currentPlayerRoom = new Vector2(roomX - 1, roomY);
                 break;
             case doorType.Right:
                 doorPosition = getDoorByType(doorType.Left, GenerateLevel.rooms[roomX + 1, roomY].getDoors()).transform.position;
                 doorPosition = new Vector2(doorPosition.x + 2, doorPosition.y);
+                GenerateLevel.currentPlayerRoom = new Vector2(roomX + 1, roomY);
                 break;
             default:
                 return new Vector2();
         }
+        Debug.Log(GenerateLevel.currentPlayerRoom);
         return doorPosition;
     }
     

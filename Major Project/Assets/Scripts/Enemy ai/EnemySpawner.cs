@@ -29,15 +29,17 @@ public class EnemySpawner : MonoBehaviour
     void SpawnEnemy(){
         int enemyNum = Random.Range(0, enemies.Length);
 
-        Debug.Log("Spawning " + enemies[enemyNum].name);
-        Instantiate(enemies[enemyNum], transform.position, transform.rotation);
+        if (Room.enemyLocationValid(transform.position))
+        {
+            Instantiate(enemies[enemyNum], transform.position, transform.rotation);
 
-        currentSpawns++;
+            currentSpawns++;
+        }
+        
         
         
         if (currentSpawns >= maxSpawns)
         {
-            Debug.Log("Max Spawns Reached");
             Destroy(gameObject, 1f);
         }
     }

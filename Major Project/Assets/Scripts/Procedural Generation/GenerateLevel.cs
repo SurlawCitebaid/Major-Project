@@ -45,6 +45,8 @@ public class GenerateLevel : MonoBehaviour
 
     int[,] grid;
     public static Room[,] rooms;
+    //Room the player is in      
+    public static Vector2 currentPlayerRoom;
 
     [Header("Tile Assets")]
     [SerializeField]
@@ -56,6 +58,8 @@ public class GenerateLevel : MonoBehaviour
     {
         grid = new int[gridSizeX,gridSizeY];
         rooms = new Room[gridSizeX,gridSizeY];
+        currentPlayerRoom = new Vector2(gridSizeX/2,gridSizeY/2);
+
 
         if (!randomSeed)
         {
@@ -147,9 +151,6 @@ public class GenerateLevel : MonoBehaviour
                 }
             }
 
-            
-            
-
         }
     }
 
@@ -164,12 +165,12 @@ public class GenerateLevel : MonoBehaviour
                 {
                     //So that it is smaller then the boss room
                     float roomDescalerX = 0.75f;
-                    Vector2 roomPostion = new Vector2(x * maxRoomSize, y * maxRoomSize);
+                    Vector2 roomPosition = new Vector2(x * maxRoomSize, y * maxRoomSize);
                     //So we can have random room sizes
                     int randomRoomSizeX = Random.Range(minRoomSize, Mathf.FloorToInt(maxRoomSize * roomDescalerX));
                     int randomRoomSizeY = Random.Range(minRoomSize, Mathf.FloorToInt(maxRoomSize * roomDescalerY));
                     //Wall is a scriptable tile
-                    Room room = new Room(roomPostion,randomRoomSizeX, randomRoomSizeY, tiles, transform, maxNumberOfPlatforms, 
+                    Room room = new Room(roomPosition,randomRoomSizeX, randomRoomSizeY, tiles, transform, maxNumberOfPlatforms, 
                         platformMaxSize, platformMinSize, grid, x, y, this, tileMap, detailSpawnChance);
                     room.createRoom();
                     room.fillRoomData();
@@ -246,6 +247,16 @@ public class GenerateLevel : MonoBehaviour
     public int getMaxRoomSize()
     {
         return maxRoomSize;
+    }
+
+    public int getGridX()
+    {
+        return gridSizeX;
+    }
+
+    public int getGridY()
+    {
+        return gridSizeY;
     }
 
     void centreLevel()
