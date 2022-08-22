@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
 
     public void damage(float damageAmount)
     {
+        Debug.Log("damage");
         health -= damageAmount;
         if (health <= 0)
             Die();

@@ -611,7 +611,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5428061368323000933, guid: aaff11e6360a11d49b99c4c9be13984d, type: 3}
   m_PrefabInstance: {fileID: 5428061368322387801}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1160722977
+--- !u!114 &1160722971
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -620,11 +620,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1160722970}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47254d08dfcb9504faf9baa9328dc4d9, type: 3}
+  m_Script: {fileID: 11500000, guid: 979b88136c7a9be4cb7a2734250a89c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectile: {fileID: 8968486420765280106, guid: d9486297c20d0ff40b5282055263b129, type: 3}
   flightSpeed: 0.5
-  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_Material: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &1303830387
 GameObject:
   m_ObjectHideFlags: 0
@@ -1050,4 +1051,5 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 5428061368323000934, guid: aaff11e6360a11d49b99c4c9be13984d, type: 3}
     - {fileID: 5428061368323000935, guid: aaff11e6360a11d49b99c4c9be13984d, type: 3}
+    - {fileID: 2388692425190199687, guid: aaff11e6360a11d49b99c4c9be13984d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: aaff11e6360a11d49b99c4c9be13984d, type: 3}

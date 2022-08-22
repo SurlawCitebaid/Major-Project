@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5428061368323000933
+--- !u!1 &7464682554475860058
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,41 +8,41 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5428061368323000858}
-  - component: {fileID: 5428061368323000859}
-  - component: {fileID: 5428061368323000856}
-  - component: {fileID: 5428061368323000857}
-  - component: {fileID: 8326276401724702556}
-  - component: {fileID: 2388692425190199687}
+  - component: {fileID: 7464682554475860005}
+  - component: {fileID: 7464682554475860004}
+  - component: {fileID: 7464682554475860007}
+  - component: {fileID: 7464682554475860006}
+  - component: {fileID: 6867805195426571619}
+  - component: {fileID: 7464682553353457533}
   m_Layer: 8
-  m_Name: FlyingCharger
+  m_Name: FlyingProjectile
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5428061368323000858
+--- !u!4 &7464682554475860005
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5428061368323000933}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.3, y: -0.01, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_GameObject: {fileID: 7464682554475860058}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 17.49, y: 1.7, z: 0}
+  m_LocalScale: {x: 1.0581559, y: 2.2486, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &5428061368323000859
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!212 &7464682554475860004
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5428061368323000933}
+  m_GameObject: {fileID: 7464682554475860058}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -88,14 +88,14 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &5428061368323000856
+--- !u!50 &7464682554475860007
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5428061368323000933}
+  m_GameObject: {fileID: 7464682554475860058}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -109,13 +109,13 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &5428061368323000857
+--- !u!114 &7464682554475860006
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5428061368323000933}
+  m_GameObject: {fileID: 7464682554475860058}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9258b1e561239204190610eb130ec11f, type: 3}
@@ -123,17 +123,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultColour:
     serializedVersion: 2
-    rgba: 1509949439
-  enemy: {fileID: 11400000, guid: 9da80d4109f02b044b0e0adc78dfca26, type: 2}
+    rgba: 4281874488
+  enemy: {fileID: 11400000, guid: 53409c892747bc143bf04430c12b483a, type: 2}
   immune: 0
-  health: 0
---- !u!70 &8326276401724702556
+  health: 3
+--- !u!70 &6867805195426571619
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5428061368323000933}
+  m_GameObject: {fileID: 7464682554475860058}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -143,17 +143,18 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 1.0000001}
   m_Direction: 0
---- !u!114 &2388692425190199687
+--- !u!114 &7464682553353457533
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5428061368323000933}
+  m_GameObject: {fileID: 7464682554475860058}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47254d08dfcb9504faf9baa9328dc4d9, type: 3}
+  m_Script: {fileID: 11500000, guid: 979b88136c7a9be4cb7a2734250a89c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectile: {fileID: 8968486420765280106, guid: d9486297c20d0ff40b5282055263b129, type: 3}
   flightSpeed: 0.5
-  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_Material: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}

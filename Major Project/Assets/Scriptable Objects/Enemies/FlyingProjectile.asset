@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f960b100eb8df44692579eb1a95ab16, type: 3}
-  m_Name: Swiper
+  m_Name: FlyingProjectile
   m_EditorClassIdentifier: 
-  name: Swiper
-  description: Basic melee enemy attacks when close
+  name: FlyingProjectile
+  description: 
   boss: 0
-  sprite: {fileID: 391715686, guid: a55b96c1050809f418700e73e60e62af, type: 3}
-  health: 100
-  attack: {fileID: 11400000, guid: 43d76c2e42d48d647a3ec3d027279677, type: 2}
+  sprite: {fileID: -1566376412, guid: bd8c613b5e8f85049b52971670e05f4f, type: 3}
+  health: 3
+  attack: {fileID: 11400000, guid: da136deaf95f9fd49980316982b65417, type: 2}
   moveSpeed: 5
   slowSpeed: 0.5
   stunSpeed: 0

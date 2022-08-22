@@ -11,7 +11,7 @@ public class Projectile : MonoBehaviour
     }
     private void Update()
     {
-        float moveSpeed = 100f;
+        float moveSpeed = 20f;
         transform.Translate(shootDir * moveSpeed * Time.deltaTime);
     }
 }

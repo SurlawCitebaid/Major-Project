@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AirEnemy_1 : MonoBehaviour
+public class AirEnemy_2 : MonoBehaviour
 {
-    //0:MOVING 1:CHASE 2:AIMING 3:ATTACKING 4:COOLDOWN 5:STUNNED
+    [SerializeField] private Transform projectile;
     [SerializeField] float flightSpeed = .5f;
     private EnemyAiController states;
     private GameObject player;
     public Material m_Material;
     private LineRenderer lr;
-    private bool attacked = false, movePos = false, attackReady = false, moving = false;
+    private bool attacked = false, movePos = false, attackReady = false, moving = false, predictionLine = false;
     void Start()
     {
         DrawLine(new Vector3(1, 1, 1), new Vector3(2, 2, 2), this.transform);                   // initialize line
@@ -22,25 +22,28 @@ public class AirEnemy_1 : MonoBehaviour
 
     }
 
+    // Update is called once per frame
     void FixedUpdate()
     {
-        Collider2D[] array = Physics2D.OverlapCircleAll(transform.position, .5f);
-        foreach (Collider2D coll in array)
-        {
-            PlayerController ass = coll.gameObject.GetComponent<PlayerController>();
+        //Collider2D[] array = Physics2D.OverlapCircleAll(transform.position, .5f);
+        //foreach (Collider2D coll in array)
+        //{
+        //    PlayerController ass = coll.gameObject.GetComponent<PlayerController>();
 
-            if (ass != null && attacked)
-            {
-              //  ass.damage(1);
+        //    if (ass != null && attacked)
+        //    {
+        //        ass.damage(1);
 
-            }
-        }
+        //    }
+        //}
         switch (states.currentState())
         {
             case EnemyAiController.State.MOVING:
                 float dist = Vector3.Distance(transform.position, player.transform.position);
                 if (dist > states.enemy.attack.range && !attackReady)
                 {
+                    alphaInvis();
+                    predictionLine = false;
                     rePosition();
                 }
                 else
@@ -49,62 +52,59 @@ public class AirEnemy_1 : MonoBehaviour
                 }
                 break;
             case EnemyAiController.State.AIMING:
-                StartCoroutine(Aiming());
+                StartCoroutine(Aiming());         
                 break;
             case EnemyAiController.State.ATTACKING:
                 int index = 999;
                 RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.TransformDirection(Vector2.up), Mathf.Infinity);
+               
+                    
+                Debug.Log(hits.Length);
+                   
                 for (int i = 0; i < hits.Length; i++)
                 {
                     if (hits[i].transform.gameObject.tag == "Wall")
-                    {    
+                    {
                         index = i;                              // get first wall collision
-                        break;
+
                     }
                 }
+                    
 
-                if (index == 999)
-                {
-                    states.setState(0);
-                } else
-                {
+                
+                    predictionLine = true;
                     moveLine(new Vector3(this.transform.position.x, this.transform.position.y, 1), new Vector3(hits[index].point.x, hits[index].point.y, 1));    // line position accounts of knockback
                     alphaSolid();
-                }
                 
-                Invoke("attack", 1f);
+                
+                
+                if (!attacked)
+                {
+                    if (index != 999)
+                    {
+                        Transform bullet = Instantiate(projectile, transform.position, Quaternion.identity).transform;
+                        Debug.Log(index);
+                        Vector3 shootDir = (hits[index].point - (Vector2)transform.position).normalized;
+                        bullet.GetComponent<Projectile>().Setup(shootDir);
+                        attacked = true;
+                        Invoke("reset", 1f);
+                    }
+                   
+
+                }
                 break;
             case EnemyAiController.State.COOLDOWN:
-                reset();
+                
                 break;
         }
     }
     void reset()
     {
-        alphaInvis();
         states.setState(0);
         attackReady = false;
         attacked = false;
         movePos = false;
         moving = true;
-    }
-    private void attack()
-    {
-        if (!moving)
-        {
-            if (flightSpeed > 2f)
-            {
-                flightSpeed = 2;
-            }
-            else if (flightSpeed < 0.1f)
-            {
-                flightSpeed = 0.1f;
-            }
-            transform.Translate(Vector2.up * flightSpeed);
-            attacked = true;
-        }
-        
-        Invoke("setStateCooldown", 2f);
     }
     IEnumerator Aiming()
     {
@@ -139,10 +139,6 @@ public class AirEnemy_1 : MonoBehaviour
         }
 
     }
-    private void setStateCooldown()
-    {
-        states.setState(4);
-    }
     public void DrawLine(Vector3 start, Vector3 end, Transform parent)
     {
 
@@ -174,13 +170,5 @@ public class AirEnemy_1 : MonoBehaviour
         lr.SetPosition(0, start);
         lr.SetPosition(1, end);
     }
-    
-    void OnTriggerEnter2D(Collider2D col)
-    {
-        if (col.gameObject.tag == "Wall")
-        {
-            alphaInvis();
-            moving = true;
-        }
-    }
+            
 }

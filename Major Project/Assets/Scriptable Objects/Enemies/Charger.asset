@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Charger
   description: Charges the player with its body
   boss: 0
-  sprite: {fileID: 1253348280, guid: 856d022411e49fa42abb976c531a28d3, type: 3}
+  sprite: {fileID: 538874525, guid: a55b96c1050809f418700e73e60e62af, type: 3}
   health: 100
   attack: {fileID: 11400000, guid: 266d56f118b1fd748821f5aad18c26a8, type: 2}
   moveSpeed: 5
