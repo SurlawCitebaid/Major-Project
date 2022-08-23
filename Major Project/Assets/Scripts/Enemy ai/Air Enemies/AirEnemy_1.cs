@@ -7,16 +7,17 @@ public class AirEnemy_1 : MonoBehaviour
     //0:MOVING 1:CHASE 2:AIMING 3:ATTACKING 4:COOLDOWN 5:STUNNED
     [SerializeField] float flightSpeed = .5f;
     private EnemyAiController states;
+    [SerializeField] private GameObject pivot;
     private GameObject player;
     public Material m_Material;
     private LineRenderer lr;
-    private bool attacked = false, movePos = false, attackReady = false, moving = false;
+    private bool attacked = false, movePos = false, attackReady = false, moving = false, predictionLine = false, invalid = false;
     void Start()
     {
         DrawLine(new Vector3(1, 1, 1), new Vector3(2, 2, 2), this.transform);                   // initialize line
         alphaInvis();
 
-        states = GetComponent<EnemyAiController>();                                             // enemy state machine
+        states = this.transform.GetComponent<EnemyAiController>();                                             // enemy state machine
 
         player = GameObject.FindGameObjectWithTag("Player");                                    // variable to track player
 
@@ -35,13 +36,19 @@ public class AirEnemy_1 : MonoBehaviour
 
             }
         }
+        if (!Room.enemyLocationValid(transform.position))
+        {
+            invalid = true;
+            Debug.Log("asda");
+        }
         switch (states.currentState())
         {
             case EnemyAiController.State.MOVING:
-                float dist = Vector3.Distance(transform.position, player.transform.position);
-                if (dist > states.enemy.attack.range && !attackReady)
+                float dist = Vector3.Distance(pivot.transform.position, player.transform.position);
+                if (dist > states.enemy.attack.range && !attackReady || invalid)
                 {
                     rePosition();
+                    invalid = false;
                 }
                 else
                 {
@@ -53,7 +60,7 @@ public class AirEnemy_1 : MonoBehaviour
                 break;
             case EnemyAiController.State.ATTACKING:
                 int index = 999;
-                RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.TransformDirection(Vector2.up), Mathf.Infinity);
+                RaycastHit2D[] hits = Physics2D.RaycastAll(pivot.transform.position, pivot.transform.TransformDirection(Vector2.up), Mathf.Infinity);
                 for (int i = 0; i < hits.Length; i++)
                 {
                     if (hits[i].transform.gameObject.tag == "Wall")
@@ -68,8 +75,13 @@ public class AirEnemy_1 : MonoBehaviour
                     states.setState(0);
                 } else
                 {
-                    moveLine(new Vector3(this.transform.position.x, this.transform.position.y, 1), new Vector3(hits[index].point.x, hits[index].point.y, 1));    // line position accounts of knockback
-                    alphaSolid();
+                    moveLine(new Vector3(this.pivot.transform.position.x, this.pivot.transform.position.y, 1), new Vector3(hits[index].point.x, hits[index].point.y, 1));    // line position accounts of knockback
+                    if(!predictionLine)
+                    {
+                        alphaSolid();
+                        predictionLine = true;
+                    }
+                    
                 }
                 
                 Invoke("attack", 1f);
@@ -81,7 +93,12 @@ public class AirEnemy_1 : MonoBehaviour
     }
     void reset()
     {
-        alphaInvis();
+        if(!Room.enemyLocationValid(transform.position))
+        {
+            invalid = true;
+            Debug.Log("asda"); 
+        }
+        predictionLine = false;
         states.setState(0);
         attackReady = false;
         attacked = false;
@@ -100,7 +117,7 @@ public class AirEnemy_1 : MonoBehaviour
             {
                 flightSpeed = 0.1f;
             }
-            transform.Translate(Vector2.up * flightSpeed);
+            transform.Translate(pivot.transform.up * flightSpeed);
             attacked = true;
         }
         
@@ -108,13 +125,13 @@ public class AirEnemy_1 : MonoBehaviour
     }
     IEnumerator Aiming()
     {
-        Vector3 dirFromAtoB = (player.transform.position - transform.position).normalized;
-        Vector3 vectorToTarget = player.transform.position - transform.position;
-        float dotProd = Vector3.Dot(dirFromAtoB, transform.up);
+        Vector3 dirFromAtoB = (player.transform.position - pivot.transform.position).normalized;
+        Vector3 vectorToTarget = player.transform.position - pivot.transform.position;
+        float dotProd = Vector3.Dot(dirFromAtoB, pivot.transform.up);
         float angle;
         angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg - 90f;
         Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
-        transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * 5f);
+        pivot.transform.rotation = Quaternion.Slerp(pivot.transform.rotation, q, Time.deltaTime * 5f);
         if (dotProd >= .99)
         {
             yield return null;

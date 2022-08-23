@@ -10,7 +10,8 @@ public class AirEnemy_2 : MonoBehaviour
     private GameObject player;
     public Material m_Material;
     private LineRenderer lr;
-    private bool attacked = false, movePos = false, attackReady = false, moving = false, predictionLine = false;
+    private bool attacked = false, movePos = false, attackReady = false, predictionLine = false;
+    private int resetCount = 0;
     void Start()
     {
         DrawLine(new Vector3(1, 1, 1), new Vector3(2, 2, 2), this.transform);                   // initialize line
@@ -33,17 +34,27 @@ public class AirEnemy_2 : MonoBehaviour
         //    if (ass != null && attacked)
         //    {
         //        ass.damage(1);
-
         //    }
         //}
+        int index = 999;
+        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.TransformDirection(Vector2.up), Mathf.Infinity);
+
+        Debug.Log(states.currentState());
+
+        for (int i = 0; i < hits.Length; i++)
+        {
+            if (hits[i].transform.gameObject.tag == "Wall")
+            {
+                index = i;                              // get first wall collision
+
+            }
+        }
         switch (states.currentState())
         {
             case EnemyAiController.State.MOVING:
                 float dist = Vector3.Distance(transform.position, player.transform.position);
-                if (dist > states.enemy.attack.range && !attackReady)
+                if (dist < states.enemy.attack.range)
                 {
-                    alphaInvis();
-                    predictionLine = false;
                     rePosition();
                 }
                 else
@@ -52,45 +63,21 @@ public class AirEnemy_2 : MonoBehaviour
                 }
                 break;
             case EnemyAiController.State.AIMING:
-                StartCoroutine(Aiming());         
+                
+                StartCoroutine(Aiming());
+
                 break;
             case EnemyAiController.State.ATTACKING:
-                int index = 999;
-                RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.TransformDirection(Vector2.up), Mathf.Infinity);
-               
-                    
-                Debug.Log(hits.Length);
-                   
-                for (int i = 0; i < hits.Length; i++)
-                {
-                    if (hits[i].transform.gameObject.tag == "Wall")
-                    {
-                        index = i;                              // get first wall collision
+                moveLine(new Vector3(this.transform.position.x, this.transform.position.y, 1), new Vector3(hits[index].point.x, hits[index].point.y, 1));    // line position accounts of knockback
 
-                    }
-                }
-                    
-
-                
-                    predictionLine = true;
-                    moveLine(new Vector3(this.transform.position.x, this.transform.position.y, 1), new Vector3(hits[index].point.x, hits[index].point.y, 1));    // line position accounts of knockback
-                    alphaSolid();
-                
-                
-                
+                alphaSolid();
                 if (!attacked)
-                {
-                    if (index != 999)
-                    {
-                        Transform bullet = Instantiate(projectile, transform.position, Quaternion.identity).transform;
-                        Debug.Log(index);
-                        Vector3 shootDir = (hits[index].point - (Vector2)transform.position).normalized;
-                        bullet.GetComponent<Projectile>().Setup(shootDir);
-                        attacked = true;
-                        Invoke("reset", 1f);
-                    }
-                   
-
+                { 
+                    Transform bullet = Instantiate(projectile, transform.position, Quaternion.identity).transform;
+                    Vector3 shootDir = (hits[index].point - (Vector2)transform.position).normalized;
+                    bullet.GetComponent<Projectile>().Setup(shootDir);
+                    attacked = true;
+                    Invoke("reset", 2f); // determines attack delay
                 }
                 break;
             case EnemyAiController.State.COOLDOWN:
@@ -98,13 +85,26 @@ public class AirEnemy_2 : MonoBehaviour
                 break;
         }
     }
+    
     void reset()
     {
-        states.setState(0);
-        attackReady = false;
-        attacked = false;
-        movePos = false;
-        moving = true;
+        float dist = Vector3.Distance(transform.position, player.transform.position);
+        if(dist < states.enemy.attack.range/2 && resetCount != 3)
+        {
+            resetCount++;
+            movePos = false;
+            alphaInvis();
+            states.setState(0);
+        } else
+        {
+            states.setState(2);
+
+        }
+
+        
+        
+
+
     }
     IEnumerator Aiming()
     {
@@ -114,13 +114,17 @@ public class AirEnemy_2 : MonoBehaviour
         float angle;
         angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg - 90f;
         Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
-        transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * 5f);
-        if (dotProd >= .99)
+        transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * 3f);
+        if (dotProd <.99)
         {
-            yield return null;
-            moving = false;
-            states.setState(3);
+            alphaInvis();
         }
+        if (dotProd >= .999999)
+        {
+            attacked = false;
+            yield return null;
+            states.setState(3);
+        } 
     }
     private void rePosition()
     {
@@ -135,6 +139,7 @@ public class AirEnemy_2 : MonoBehaviour
             }
             transform.position = validPos;
             movePos = true;
+            states.setState(2);
 
         }
 

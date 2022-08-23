@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2453409846173930501
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1420088998861193778}
+  m_Layer: 0
+  m_Name: pivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1420088998861193778
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2453409846173930501}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5428061368323000858}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5428061368323000933
 GameObject:
   m_ObjectHideFlags: 0
@@ -13,7 +44,7 @@ GameObject:
   - component: {fileID: 5428061368323000856}
   - component: {fileID: 5428061368323000857}
   - component: {fileID: 8326276401724702556}
-  - component: {fileID: 2388692425190199687}
+  - component: {fileID: 7362542641272270080}
   m_Layer: 8
   m_Name: FlyingCharger
   m_TagString: Enemy
@@ -35,6 +66,7 @@ Transform:
   m_Children:
   - {fileID: 3243775185102414431}
   - {fileID: 5142465149666252510}
+  - {fileID: 1420088998861193778}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -125,7 +157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultColour:
     serializedVersion: 2
-    rgba: 1509949439
+    rgba: 4294967295
   enemy: {fileID: 11400000, guid: 9da80d4109f02b044b0e0adc78dfca26, type: 2}
   immune: 0
   health: 0
@@ -145,7 +177,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 1.0000001}
   m_Direction: 0
---- !u!114 &2388692425190199687
+--- !u!114 &7362542641272270080
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -158,6 +190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flightSpeed: 0.5
+  pivot: {fileID: 2453409846173930501}
   m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &7747254314782788890
 GameObject:
