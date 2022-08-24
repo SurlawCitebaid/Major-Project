@@ -30,6 +30,10 @@ public class EnemyAiController : MonoBehaviour
     {
         return rb.velocity.y;
     }
+
+    public Vector2 getVelocity(){
+        return rb.velocity;
+    }
     public void changeVelocity(Vector2 velocity)
     {
         rb.velocity = velocity;

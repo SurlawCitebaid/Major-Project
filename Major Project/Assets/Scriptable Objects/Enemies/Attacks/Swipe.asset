@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1071cb641731d99499b178515dea6b96, type: 3}
   m_Name: Swipe
   m_EditorClassIdentifier: 
+  animation: {fileID: 7599007100304888172, guid: 4141ce4df9298e84fbd136235a7f7dcd, type: 3}

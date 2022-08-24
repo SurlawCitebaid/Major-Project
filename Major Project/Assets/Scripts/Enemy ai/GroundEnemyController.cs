@@ -29,6 +29,10 @@ public class GroundEnemyController : MonoBehaviour
             switch(states.currentState()){
                 case EnemyAiController.State.MOVING:
                     MoveEnemy(states.enemy.moveSpeed);
+                    if(states.getVelocity().x == 0){
+                        
+                        StartCoroutine(Jump());
+                    }
                     break;
                 case EnemyAiController.State.CHASE:
                     break;
@@ -43,6 +47,8 @@ public class GroundEnemyController : MonoBehaviour
                     break;
             }
         }
+
+        
         
     }
 
@@ -121,7 +127,11 @@ public class GroundEnemyController : MonoBehaviour
         StartCoroutine(states.CooldownAttack(states.enemy.attack.cooldownTime,0));
     }
     
-
+    IEnumerator Jump(){
+        states.changeVelocity(states.getVelocity() + new Vector2(0,5));
+        yield return new WaitForSeconds(0.5f);
+        states.changeVelocity(new Vector2(distance.normalized.x * 5, 5));
+    }
 
 
 
