@@ -44,15 +44,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbae91adbe37aa44696ac5edfd13e62a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  randomSeed: 0
   seed: 5665
   maxRooms: 10
   gridSizeX: 20
   gridSizeY: 20
   maxRoomSize: 50
   minRoomSize: 10
+  roomDescalerX: 0.75
+  roomDescalerY: 0.75
   maxNumberOfPlatforms: 5
   platformMaxSize: 50
   platformMinSize: 5
+  detailSpawnChance: 0
   tileMap: {fileID: 0}
   tiles:
   - {fileID: 11400000, guid: f18a254a0e2386a40ad5731b63d97f21, type: 2}

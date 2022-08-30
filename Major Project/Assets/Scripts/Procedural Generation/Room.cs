@@ -481,6 +481,47 @@ public class Room
         return generateLevelScript;
     }
 
+    public static Vector2 getTopRightRoomPosition()
+    {
+        //Get current room and compare positions
+        Room room = GenerateLevel.rooms[(int)GenerateLevel.currentPlayerRoom.x, (int)GenerateLevel.currentPlayerRoom.y];
+        //0,0 of this room
+        Vector2 roomPosition = room.spawnPosition;
+
+        roomPosition = new Vector2(roomPosition.x + (-(room.generateLevelScript.getGridX() * room.maxRoomSize) / 2) + room.roomSizeX, roomPosition.y + (-(room.generateLevelScript.getGridX() * room.maxRoomSize) / 2) + room.roomSizeY);
+        return roomPosition;
+    }
+    public static Vector2 getTopLeftRoomPosition()
+    {
+        //Get current room and compare positions
+        Room room = GenerateLevel.rooms[(int)GenerateLevel.currentPlayerRoom.x, (int)GenerateLevel.currentPlayerRoom.y];
+        //0,0 of this room
+        Vector2 roomPosition = room.spawnPosition;
+
+        roomPosition = new Vector2(roomPosition.x + (-(room.generateLevelScript.getGridX() * room.maxRoomSize) / 2), roomPosition.y + (-(room.generateLevelScript.getGridX() * room.maxRoomSize) / 2) + room.roomSizeY);
+        return roomPosition;
+    }
+    public static Vector2 getBottomRightRoomPosition()
+    {
+        //Get current room and compare positions
+        Room room = GenerateLevel.rooms[(int)GenerateLevel.currentPlayerRoom.x, (int)GenerateLevel.currentPlayerRoom.y];
+        //0,0 of this room
+        Vector2 roomPosition = room.spawnPosition;
+
+        roomPosition = new Vector2(roomPosition.x + (-(room.generateLevelScript.getGridX() * room.maxRoomSize) / 2) + room.roomSizeX, roomPosition.y + (-(room.generateLevelScript.getGridX() * room.maxRoomSize) / 2));
+        return roomPosition;
+    }
+    public static Vector2 getBottomLeftRoomPosition()
+    {
+        //Get current room and compare positions
+        Room room = GenerateLevel.rooms[(int)GenerateLevel.currentPlayerRoom.x, (int)GenerateLevel.currentPlayerRoom.y];
+        //0,0 of this room
+        Vector2 roomPosition = room.spawnPosition;
+
+        roomPosition = new Vector2(roomPosition.x + (-(room.generateLevelScript.getGridX() * room.maxRoomSize) / 2), roomPosition.y + (-(room.generateLevelScript.getGridX() * room.maxRoomSize) / 2));
+        return roomPosition;
+    }
+
     //Checks if an enemy can spawn here or be here
     public static bool enemyLocationValid(Vector2 enemyPosition)
     {
