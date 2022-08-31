@@ -26,16 +26,7 @@ public class AirEnemy_2 : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        //Collider2D[] array = Physics2D.OverlapCircleAll(transform.position, .5f);
-        //foreach (Collider2D coll in array)
-        //{
-        //    PlayerController ass = coll.gameObject.GetComponent<PlayerController>();
-
-        //    if (ass != null && attacked)
-        //    {
-        //        ass.damage(1);
-        //    }
-        //}
+        
         int index = 999;
         RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.TransformDirection(Vector2.up), Mathf.Infinity);
 
@@ -46,7 +37,6 @@ public class AirEnemy_2 : MonoBehaviour
             if (hits[i].transform.gameObject.tag == "Wall")
             {
                 index = i;                              // get first wall collision
-
             }
         }
         switch (states.currentState())
@@ -134,6 +124,11 @@ public class AirEnemy_2 : MonoBehaviour
             Vector2 validPos = player.transform.position + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * (states.enemy.attack.range - 1f);
             while (!Room.enemyLocationValid(validPos))
             {
+                if (!Room.enemyLocationValid(player.transform.position))
+                {
+                    states.Die();
+                    break;
+                }
                 angle = Random.Range(0, 2f * Mathf.PI);
                 validPos = player.transform.position + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * (states.enemy.attack.range - 1f);
             }
