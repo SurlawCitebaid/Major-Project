@@ -21,4 +21,4 @@ MonoBehaviour:
   moveSpeed: 5
   slowSpeed: 0.5
   stunSpeed: 0
-  jumpHeight: 0
+  jumpHeight: 5
