@@ -326,7 +326,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db4974ae37c1c3246b39937cb753a0ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 7192825863642418341}
+  m_movementController: {fileID: 7192825863642418341}
+  m_playerController: {fileID: 3443211902839965457}
   animator: {fileID: 3732599500095072009}
 --- !u!114 &7192825863642418341
 MonoBehaviour:
@@ -418,7 +419,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerScriptableObject: {fileID: 11400000, guid: 532bd32f1f365ec4a97c0b4b80ed2f60, type: 2}
+  m_invicibleTime: 2
   health: 0
+  isInvincible: 0
 --- !u!95 &3732599500095072009
 Animator:
   serializedVersion: 4

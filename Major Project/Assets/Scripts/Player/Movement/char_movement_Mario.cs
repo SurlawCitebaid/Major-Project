@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class char_movement_Mario : MonoBehaviour
 {
-    public movement_Mario controller;
+    public movement_Mario m_movementController;
+    public PlayerController m_playerController;
     public Animator animator;
     float move_horizontal = 0f;
     bool jump = false;
-    bool isGrounded, isTouchingWall, isWallGrabing, isfalling, canCharge;
+    bool isGrounded, isTouchingWall, isWallGrabing, isfalling, isDashing,isInvincible, canCharge;
     bool crouch = false;
     bool dash = false;
     float jumpDuration;
@@ -17,10 +18,19 @@ public class char_movement_Mario : MonoBehaviour
     void Update()
     {
         move_horizontal = Input.GetAxis("Horizontal");
-        isGrounded = controller.getGrounded();
-        isTouchingWall = controller.getTouchingWall();
-        isWallGrabing = controller.getWallGrabing();
-        isfalling = controller.getFalling();
+        isGrounded = m_movementController.getGrounded();
+        isTouchingWall = m_movementController.getTouchingWall();
+        isWallGrabing = m_movementController.getWallGrabing();
+        isfalling = m_movementController.getFalling();
+        isDashing = m_movementController.getDashing();
+
+        // status check
+        if (isDashing)                                              // invincible when dashing
+        {
+            m_playerController.isInvincible = true;
+        } else {
+            m_playerController.isInvincible = false;
+        }
 
         // animation part
         if (move_horizontal != 0 && isGrounded)
@@ -54,12 +64,12 @@ public class char_movement_Mario : MonoBehaviour
         {
             if (!isGrounded && isTouchingWall && move_horizontal != 0)
             {
-                controller.WallJump();
+                m_movementController.WallJump();
                 animator.SetBool("isJumping", true);
             } else {
-                controller.addJumpCount();
-                jumpDuration = controller.getJumpDuration();
-                controller.Jump();
+                m_movementController.addJumpCount();
+                jumpDuration = m_movementController.getJumpDuration();
+                m_movementController.Jump();
                 animator.SetBool("isJumping", true);
                 jump = true;
             }
@@ -69,7 +79,7 @@ public class char_movement_Mario : MonoBehaviour
         {
             if(jumpDuration > 0)
             {
-                controller.Jump();
+                m_movementController.Jump();
                 animator.SetBool("isJumping", true);
                 jumpDuration -= Time.deltaTime;
             } else {
@@ -91,7 +101,7 @@ public class char_movement_Mario : MonoBehaviour
 
     private void FixedUpdate()
     {
-        controller.Move(move_horizontal * Time.fixedDeltaTime, crouch, dash);
+        m_movementController.Move(move_horizontal * Time.fixedDeltaTime, crouch, dash);
     }
 
 }

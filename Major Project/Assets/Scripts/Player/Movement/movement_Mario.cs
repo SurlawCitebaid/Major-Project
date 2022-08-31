@@ -50,7 +50,7 @@ public class movement_Mario : MonoBehaviour
 	private Rigidbody2D m_Rigidbody2D;
 	private bool m_isFacingRight = true;
 	private bool isWallJumping = false;
-	private bool isInvincible = false;
+	private bool isDashing = false;
 	private Vector3 m_Velocity = Vector3.zero;
 	private float speed;
 	private float gravity;
@@ -141,7 +141,7 @@ public class movement_Mario : MonoBehaviour
 	{
 		dashable = false;
 		m_DisableMovement = true;						// disable movement when dashing
-		isInvincible = true;							// invincible when dashing
+		isDashing = true;							// invincible when dashing
 		if (m_DashGravitySwitch == false)
 		{
 			m_Rigidbody2D.gravityScale = 0;				// set gravity to zero if gravity during dashing is not wanted
@@ -150,7 +150,7 @@ public class movement_Mario : MonoBehaviour
 		yield return new WaitForSeconds(m_DashDuration);
 		m_Rigidbody2D.gravityScale = gravity;			// return gravity to character
 		m_DisableMovement = false;						// enable movement control after the dashing is done
-		isInvincible = false;							// disable invincible status
+		isDashing = false;							// disable invincible status
 		yield return new WaitForSeconds(m_DashCooldown);
 		dashable = true;
 	}
@@ -210,5 +210,9 @@ public class movement_Mario : MonoBehaviour
 	public bool getFalling()
 	{
 		return isfalling;
+	}
+	public bool getDashing()
+	{
+		return isDashing;
 	}
 }
