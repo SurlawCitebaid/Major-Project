@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu (menuName = "ScriptableObjects/Enemy Attack/Charge")]
 public class Charge : Attack
 {
-    
     public override void DoAttack(EnemyAiController states, Vector2 distance, GameObject parent){
         float chargeSpeed = 20f; //speed of the charging attack
         states.changeVelocity(new Vector2(distance.normalized.x * chargeSpeed, states.getYVelocity()));
@@ -17,15 +16,17 @@ public class Charge : Attack
         chargeA.localScale = new Vector3(1 * direction.x, 1, 1);
 
         Collider2D[] hitbox = Physics2D.OverlapBoxAll((Vector2)parent.transform.position + direction, chargeA.localScale,0,LayerMask.GetMask("Player"));
-        
         foreach (var item in hitbox)
         {
             if(item.tag == "Player"){
                 Debug.Log("Charger HIT!");
+                //make player take damage
+                var player = item.gameObject.GetComponent<PlayerController>();
+                player.damage(5);
                 break;
             }
         }
         
-        
     }
+    
 }

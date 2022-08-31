@@ -11,6 +11,7 @@ public class GroundEnemyController : MonoBehaviour
     bool isGrounded;
     [SerializeField] private LayerMask lm_ground;
     [SerializeField] private Transform groundCheckPos;
+    [SerializeField] private ParticleSystem dust;
     EnemyScriptableObject enemy;
     //Attack attack;
 
@@ -105,14 +106,14 @@ public class GroundEnemyController : MonoBehaviour
 
         states.enemy.attack.attackLogic.DoAttack(states, distance, gameObject);
 
-        /*
+        
         switch (states.enemy.attack.name) {
             case "Charge":
                 //states.enemy.attack.DoAttack();
                 //float chargeSpeed = 20f; //speed of the charging attack
                 //states.changeVelocity(new Vector2(distance.normalized.x * chargeSpeed, states.getYVelocity()));
             break;
-
+/*
             case "Swipe":
                 //Debug.Log("Swiper no swipe yet");
             break;
@@ -120,17 +121,19 @@ public class GroundEnemyController : MonoBehaviour
             default:
                 Debug.Log("No attack type for " + states.enemy.name);
             break;
+*/
         }
-        */
+        
 
         StartCoroutine(states.Immunity());
         StartCoroutine(states.CooldownAttack(states.enemy.attack.cooldownTime,0));
     }
     
     IEnumerator Jump(){
-        states.changeVelocity(states.getVelocity() + new Vector2(0,5));
+        states.changeVelocity(states.getVelocity() + new Vector2(distance.normalized.x * states.enemy.jumpHeight, states.enemy.jumpHeight));
+        dust.Play();
         yield return new WaitForSeconds(0.5f);
-        states.changeVelocity(new Vector2(distance.normalized.x * 5, 5));
+        //states.changeVelocity(new Vector2(distance.normalized.x * enemy.jumpHeight, enemy.jumpHeight));
     }
 
 
