@@ -6,11 +6,12 @@ public class BossController : MonoBehaviour
     Animator ass;
     GameObject player;
     [SerializeField] int health = 10;
-    public bool isInvulnerable = false;
+    public bool isInvulnerable = true;
     SpriteRenderer theScale;
     // Start is called before the first frame update
     void Start()
     {
+        EnemySpawner.enemiesAlive = true;
         ass = GetComponent<Animator>();
         theScale = GetComponent<SpriteRenderer>();
         player = GameObject.FindGameObjectWithTag("Player");
@@ -50,7 +51,7 @@ public class BossController : MonoBehaviour
     }
     public void Die()
     {
-        Debug.Log("AssssSS");
+        EnemySpawner.enemiesAlive = false;
         Destroy(gameObject, 4);
     }
 }

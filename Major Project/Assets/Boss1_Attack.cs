@@ -26,9 +26,11 @@ public class Boss1_Attack : StateMachineBehaviour
         switch (boss.getIndex())
         {
             case 1:
+                bossControl.flip();
                 animator.SetBool("Reset", true);
                 break;
             case 2:
+                bossControl.flip();
                 animator.SetBool("Attack1", true); 
                 break;
             case 4:
