@@ -58,7 +58,14 @@ public class EnemyAiController : MonoBehaviour
         {
             EnemySpawner.enemiesAlive = false;
         }
-        Destroy(gameObject, 0.5f);
+        //if the scriptable object death particles have been set do explosion
+        Debug.Log("dead");
+        if (enemy.enemyDeathParticles != null)
+        {
+            GameObject.Instantiate(enemy.enemyDeathParticles, gameObject.transform.position, Quaternion.identity);
+        }
+        
+        Destroy(gameObject);
     }
     public IEnumerator HitFlash(SpriteRenderer sprite , Color32 originalColor)
     {

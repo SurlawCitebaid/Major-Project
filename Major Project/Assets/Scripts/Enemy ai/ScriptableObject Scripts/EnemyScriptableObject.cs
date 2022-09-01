@@ -11,6 +11,7 @@ public class EnemyScriptableObject : ScriptableObject
     public Sprite sprite;
     public int health;
     public EnemyAttackScriptableObject attack;
+    public GameObject enemyDeathParticles;
     //public int damage;
     //[Header("Attack Ranges")]
     //public float range; //distance from the player required to initiate attack
