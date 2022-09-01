@@ -40,9 +40,11 @@ public class Room
 
     float detailChance;
 
+    bool bossRoom;
+
     public Room(Vector2 spawnPosition, int roomSizeX, int roomSizeY, List<TileBase> tiles, Transform parent, 
         int maxNumberOfPlatforms, int maxPlatformSize, int minPlatformSize, int[,] levelLayoutGrid, int gridX, 
-        int gridY, GenerateLevel generateLevelScript, Tilemap tileMap, float detailChance)
+        int gridY, GenerateLevel generateLevelScript, Tilemap tileMap, float detailChance, bool bossRoom)
     {
         this.spawnPosition = spawnPosition;
         this.roomSizeX = roomSizeX;
@@ -65,6 +67,8 @@ public class Room
         doors = new List<Door>();
 
         this.detailChance = detailChance;
+
+        this.bossRoom = bossRoom;
     }
 
     public void createRoom()
@@ -86,12 +90,17 @@ public class Room
         placeBackGround();
         //Walls 
         placeWalls();
-        //Platforms
-        placePlatforms();
-        //Add item pedestals
-        placeItem();
-        //Add Enemy Spawners
-        placeSpawners();
+        //Boss room don't add these things
+        if (!bossRoom)
+        {
+            //Platforms
+            placePlatforms();
+            //Add item pedestals
+            placeItem();
+            //Add Enemy Spawners
+            placeSpawners();
+        }
+        
     }
 
     //Has to be done after as it requires all the rooms to function
@@ -101,6 +110,12 @@ public class Room
         placeCorridors();
         //Place Details
         placeDetails();
+        if (bossRoom)
+        {
+            //Place totem that spawn boss
+            placeBossTotem();
+        }
+        
     }
 
     public void generateRoom()
@@ -152,6 +167,18 @@ public class Room
                 {
                     Vector3Int cell = tileMap.WorldToCell(new Vector3(spawnPosition.x + (float)x, spawnPosition.y + (float)y));
                     tileMap.SetTile(cell, tiles[6]);
+                }
+                //Boss Totem
+                else if (roomGrid[x, y] == 6)
+                {
+                    Vector3Int cell = tileMap.WorldToCell(new Vector3(spawnPosition.x + (float)x, spawnPosition.y + (float)y));
+                    tileMap.SetTile(cell, tiles[6]);
+                }
+                //Boss Totem
+                else if (roomGrid[x, y] == 8)
+                {
+                    Vector3Int cell = tileMap.WorldToCell(new Vector3(spawnPosition.x + (float)x, spawnPosition.y + (float)y));
+                    tileMap.SetTile(cell, tiles[8]);
                 }
             }
         }
@@ -439,6 +466,11 @@ public class Room
                 numberOfSpawners++;
             }
         }
+    }
+
+    void placeBossTotem()
+    {
+        roomGrid[roomSizeX / 2, 2] = 8;
     }
 
     //Rocks, Bushes, Flowers ID 6

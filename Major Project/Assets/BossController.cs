@@ -12,6 +12,7 @@ public class BossController : MonoBehaviour
     void Start()
     {
         EnemySpawner.enemiesAlive = true;
+        Door.lockDoors();
         ass = GetComponent<Animator>();
         theScale = GetComponent<SpriteRenderer>();
         player = GameObject.FindGameObjectWithTag("Player");

@@ -171,7 +171,7 @@ public class GenerateLevel : MonoBehaviour
                     int randomRoomSizeY = Random.Range(minRoomSize, Mathf.FloorToInt(maxRoomSize * roomDescalerY));
                     //Wall is a scriptable tile
                     Room room = new Room(roomPosition,randomRoomSizeX, randomRoomSizeY, tiles, transform, maxNumberOfPlatforms, 
-                        platformMaxSize, platformMinSize, grid, x, y, this, tileMap, detailSpawnChance);
+                        platformMaxSize, platformMinSize, grid, x, y, this, tileMap, detailSpawnChance, false);
                     room.createRoom();
                     room.fillRoomData();
                     rooms[x, y] = room;
@@ -183,8 +183,9 @@ public class GenerateLevel : MonoBehaviour
                     //So we can have random room sizes
                     int randomRoomSizeX = maxRoomSize;
                     int randomRoomSizeY = maxRoomSize;
-                    Room room = new Room(roomPostion, randomRoomSizeX, randomRoomSizeY, tiles, transform, maxNumberOfPlatforms,
-                        platformMaxSize, platformMinSize, grid, x, y, this, tileMap, detailSpawnChance);
+                    //Set sized boss room
+                    Room room = new Room(roomPostion, 32, 16, tiles, transform, maxNumberOfPlatforms,
+                        platformMaxSize, platformMinSize, grid, x, y, this, tileMap, detailSpawnChance, true);
                     room.createRoom();
                     room.fillRoomData();
                     rooms[x, y] = room;
