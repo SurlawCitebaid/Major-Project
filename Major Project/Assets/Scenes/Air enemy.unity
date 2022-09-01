@@ -854,8 +854,9 @@ GameObject:
   - component: {fileID: 2023987403}
   - component: {fileID: 2023987402}
   - component: {fileID: 2023987401}
-  - component: {fileID: 2023987405}
   - component: {fileID: 2023987406}
+  - component: {fileID: 2023987407}
+  - component: {fileID: 2023987408}
   m_Layer: 8
   m_Name: Capsule
   m_TagString: Enemy
@@ -967,7 +968,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &2023987405
+--- !u!114 &2023987406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2023987400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a24391ca01fe434eb43bc20f40fb508, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 10
+  isInvulnerable: 0
+--- !u!114 &2023987407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2023987400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fc2312d011fdeb4db47f3bebe46de18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &2023987408
 Animator:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -987,16 +1014,3 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2023987406
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2023987400}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a24391ca01fe434eb43bc20f40fb508, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackRange: 3

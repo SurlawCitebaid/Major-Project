@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Boss1_Jump : StateMachineBehaviour
 {
-    BossController boss;
     Transform player;
     Rigidbody2D rb;
     float yPos;
@@ -12,7 +11,6 @@ public class Boss1_Jump : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        boss = animator.GetComponent<BossController>();
         rb = animator.GetComponent<Rigidbody2D>();
         jumping = false;
     }
