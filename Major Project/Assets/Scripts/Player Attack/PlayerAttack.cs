@@ -63,13 +63,13 @@ public class PlayerAttack : MonoBehaviour {
 
         Collider2D[] hits = Physics2D.OverlapAreaAll(attackLocation, new Vector2(attackLocation.x + attackRange * attackDir, 0), lm_enemies);
         foreach (Collider2D enemy in hits) {
-            if (gameObject.GetComponent<EnemyAiController>() == null)
+            if (enemy.GetComponent<BossController>() != null)
             {
                 enemy.GetComponent<BossController>().Damage();
-                Debug.Log("ASS");
+                Debug.Log("Hit boss");
                 
             }
-             else
+             else if(enemy.GetComponent<EnemyAiController>() != null)
             {
                 enemy.GetComponent<EnemyAiController>().Damage(attackDamage, 5, attackDir);
                 Debug.Log("SHiiit");
