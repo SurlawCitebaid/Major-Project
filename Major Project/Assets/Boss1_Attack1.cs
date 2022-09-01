@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Boss1_Attack1 : StateMachineBehaviour
 {
-    BossController boss;
+    Boss1_Logic boss;
     int index;
     int[] indexes = { 1, 3 };
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        boss = animator.GetComponent<BossController>();
+        boss = animator.GetComponent<Boss1_Logic>();
         index = boss.randomNum(indexes);
         boss.setIndex(index);
     }
@@ -20,7 +20,8 @@ public class Boss1_Attack1 : StateMachineBehaviour
         switch (index)
         {
             case 1:
-                animator.SetBool("Attack1", false); 
+                animator.SetBool("Attack1", false);
+                animator.SetBool("Attack", false);
                 break;
             case 3:
                 animator.SetTrigger("Reset");

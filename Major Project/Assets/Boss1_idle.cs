@@ -4,23 +4,29 @@ using UnityEngine;
 
 public class Boss1_idle : StateMachineBehaviour
 {
-    BossController boss;
+    BossController bossControl;
+    Boss1_Logic boss;
     int[] indexes = { 1,2,4};
     bool ass;
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         ass = false;
-        boss = animator.GetComponent<BossController>();
+        boss = animator.GetComponent<Boss1_Logic>();
+        bossControl = animator.GetComponent<BossController>();
+    }
+
+    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        if (animator.GetBool("Damage"))
+        {
+            bossControl.isInvulnerable = true;
+            animator.SetBool("Damage", false);
+        }
         animator.SetBool("Reset", false);
         animator.SetBool("Attack", false);
         animator.SetBool("Attack1", false);
         animator.SetBool("Chase", false);
         animator.SetBool("Jump", false);
-    }
-
-    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-
         if (!ass)
         {
             int i = boss.randomNum(indexes);
@@ -41,7 +47,7 @@ public class Boss1_idle : StateMachineBehaviour
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
+
         
     }
 }

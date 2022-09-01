@@ -23,7 +23,7 @@ public class EnemyAiController : MonoBehaviour
         health = enemy.health;
         sr = GetComponent<SpriteRenderer>();
         sr.color = defaultColour;
-        sr.sprite = enemy.sprite;                //move this later
+        sr.sprite = enemy.sprite;
         rb.drag = UnityEngine.Random.Range(1f, 2f);
     }
     public float getYVelocity()

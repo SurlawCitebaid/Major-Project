@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class Boss1_Chase : StateMachineBehaviour
 {
-    BossController boss;
+    Boss1_Logic boss;
+    BossController bossControl;
     float attackRange;
     Transform player;
     Rigidbody2D rb;
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        boss = animator.GetComponent<BossController>();
-        attackRange = animator.GetComponent<BossController>().getAttackRange();
+        bossControl = animator.GetComponent<BossController>();
+        boss = animator.GetComponent<Boss1_Logic>();
+        attackRange = boss.getAttackRange();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         rb = animator.GetComponent<Rigidbody2D>();
     }
@@ -21,13 +23,14 @@ public class Boss1_Chase : StateMachineBehaviour
         float yDistance = Mathf.Abs(rb.position.y - player.position.y);
         if (distance > attackRange)
         {
-            boss.flip();
+            Debug.Log("ass");
+            bossControl.flip();
             Vector2 target = new Vector2(player.position.x, rb.position.y);
             Vector2 newPos = Vector2.MoveTowards(rb.position, target, 7f * Time.fixedDeltaTime);
             rb.MovePosition(newPos);
         } else if (distance <= attackRange)
         {
-            boss.flip();
+            bossControl.flip();
             if (yDistance > 5)
             {
                 boss.setIndex(5);

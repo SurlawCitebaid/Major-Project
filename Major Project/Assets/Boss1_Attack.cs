@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Boss1_Attack : StateMachineBehaviour
 {
-    BossController boss;
+    Boss1_Logic boss;
+    BossController bossControl;
     Rigidbody2D rb;
     float ass;
     Transform player;
@@ -12,8 +13,8 @@ public class Boss1_Attack : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-
-        boss = animator.GetComponent<BossController>();
+        bossControl = animator.GetComponent<BossController>();
+        boss = animator.GetComponent<Boss1_Logic>();
         rb = animator.GetComponent<Rigidbody2D>();
         ass = rb.position.x;
         bass = false;
@@ -35,18 +36,17 @@ public class Boss1_Attack : StateMachineBehaviour
                 {
                     if (!bass)
                     {
-                        boss.flip();
-                        if (boss.AngleDir() > 0)
+                        bossControl.flip();
+                        if (bossControl.AngleDir() > 0)
                         {
                             ass = ass - 20;
                         }
-                        else if (boss.AngleDir() < 0)
+                        else if (bossControl.AngleDir() < 0)
                         {
                             ass = ass + 20;
                         }
                         bass = true;
                     }
-                    
 
                     animator.SetBool("Reset", true);
                 }
@@ -61,6 +61,9 @@ public class Boss1_Attack : StateMachineBehaviour
     }
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-
+        if (!animator.GetBool("Damage"))
+        {
+            bossControl.isInvulnerable = false;
+        }
     }
 }
