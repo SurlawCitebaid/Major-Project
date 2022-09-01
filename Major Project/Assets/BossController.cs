@@ -24,6 +24,14 @@ public class BossController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown("space"))
+        {
+            if (!ass.GetBool("Damage"))
+            {
+                ass.SetTrigger("Damage");
+                ass.SetBool("Damage", false);
+            }
+        }
         switch (index)
         {
             case 1:
@@ -51,7 +59,6 @@ public class BossController : MonoBehaviour
                 ass.SetTrigger("Attack");
                 break;
         }
-        Debug.Log(AngleDir(player.transform.position, this.transform.position));
     }
     public float getAttackRange()
     {
@@ -67,12 +74,12 @@ public class BossController : MonoBehaviour
     }
     public void flip()
     {
-        Vector2 dist = (transform.position - player.transform.position).normalized;
-        if ( dist.x > 0)
+        
+        if (AngleDir() > 0)
         {
             theScale.flipX = true;
         }
-        else if (dist.x < 0)
+        else if (AngleDir() < 0)
         {
             theScale.flipX = false;
         }
@@ -83,9 +90,9 @@ public class BossController : MonoBehaviour
 
         return ass[enemyNum];
     }
-    public float AngleDir(Vector2 A, Vector2 B)
+    public float AngleDir()
     {
-        return -A.x * B.y + A.y * B.x;
+        return (transform.position - player.transform.position).normalized.x;
     }
     public int getIndex()
     {

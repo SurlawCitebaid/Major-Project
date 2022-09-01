@@ -25,17 +25,9 @@ public class Boss1_Attack : StateMachineBehaviour
         switch (boss.getIndex())
         {
             case 1:
-                if (!bass)
-                {
-                    boss.flip();
-                }
                 animator.SetBool("Reset", true);
                 break;
             case 2:
-                if (!bass)
-                {
-                    boss.flip();
-                }
                 animator.SetBool("Attack1", true); 
                 break;
             case 4:
@@ -44,27 +36,26 @@ public class Boss1_Attack : StateMachineBehaviour
                     if (!bass)
                     {
                         boss.flip();
-                        boss.setAttackRange(boss.getAttackRange());
-                        if (boss.AngleDir(player.transform.position, rb.position) < 0)
+                        if (boss.AngleDir() > 0)
                         {
-                            ass = ass - 10;
+                            ass = ass - 20;
                         }
-                        else if (boss.AngleDir(player.transform.position, rb.position) > 0)
+                        else if (boss.AngleDir() < 0)
                         {
-                            ass = ass + 10;
+                            ass = ass + 20;
                         }
                         bass = true;
                     }
-                    Vector2 target4 = new Vector2(ass, rb.position.y);
-                    Vector2 newPos4 = Vector2.MoveTowards(rb.position, target4, 100f * Time.fixedDeltaTime);
-                    rb.MovePosition(newPos4);
+                    
 
                     animator.SetBool("Reset", true);
                 }
+                Vector2 target4 = new Vector2(ass, rb.position.y);
+                Vector2 newPos4 = Vector2.MoveTowards(rb.position, target4, 100f * Time.fixedDeltaTime);
+                rb.MovePosition(newPos4);
                 break;
             case 5:
                 animator.SetBool("Fall", true);
-
                 break;
         }
     }
