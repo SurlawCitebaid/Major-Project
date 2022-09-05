@@ -6,7 +6,7 @@ public class Boss1_idle : StateMachineBehaviour
 {
     BossController bossControl;
     Boss1_Logic boss;
-    int[] indexes = { 2};
+    int[] indexes = {1, 2, 4};
     bool ass;
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {

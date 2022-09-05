@@ -15,9 +15,10 @@ MonoBehaviour:
   name: FlyingProjectile
   description: 
   boss: 0
-  sprite: {fileID: -1566376412, guid: bd8c613b5e8f85049b52971670e05f4f, type: 3}
+  sprite: {fileID: 1833073698, guid: a55b96c1050809f418700e73e60e62af, type: 3}
   health: 3
   attack: {fileID: 11400000, guid: da136deaf95f9fd49980316982b65417, type: 2}
+  enemyDeathParticles: {fileID: 0}
   moveSpeed: 5
   slowSpeed: 0.5
   stunSpeed: 0

@@ -22,13 +22,13 @@ public class Boss1_Chase : StateMachineBehaviour
         
         float distance = Mathf.Abs(rb.position.x - player.position.x);
         float yDistance = Mathf.Abs(rb.position.y - player.position.y);
-        if (distance > attackRange+.4)
+        if (distance > attackRange)
         {
             bossControl.flip();
             Vector2 target = new Vector2(player.position.x, rb.position.y);
             Vector2 newPos = Vector2.MoveTowards(rb.position, target, 7f * Time.fixedDeltaTime);
             rb.MovePosition(newPos);
-        } else if (distance <= attackRange+.4)
+        } else if (distance <= attackRange)
         {
             bossControl.flip();
             if (yDistance > 5)

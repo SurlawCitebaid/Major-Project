@@ -5,7 +5,7 @@ using UnityEngine;
 public class Boss1_Logic : MonoBehaviour
 {
     // Start is called before the first frame update
-    private float attackRange = 5;
+    private float attackRange = 4;
     SpriteRenderer theScale;
     Collider2D playerCol;
     GameObject player;
@@ -29,7 +29,9 @@ public class Boss1_Logic : MonoBehaviour
             switch (index)
             {
                 case 1:
-                    float dist = transform.position.x - player.transform.position.x;
+
+                    float dist = Mathf.Abs(transform.position.x - player.transform.position.x);
+                    Debug.Log(dist + " " + attackRange);
                     if (dist <= attackRange)
                     {
                         ass.SetTrigger("Attack");
@@ -40,7 +42,7 @@ public class Boss1_Logic : MonoBehaviour
                     }
                     break;
                 case 2:
-                     dist = transform.position.x - player.transform.position.x;
+                    dist = Mathf.Abs(transform.position.x - player.transform.position.x);
                     if (dist <= attackRange)
                     {
                         ass.SetTrigger("Attack");
@@ -58,11 +60,7 @@ public class Boss1_Logic : MonoBehaviour
     }
     public float getAttackRange()
     {
-        return 6f;
-    }
-    public float getLongAttackRange()
-    {
-        return 30f;
+        return 4f;
     }
     public void setAttackRange(float i)
     {
