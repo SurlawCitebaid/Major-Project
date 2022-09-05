@@ -16,8 +16,9 @@ MonoBehaviour:
   description: Basic melee enemy attacks when close
   boss: 0
   sprite: {fileID: 391715686, guid: a55b96c1050809f418700e73e60e62af, type: 3}
-  health: 100
+  health: 10
   attack: {fileID: 11400000, guid: 43d76c2e42d48d647a3ec3d027279677, type: 2}
+  enemyDeathParticles: {fileID: 0}
   moveSpeed: 5
   slowSpeed: 0.5
   stunSpeed: 0

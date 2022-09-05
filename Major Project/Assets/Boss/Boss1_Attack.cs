@@ -9,28 +9,30 @@ public class Boss1_Attack : StateMachineBehaviour
     Rigidbody2D rb;
     float ass;
     Transform player;
+    SpriteRenderer sprite;
     bool bass;
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        sprite = GameObject.Find("HitBox").GetComponent<SpriteRenderer>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         bossControl = animator.GetComponent<BossController>();
         boss = animator.GetComponent<Boss1_Logic>();
         rb = animator.GetComponent<Rigidbody2D>();
+
         ass = rb.position.x;
         bass = false;
-
+        sprite.enabled = false;
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        
         switch (boss.getIndex())
         {
             case 1:
-                bossControl.flip();
                 animator.SetBool("Reset", true);
                 break;
             case 2:
-                bossControl.flip();
                 animator.SetBool("Attack1", true); 
                 break;
             case 4:
@@ -38,7 +40,6 @@ public class Boss1_Attack : StateMachineBehaviour
                 {
                     if (!bass)
                     {
-                        bossControl.flip();
                         if (bossControl.AngleDir() > 0)
                         {
                             ass = ass - 20;
@@ -63,6 +64,7 @@ public class Boss1_Attack : StateMachineBehaviour
     }
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        sprite.enabled = true;
         if (!animator.GetBool("Damage"))
         {
             bossControl.isInvulnerable = false;

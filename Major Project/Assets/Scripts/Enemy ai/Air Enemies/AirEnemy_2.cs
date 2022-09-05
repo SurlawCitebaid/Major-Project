@@ -10,8 +10,9 @@ public class AirEnemy_2 : MonoBehaviour
     private GameObject player;
     public Material m_Material;
     private LineRenderer lr;
-    private bool attacked = false, movePos = false, attackReady = false, predictionLine = false;
+    private bool attacked = false, movePos = false, shot = false;
     private int resetCount = 0;
+    private int index = 999;
     void Start()
     {
         DrawLine(new Vector3(1, 1, 1), new Vector3(2, 2, 2), this.transform);                   // initialize line
@@ -26,11 +27,8 @@ public class AirEnemy_2 : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        
-        int index = 999;
         RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.TransformDirection(Vector2.up), Mathf.Infinity);
 
-        Debug.Log(states.currentState());
 
         for (int i = 0; i < hits.Length; i++)
         {
@@ -43,7 +41,7 @@ public class AirEnemy_2 : MonoBehaviour
         {
             case EnemyAiController.State.MOVING:
                 float dist = Vector3.Distance(transform.position, player.transform.position);
-                if (dist < states.enemy.attack.range)
+                if (dist < states.enemy.attack.range && shot)
                 {
                     rePosition();
                 }
@@ -67,6 +65,7 @@ public class AirEnemy_2 : MonoBehaviour
                     Vector3 shootDir = (hits[index].point - (Vector2)transform.position).normalized;
                     bullet.GetComponent<Projectile>().Setup(shootDir);
                     attacked = true;
+                    shot = true;
                     Invoke("reset", 2f); // determines attack delay
                 }
                 break;
@@ -78,23 +77,20 @@ public class AirEnemy_2 : MonoBehaviour
     
     void reset()
     {
-        float dist = Vector3.Distance(transform.position, player.transform.position);
-        if(dist < states.enemy.attack.range/2 && resetCount != 3)
+        if (shot)
         {
-            resetCount++;
-            movePos = false;
-            alphaInvis();
-            states.setState(0);
-        } else
-        {
-            states.setState(2);
-
+            float dist = Vector3.Distance(transform.position, player.transform.position);
+            if (dist < 2 && resetCount != 3)
+            {
+                resetCount++;
+                movePos = false;
+                alphaInvis();
+                states.setState(0);
+            } else
+            {
+                states.setState(2);
+            }
         }
-
-        
-        
-
-
     }
     IEnumerator Aiming()
     {
@@ -133,8 +129,8 @@ public class AirEnemy_2 : MonoBehaviour
                 validPos = player.transform.position + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * (states.enemy.attack.range - 1f);
             }
             transform.position = validPos;
-            movePos = true;
             states.setState(2);
+            movePos = true;
 
         }
 

@@ -29,25 +29,25 @@ public class Boss1_Logic : MonoBehaviour
             switch (index)
             {
                 case 1:
-                    float dist = Vector3.Distance(transform.position, player.transform.position);
-                    if (dist > attackRange)
+                    float dist = transform.position.x - player.transform.position.x;
+                    if (dist <= attackRange)
                     {
-                        ass.SetTrigger("Chase");
+                        ass.SetTrigger("Attack");
                     }
                     else
                     {
-                        ass.SetTrigger("Attack");
+                        ass.SetTrigger("Chase");
                     }
                     break;
                 case 2:
-                    dist = Vector3.Distance(transform.position, player.transform.position);
-                    if (dist > attackRange)
+                     dist = transform.position.x - player.transform.position.x;
+                    if (dist <= attackRange)
                     {
-                        ass.SetTrigger("Chase");
+                        ass.SetTrigger("Attack");
                     }
                     else
                     {
-                        ass.SetTrigger("Attack");
+                        ass.SetTrigger("Chase");
                     }
                     break;
                 case 4:

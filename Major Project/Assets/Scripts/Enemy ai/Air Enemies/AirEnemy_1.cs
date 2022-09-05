@@ -41,11 +41,6 @@ public class AirEnemy_1 : MonoBehaviour
 
             }
         }
-        //if (!Room.enemyLocationValid(transform.position))
-        //{
-        //    invalid = true;
-        //}
-
         switch (states.currentState())
         {
             case EnemyAiController.State.MOVING:
@@ -165,6 +160,7 @@ public class AirEnemy_1 : MonoBehaviour
                     states.Die();
                     break;
                 }
+                Debug.Log("ASDSA");
                 angle = Random.Range(0, 2f * Mathf.PI);
                 validPos = player.transform.position + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * (states.enemy.attack.range - 1f);
             }

@@ -6,7 +6,7 @@ public class Boss1_idle : StateMachineBehaviour
 {
     BossController bossControl;
     Boss1_Logic boss;
-    int[] indexes = { 1,2,4};
+    int[] indexes = { 2};
     bool ass;
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -15,8 +15,10 @@ public class Boss1_idle : StateMachineBehaviour
         bossControl = animator.GetComponent<BossController>();
     }
 
+
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        bossControl.flip();
         if (animator.GetBool("Damage"))
         {
             bossControl.isInvulnerable = true;
@@ -47,7 +49,5 @@ public class Boss1_idle : StateMachineBehaviour
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-
-        
     }
 }

@@ -8,6 +8,8 @@ public class BossController : MonoBehaviour
     [SerializeField] int health = 10;
     public bool isInvulnerable = true;
     SpriteRenderer theScale;
+    Vector3 leftFacing;
+    Vector3 rightFacing;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +18,8 @@ public class BossController : MonoBehaviour
         ass = GetComponent<Animator>();
         theScale = GetComponent<SpriteRenderer>();
         player = GameObject.FindGameObjectWithTag("Player");
+        leftFacing = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
+        rightFacing = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z); ;
     }
 
     // Update is called once per frame
@@ -25,11 +29,11 @@ public class BossController : MonoBehaviour
         
         if (AngleDir() > 0)
         {
-            theScale.flipX = true;
+            transform.localScale = leftFacing;
         }
         else if (AngleDir() < 0)
         {
-            theScale.flipX = false;
+            transform.localScale = rightFacing;
         }
     }
     public float AngleDir()

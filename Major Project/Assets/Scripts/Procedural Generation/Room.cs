@@ -216,7 +216,6 @@ public class Room
         //Runs until all platforms are placed
         while (currentNumberOfPlatforms < maxNumberOfPlatforms)
         {
-
             //A random range out side of the borders
             int xPos = Random.Range(0 + 2, roomSizeX - 1);
             int yPos = Random.Range(0 + 2, roomSizeY - 1);
