@@ -5,11 +5,10 @@ using UnityEngine;
 public class char_movement_Mario : MonoBehaviour
 {
     public movement_Mario m_movementController;
-    public PlayerController m_playerController;
     public Animator animator;
     float move_horizontal = 0f;
     bool jump = false;
-    bool isGrounded, isTouchingWall, isWallGrabing, isfalling, isDashing,isInvincible, canCharge;
+    bool isGrounded, isTouchingWall, isWallGrabing, isfalling, isDashing, canCharge;
     bool crouch = false;
     bool dash = false;
     float jumpDuration;
@@ -24,15 +23,13 @@ public class char_movement_Mario : MonoBehaviour
         isfalling = m_movementController.getFalling();
         isDashing = m_movementController.getDashing();
 
-        // status check
+        // animation part
         if (isDashing)                                              // invincible when dashing
         {
-            m_playerController.isInvincible = true;
+            animator.SetBool("isDashing", true);
         } else {
-            m_playerController.isInvincible = false;
+            animator.SetBool("isDashing", false);
         }
-
-        // animation part
         if (move_horizontal != 0 && isGrounded)
         {
             animator.SetBool("isWalking", true);
