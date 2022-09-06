@@ -14,12 +14,12 @@ public class HealthController : MonoBehaviour
 
     private void Start()
     {
-        UpdateHealthStatus;
+        UpdateHealthStatus();
     }
 
     private void UpdateHealthStatus()
     {
-        for (int i = 0; i < healthHearts.length; i++)
+        for (int i = 0; i < healthHearts.Length; i++)
         {
             if (i < playerHealth)
             {
