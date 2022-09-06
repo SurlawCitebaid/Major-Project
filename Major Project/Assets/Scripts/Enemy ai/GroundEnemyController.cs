@@ -9,15 +9,22 @@ public class GroundEnemyController : MonoBehaviour
     GameObject player;
     Vector2 distance;
     bool isGrounded;
+    bool facingRight;
     [SerializeField] private LayerMask lm_ground;
     [SerializeField] private Transform groundCheckPos;
     [SerializeField] private ParticleSystem dust;
     EnemyScriptableObject enemy;
-    //Attack attack;
+    [SerializeField] Attack attack;
 
     private void Awake() {
         states = GetComponent<EnemyAiController>();
         player = GameObject.FindGameObjectWithTag("Player");
+        attack = GetComponent<Attack>();
+
+        distance = new Vector2(player.transform.position.x - gameObject.transform.position.x, 0); //track the distance from the player
+        if (distance.x > 0)
+            facingRight = true;
+            else facingRight = false;
     }
 
     // Update is called once per frame
@@ -26,12 +33,17 @@ public class GroundEnemyController : MonoBehaviour
         distance = new Vector2(player.transform.position.x - gameObject.transform.position.x, 0); //track the distance from the player
         GroundCheck();
 
+        if (states.currentState() != EnemyAiController.State.COOLDOWN)
+        {
+            if((distance.normalized.x < 0 && facingRight) || (distance.normalized.x > 0 && !facingRight))
+            Flip();
+        }
+
         if (isGrounded){
             switch(states.currentState()){
                 case EnemyAiController.State.MOVING:
                     MoveEnemy(states.enemy.moveSpeed);
                     if(states.getVelocity().x == 0){
-                        
                         StartCoroutine(Jump());
                     }
                     break;
@@ -64,6 +76,7 @@ public class GroundEnemyController : MonoBehaviour
 
     void MoveEnemy(float speed){
         //states.setState(0);
+        
 
         if (distance.magnitude > states.enemy.attack.range) {
             //attempt to move towards player
@@ -81,7 +94,7 @@ public class GroundEnemyController : MonoBehaviour
         states.setState(2);
 
         float timePassed = 0;
-        while (timePassed < 2f && states.currentState() == EnemyAiController.State.AIMING){
+        while (timePassed < 1f && states.currentState() == EnemyAiController.State.AIMING){
             if (distance.magnitude > states.enemy.attack.maxRange){
                 //too far away
                 break;
@@ -92,7 +105,7 @@ public class GroundEnemyController : MonoBehaviour
         }
         
         //if still in range after two seconds
-        if (timePassed < 2f){
+        if (timePassed < 1f){
             states.setState(0);
         } else {
             Attack();
@@ -104,26 +117,7 @@ public class GroundEnemyController : MonoBehaviour
         states.setState(3); //ATTACKING
         states.setImmune(true);
 
-        states.enemy.attack.attackLogic.DoAttack(states, distance, gameObject);
-
-        
-        switch (states.enemy.attack.name) {
-            case "Charge":
-                //states.enemy.attack.DoAttack();
-                //float chargeSpeed = 20f; //speed of the charging attack
-                //states.changeVelocity(new Vector2(distance.normalized.x * chargeSpeed, states.getYVelocity()));
-            break;
-/*
-            case "Swipe":
-                //Debug.Log("Swiper no swipe yet");
-            break;
-
-            default:
-                Debug.Log("No attack type for " + states.enemy.name);
-            break;
-*/
-        }
-        
+        attack.DoAttack(states, distance, gameObject);
 
         StartCoroutine(states.Immunity());
         StartCoroutine(states.CooldownAttack(states.enemy.attack.cooldownTime,0));
@@ -133,9 +127,13 @@ public class GroundEnemyController : MonoBehaviour
         states.changeVelocity(states.getVelocity() + new Vector2(distance.normalized.x * states.enemy.jumpHeight, states.enemy.jumpHeight));
         dust.Play();
         yield return new WaitForSeconds(0.5f);
-        //states.changeVelocity(new Vector2(distance.normalized.x * enemy.jumpHeight, enemy.jumpHeight));
     }
 
-
-
+    void Flip(){
+        Vector3 scale = gameObject.transform.localScale;
+        scale.x *= -1;
+        facingRight = !facingRight;
+        transform.localScale = scale;
+        dust.Play();
+    }
 }

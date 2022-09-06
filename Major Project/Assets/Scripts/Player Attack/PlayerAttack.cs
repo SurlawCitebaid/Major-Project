@@ -58,10 +58,11 @@ public class PlayerAttack : MonoBehaviour {
             attackDir = -1f;
 
         attackLocation = new Vector3(this.gameObject.transform.position.x - attackDir * 0.5f, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
-        Transform swordSlash = Instantiate(pfSwordSlash, attackLocation + new Vector3(-attackDir, 0, 0), Quaternion.identity, null); //this.gameObject.transform
-        swordSlash.localScale = new Vector3(1 * -attackDir, 1, 1);
+        Transform swordSlash = Instantiate(pfSwordSlash, attackLocation + new Vector3(attackDir, 0, 0), Quaternion.identity, null); //this.gameObject.transform
+        swordSlash.localScale = new Vector3(1 * attackDir, 1, 1);
 
         Collider2D[] hits = Physics2D.OverlapAreaAll(attackLocation, new Vector2(attackLocation.x + attackRange * attackDir, 0), lm_enemies);
+        Collider2D[] hit = Physics2D.OverlapBoxAll(swordSlash.transform.position, swordSlash.transform.localScale, 0, lm_enemies);
         foreach (Collider2D enemy in hits) {
             if (enemy.GetComponent<BossController>() != null)
             {

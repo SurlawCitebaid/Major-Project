@@ -2,31 +2,51 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu (menuName = "ScriptableObjects/Enemy Attack/Charge")]
+//[CreateAssetMenu (menuName = "ScriptableObjects/Enemy Attack/Charge")]
 public class Charge : Attack
 {
+
+    float chargeSpeed = 20f; //speed of the charging attack
+    Vector2 direction;
+    GameObject parent;
     public override void DoAttack(EnemyAiController states, Vector2 distance, GameObject parent){
-        float chargeSpeed = 20f; //speed of the charging attack
+        
         states.changeVelocity(new Vector2(distance.normalized.x * chargeSpeed, states.getYVelocity()));
 
         //animate
+        this.parent = parent;
+        direction = new Vector2(distance.normalized.x,0);
         Vector2 attackLocation = parent.transform.position;
-        Vector2 direction = new Vector2(distance.normalized.x,0);
         Transform chargeA = Instantiate(animation, attackLocation, Quaternion.identity, parent.transform); //this.gameObject.transform
-        chargeA.localScale = new Vector3(1 * direction.x, 1, 1);
+        chargeA.localScale = new Vector3(-1, 1, 1);
 
-        Collider2D[] hitbox = Physics2D.OverlapBoxAll((Vector2)parent.transform.position + direction, chargeA.localScale,0,LayerMask.GetMask("Player"));
-        foreach (var item in hitbox)
-        {
-            if(item.tag == "Player"){
-                Debug.Log("Charger HIT!");
-                //make player take damage
-                var player = item.gameObject.GetComponent<PlayerController>();
-                player.damage(5);
-                break;
-            }
-        }
+        StartCoroutine(Hit(chargeA));
+
         
+        
+    }
+
+    IEnumerator Hit(Transform anim){
+        bool hit = false;
+        Collider2D[] hitbox;
+        for(float i = 0; i < 1f; i += Time.deltaTime){//check each frame of charge for one second, stops when finds player
+            if(anim == null) break;
+
+            hitbox = Physics2D.OverlapBoxAll((Vector2)parent.transform.position + direction, anim.localScale,0,LayerMask.GetMask("Player"));
+            foreach (var item in hitbox)
+                {
+                if(item.tag == "Player"){
+                    hit = true;
+                    Debug.Log("Charger HIT!");
+                    //make player take damage
+                    var player = item.gameObject.GetComponent<PlayerController>();
+                    player.damage(5);
+                    break;
+                }
+            }
+            yield return new WaitForEndOfFrame();
+            if (hit) break;
+        }
     }
     
 }
