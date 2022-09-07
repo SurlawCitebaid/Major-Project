@@ -327,7 +327,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_movementController: {fileID: 7192825863642418341}
-  m_playerController: {fileID: 3443211902839965457}
   animator: {fileID: 3732599500095072009}
 --- !u!114 &7192825863642418341
 MonoBehaviour:
@@ -341,6 +340,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58e10ea9d08877c41a35136f8561a914, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_playerController: {fileID: 3443211902839965457}
+  m_playerAttack: {fileID: 536136877158582985}
   m_CollisionRadius: 0.05
   m_MoveSpeed: 300
   m_MovementSlippery: 0

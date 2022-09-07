@@ -9,6 +9,7 @@ public class movement_Mario : MonoBehaviour
 	//variables
 	[Header("General")][Space]
 	public PlayerController m_playerController;
+	public PlayerAttack m_playerAttack;
 	[Range(0, .5f)] [SerializeField] private float m_CollisionRadius = 0.1f;
 	[Space][Space]
 
@@ -129,6 +130,7 @@ public class movement_Mario : MonoBehaviour
 			Vector3 scale = transform.localScale;
 			scale.x *= -1;					// reverse object
 			transform.localScale = scale;
+			m_playerAttack.setAttackDirection("right");
 		}
 		else if (speed < 0 && m_isFacingRight == true)	// moving left but facing right
 		{
@@ -136,6 +138,7 @@ public class movement_Mario : MonoBehaviour
 			Vector3 scale = transform.localScale;
 			scale.x *= -1;						// reverse object
 			transform.localScale = scale;
+			m_playerAttack.setAttackDirection("left");
 		}
 	}
 	private IEnumerator Dash()

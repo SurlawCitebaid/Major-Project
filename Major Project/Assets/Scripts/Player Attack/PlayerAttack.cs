@@ -8,7 +8,7 @@ public class PlayerAttack : MonoBehaviour {
     [SerializeField] private WeaponType weapon = WeaponType.FIREBALL;
 
     private Vector3 attackLocation;
-    private float attackDir;
+    private float attackDir = 1f;
     private bool canAttack = true;
 
     [SerializeField] private Camera cam;
@@ -52,10 +52,10 @@ public class PlayerAttack : MonoBehaviour {
     }
 
     private void SwordAttack() {
-        if (cam.ScreenToWorldPoint(Input.mousePosition).x > this.gameObject.transform.position.x)
-            attackDir = 1f;
-        if (cam.ScreenToWorldPoint(Input.mousePosition).x < this.gameObject.transform.position.x)
-            attackDir = -1f;
+        //if (cam.ScreenToWorldPoint(Input.mousePosition).x > this.gameObject.transform.position.x)
+        //    attackDir = 1f;
+        //if (cam.ScreenToWorldPoint(Input.mousePosition).x < this.gameObject.transform.position.x)
+        //    attackDir = -1f;
 
         attackLocation = new Vector3(this.gameObject.transform.position.x - attackDir * 0.5f, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
         Transform swordSlash = Instantiate(pfSwordSlash, attackLocation + new Vector3(attackDir, 0, 0), Quaternion.identity, null); //this.gameObject.transform
@@ -101,5 +101,18 @@ public class PlayerAttack : MonoBehaviour {
     private IEnumerator AttackReset(float resetDuration) {
         yield return new WaitForSeconds(resetDuration);
         canAttack = true;
+    }
+
+    public void setAttackDirection(string dir)         // set attack direction based on character facing
+    {
+        switch (dir)
+        {
+            case "left":
+                attackDir = -1f;
+                break;
+            case "right":
+                attackDir = 1f;
+                break;
+        }
     }
 }
