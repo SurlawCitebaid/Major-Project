@@ -221,4 +221,25 @@ public class movement_Mario : MonoBehaviour
 	{
 		return isDashing;
 	}
+	public float getMoveSpeed()
+	{
+		return m_MoveSpeed;
+	}
+	public void disableMovement(string bruh)
+	{
+		switch (bruh)
+		{
+			case "true":
+				m_DisableMovement = true;
+				break;
+			case "false":
+				m_DisableMovement = false;
+				break;
+		}
+	}
+	public void setMoveSpeed(float value)
+	{
+		// bruh somebody want dat speed limit shit so fucking cringe lmaoooooooooooooo
+		m_MoveSpeed = value;
+	}
 }

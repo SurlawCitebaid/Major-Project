@@ -5,10 +5,11 @@ using UnityEngine;
 public class char_movement_Mario : MonoBehaviour
 {
     public movement_Mario m_movementController;
+    public PlayerAttack m_playerAttack;
     public Animator animator;
     float move_horizontal = 0f;
     bool jump = false;
-    bool isGrounded, isTouchingWall, isWallGrabing, isfalling, isDashing, canCharge;
+    bool isGrounded, isTouchingWall, isWallGrabing, isfalling, isDashing, isAttacking, canCharge;
     bool crouch = false;
     bool dash = false;
     float jumpDuration;
@@ -22,13 +23,20 @@ public class char_movement_Mario : MonoBehaviour
         isWallGrabing = m_movementController.getWallGrabing();
         isfalling = m_movementController.getFalling();
         isDashing = m_movementController.getDashing();
+        isAttacking = m_playerAttack.getAttacking();
 
-        // animation part
+        //////////////animation part//////////////
         if (isDashing)                                              // invincible when dashing
         {
             animator.SetBool("isDashing", true);
         } else {
             animator.SetBool("isDashing", false);
+        }
+        if (isAttacking)                                              // invincible when dashing
+        {
+            animator.SetBool("isAttacking", true);
+        } else {
+            animator.SetBool("isAttacking", false);
         }
         if (move_horizontal != 0 && isGrounded)
         {
@@ -56,6 +64,7 @@ public class char_movement_Mario : MonoBehaviour
         } else {
             animator.SetBool("isGrabing", false);
         }
+        //////////////////////////////////////////
 
         if (Input.GetButtonDown("Jump"))
         {

@@ -327,6 +327,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_movementController: {fileID: 7192825863642418341}
+  m_playerAttack: {fileID: 536136877158582985}
   animator: {fileID: 3732599500095072009}
 --- !u!114 &7192825863642418341
 MonoBehaviour:
@@ -395,7 +396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad05e1567dfdca14987ab666b3d60e1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: 0
+  weapon: 1
   cam: {fileID: 6446521005514655425}
   lm_enemies:
     serializedVersion: 2
