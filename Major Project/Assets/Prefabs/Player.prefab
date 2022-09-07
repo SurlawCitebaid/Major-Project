@@ -396,7 +396,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad05e1567dfdca14987ab666b3d60e1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: 1
+  m_movementController: {fileID: 0}
+  weapon: 0
   cam: {fileID: 6446521005514655425}
   lm_enemies:
     serializedVersion: 2

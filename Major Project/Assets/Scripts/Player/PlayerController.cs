@@ -15,10 +15,13 @@ public class PlayerController : MonoBehaviour
 	[Space][Space]
     public float health;
     public bool isInvincible;
+    SpriteRenderer sprite;
+    Color originalColor;
     // Start is called before the first frame update
     void Start()
     {
         health = playerScriptableObject.maxHealth;
+        sprite = gameObject.GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -30,14 +33,17 @@ public class PlayerController : MonoBehaviour
     {
         if (isInvincible == true)
         {
-            Debug.Log("Anthony gae");
+            Debug.Log("inv");
         } else {
             health -= damageAmount;
+            originalColor = sprite.color;
+            sprite.color = Color.red;
             if (health <= 0)
             {
                 Die();
             }
             Debug.Log("damage");
+            StartCoroutine(onHitSpriteChange());
             StartCoroutine(triggerInvincible());
         }
     }
@@ -55,4 +61,9 @@ public class PlayerController : MonoBehaviour
         isInvincible = false;
 	}
 
+    public IEnumerator onHitSpriteChange()
+	{
+		yield return new WaitForSeconds(0.3f);
+        sprite.color = originalColor;
+	}
 }

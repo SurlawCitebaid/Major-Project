@@ -66,7 +66,6 @@ public class movement_Mario : MonoBehaviour
 	private void FixedUpdate()
 	{
 		isGrounded = false;
-
 		// set character state to grounded when intact with any part of floor's colliders
 		Collider2D[] colliders = Physics2D.OverlapCircleAll(m_BottomDetection.position, m_CollisionRadius, m_GroundLayer);
 		for (int i = 0; i < colliders.Length; i++)
