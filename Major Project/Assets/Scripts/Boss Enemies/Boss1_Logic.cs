@@ -31,7 +31,6 @@ public class Boss1_Logic : MonoBehaviour
                 case 1:
 
                     float dist = Mathf.Abs(transform.position.x - player.transform.position.x);
-                    Debug.Log(dist + " " + attackRange);
                     if (dist <= attackRange)
                     {
                         ass.SetTrigger("Attack");

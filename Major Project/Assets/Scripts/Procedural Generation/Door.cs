@@ -51,7 +51,9 @@ public class Door : MonoBehaviour
             collision.transform.position = getDoorToTravelTo();
             lockDoors();
             EnemySpawner.enemiesAlive = true;
+            CameraFollow.updateRoomCamera = true;
         }
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -61,6 +63,7 @@ public class Door : MonoBehaviour
             collision.transform.position = getDoorToTravelTo();
             lockDoors();
             EnemySpawner.enemiesAlive = true;
+            CameraFollow.updateRoomCamera = true;
         }
     }
 
@@ -93,7 +96,6 @@ public class Door : MonoBehaviour
             default:
                 return new Vector2();
         }
-        Debug.Log(GenerateLevel.currentPlayerRoom);
         return doorPosition;
     }
     
