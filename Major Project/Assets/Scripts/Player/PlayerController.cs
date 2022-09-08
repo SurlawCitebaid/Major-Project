@@ -31,10 +31,12 @@ public class PlayerController : MonoBehaviour
 
     public void damage(float damageAmount)
     {
+        
         if (isInvincible == true)
         {
             Debug.Log("inv");
         } else {
+            FindObjectOfType<AudioManager>().Play("PlayerHurt");
             health -= damageAmount;
             originalColor = sprite.color;
             sprite.color = Color.red;

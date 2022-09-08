@@ -151,6 +151,7 @@ public class movement_Mario : MonoBehaviour
 			m_Rigidbody2D.gravityScale = 0;				// set gravity to zero if gravity during dashing is not wanted
 		}
 		m_Rigidbody2D.velocity = new Vector2(transform.localScale.x * m_DashDistance, 0f);
+		FindObjectOfType<AudioManager>().Play("PlayerDash");
 		yield return new WaitForSeconds(m_DashDuration);
 		m_Rigidbody2D.gravityScale = gravity;			// return gravity to character
 		m_DisableMovement = false;						// enable movement control after the dashing is done
