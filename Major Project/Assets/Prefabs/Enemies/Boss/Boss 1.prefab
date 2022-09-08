@@ -287,6 +287,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 10
   isInvulnerable: 0
+  deathParticles: {fileID: 8243667470119457127, guid: 32fe0e2d2d52b394fb210a3ef46c8c5a, type: 3}
 --- !u!114 &1036946578753653222
 MonoBehaviour:
   m_ObjectHideFlags: 0

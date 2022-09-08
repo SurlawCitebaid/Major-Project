@@ -10,6 +10,10 @@ public class BossController : MonoBehaviour
     SpriteRenderer theScale;
     Vector3 leftFacing;
     Vector3 rightFacing;
+
+    [SerializeField]
+    GameObject deathParticles;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,6 +61,18 @@ public class BossController : MonoBehaviour
     public void Die()
     {
         EnemySpawner.enemiesAlive = false;
-        Destroy(gameObject, 4);
+        StartCoroutine(dieEffect());
     }
+
+    public IEnumerator dieEffect()
+    {
+        //Wait 4 seconds then die
+        yield return new WaitForSeconds(4f);
+        //Die effect
+        if(gameObject != null)
+        {
+            GameObject.Instantiate(deathParticles, transform.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
+    } 
 }

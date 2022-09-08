@@ -54,6 +54,16 @@ public class Door : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            collision.transform.position = getDoorToTravelTo();
+            lockDoors();
+            EnemySpawner.enemiesAlive = true;
+        }
+    }
+
 
     private Vector2 getDoorToTravelTo()
     {

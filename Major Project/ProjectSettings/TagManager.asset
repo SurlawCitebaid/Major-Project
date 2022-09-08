@@ -56,3 +56,6 @@ TagManager:
   - name: Walls
     uniqueID: 1686296315
     locked: 0
+  - name: Glow Effect
+    uniqueID: 3684791059
+    locked: 0
