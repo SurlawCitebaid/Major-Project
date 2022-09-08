@@ -18,7 +18,7 @@ MonoBehaviour:
   sprite: {fileID: 1833073698, guid: a55b96c1050809f418700e73e60e62af, type: 3}
   health: 3
   attack: {fileID: 11400000, guid: da136deaf95f9fd49980316982b65417, type: 2}
-  enemyDeathParticles: {fileID: 0}
+  enemyDeathParticles: {fileID: 2381159102021600246, guid: 2f35a116104cb3c4d98f8c0880b1bdd2, type: 3}
   moveSpeed: 5
   slowSpeed: 0.5
   stunSpeed: 0
