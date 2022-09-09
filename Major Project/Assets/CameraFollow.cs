@@ -35,7 +35,6 @@ public class CameraFollow : MonoBehaviour {
             
             float xChecker = (new Vector2(player.position.x, 0) - new Vector2(xCentre, 0)).x;
             float yChecker = (new Vector2(0, player.position.y) - new Vector2(0, yCentre)).y;
-            Debug.Log(xChecker + "====================================");
             float playerPosFromCentX = (new Vector2(xCentre, 0) - new Vector2(player.position.x, 0)).magnitude;
             float playerPosFromCentY = (new Vector2(0, yCentre) - new Vector2(0, player.position.y)).magnitude;
             float scalingPercentageX = (playerPosFromCentX / maxWidth);
@@ -68,14 +67,5 @@ public class CameraFollow : MonoBehaviour {
             }
 
         }
-        //if(Input.GetKeyDown("k"))
-        //{
-        //    transform.position = new Vector3(Room.getTopRightRoomPosition().x - xCentre - maxWidth, (Room.getTopRightRoomPosition().y - yCentre), -10);
-        //}
-        //if (Input.GetKeyDown("l"))
-        //{
-        //    transform.position = new Vector3(Room.getTopRightRoomPosition().x - xCentre + maxWidth, (Room.getTopRightRoomPosition().y - yCentre), -10);
-        //}
-
     }
 }

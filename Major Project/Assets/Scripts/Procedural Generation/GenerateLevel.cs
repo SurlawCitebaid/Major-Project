@@ -156,6 +156,8 @@ public class GenerateLevel : MonoBehaviour
 
     void placeRooms()
     {
+        //confirms the room camera is updated after a reset
+        CameraFollow.updateRoomCamera = true;              
         for (int x = 0; x < gridSizeX; x++)
         {
             for (int y = 0; y < gridSizeY; y++)
