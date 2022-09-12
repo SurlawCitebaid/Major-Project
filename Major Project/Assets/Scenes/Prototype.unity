@@ -363,6 +363,10 @@ PrefabInstance:
       propertyPath: m_movementController
       value: 
       objectReference: {fileID: 1006218865}
+    - target: {fileID: 3443211902839965457, guid: 2f58e6d53cf64554896f43dc6e9d226c, type: 3}
+      propertyPath: isInvincible
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3583538987083204672, guid: 2f58e6d53cf64554896f43dc6e9d226c, type: 3}
       propertyPath: m_RootOrder
       value: 2

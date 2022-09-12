@@ -285,7 +285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a24391ca01fe434eb43bc20f40fb508, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 50
   isInvulnerable: 0
   deathParticles: {fileID: 8243667470119457127, guid: 32fe0e2d2d52b394fb210a3ef46c8c5a, type: 3}
 --- !u!114 &1036946578753653222
@@ -300,6 +300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fc2312d011fdeb4db47f3bebe46de18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HitBox: {fileID: 1036946577217926386}
 --- !u!95 &1036946578753653241
 Animator:
   serializedVersion: 4

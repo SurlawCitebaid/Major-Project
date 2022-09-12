@@ -5,11 +5,13 @@ using UnityEngine;
 public class Boss1_Logic : MonoBehaviour
 {
     // Start is called before the first frame update
+    public GameObject HitBox;
     private float attackRange = 4;
-    SpriteRenderer theScale;
     Collider2D playerCol;
     GameObject player;
+    
     Animator ass;
+    bool attack;
 
     int index = 0;
     // Start is called before the first frame update
@@ -18,14 +20,11 @@ public class Boss1_Logic : MonoBehaviour
         playerCol = GameObject.FindGameObjectWithTag("Player").GetComponent<Collider2D>();
         player = GameObject.FindGameObjectWithTag("Player");
         ass = GetComponent<Animator>();
-        theScale = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!ass.GetBool("Death"))
-        {
             switch (index)
             {
                 case 1:
@@ -55,7 +54,7 @@ public class Boss1_Logic : MonoBehaviour
                     ass.SetTrigger("Attack");
                     break;
             }
-        } 
+         
     }
     public float getAttackRange()
     {

@@ -5,7 +5,7 @@ public class BossController : MonoBehaviour
 {
     Animator ass;
     GameObject player;
-    [SerializeField] int health = 10;
+    [SerializeField] int health = 50;
     public bool isInvulnerable = true;
     SpriteRenderer theScale;
     Vector3 leftFacing;
@@ -48,9 +48,11 @@ public class BossController : MonoBehaviour
     {
         if (isInvulnerable)
             return;
+
         ass.SetTrigger("Damage");
         health -= 10;
-        Debug.Log(health);
+        isInvulnerable = true;
+
         if (health <= 0)
         {
             Die();

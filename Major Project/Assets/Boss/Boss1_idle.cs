@@ -6,13 +6,16 @@ public class Boss1_idle : StateMachineBehaviour
 {
     BossController bossControl;
     Boss1_Logic boss;
-    int[] indexes = {1, 2, 4};
-    bool ass;
+    int[] indexes = {1,2};
+    bool sameIndex;
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        ass = false;
+        Transform ass = animator.transform.GetChild(0);
+
+        sameIndex = true;
         boss = animator.GetComponent<Boss1_Logic>();
         bossControl = animator.GetComponent<BossController>();
+        boss.HitBox.SetActive(false);
     }
 
 
@@ -29,21 +32,19 @@ public class Boss1_idle : StateMachineBehaviour
         animator.SetBool("Attack1", false);
         animator.SetBool("Chase", false);
         animator.SetBool("Jump", false);
-        if (!ass)
+
+        if (sameIndex)
         {
             int i = boss.randomNum(indexes);
             while (i != boss.getIndex())
             {
                 boss.setIndex(i);
-                ass = true;
-                if(boss.getIndex() == 5)
-                {
-                    animator.SetBool("Jump", true);
-                }
-                
+                sameIndex = false;
                 break;
-            } 
+            }
         }
+
+
 
     }
 
