@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class HealthController : MonoBehaviour
 {
     public int playerHealth;
-    //Color pink = Color.FromArgb(255, 105, 249);
+    //public Color pink = Color.FromArgb(255, 105, 249);
 
     [SerializeField] private Image[] healthHearts;
 
@@ -23,7 +23,7 @@ public class HealthController : MonoBehaviour
         {
             if (i < playerHealth)
             {
-                healthHearts[i].color = Color.red;
+                healthHearts[i].color = new Color32(255,105,249,255); // RGBA
             }
             else
             {
