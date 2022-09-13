@@ -10,12 +10,14 @@ using System.Linq;
 public class SettingsMenu : MonoBehaviour
 {
   
+    // Sets volume as slider moves
     public AudioMixer aM;
     public void SetVolume (float vol)
     {
         aM.SetFloat("MasterVolume", vol);
     }
 
+    // NOT IN USE ANYMORE
     ToggleGroup toggleGroup;
     void Start()
     {
