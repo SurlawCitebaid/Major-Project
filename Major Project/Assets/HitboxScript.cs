@@ -6,15 +6,10 @@ public class HitboxScript : MonoBehaviour
 {
 private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Player" && this.transform.parent.gameObject.tag != "Player")
+        if(collision.gameObject.tag == "Player")
         {
             PlayerController ass = collision.gameObject.GetComponent<PlayerController>();
             ass.damage(1);
-        }
-        if(this.transform.parent.gameObject.tag == "Player")
-        {
-            //PlayerController ass = collision.gameObject.GetComponent<PlayerController>();
-            //ass.damage(1);
         }
     }
 
