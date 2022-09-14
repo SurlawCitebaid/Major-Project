@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc20c13f6d1a6194cbcfedab1b08cd7f, type: 3}
   m_Name: ChargeAttack
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 5
   range: 5
   maxRange: 8
   minRange: 2
   cooldownTime: 1.5
   immunityTime: 1
+  attackLogic: {fileID: 11400000, guid: fafe3b0f228642d44862ea96d7a93a4e, type: 2}

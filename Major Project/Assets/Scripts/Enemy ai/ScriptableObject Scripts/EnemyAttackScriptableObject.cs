@@ -12,5 +12,8 @@ public class EnemyAttackScriptableObject : ScriptableObject
     public float minRange; //enemy will attempt to move away from the player, too close
     public float cooldownTime; //time till attack will be performed again
     public float immunityTime; //time immune during attack
+    //animation for attack in future
+    //public Animation animation;
+    public Attack attackLogic;
 
 }
