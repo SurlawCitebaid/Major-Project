@@ -24,7 +24,10 @@ public class GroundEnemyController : MonoBehaviour
         distance = new Vector2(player.transform.position.x - gameObject.transform.position.x, 0); //track the distance from the player
         if (distance.x > 0)
             facingRight = true;
-            else facingRight = false;
+        else {
+            facingRight = false;
+            Flip();
+        }
     }
 
     // Update is called once per frame

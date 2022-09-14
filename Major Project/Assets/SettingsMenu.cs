@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class SettingsMenu : MonoBehaviour
 {
@@ -45,6 +46,11 @@ public class SettingsMenu : MonoBehaviour
 
         Debug.Log("Updated Quality to index " + toggle.name);
     }
+
+    public void GoToMainMenu ()
+   {
+        SceneManager.LoadScene("Main menu");
+   }
 
 
 

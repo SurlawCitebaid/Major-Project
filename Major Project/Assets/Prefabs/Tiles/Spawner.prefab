@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8598353709655766634
 Transform:
   m_ObjectHideFlags: 0
@@ -49,6 +49,7 @@ MonoBehaviour:
   - {fileID: 188282402990007035, guid: 081c96048cfca4c45977edffed0672cb, type: 3}
   - {fileID: 7464682554475860058, guid: bd44ceec96d6d8b4a86f51ea70d9dcf3, type: 3}
   - {fileID: -556950729535240203, guid: aaff11e6360a11d49b99c4c9be13984d, type: 3}
-  timeBetweenSpawns: 0
+  - {fileID: 188282402990007035, guid: 7e5f303b88593454d875e7a2e9ebc180, type: 3}
+  timeBetweenSpawns: 1
   startSpawns: 10
   difficultyValue: 30
