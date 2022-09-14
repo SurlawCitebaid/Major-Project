@@ -7,7 +7,6 @@ public class EnemyScriptableObject : ScriptableObject
 {
     public new string name;
     public string description; //general description of what the enemy does
-    public bool boss; //Useless
     public Sprite sprite;
     public int health;
     public EnemyAttackScriptableObject attack;
