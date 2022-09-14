@@ -43,6 +43,7 @@ public class movement_Mario : MonoBehaviour
 	[SerializeField] private Transform m_FrontDetection;
 	[SerializeField] private Transform m_BottomDetection;
 	[SerializeField] private Transform m_TopDetection;
+	[SerializeField] private GameObject HitBox;
 	[Range(-5, 5)][SerializeField] private float m_WallFriction = 0f;
 	[Range(0, 5)][SerializeField] private float m_WallGrabDuration = 2.0f;
 	[Space][Space]
@@ -145,20 +146,39 @@ public class movement_Mario : MonoBehaviour
 		dashable = false;
 		m_DisableMovement = true;						// disable movement when dashing
 		isDashing = true;
-		m_playerController.isInvincible = true;			// invincible when dashing
-		if (m_DashGravitySwitch == false)
+		switch (m_playerController.isInvincible)		// only set invincible when player is not already invincible, because dash iframe is shorter than damaged iframe
 		{
-			m_Rigidbody2D.gravityScale = 0;				// set gravity to zero if gravity during dashing is not wanted
+			case true:
+				if (m_DashGravitySwitch == false)
+				{
+					m_Rigidbody2D.gravityScale = 0;				// set gravity to zero if gravity during dashing is not wanted
+				}
+				m_Rigidbody2D.velocity = new Vector2(transform.localScale.x * m_DashDistance, 0f);
+				FindObjectOfType<AudioManager>().Play("PlayerDash");
+				yield return new WaitForSeconds(m_DashDuration);
+				m_Rigidbody2D.gravityScale = gravity;			// return gravity to character
+				m_DisableMovement = false;						// enable movement control after the dashing is done
+				isDashing = false;
+				yield return new WaitForSeconds(m_DashCooldown);
+				dashable = true;
+				break;
+			case false:
+				m_playerController.isInvincible = true;			// invincible when dashing
+				if (m_DashGravitySwitch == false)
+				{
+					m_Rigidbody2D.gravityScale = 0;				// set gravity to zero if gravity during dashing is not wanted
+				}
+				m_Rigidbody2D.velocity = new Vector2(transform.localScale.x * m_DashDistance, 0f);
+				FindObjectOfType<AudioManager>().Play("PlayerDash");
+				yield return new WaitForSeconds(m_DashDuration);
+				m_Rigidbody2D.gravityScale = gravity;			// return gravity to character
+				m_DisableMovement = false;						// enable movement control after the dashing is done
+				isDashing = false;
+				m_playerController.isInvincible = false;        // disable invincible state
+				yield return new WaitForSeconds(m_DashCooldown);
+				dashable = true;
+				break;
 		}
-		m_Rigidbody2D.velocity = new Vector2(transform.localScale.x * m_DashDistance, 0f);
-		FindObjectOfType<AudioManager>().Play("PlayerDash");
-		yield return new WaitForSeconds(m_DashDuration);
-		m_Rigidbody2D.gravityScale = gravity;			// return gravity to character
-		m_DisableMovement = false;						// enable movement control after the dashing is done
-		isDashing = false;
-		m_playerController.isInvincible = false;        // disable invincible state
-		yield return new WaitForSeconds(m_DashCooldown);
-		dashable = true;
 	}
 	private IEnumerator disableMovement()
 	{
