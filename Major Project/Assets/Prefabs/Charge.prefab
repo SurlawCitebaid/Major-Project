@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7599007100304888172}
   - component: {fileID: 8551499625508645826}
+  - component: {fileID: 4802266098835503579}
   - component: {fileID: -4457631726907412558}
-  - component: {fileID: -8584891020362195356}
   m_Layer: 0
   m_Name: Charge
   m_TagString: Untagged
@@ -86,19 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-4457631726907412558
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 969971334853011123}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b183cfbc418c0df4b81351d889851f16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!95 &-8584891020362195356
+--- !u!95 &4802266098835503579
 Animator:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -118,3 +106,15 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-4457631726907412558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 969971334853011123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b183cfbc418c0df4b81351d889851f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
