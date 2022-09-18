@@ -13,10 +13,13 @@ public class PlayerController : MonoBehaviour
     [Header("Variables")][Space]
 	[Range(0, 5)][SerializeField] private float m_invicibleTime = 2.0f;
 	[Space][Space]
+
     public float health;
     public bool isInvincible;
+    private int currency = 0;
     SpriteRenderer sprite;
     Color originalColor;
+
     // Start is called before the first frame update
     void Start()
     {
