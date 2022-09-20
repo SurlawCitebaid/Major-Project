@@ -6,6 +6,9 @@ public class Boss1_idle : StateMachineBehaviour
 {
     BossController bossControl;
     Boss1_Logic boss;
+    Transform player;
+    Rigidbody2D rb;
+    float attackRange;
     int[] indexes = {1,2};
     bool sameIndex;
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -13,36 +16,46 @@ public class Boss1_idle : StateMachineBehaviour
         Transform ass = animator.transform.GetChild(0);
 
         sameIndex = true;
+
         boss = animator.GetComponent<Boss1_Logic>();
         bossControl = animator.GetComponent<BossController>();
-        boss.HitBox.SetActive(false);
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        rb = animator.GetComponent<Rigidbody2D>();
+        attackRange = boss.getAttackRange();
     }
 
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         bossControl.flip();
-        if (animator.GetBool("Damage"))
-        {
-            bossControl.isInvulnerable = true;
-            animator.SetBool("Damage", false);
-        }
         animator.SetBool("Reset", false);
         animator.SetBool("Attack", false);
         animator.SetBool("Attack1", false);
         animator.SetBool("Chase", false);
         animator.SetBool("Jump", false);
 
-        if (sameIndex)
-        {
-            int i = boss.randomNum(indexes);
-            while (i != boss.getIndex())
+        float yDistance = Mathf.Abs(rb.position.y - player.position.y);
+
+            if (sameIndex)
             {
-                boss.setIndex(i);
-                sameIndex = false;
-                break;
+                if (yDistance > 5)
+                {
+                    boss.setIndex(5);
+                    animator.SetTrigger("Jump");
+                } else
+                {
+                    int i = boss.randomNum(indexes);
+                    while (i != boss.getIndex())
+                    {
+                        boss.setIndex(i);
+                        sameIndex = false;
+                        break;
+                    }
+                }
+            
             }
-        }
+        
+        
 
 
 

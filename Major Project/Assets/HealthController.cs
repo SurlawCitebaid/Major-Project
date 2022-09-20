@@ -14,9 +14,12 @@ public class HealthController : MonoBehaviour
 
     private void Start()
     {
+        
+    }
+    private void Update()
+    {
         UpdateHealthStatus();
     }
-
     private void UpdateHealthStatus()
     {
         for (int i = 0; i < healthHearts.Length; i++)

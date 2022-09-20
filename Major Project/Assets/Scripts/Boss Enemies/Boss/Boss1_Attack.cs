@@ -16,7 +16,6 @@ public class Boss1_Attack : StateMachineBehaviour
         bossControl = animator.GetComponent<BossController>();
         boss = animator.GetComponent<Boss1_Logic>();
         rb = animator.GetComponent<Rigidbody2D>();
-        boss.HitBox.SetActive(true);
         ass = rb.position.x;
         bass = false;
     }

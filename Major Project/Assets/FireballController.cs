@@ -3,34 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FireballController : MonoBehaviour {
-    public enum State { CASTING, FIRING };
-    public State state { get; private set; }
 
     private ParticleSystem ps;
-
-    private float castTime;
-    private float projectileSpeed;
-    private float attackDir;
+    Rigidbody2D rb;
 
     private void Start() {
         ps = this.gameObject.GetComponent<ParticleSystem>();
-        state = State.CASTING;
-    }
+        rb = GetComponent<Rigidbody2D>();
 
-    public void Create(float _castTime, float _projectileSpeed, float _attackDir) {
-        castTime = _castTime;
-        projectileSpeed = _projectileSpeed;
-        attackDir = _attackDir;
-        StartCoroutine(Fire(castTime));
+        rb.velocity = transform.right * 10f;
     }
+    
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Collider2D[] array = Physics2D.OverlapCircleAll(transform.position, .5f);
+        foreach (Collider2D enemy in array)
+        {
+            if (enemy.GetComponent<BossController>() != null)
+            {
+                enemy.GetComponent<BossController>().Damage();
+                Destroy(gameObject);
+            }
+            else if (enemy.GetComponent<EnemyAiController>() != null)
+            {
+                enemy.GetComponent<EnemyAiController>().Damage(1, 5, 0);
+                Destroy(gameObject);
+                //EnemyController merged with other AI behaviour
 
-    private IEnumerator Fire(float delay) {
-        yield return new WaitForSeconds(delay);
-        state = State.FIRING;
-        Rigidbody2D rb = this.gameObject.AddComponent<Rigidbody2D>();
-        rb.gravityScale = 0;
-        rb.velocity = Vector2.right * attackDir * projectileSpeed;
-        this.gameObject.transform.parent = null;
-        ps.subEmitters.AddSubEmitter(this.gameObject.GetComponentInChildren<ParticleSystem>(), ParticleSystemSubEmitterType.Birth, ParticleSystemSubEmitterProperties.InheritNothing);
+            }
+            //enemy.GetComponent<EnemyController>().Damage(attackDamage, 5, attackDir);//Dans code works on this
+        }
+
     }
+    
+    
 }

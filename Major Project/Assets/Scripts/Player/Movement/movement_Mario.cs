@@ -117,28 +117,20 @@ public class movement_Mario : MonoBehaviour
 
 		// flip character based on speed input, < 0 means moving right, > 0 means moving left
 		// suitable only when character object have only a single component
-		FlipCharacter(speed);
-		
-	}
+		if (move_direction > 0 && !m_isFacingRight)
+		{
+			FlipCharacter();
+		}
+		else if (move_direction < 0 && m_isFacingRight)
+		{
+			FlipCharacter();
+		}
 
-	private void FlipCharacter(float speed)
+	}
+	private void FlipCharacter()
 	{
-		if (speed > 0 && m_isFacingRight == false)	// moving right but facing left
-		{
-			m_isFacingRight = true;
-			Vector3 scale = transform.localScale;
-			scale.x *= -1;					// reverse object
-			transform.localScale = scale;
-			m_playerAttack.setAttackDirection("right");
-		}
-		else if (speed < 0 && m_isFacingRight == true)	// moving left but facing right
-		{
-			m_isFacingRight = false;
-			Vector3 scale = transform.localScale;
-			scale.x *= -1;						// reverse object
-			transform.localScale = scale;
-			m_playerAttack.setAttackDirection("left");
-		}
+		m_isFacingRight = !m_isFacingRight; // moving right but facing left
+		transform.Rotate(0f, 180f, 0f);
 	}
 	private IEnumerator Dash()
 	{
@@ -150,7 +142,7 @@ public class movement_Mario : MonoBehaviour
 		{
 			m_Rigidbody2D.gravityScale = 0;				// set gravity to zero if gravity during dashing is not wanted
 		}
-		m_Rigidbody2D.velocity = new Vector2(transform.localScale.x * m_DashDistance, 0f);
+		m_Rigidbody2D.velocity = new Vector2(transform.right.x * m_DashDistance, 0f);
 		FindObjectOfType<AudioManager>().Play("PlayerDash");
 		yield return new WaitForSeconds(m_DashDuration);
 		m_Rigidbody2D.gravityScale = gravity;			// return gravity to character
@@ -190,7 +182,7 @@ public class movement_Mario : MonoBehaviour
 		}
 		m_Rigidbody2D.velocity = new Vector3(m_Rigidbody2D.velocity.x, 0f);
 		m_Rigidbody2D.AddForce(new Vector2(force, m_JumpForce), ForceMode2D.Impulse);
-		FlipCharacter(force);
+		FlipCharacter();
 		StartCoroutine(disableMovement());
 	}
 	public void addJumpCount()

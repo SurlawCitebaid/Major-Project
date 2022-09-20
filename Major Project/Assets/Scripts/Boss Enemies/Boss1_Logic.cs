@@ -20,6 +20,7 @@ public class Boss1_Logic : MonoBehaviour
         playerCol = GameObject.FindGameObjectWithTag("Player").GetComponent<Collider2D>();
         player = GameObject.FindGameObjectWithTag("Player");
         ass = GetComponent<Animator>();
+        hitBoxInactive();
     }
 
     // Update is called once per frame
@@ -56,6 +57,14 @@ public class Boss1_Logic : MonoBehaviour
             }
          
     }
+    public void hitBoxActive()
+    {
+        HitBox.SetActive(true);
+    }
+    public void hitBoxInactive()
+    {
+        HitBox.SetActive(false);
+    }
     public float getAttackRange()
     {
         return 4f;
@@ -89,5 +98,9 @@ public class Boss1_Logic : MonoBehaviour
             Physics2D.IgnoreCollision(playerCol, col.collider);
         }
 
+    }
+    void OnCollisionStay2D(Collision2D col)
+    {
+        if (ass.GetBool("Fall")) { ass.SetBool("Fall", false); }  //checks if the colliders already colliding
     }
 }

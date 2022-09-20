@@ -6,7 +6,7 @@ public class BossController : MonoBehaviour
     Animator ass;
     GameObject player;
     [SerializeField] int health = 50;
-    public bool isInvulnerable = true;
+    public bool isInvulnerable = false;
     SpriteRenderer theScale;
     Vector3 leftFacing;
     Vector3 rightFacing;
@@ -23,7 +23,7 @@ public class BossController : MonoBehaviour
         theScale = GetComponent<SpriteRenderer>();
         player = GameObject.FindGameObjectWithTag("Player");
         leftFacing = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
-        rightFacing = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z); ;
+        rightFacing = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
     }
 
     // Update is called once per frame
@@ -49,9 +49,8 @@ public class BossController : MonoBehaviour
         if (isInvulnerable)
             return;
 
-        ass.SetTrigger("Damage");
         health -= 10;
-        isInvulnerable = true;
+        StartCoroutine(invulnerable());
 
         if (health <= 0)
         {
@@ -59,6 +58,14 @@ public class BossController : MonoBehaviour
             ass.SetTrigger("Death");
 
         }
+    }
+    public IEnumerator invulnerable()
+    {
+        isInvulnerable = true;
+        theScale.color = Color.grey;
+        yield return new WaitForSeconds(2);
+        isInvulnerable = false;
+        theScale.color = Color.white;
     }
     public void Die()
     {

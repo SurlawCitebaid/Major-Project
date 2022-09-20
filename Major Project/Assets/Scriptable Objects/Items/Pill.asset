@@ -15,5 +15,5 @@ MonoBehaviour:
   item_id: 1
   name: Melatonin Capsule
   price: 30
-  description: 
+  description: Its a pill
   sprite: {fileID: 21300000, guid: ee9c4d1fae9bec6499356589bb3b61cc, type: 3}
