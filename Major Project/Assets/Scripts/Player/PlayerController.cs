@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] GameObject gameOverUI;
 
     [Header("Player Object")][Space]
     [SerializeField] PlayerSO playerScriptableObject;
@@ -55,8 +56,9 @@ public class PlayerController : MonoBehaviour
 
     public void Die()
     {
-        //back to menu eventually gameOver Scene here
-        SceneManager.LoadScene("Main menu");
+        // added in gameOver UI active here & paused time
+        gameOverUI.SetActive(true);
+        Time.timeScale = 0f;
     }
 
     public IEnumerator triggerInvincible()
