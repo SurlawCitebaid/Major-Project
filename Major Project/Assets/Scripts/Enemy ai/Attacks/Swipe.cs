@@ -21,7 +21,7 @@ public class Swipe : Attack
             if(item.tag == "Player"){
                 Debug.Log("Swiper HIT!");
                 var player = item.gameObject.GetComponent<PlayerController>();
-                player.damage(5);
+                player.damage(states.enemy.attack.damage);
                 break;
             }
         }

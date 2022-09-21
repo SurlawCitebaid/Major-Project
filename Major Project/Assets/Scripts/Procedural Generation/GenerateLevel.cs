@@ -53,6 +53,7 @@ public class GenerateLevel : MonoBehaviour
     public Tilemap tileMap;
     [SerializeField]
     List<TileBase> tiles;
+
     // Start is called before the first frame update
     void Start()
     {

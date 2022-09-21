@@ -18,15 +18,15 @@ public class Charge : Attack
         direction = new Vector2(distance.normalized.x,0);
         Vector2 attackLocation = parent.transform.position;
         Transform chargeA = Instantiate(animation, attackLocation, Quaternion.identity, parent.transform); //this.gameObject.transform
-        chargeA.localScale = new Vector3(-1, 1, 1);
+        //chargeA.localScale = new Vector3(-1, 1, 1);
 
-        StartCoroutine(Hit(chargeA));
+        StartCoroutine(Hit(chargeA, states.enemy.attack.damage));
 
         
         
     }
 
-    IEnumerator Hit(Transform anim){
+    IEnumerator Hit(Transform anim, int damage){
         bool hit = false;
         Collider2D[] hitbox;
         for(float i = 0; i < 1f; i += Time.deltaTime){//check each frame of charge for one second, stops when finds player
@@ -40,7 +40,7 @@ public class Charge : Attack
                     Debug.Log("Charger HIT!");
                     //make player take damage
                     var player = item.gameObject.GetComponent<PlayerController>();
-                    player.damage(5);
+                    player.damage(damage);
                     break;
                 }
             }

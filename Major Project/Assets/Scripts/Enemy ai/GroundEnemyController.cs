@@ -22,16 +22,20 @@ public class GroundEnemyController : MonoBehaviour
         attack = GetComponent<Attack>();
 
         distance = new Vector2(player.transform.position.x - gameObject.transform.position.x, 0); //track the distance from the player
-        if (distance.x > 0)
+        
+        if(distance.normalized.x > 0)
             facingRight = true;
-            else facingRight = false;
+        else {
+            facingRight = false;
+            Flip();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         distance = new Vector2(player.transform.position.x - gameObject.transform.position.x, 0); //track the distance from the player
-        GroundCheck();
+        //GroundCheck();
 
         if (states.currentState() != EnemyAiController.State.COOLDOWN)
         {
@@ -39,7 +43,7 @@ public class GroundEnemyController : MonoBehaviour
             Flip();
         }
 
-        if (isGrounded){
+        if (true){
             switch(states.currentState()){
                 case EnemyAiController.State.MOVING:
                     MoveEnemy(states.enemy.moveSpeed);

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc20c13f6d1a6194cbcfedab1b08cd7f, type: 3}
   m_Name: SwipeAttack
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 1
   range: 2
   maxRange: 2
   minRange: 0

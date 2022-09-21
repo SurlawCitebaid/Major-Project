@@ -50,10 +50,52 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     loop: 0
+    isMusic: 0
     source: {fileID: 0}
   - name: PlayerDash
     clip: {fileID: 8300000, guid: a77218af09ad8b345814b775b7150cc3, type: 3}
     volume: 1
     pitch: 1
     loop: 0
+    isMusic: 0
     source: {fileID: 0}
+  - name: MusicBossRoom
+    clip: {fileID: 8300000, guid: 103575675b1f4e244917c2a899a1c0ee, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    isMusic: 1
+    source: {fileID: 0}
+  - name: MusicBossBattleIntro
+    clip: {fileID: 8300000, guid: cf7e6c719c2596641818ae6803ff5108, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    isMusic: 1
+    source: {fileID: 0}
+  - name: MusicBossBattle
+    clip: {fileID: 8300000, guid: be2df97dc847b514395d9a699bb7df5f, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    isMusic: 1
+    source: {fileID: 0}
+  - name: MusicMainMenu
+    clip: {fileID: 8300000, guid: 6297c1b1968afeb468976c3f90344251, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    isMusic: 1
+    source: {fileID: 0}
+  currentMusic:
+    name: 
+    clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    loop: 0
+    isMusic: 0
+    source: {fileID: 0}
+  sTo:
+    m_Handle: 0
+  sFrom:
+    m_Handle: 0
