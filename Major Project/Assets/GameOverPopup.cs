@@ -12,7 +12,7 @@ public class GameOverPopup : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
-    public void MaibMenu()
+    public void MainMenu()
     {
         SceneManager.LoadScene(0);
     }
