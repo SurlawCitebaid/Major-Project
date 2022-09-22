@@ -467,6 +467,10 @@ PrefabInstance:
       propertyPath: m_invicibleTime
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 3443211902839965457, guid: 2f58e6d53cf64554896f43dc6e9d226c, type: 3}
+      propertyPath: _healthController
+      value: 
+      objectReference: {fileID: 1912931598}
     - target: {fileID: 3583538987083204672, guid: 2f58e6d53cf64554896f43dc6e9d226c, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -978,6 +982,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &491774941 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3557411036595386653, guid: e292895608f6885459da7f11ba9567e1, type: 3}
+  m_PrefabInstance: {fileID: 1803539728}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &616352122
 GameObject:
   m_ObjectHideFlags: 0
@@ -2376,6 +2391,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8600023793598100250, guid: e292895608f6885459da7f11ba9567e1, type: 3}
+      propertyPath: playerHealth
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600023793598100250, guid: e292895608f6885459da7f11ba9567e1, type: 3}
+      propertyPath: healthHearts.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600023793598100250, guid: e292895608f6885459da7f11ba9567e1, type: 3}
+      propertyPath: healthHearts.Array.data[5]
+      value: 
+      objectReference: {fileID: 491774941}
+    - target: {fileID: 8600023793598100250, guid: e292895608f6885459da7f11ba9567e1, type: 3}
+      propertyPath: healthHearts.Array.data[6]
+      value: 
+      objectReference: {fileID: 491774941}
     - target: {fileID: 8600023794129069659, guid: e292895608f6885459da7f11ba9567e1, type: 3}
       propertyPath: m_Name
       value: Health UI
@@ -2599,6 +2630,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 687511580776892512, guid: aa472a7c8ef003b48a8f13a1d877b0c0, type: 3}
   m_PrefabInstance: {fileID: 1435606087}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1912931598 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8600023793598100250, guid: e292895608f6885459da7f11ba9567e1, type: 3}
+  m_PrefabInstance: {fileID: 1803539728}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e78c02e9dde475540a36c35f3eac9d3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1969872048
 GameObject:
   m_ObjectHideFlags: 0

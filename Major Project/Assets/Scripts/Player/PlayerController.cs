@@ -15,11 +15,13 @@ public class PlayerController : MonoBehaviour
 	[Range(0, 5)][SerializeField] private float m_invicibleTime = 2.0f;
 	[Space][Space]
 
-    public float health;
+    public int health;
     public bool isInvincible;
     private int currency = 0;
     SpriteRenderer sprite;
     Color originalColor;
+
+    [SerializeField] private HealthController _healthController;
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +35,7 @@ public class PlayerController : MonoBehaviour
     {
     }
 
-    public void damage(float damageAmount)
+    public void damage(int damageAmount)
     {
         
         if (isInvincible == true)
@@ -42,6 +44,11 @@ public class PlayerController : MonoBehaviour
         } else {
             FindObjectOfType<AudioManager>().Play("PlayerHurt");
             health -= damageAmount;
+
+            // health hearts status
+            _healthController.playerHealth = health;
+            _healthController.UpdateHealthStatus();
+
             originalColor = sprite.color;
             sprite.color = Color.red;
             if (health <= 0)

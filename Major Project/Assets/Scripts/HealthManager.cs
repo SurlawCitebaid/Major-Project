@@ -6,16 +6,14 @@ public class HealthManager : MonoBehaviour {
     public int maxHealth { get; private set; }
     public int health { get; private set; }
 
-    private HeartDisplay heartDisplay;
 
     private void Awake() {
         maxHealth = 6;
         health = maxHealth;
-        heartDisplay = GameObject.FindObjectOfType<HeartDisplay>();
+        //heartDisplay = GameObject.FindObjectOfType<HeartDisplay>();
     }
 
     public void Damage() {
         health--;
-        heartDisplay.UpdateHeartDisplay();
     }
 }

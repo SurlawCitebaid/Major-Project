@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Player", menuName = "ScriptableObjects/Player")]
 public class PlayerSO : ScriptableObject
 {
-    public float maxHealth;
+    public int maxHealth;
     public float damage;
     public float damageResistance;
     public float speed;
