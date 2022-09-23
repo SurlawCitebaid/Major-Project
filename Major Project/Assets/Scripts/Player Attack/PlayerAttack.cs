@@ -27,7 +27,7 @@ public class PlayerAttack : MonoBehaviour {
     [Space]
     [Space]
     private float chargeTime = 0;
-    private float maxCharge = 2.5f;
+    private float maxCharge = 2f;
     // Fireball Variables
     [Header("Fireball Variables")]
     [SerializeField] private Transform pfFireball, pfBigFireball;
