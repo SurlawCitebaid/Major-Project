@@ -17,19 +17,24 @@ public class Boss1_Attack : StateMachineBehaviour
         boss = animator.GetComponent<Boss1_Logic>();
         rb = animator.GetComponent<Rigidbody2D>();
         ass = rb.position.x;
+        animator.SetBool("Reset", false);
         bass = false;
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
+        Debug.Log(boss.getIndex());
         switch (boss.getIndex())
         {
             case 1:
                 animator.SetBool("Reset", true);
                 break;
             case 2:
-                animator.SetBool("Attack1", true); 
+                if(boss.getIndex() != 5)
+                {
+                    animator.SetBool("Attack1", true);
+                }
+                
                 break;
             case 4:
                 if (!animator.GetBool("Reset"))
@@ -38,11 +43,11 @@ public class Boss1_Attack : StateMachineBehaviour
                     {
                         if (bossControl.AngleDir() > 0)
                         {
-                            ass = ass - 20;
+                            ass = ass - 10;
                         }
                         else if (bossControl.AngleDir() < 0)
                         {
-                            ass = ass + 20;
+                            ass = ass + 10;
                         }
                         bass = true;
                     }
@@ -50,7 +55,7 @@ public class Boss1_Attack : StateMachineBehaviour
                     animator.SetBool("Reset", true);
                 }
                 Vector2 target4 = new Vector2(ass, rb.position.y);
-                Vector2 newPos4 = Vector2.MoveTowards(rb.position, target4, 100f * Time.fixedDeltaTime);
+                Vector2 newPos4 = Vector2.MoveTowards(rb.position, target4, 50f * Time.fixedDeltaTime);
                 rb.MovePosition(newPos4);
                 break;
             case 5:

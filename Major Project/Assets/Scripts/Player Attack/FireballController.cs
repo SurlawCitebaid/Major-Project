@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class FireballController : MonoBehaviour {
 
-    private ParticleSystem ps;
+    public GameObject ass;
+    [SerializeField] private int damage;
     Rigidbody2D rb;
 
     private void Start() {
-        ps = this.gameObject.GetComponent<ParticleSystem>();
         rb = GetComponent<Rigidbody2D>();
 
         rb.velocity = transform.right * 10f;
@@ -21,17 +21,23 @@ public class FireballController : MonoBehaviour {
         {
             if (enemy.GetComponent<BossController>() != null)
             {
-                enemy.GetComponent<BossController>().Damage();
+                enemy.GetComponent<BossController>().Damage(damage);
                 Destroy(gameObject);
+                Instantiate(ass, this.transform.position, transform.rotation);
             }
             else if (enemy.GetComponent<EnemyAiController>() != null)
             {
-                enemy.GetComponent<EnemyAiController>().Damage(1, 5, 0);
+                enemy.GetComponent<EnemyAiController>().Damage(damage, 5, 0);
                 Destroy(gameObject);
+                Instantiate(ass, this.transform.position, transform.rotation);
                 //EnemyController merged with other AI behaviour
 
             }
-            //enemy.GetComponent<EnemyController>().Damage(attackDamage, 5, attackDir);//Dans code works on this
+        }
+        if(other.tag == "Wall")
+        {
+            Destroy(gameObject);
+            Instantiate(ass, this.transform.position, transform.rotation);
         }
 
     }

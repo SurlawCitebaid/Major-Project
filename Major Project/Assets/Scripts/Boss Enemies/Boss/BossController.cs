@@ -44,12 +44,12 @@ public class BossController : MonoBehaviour
     {
         return (transform.position - player.transform.position).normalized.x;
     }
-    public void Damage()
+    public void Damage(int damage)
     {
         if (isInvulnerable)
             return;
 
-        health -= 10;
+        health -= damage;
         StartCoroutine(invulnerable());
 
         if (health <= 0)

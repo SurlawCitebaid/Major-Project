@@ -9,7 +9,7 @@ public class Boss1_Chase : StateMachineBehaviour
     float attackRange;
     Transform player;
     Rigidbody2D rb;
-    int[] indexes = { 1, 2, 3, 4 };
+    int[] indexes = { 1, 2};
     int index;
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -27,31 +27,26 @@ public class Boss1_Chase : StateMachineBehaviour
         float distance = Mathf.Abs(rb.position.x - player.position.x);
         float yDistance = Mathf.Abs(rb.position.y - player.position.y);
 
-        if (index != 4)
+        
+        if (distance > attackRange)
         {
-            if (distance > attackRange)
+            bossControl.flip();
+            Vector2 target = new Vector2(player.position.x, rb.position.y);
+            Vector2 newPos = Vector2.MoveTowards(rb.position, target, 7f * Time.fixedDeltaTime);
+            rb.MovePosition(newPos);
+        } else if (distance <= attackRange)
+        {
+            bossControl.flip();
+            if (yDistance > 5)
             {
-                bossControl.flip();
-                Vector2 target = new Vector2(player.position.x, rb.position.y);
-                Vector2 newPos = Vector2.MoveTowards(rb.position, target, 7f * Time.fixedDeltaTime);
-                rb.MovePosition(newPos);
-            } else if (distance <= attackRange)
+                boss.setIndex(5);
+                animator.SetTrigger("Jump");
+            } else
             {
-                bossControl.flip();
-                if (yDistance > 5)
-                {
-                    boss.setIndex(5);
-                    animator.SetTrigger("Jump");
-                } else
-                {
-                    animator.SetBool("Chase", false);
-                }
+                animator.SetBool("Chase", false);
             }
-        } else
-        {
-            boss.setIndex(4);
-            animator.SetBool("Chase", false);
         }
+        
     }
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {

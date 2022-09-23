@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour {
 
     private Transform firePoint;
+    private GameObject hat;
     public enum WeaponType { SWORD, FIREBALL };
     [Header("General")][Space]
     public movement_Mario m_movementController;
@@ -23,28 +24,22 @@ public class PlayerAttack : MonoBehaviour {
     [SerializeField] private float attackDuration = 0.5f;
     [SerializeField] private float attackRange = 2f;
     [SerializeField] private float attackDamage = 5f;
-    [Space][Space]
-
+    [Space]
+    [Space]
+    private float chargeTime = 0;
+    private float maxCharge = 2.5f;
     // Fireball Variables
     [Header("Fireball Variables")]
-    [SerializeField] private Transform pfFireball;
-    [SerializeField] private float projectileSpeed = 10f;
-    [SerializeField] private float castTime = 1f;
+    [SerializeField] private Transform pfFireball, pfBigFireball;
     private void Start()
     {
         firePoint = transform.Find("FirePoint");
+        hat = transform.Find("Hat").gameObject;
     }
     private void Update() {
-        if(canAttack)                                   // adds delay
+        if (canAttack)                                   // adds delay
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                isAttacking = true;
-                Attack();
-                
-                canAttack = false;
-                StartCoroutine(attackDelay(.5f));
-            }
+            Attack();
         }
         
     }
@@ -69,7 +64,38 @@ public class PlayerAttack : MonoBehaviour {
                 break;
         }
     }
+    private void FireballAttack()
+    {
+        
+        if (Input.GetMouseButton(0) && chargeTime < maxCharge)
+        {
+            isAttacking = true;
+            chargeTime += Time.deltaTime;
+            hat.GetComponent<SpriteRenderer>().enabled = true;
 
+            if(chargeTime >= maxCharge)
+            hat.GetComponent<Animator>().enabled = true;
+        }
+        if(Input.GetMouseButtonUp(0) && chargeTime >= maxCharge)
+        {
+            chargeTime = 0;
+            Instantiate(pfBigFireball, firePoint.position, firePoint.rotation);
+            canAttack = false;
+            hat.GetComponent<Animator>().enabled = false;
+            hat.GetComponent<SpriteRenderer>().enabled = false;
+            StartCoroutine(attackDelay(.5f));
+
+        } else if (Input.GetMouseButtonUp(0) && chargeTime < maxCharge)
+        {
+            chargeTime = 0;
+            Instantiate(pfFireball, firePoint.position, firePoint.rotation);
+            canAttack = false;
+            hat.GetComponent<Animator>().enabled = false;
+            hat.GetComponent<SpriteRenderer>().enabled = false;
+            StartCoroutine(attackDelay(.5f));
+        }
+
+    }
     private void SwordAttack() {
         //if (cam.ScreenToWorldPoint(Input.mousePosition).x > this.gameObject.transform.position.x)
         //    attackDir = 1f;
@@ -86,7 +112,7 @@ public class PlayerAttack : MonoBehaviour {
         foreach (Collider2D enemy in hits) {
             if (enemy.GetComponent<BossController>() != null)
             {
-                enemy.GetComponent<BossController>().Damage();
+                enemy.GetComponent<BossController>().Damage(1);
                 Debug.Log("Hit boss");
                 
             }
@@ -101,10 +127,7 @@ public class PlayerAttack : MonoBehaviour {
         }
     }
 
-    private void FireballAttack() {            
-        
-        Instantiate(pfFireball, firePoint.position, firePoint.rotation );
-    }
+    
 
     public void setAttackDirection(string dir)         // set attack direction based on character facing
     {

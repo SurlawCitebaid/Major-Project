@@ -26,35 +26,7 @@ public class Boss1_Logic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-            switch (index)
-            {
-                case 1:
-
-                    float dist = Mathf.Abs(transform.position.x - player.transform.position.x);
-                    if (dist <= attackRange)
-                    {
-                        ass.SetTrigger("Attack");
-                    }
-                    else
-                    {
-                        ass.SetTrigger("Chase");
-                    }
-                    break;
-                case 2:
-                    dist = Mathf.Abs(transform.position.x - player.transform.position.x);
-                    if (dist <= attackRange)
-                    {
-                        ass.SetTrigger("Attack");
-                    }
-                    else
-                    {
-                        ass.SetTrigger("Chase");
-                    }
-                    break;
-                case 4:
-                    ass.SetTrigger("Attack");
-                    break;
-            }
+        
          
     }
     public void hitBoxActive()
