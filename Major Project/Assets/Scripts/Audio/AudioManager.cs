@@ -8,6 +8,7 @@ public class AudioManager : MonoBehaviour
 {
     public Sound[] sounds;
     public Sound currentMusic = null;
+    public AudioMixerGroup mainMixer;
     public static AudioManager instance;
     public Scene sTo, sFrom;
 
@@ -31,8 +32,9 @@ public class AudioManager : MonoBehaviour
             s.source.volume = s.volume;
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
+            s.source.outputAudioMixerGroup = mainMixer;
 
-            if (s.name == "MusicMainMenu")
+            if (s.name == "MusicMainMenuIntro")
                 currentMusic = s;
             
         }
@@ -41,7 +43,7 @@ public class AudioManager : MonoBehaviour
     }
 
     private void Update() {
-        StartPlayMusic();
+        ScenePlayMusic();
     }
 
     //call the method in the gameObject, findObjectOfType
@@ -53,30 +55,45 @@ public class AudioManager : MonoBehaviour
             }
         } 
     }
-    public void PlayMusic(string name){
+    public void PlayMusic(string loopName, string introName){
+        Sound loopS = null, introS = null;
+
         foreach(Sound s in sounds){ //checks the array for matching name
-            if (s.name == name){
-                
-                if (currentMusic != null){
-                    currentMusic.source.Stop();
-                    Debug.Log("MUSIC STOP: " + currentMusic.name);
-                }
-                    
-                currentMusic = s;
-                currentMusic.source.Play();
+            if (s.name == loopName){
+                loopS = s;
+            } else if (s.name == introName){
+                introS = s;
             }
-        } 
+        }
+
+        if (currentMusic != null){
+            currentMusic.source.Stop();
+            Debug.Log("MUSIC STOP: " + currentMusic.name);
+        }
+        
+        if(introS == null){
+            currentMusic = loopS;
+            currentMusic.source.Play();
+        } else {
+            currentMusic = introS;
+            currentMusic.source.Play();
+            currentMusic = loopS;
+            currentMusic.source.PlayDelayed(introS.clip.length);
+        }
+
+        currentMusic = loopS;
+        currentMusic.source.Play();
     }
 
-    void StartPlayMusic(){
+    void ScenePlayMusic(){
         sTo = SceneManager.GetActiveScene();
         if(sTo != sFrom){
             if(sTo.name == "Main menu"){
-                PlayMusic("MusicMainMenu");
+                PlayMusic("MusicMainMenuLoop", "MusicMainMenuIntro");
                 Debug.Log("Playing main menu");
             }    
-            else{
-                PlayMusic("MusicBossRoom");
+            else if (sTo.name == "Prototype"){
+                PlayMusic("MusicLevel1Loop", null);
                 Debug.Log("Playing other");
             }
             sFrom = sTo;

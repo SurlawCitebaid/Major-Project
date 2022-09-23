@@ -70,7 +70,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: cf7e6c719c2596641818ae6803ff5108, type: 3}
     volume: 1
     pitch: 1
-    loop: 1
+    loop: 0
     isMusic: 1
     source: {fileID: 0}
   - name: MusicBossBattle
@@ -80,8 +80,29 @@ MonoBehaviour:
     loop: 1
     isMusic: 1
     source: {fileID: 0}
-  - name: MusicMainMenu
-    clip: {fileID: 8300000, guid: 6297c1b1968afeb468976c3f90344251, type: 3}
+  - name: MusicMainMenuIntro
+    clip: {fileID: 8300000, guid: 4cb36c450aac5fc448b740cf112ec3ab, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    isMusic: 1
+    source: {fileID: 0}
+  - name: MusicMainMenuLoop
+    clip: {fileID: 8300000, guid: 4828b650241ee7a43a8c8171c2ace754, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    isMusic: 1
+    source: {fileID: 0}
+  - name: MusicLevel1Loop
+    clip: {fileID: 8300000, guid: d33a50c7e71f25443af8a556988ae6cc, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    isMusic: 1
+    source: {fileID: 0}
+  - name: MusicLevel2Loop
+    clip: {fileID: 8300000, guid: 9feabee37967699408e65dcf97c6231e, type: 3}
     volume: 1
     pitch: 1
     loop: 1
@@ -95,6 +116,7 @@ MonoBehaviour:
     loop: 0
     isMusic: 0
     source: {fileID: 0}
+  mainMixer: {fileID: 24300002, guid: 78449e906dc3e4e46b1315b2ed8489f7, type: 2}
   sTo:
     m_Handle: 0
   sFrom:
