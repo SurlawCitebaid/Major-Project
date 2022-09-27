@@ -24,7 +24,7 @@ public class HealthController : MonoBehaviour
         {
             if (i < playerHealth)
             {
-                healthHearts[i].color = new Color32(255,105,249,255); // RGBA
+                healthHearts[i].color = new Color32(224,71,71,255); // RGBA
             }
             else
             {
