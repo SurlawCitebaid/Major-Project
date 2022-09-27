@@ -6,7 +6,7 @@ public class PlayerAttack : MonoBehaviour {
 
     private Transform firePoint;
     private GameObject hat;
-    public enum WeaponType { SWORD, FIREBALL };
+    public enum WeaponType { FIST, SWORD, FIREBALL};
     [Header("General")][Space]
     public movement_Mario m_movementController;
     [SerializeField] private WeaponType weapon = WeaponType.FIREBALL;
@@ -14,6 +14,8 @@ public class PlayerAttack : MonoBehaviour {
     private float attackDir = 1f;
     private bool canAttack = true;
     private bool isAttacking = false;
+    private bool isCombo = false;
+    private int comboCount = 0;
     [SerializeField] private Camera cam;
     [SerializeField] private LayerMask lm_enemies;
     [Space][Space]
@@ -27,6 +29,7 @@ public class PlayerAttack : MonoBehaviour {
     [Space]
     [Space]
     private float chargeTime = 0;
+    private float comboResetTime = 0;
     private float maxCharge = 2f;
     // Fireball Variables
     [Header("Fireball Variables")]
@@ -41,6 +44,23 @@ public class PlayerAttack : MonoBehaviour {
         {
             Attack();
         }
+
+        // if no attack input in 2 seconds from 1st attack. reset combo
+        if (isCombo)
+        {
+            if(Input.GetMouseButton(0))
+            {
+                comboResetTime = 0;
+                comboCount ++;
+            }
+            comboResetTime += Time.deltaTime;
+            if(comboResetTime == 2.0f)
+            {
+                comboResetTime = 0;
+                comboCount = 0;
+                isCombo = false;
+            }
+        }
         
     }
     IEnumerator attackDelay(float delayTime)
@@ -53,6 +73,9 @@ public class PlayerAttack : MonoBehaviour {
     private void Attack() {
 
         switch (weapon) {
+            case WeaponType.FIST:
+                fistAttack();
+                break;
             case WeaponType.SWORD:
                 SwordAttack();
                 break;
@@ -124,6 +147,36 @@ public class PlayerAttack : MonoBehaviour {
 
             }
             //enemy.GetComponent<EnemyController>().Damage(attackDamage, 5, attackDir);//Dans code works on this
+        }
+    }
+
+    private void fistAttack()
+    {
+        
+        if (Input.GetMouseButton(0) && comboCount == 0)
+        {
+            // ------------------------------- //
+            //  need animator control here ()  //
+            // ------------------------------- //
+            isAttacking = true;
+            StartCoroutine(attackDelay(.2f)); // 0.2 sec cd between punches
+        }
+        if (Input.GetMouseButton(0) && comboCount == 1)
+        {
+            // ------------------------------- //
+            //  need animator control here ()  //
+            // ------------------------------- //
+            isAttacking = true;
+            StartCoroutine(attackDelay(.2f)); 
+        }
+        if (Input.GetMouseButton(0) && comboCount == 2)
+        {
+            // ------------------------------- //
+            //  need animator control here ()  //
+            // ------------------------------- //
+            isAttacking = true;
+            comboCount = 0;                     // reset combo to 0
+            StartCoroutine(attackDelay(1.5f));  // 1.5 sec cd at the end of combo
         }
     }
 
