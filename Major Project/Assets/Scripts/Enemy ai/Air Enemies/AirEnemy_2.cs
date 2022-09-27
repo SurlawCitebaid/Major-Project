@@ -6,94 +6,73 @@ public class AirEnemy_2 : MonoBehaviour
 {
     [SerializeField] private Transform projectile;
     [SerializeField] float flightSpeed = .5f;
+    [SerializeField] private GameObject line;
     private EnemyAiController states;
     private GameObject player;
     public Material m_Material;
-    private LineRenderer lr;
+    GameObject predLine;
+    int i = 0;
     private bool attacked = false, movePos = false, shot = false;
     private int resetCount = 0;
-    private int index = 999;
     void Start()
     {
-        DrawLine(new Vector3(1, 1, 1), new Vector3(2, 2, 2), this.transform);                   // initialize line
-        alphaInvis();
-
+        predLine = Instantiate(line, this.transform.position, this.transform.rotation);
+        predLine.transform.parent = this.transform;
+        predLine.transform.localScale = new Vector3(.3f, 10, 0);
+        predLine.transform.position = new Vector2(transform.position.x, transform.position.y+12f);
         states = GetComponent<EnemyAiController>();                                             // enemy state machine
 
         player = GameObject.FindGameObjectWithTag("Player");                                    // variable to track player
-
+        predLine.SetActive(false);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.TransformDirection(Vector2.up), Mathf.Infinity);
-
-
-        for (int i = 0; i < hits.Length; i++)
-        {
-            if (hits[i].transform.gameObject.tag == "Wall")
-            {
-                index = i;                              // get first wall collision
-            }
-        }
         switch (states.currentState())
         {
             case EnemyAiController.State.MOVING:
-                float dist = Vector3.Distance(transform.position, player.transform.position);
-                if (dist < states.enemy.attack.range && shot)
-                {
-                    rePosition();
-                }
-                else
-                {
-                    states.setState(2);
-                }
+                 rePosition();
                 break;
             case EnemyAiController.State.AIMING:
-                
                 StartCoroutine(Aiming());
-
                 break;
             case EnemyAiController.State.ATTACKING:
-                moveLine(new Vector3(this.transform.position.x, this.transform.position.y, 1), new Vector3(hits[index].point.x, hits[index].point.y, 1));    // line position accounts of knockback
-
-                alphaSolid();
-                if (!attacked)
-                { 
-                    Transform bullet = Instantiate(projectile, transform.position, Quaternion.identity).transform;
-                    Vector3 shootDir = (hits[index].point - (Vector2)transform.position).normalized;
-                    bullet.GetComponent<Projectile>().Setup(shootDir);
-                    attacked = true;
-                    shot = true;
-                    Invoke("reset", 2f); // determines attack delay
-                }
-                break;
-            case EnemyAiController.State.COOLDOWN:
-                
+                StartCoroutine(fireProjectile());
                 break;
         }
     }
-    
-    void reset()
+    IEnumerator fireProjectile()
     {
-        if (shot)
+        if (!attacked)
         {
-            float dist = Vector3.Distance(transform.position, player.transform.position);
-            if (dist < 2 && resetCount != 3)
-            {
-                resetCount++;
-                movePos = false;
-                alphaInvis();
-                states.setState(0);
-            } else
-            {
-                states.setState(2);
-            }
+            attacked = true;
+            predLine.SetActive(true);
+
+            yield return new WaitForSeconds(2f);
+            predLine.SetActive(false);
+            Transform bullet = Instantiate(projectile, transform.position, Quaternion.identity).transform;
+            Vector3 shootDir = transform.up;
+            bullet.GetComponent<Projectile>().Setup(shootDir);
+
+            StartCoroutine(reset()); // determines attack delay
         }
+    }
+    IEnumerator reset()
+    {
+        yield return new WaitForSeconds(4f);
+        if (resetCount != 5)
+        {
+            resetCount++;
+            movePos = false;
+            predLine.SetActive(false);
+            states.setState(0);
+        }
+        
     }
     IEnumerator Aiming()
     {
+        predLine.SetActive(false);
         Vector3 dirFromAtoB = (player.transform.position - transform.position).normalized;
         Vector3 vectorToTarget = player.transform.position - transform.position;
         float dotProd = Vector3.Dot(dirFromAtoB, transform.up);
@@ -101,16 +80,17 @@ public class AirEnemy_2 : MonoBehaviour
         angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg - 90f;
         Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
         transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * 3f);
-        if (dotProd <.99)
-        {
-            alphaInvis();
-        }
-        if (dotProd >= .999999)
+        if (dotProd >= .90)
         {
             attacked = false;
             yield return null;
-            states.setState(3);
-        } 
+            Invoke("setStateAttack", 1f);
+
+        }
+    }
+    private void setStateAttack()
+    {
+        states.setState(3);
     }
     private void rePosition()
     {
@@ -134,37 +114,6 @@ public class AirEnemy_2 : MonoBehaviour
 
         }
 
-    }
-    public void DrawLine(Vector3 start, Vector3 end, Transform parent)
-    {
-
-        GameObject line = new GameObject();
-        line.transform.parent = parent;
-        line.transform.position = start;
-        line.AddComponent<LineRenderer>();
-        lr = line.GetComponent<LineRenderer>();
-        lr.material = m_Material;
-        lr.startColor = Color.red;
-        lr.endColor = Color.red;
-        lr.startWidth = 0.1f;
-        lr.endWidth = 0.1f;
-        lr.SetPosition(0, start);
-        lr.SetPosition(1, end);
-    }
-    public void alphaInvis()
-    {
-        lr.startColor = Color.clear;
-        lr.endColor = Color.clear;
-    }
-    public void alphaSolid()
-    {
-        lr.startColor = Color.red;
-        lr.endColor = Color.red;
-    }
-    public void moveLine(Vector3 start, Vector3 end)
-    {
-        lr.SetPosition(0, start);
-        lr.SetPosition(1, end);
     }
             
 }

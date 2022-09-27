@@ -37,7 +37,6 @@ public class Charge : Attack
                 {
                 if(item.tag == "Player"){
                     hit = true;
-                    Debug.Log("Charger HIT!");
                     //make player take damage
                     var player = item.gameObject.GetComponent<PlayerController>();
                     player.damage(damage);

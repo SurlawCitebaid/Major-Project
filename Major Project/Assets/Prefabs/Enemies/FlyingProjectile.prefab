@@ -234,7 +234,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultColour:
     serializedVersion: 2
-    rgba: 4281874488
+    rgba: 4294967295
   enemy: {fileID: 11400000, guid: 53409c892747bc143bf04430c12b483a, type: 2}
   immune: 0
   health: 3
@@ -268,4 +268,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: {fileID: 8968486420765280106, guid: d9486297c20d0ff40b5282055263b129, type: 3}
   flightSpeed: 0.5
+  line: {fileID: 2065824933680345744, guid: c8d960fd24d639d47832a03d9d328ac6, type: 3}
   m_Material: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}

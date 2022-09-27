@@ -139,7 +139,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -159,6 +159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flightSpeed: 0.5
   pivot: {fileID: 2453409846173930501}
+  line: {fileID: 2065824933680345744, guid: c8d960fd24d639d47832a03d9d328ac6, type: 3}
   light2d: {fileID: 8040186891399738512}
   m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &2453409846173930501

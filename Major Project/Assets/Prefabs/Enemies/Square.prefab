@@ -136,6 +136,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   groundCheckPos: {fileID: 8035155249424478851}
+  dust: {fileID: 0}
+  attack: {fileID: 0}
 --- !u!114 &-781446858101480439
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -7,7 +7,9 @@ public class AirEnemy_1 : MonoBehaviour
     [SerializeField] float flightSpeed = .5f;
     private EnemyAiController states;
     [SerializeField] private GameObject pivot;
+    [SerializeField] private GameObject line;
     [SerializeField] private GameObject light2d;
+    GameObject predLine;
     private GameObject player;
     public Material m_Material;
     private LineRenderer lr;
@@ -17,15 +19,15 @@ public class AirEnemy_1 : MonoBehaviour
     private bool attacked = false, movePos = false, attackReady = false, moving = false, predictionLine = false, invalid = false;
     void Start()
     {
-        DrawLine(new Vector3(1, 1, 1), new Vector3(2, 2, 2), this.transform);                   // initialize line
-        alphaInvis();
-
+        predLine = Instantiate(line, pivot.transform.position, pivot.transform.rotation);
+        predLine.transform.parent = pivot.transform;
+        predLine.transform.localScale = new Vector3 (.3f,50,0);
+        predLine.transform.position = new Vector2(predLine.transform.position.x, predLine.transform.position.y+37.5f);
         states = this.transform.GetComponent<EnemyAiController>();                                             // enemy state machine
-
         player = GameObject.FindGameObjectWithTag("Player");                                    // variable to track player
         theScale = GetComponent<SpriteRenderer>();
         light2d.SetActive(false);
-
+        predLine.SetActive(false);
     }
 
     void FixedUpdate()
@@ -38,7 +40,6 @@ public class AirEnemy_1 : MonoBehaviour
             if (ass != null && attacked)
             {
                 ass.damage(1);
-
             }
         }
         switch (states.currentState())
@@ -59,23 +60,12 @@ public class AirEnemy_1 : MonoBehaviour
                 StartCoroutine(Aiming());
                 break;
             case EnemyAiController.State.ATTACKING:
-                int index = 999;
-                RaycastHit2D[] hits = Physics2D.RaycastAll(pivot.transform.position, pivot.transform.TransformDirection(Vector2.up), Mathf.Infinity);
-                for (int i = 0; i < hits.Length; i++)
-                {
-                    if (hits[i].transform.gameObject.tag == "Wall")
-                    {    
-                        index = i;                              // get first wall collision
-                        break;
-                    }
-                }
 
                 
-                moveLine(new Vector3(this.pivot.transform.position.x, this.pivot.transform.position.y, 1), new Vector3(hits[index].point.x, hits[index].point.y, 1));    // line position accounts of knockback
                 if(!predictionLine)
                 {
-                    alphaSolid();
                     light2d.SetActive(true);
+                    predLine.SetActive(true);
                     predictionLine = true;
                 }
                 
@@ -106,7 +96,6 @@ public class AirEnemy_1 : MonoBehaviour
 
     private void attack()
     {
-        alphaInvis();
         if (!moving)
         {
             if (flightSpeed > 2f)
@@ -117,6 +106,7 @@ public class AirEnemy_1 : MonoBehaviour
             {
                 flightSpeed = 0.1f;
             }
+            predLine.SetActive(false);
             transform.Translate(pivot.transform.up * flightSpeed);
             attacked = true;
         }
@@ -171,44 +161,22 @@ public class AirEnemy_1 : MonoBehaviour
     }
     private void setStateCooldown()
     {
-        states.setState(4);
-    }
-    public void DrawLine(Vector3 start, Vector3 end, Transform parent)
-    {
+        if(states.currentState() == EnemyAiController.State.COOLDOWN)
+        {
+            return;
+        }     else
+        {
+            states.setState(4);
+        }
 
-        GameObject line = new GameObject();
-        line.transform.parent = parent;
-        line.transform.position = start;
-        line.AddComponent<LineRenderer>();
-        lr = line.GetComponent<LineRenderer>();
-        lr.material = m_Material;
-        lr.startColor = Color.red;
-        lr.endColor = Color.red;
-        lr.startWidth = 0.1f;
-        lr.endWidth = 0.1f;
-        lr.SetPosition(0, start);
-        lr.SetPosition(1, end);
-    }
-    public void alphaInvis()
-    {
-        lr.startColor = Color.clear;
-        lr.endColor = Color.clear;
-    }
-    public void alphaSolid()
-    {
-        lr.startColor = Color.red;
-        lr.endColor = Color.red;
-    }
-    public void moveLine(Vector3 start, Vector3 end)
-    {
-        lr.SetPosition(0, start);
-        lr.SetPosition(1, end);
     }
 
-    void OnCollisionEnter2D(Collision2D col)
+
+    void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.tag == "Wall")
         {
+            Debug.Log(col.gameObject.name);
             light2d.SetActive(false);
             moving = true;
         }

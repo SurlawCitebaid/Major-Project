@@ -59,7 +59,6 @@ public class EnemyAiController : MonoBehaviour
             EnemySpawner.enemiesAlive = false;
         }
         //if the scriptable object death particles have been set do explosion
-        Debug.Log("dead");
         if (enemy.enemyDeathParticles != null)
         {
             GameObject.Instantiate(enemy.enemyDeathParticles, gameObject.transform.position, Quaternion.identity);
@@ -98,7 +97,6 @@ public class EnemyAiController : MonoBehaviour
     {
         if (immune) return;
 
-        Debug.Log("Hit for " + damageAmount);
         health -= (int)damageAmount;//damageAmount may be changed to int
         if (knockbackForce != 0)
         {

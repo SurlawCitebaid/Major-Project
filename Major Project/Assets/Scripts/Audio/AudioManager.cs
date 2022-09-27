@@ -68,7 +68,6 @@ public class AudioManager : MonoBehaviour
 
         if (currentMusic != null){
             currentMusic.source.Stop();
-            Debug.Log("MUSIC STOP: " + currentMusic.name);
         }
         
         if(introS == null){
@@ -94,7 +93,6 @@ public class AudioManager : MonoBehaviour
             }    
             else if (sTo.name == "Prototype"){
                 PlayMusic("MusicLevel1Loop", null);
-                Debug.Log("Playing other");
             }
             sFrom = sTo;
         }

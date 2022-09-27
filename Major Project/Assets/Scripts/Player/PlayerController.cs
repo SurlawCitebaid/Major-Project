@@ -40,7 +40,6 @@ public class PlayerController : MonoBehaviour
         
         if (isInvincible == true)
         {
-            Debug.Log("inv");
         } else {
             FindObjectOfType<AudioManager>().Play("PlayerHurt");
             health -= damageAmount;
@@ -55,7 +54,6 @@ public class PlayerController : MonoBehaviour
             {
                 Die();
             }
-            Debug.Log("damage");
             StartCoroutine(onHitSpriteChange());
             StartCoroutine(triggerInvincible());
         }
