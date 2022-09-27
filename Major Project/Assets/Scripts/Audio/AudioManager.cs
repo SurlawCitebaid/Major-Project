@@ -68,15 +68,12 @@ public class AudioManager : MonoBehaviour
 
         if (currentMusic != null){
             currentMusic.source.Stop();
-<<<<<<< Updated upstream
-=======
             
             //Debug.Log("MUSIC STOP: " + currentMusic.name);
         }
 
         if (introS != null){
             introS.source.Stop();
->>>>>>> Stashed changes
         }
         
         if(introS == null){
@@ -94,14 +91,6 @@ public class AudioManager : MonoBehaviour
     void ScenePlayMusic(){
         sTo = SceneManager.GetActiveScene();
         if(sTo != sFrom){
-<<<<<<< Updated upstream
-            if(sTo.name == "Main menu"){
-                PlayMusic("MusicMainMenuLoop", "MusicMainMenuIntro");
-                Debug.Log("Playing main menu");
-            }    
-            else if (sTo.name == "Prototype"){
-                PlayMusic("MusicLevel1Loop", null);
-=======
             switch (sTo.name)
             {
                 case "Main menu":
@@ -118,7 +107,6 @@ public class AudioManager : MonoBehaviour
 
                 default:
                 break;
->>>>>>> Stashed changes
             }
             
             sFrom = sTo;
