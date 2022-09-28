@@ -31,6 +31,8 @@ public class StartBoss : MonoBehaviour
             }
             GameObject.Instantiate(levelChangeDoor, new Vector3(transform.position.x, transform.position.y+1f, transform.position.z), Quaternion.identity);
             spawnedOnce = true;
+
+            FindObjectOfType<AudioManager>().PlayMusic("MusicBossBattleLoop", "MusicBossBattleIntro");
             Destroy(gameObject);
         }
     }

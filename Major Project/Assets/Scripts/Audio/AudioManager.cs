@@ -7,10 +7,11 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     public Sound[] sounds;
-    public Sound currentMusic = null;
+    Sound currentMusic = null;
+    Sound currentIntro = null;
     public AudioMixerGroup mainMixer;
     public static AudioManager instance;
-    public Scene sTo, sFrom;
+    Scene sTo, sFrom;
 
 
     void Awake() {
@@ -34,8 +35,12 @@ public class AudioManager : MonoBehaviour
             s.source.loop = s.loop;
             s.source.outputAudioMixerGroup = mainMixer;
 
-            if (s.name == "MusicMainMenuIntro")
+            if (s.name == "MusicMainMenuLoop")
                 currentMusic = s;
+
+            if (s.name == "MusicMainMenuIntro")
+                currentIntro = s;
+            
             
         }
 
@@ -43,7 +48,7 @@ public class AudioManager : MonoBehaviour
     }
 
     private void Update() {
-        ScenePlayMusic();
+        ScenePlayMusic(false);
     }
 
     //call the method in the gameObject, findObjectOfType
@@ -67,30 +72,33 @@ public class AudioManager : MonoBehaviour
         }
 
         if (currentMusic != null){
+            //StartCoroutine(FadeOut(false, 0.01f, 1f));
             currentMusic.source.Stop();
+        }
             
-            //Debug.Log("MUSIC STOP: " + currentMusic.name);
+        if (currentIntro != null){
+            //StartCoroutine(FadeOut(true, 0.01f, 1f));
+            currentIntro.source. Stop();
         }
 
-        if (introS != null){
-            introS.source.Stop();
-        }
-        
-        if(introS == null){
+            //StartCoroutine(FadeIn(false, 0.01f, 1f));
+            //StartCoroutine(FadeIn(true, 0.01f, 1f));
+
+        if(introS == null){ //no intro track to the sound
             currentMusic = loopS;
             currentMusic.source.Play();
         } else {
-            currentMusic = introS;
-            introS.source.Play();
+            currentIntro = introS;
+            currentIntro.source.Play();
             currentMusic = loopS;
             currentMusic.source.PlayDelayed(introS.clip.length);
         }
 
     }
 
-    void ScenePlayMusic(){
+    public void ScenePlayMusic(bool bossKilled){
         sTo = SceneManager.GetActiveScene();
-        if(sTo != sFrom){
+        if(sTo != sFrom || bossKilled){
             switch (sTo.name)
             {
                 case "Main menu":
@@ -110,6 +118,34 @@ public class AudioManager : MonoBehaviour
             }
             
             sFrom = sTo;
+        }
+    }
+
+    IEnumerator FadeIn(bool musicType, float speed, float timeToFade) { //musicType: false for currentMusic, true for currentIntro
+        Debug.Log("Call FadeIn");
+
+        currentMusic.source.volume = 0;
+        currentIntro.source.volume = 0;
+
+        for (float i = 0; i <= 1f; i += speed){
+            if(musicType)
+                currentMusic.source.volume += speed;
+            else
+                currentIntro.source.volume += speed;
+
+            yield return new WaitForSeconds(speed/timeToFade);
+        }
+    }
+
+    IEnumerator FadeOut(bool musicType, float speed, float timeToFade) { //musicType: false for currentMusic, true for currentIntro
+        Debug.Log("Call FadeOut");
+        for (float i = 1f; i > 0; i -= speed){
+            if(musicType)
+                currentMusic.source.volume -= speed;
+            else
+                currentIntro.source.volume -= speed;
+
+            yield return new WaitForSeconds(timeToFade/speed);
         }
     }
 }
