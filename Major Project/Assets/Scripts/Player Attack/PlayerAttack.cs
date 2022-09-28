@@ -45,23 +45,21 @@ public class PlayerAttack : MonoBehaviour {
             Attack();
         }
 
-        // if no attack input in 2 seconds from 1st attack. reset combo
+        // if no attack input in 2 seconds from last attack. reset combo
         if (isCombo)
         {
-            if(Input.GetMouseButton(0))
+            if(Input.GetMouseButtonDown(0))
             {
                 comboResetTime = 0;
-                comboCount ++;
             }
             comboResetTime += Time.deltaTime;
-            if(comboResetTime == 2.0f)
+            if(comboResetTime >= 2.0f)
             {
                 comboResetTime = 0;
                 comboCount = 0;
                 isCombo = false;
             }
         }
-        
     }
     IEnumerator attackDelay(float delayTime)
     {
@@ -152,30 +150,36 @@ public class PlayerAttack : MonoBehaviour {
     private void fistAttack()
     {
         
-        if (Input.GetMouseButton(0) && comboCount == 0)
+        if (Input.GetMouseButtonDown(0) && comboCount == 0 && canAttack)
         {
             // ------------------------------- //
             //  need animator control here ()  //
             // ------------------------------- //
             isAttacking = true;
+            isCombo = true;
+            comboCount++;
+            canAttack = false;
             StartCoroutine(attackDelay(.2f)); // 0.2 sec cd between punches
         }
-        if (Input.GetMouseButton(0) && comboCount == 1)
+        if (Input.GetMouseButtonDown(0) && comboCount == 1 && canAttack)
         {
             // ------------------------------- //
             //  need animator control here ()  //
             // ------------------------------- //
             isAttacking = true;
+            comboCount++;
+            canAttack = false;
             StartCoroutine(attackDelay(.2f)); 
         }
-        if (Input.GetMouseButton(0) && comboCount == 2)
+        if (Input.GetMouseButtonDown(0) && comboCount == 2 && canAttack)
         {
             // ------------------------------- //
             //  need animator control here ()  //
             // ------------------------------- //
             isAttacking = true;
-            comboCount = 0;                     // reset combo to 0
-            StartCoroutine(attackDelay(1.5f));  // 1.5 sec cd at the end of combo
+            comboCount = 0;
+            canAttack = false;
+            StartCoroutine(attackDelay(1.0f));  // 1.5 sec cd at the end of combo
         }
     }
 
