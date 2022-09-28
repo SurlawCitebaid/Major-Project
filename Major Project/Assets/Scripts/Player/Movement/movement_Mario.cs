@@ -134,10 +134,15 @@ public class movement_Mario : MonoBehaviour
 	}
 	private IEnumerator Dash()
 	{
+		bool pre_inv = true;
 		dashable = false;
 		m_DisableMovement = true;						// disable movement when dashing
 		isDashing = true;
-		m_playerController.isInvincible = true;			// invincible when dashing
+		if ( m_playerController.isInvincible == false)  // differ dash inv and inv from other actions
+		{
+			m_playerController.isInvincible = true;
+			pre_inv = false;
+		}
 		if (m_DashGravitySwitch == false)
 		{
 			m_Rigidbody2D.gravityScale = 0;				// set gravity to zero if gravity during dashing is not wanted
@@ -148,7 +153,10 @@ public class movement_Mario : MonoBehaviour
 		m_Rigidbody2D.gravityScale = gravity;			// return gravity to character
 		m_DisableMovement = false;						// enable movement control after the dashing is done
 		isDashing = false;
-		m_playerController.isInvincible = false;        // disable invincible state
+		if (pre_inv == false)							// only turn off inv when the inv was given by dash
+		{
+			m_playerController.isInvincible = false;    // disable invincible state
+		}
 		yield return new WaitForSeconds(m_DashCooldown);
 		dashable = true;
 	}
