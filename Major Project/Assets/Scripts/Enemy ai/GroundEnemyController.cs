@@ -37,17 +37,17 @@ public class GroundEnemyController : MonoBehaviour
         distance = new Vector2(player.transform.position.x - gameObject.transform.position.x, 0); //track the distance from the player
         //GroundCheck();
 
-        if (states.currentState() != EnemyAiController.State.COOLDOWN)
+        if (states.CurrentState() != EnemyAiController.State.COOLDOWN)
         {
             if((distance.normalized.x < 0 && facingRight) || (distance.normalized.x > 0 && !facingRight))
             Flip();
         }
 
         if (true){
-            switch(states.currentState()){
+            switch(states.CurrentState()){
                 case EnemyAiController.State.MOVING:
                     MoveEnemy(states.enemy.moveSpeed);
-                    if(states.getVelocity().x == 0){
+                    if(states.GetVelocity().x == 0){
                         StartCoroutine(Jump());
                     }
                     break;
@@ -84,10 +84,10 @@ public class GroundEnemyController : MonoBehaviour
 
         if (distance.magnitude > states.enemy.attack.range) {
             //attempt to move towards player
-            states.changeVelocity(new Vector2(distance.normalized.x * speed, states.getYVelocity()));
+            states.ChangeVelocity(new Vector2(distance.normalized.x * speed, states.GetYVelocity()));
         } else if (distance.magnitude < states.enemy.attack.minRange) {
             //attempt to move away from player
-            states.changeVelocity(new Vector2(-distance.normalized.x * speed, states.getYVelocity()));
+            states.ChangeVelocity(new Vector2(-distance.normalized.x * speed, states.GetYVelocity()));
         } else {
             //Aiming
             StartCoroutine(Aiming());
@@ -95,10 +95,10 @@ public class GroundEnemyController : MonoBehaviour
     }
 
     IEnumerator Aiming() {
-        states.setState(2);
+        states.SetState(2);
 
         float timePassed = 0;
-        while (timePassed < 1f && states.currentState() == EnemyAiController.State.AIMING){
+        while (timePassed < 1f && states.CurrentState() == EnemyAiController.State.AIMING){
             if (distance.magnitude > states.enemy.attack.maxRange){
                 //too far away
                 break;
@@ -110,7 +110,7 @@ public class GroundEnemyController : MonoBehaviour
         
         //if still in range after two seconds
         if (timePassed < 1f){
-            states.setState(0);
+            states.SetState(0);
         } else {
             Attack();
         }
@@ -118,8 +118,8 @@ public class GroundEnemyController : MonoBehaviour
 
     void Attack()
     {
-        states.setState(3); //ATTACKING
-        states.setImmune(true);
+        states.SetState(3); //ATTACKING
+        states.SetImmune(true);
 
         attack.DoAttack(states, distance, gameObject);
 
@@ -128,7 +128,7 @@ public class GroundEnemyController : MonoBehaviour
     }
     
     IEnumerator Jump(){
-        states.changeVelocity(states.getVelocity() + new Vector2(distance.normalized.x * states.enemy.jumpHeight, states.enemy.jumpHeight));
+        states.ChangeVelocity(states.GetVelocity() + new Vector2(distance.normalized.x * states.enemy.jumpHeight, states.enemy.jumpHeight));
         dust.Play();
         yield return new WaitForSeconds(0.5f);
     }

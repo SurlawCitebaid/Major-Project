@@ -31,7 +31,7 @@ public class shopScript : MonoBehaviour
         loadOutButtonText = loadoutButtonObject.GetComponent<Button>().GetComponentInChildren<TextMeshProUGUI>();
 
         toggleShopPanel(true);                      // sets default panel
-        items.updatePanel();                        // sets current stage items
+        items.UpdatePanel();                        // sets current stage items
     }
 
    

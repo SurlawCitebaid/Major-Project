@@ -10,19 +10,21 @@ public class AirEnemy_1 : MonoBehaviour
     [SerializeField] private GameObject line;
     [SerializeField] private GameObject light2d;
     GameObject predLine;
-    private GameObject player;
+    private GameObject player, fireAnim;
     public Material m_Material;
-    private LineRenderer lr;
     SpriteRenderer theScale;
     
     
-    private bool attacked = false, movePos = false, attackReady = false, moving = false, predictionLine = false, invalid = false;
+    private bool movePos = false, attackReady = false, moving = false, predictionLine = false, invalid = false;
     void Start()
     {
         predLine = Instantiate(line, pivot.transform.position, pivot.transform.rotation);
         predLine.transform.parent = pivot.transform;
         predLine.transform.localScale = new Vector3 (.3f,50,0);
         predLine.transform.position = new Vector2(predLine.transform.position.x, predLine.transform.position.y+37.5f);
+
+        fireAnim = pivot.transform.Find("AttackAnim").gameObject;
+        
         states = this.transform.GetComponent<EnemyAiController>();                                             // enemy state machine
         player = GameObject.FindGameObjectWithTag("Player");                                    // variable to track player
         theScale = GetComponent<SpriteRenderer>();
@@ -37,12 +39,12 @@ public class AirEnemy_1 : MonoBehaviour
         {
             PlayerController ass = coll.gameObject.GetComponent<PlayerController>();
 
-            if (ass != null && attacked)
+            if (ass != null && states.CurrentState() == EnemyAiController.State.ATTACKING)
             {
                 ass.damage(1);
             }
         }
-        switch (states.currentState())
+        switch (states.CurrentState())
         {
             case EnemyAiController.State.MOVING:
                 float dist = Vector3.Distance(pivot.transform.position, player.transform.position);
@@ -53,7 +55,7 @@ public class AirEnemy_1 : MonoBehaviour
                 }
                 else
                 {
-                    states.setState(2);
+                    states.SetState(2);
                 }
                 break;
             case EnemyAiController.State.AIMING:
@@ -69,23 +71,22 @@ public class AirEnemy_1 : MonoBehaviour
                     predictionLine = true;
                 }
                 
-                Invoke("attack", 1f);
+                Invoke("Attack", 1f);
                 break;
             case EnemyAiController.State.COOLDOWN:
-                reset();
+                Reset();
                 break;
         }
     }
-    void reset()
+    void Reset()
     {
         if(!Room.enemyLocationValid(transform.position))
         {
             invalid = true;
         }
         predictionLine = false;
-        states.setState(0);
+        states.SetState(0);
         attackReady = false;
-        attacked = false;
         movePos = false;
         moving = true;
     }
@@ -94,7 +95,7 @@ public class AirEnemy_1 : MonoBehaviour
         return -A.x * B.y + A.y * B.x;
     }
 
-    private void attack()
+    private void Attack()
     {
         if (!moving)
         {
@@ -108,7 +109,7 @@ public class AirEnemy_1 : MonoBehaviour
             }
             predLine.SetActive(false);
             transform.Translate(pivot.transform.up * flightSpeed);
-            attacked = true;
+            fireAnim.SetActive(true);
         }
         
         Invoke("setStateCooldown", 2f);
@@ -134,7 +135,7 @@ public class AirEnemy_1 : MonoBehaviour
         {
             yield return null;
             moving = false;
-            states.setState(3);
+            states.SetState(3);
         }
     }
     private void rePosition()
@@ -161,12 +162,12 @@ public class AirEnemy_1 : MonoBehaviour
     }
     private void setStateCooldown()
     {
-        if(states.currentState() == EnemyAiController.State.COOLDOWN)
+        if(states.CurrentState() == EnemyAiController.State.COOLDOWN)
         {
             return;
         }     else
         {
-            states.setState(4);
+            states.SetState(4);
         }
 
     }
@@ -174,9 +175,9 @@ public class AirEnemy_1 : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag == "Wall")
+        if (col.gameObject.CompareTag( "Wall"))
         {
-            Debug.Log(col.gameObject.name);
+            fireAnim.SetActive(false);
             light2d.SetActive(false);
             moving = true;
         }

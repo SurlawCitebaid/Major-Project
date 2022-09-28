@@ -24,7 +24,7 @@ public class FlyingCharger : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        switch (states.currentState())
+        switch (states.CurrentState())
         {
             case EnemyAiController.State.MOVING:
                 float dist = Vector3.Distance(transform.position, player.transform.position);
@@ -32,7 +32,7 @@ public class FlyingCharger : MonoBehaviour
                 {
                     rePosition();
                 } else {
-                    states.setState(2);
+                    states.SetState(2);
                 }
                 break;
 
@@ -51,7 +51,7 @@ public class FlyingCharger : MonoBehaviour
                                     predLine(hitInfo[i]);
                 }
 
-                Invoke("attack",1f);
+                Invoke("Attack",1f);
                 break;
 
             case EnemyAiController.State.COOLDOWN:
@@ -91,7 +91,7 @@ public class FlyingCharger : MonoBehaviour
         {
             yield return null;
             attacked = false;
-            states.setState(3);
+            states.SetState(3);
         }
     }
     private void attack()
@@ -110,7 +110,7 @@ public class FlyingCharger : MonoBehaviour
     }
     private void setStateCooldown()
     {
-        states.setState(4);
+        states.SetState(4);
     }
     private void rePosition()
     {
@@ -127,7 +127,7 @@ public class FlyingCharger : MonoBehaviour
 
     void reset()
     {
-        states.setState(0);
+        states.SetState(0);
         if (!lr.enabled)
         {
              lr.changeAlpha(true);

@@ -12,8 +12,8 @@ public class Boss1_Attack1 : StateMachineBehaviour
     {
         bossControl = animator.GetComponent<BossController>();
         boss = animator.GetComponent<Boss1_Logic>();
-        index = boss.randomNum(indexes);
-        boss.setIndex(index);
+        index = boss.RandomNum(indexes);
+        boss.SetIndex(index);
 
     }
 
@@ -25,11 +25,11 @@ public class Boss1_Attack1 : StateMachineBehaviour
             case 1:
                 animator.SetBool("Attack1", false);
                 animator.SetBool("Attack", false);
-                bossControl.flip();
+                bossControl.Flip();
                 break;
             case 3:
                 animator.SetBool("Reset", true);
-                bossControl.flip();
+                bossControl.Flip();
                 break;
         }
         

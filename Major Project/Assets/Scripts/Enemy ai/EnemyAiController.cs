@@ -26,27 +26,27 @@ public class EnemyAiController : MonoBehaviour
         sr.sprite = enemy.sprite;
         rb.drag = UnityEngine.Random.Range(1f, 2f);
     }
-    public float getYVelocity()
+    public float GetYVelocity()
     {
         return rb.velocity.y;
     }
 
-    public Vector2 getVelocity(){
+    public Vector2 GetVelocity(){
         return rb.velocity;
     }
-    public void changeVelocity(Vector2 velocity)
+    public void ChangeVelocity(Vector2 velocity)
     {
         rb.velocity = velocity;
     }
-    public void setState(int changeState)
+    public void SetState(int changeState)
     {
         state = (State) changeState;
     }
-    public void setImmune(bool state)
+    public void SetImmune(bool state)
     {
         immune = state;
     }
-    public State currentState()
+    public State CurrentState()
     {
         return state;
     }
@@ -68,14 +68,14 @@ public class EnemyAiController : MonoBehaviour
     }
     public IEnumerator HitFlash(SpriteRenderer sprite , Color32 originalColor)
     {
-        setState(5);
+        SetState(5);
         sprite.color = Color.red;
         yield return new WaitForSeconds(0.5f);
         sprite.color = originalColor;
 
-        setState(0);
+        SetState(0);
     }
-    public IEnumerator damageIndicator(SpriteRenderer sprite, Color32 originalColor)
+    public IEnumerator DamageIndicator(SpriteRenderer sprite, Color32 originalColor)
     {
         sprite.color = Color.red;
         yield return new WaitForSeconds(0.5f);
@@ -83,10 +83,10 @@ public class EnemyAiController : MonoBehaviour
     }
     public IEnumerator CooldownAttack(float cooldownTime, int newStateIndex)
     {
-        setState(4);//COOLDOWN
+        SetState(4);//COOLDOWN
         yield return new WaitForSeconds(cooldownTime);
 
-        setState(newStateIndex);// state set based on enemy data
+        SetState(newStateIndex);// state set based on enemy data
     }
     public IEnumerator Immunity()
     {
@@ -102,7 +102,7 @@ public class EnemyAiController : MonoBehaviour
         {
             Knockback(knockbackForce, knockbackDirection);
         }
-        StartCoroutine(damageIndicator(sr, defaultColour));
+        StartCoroutine(DamageIndicator(sr, defaultColour));
 
         if (health < 0)
             Die();

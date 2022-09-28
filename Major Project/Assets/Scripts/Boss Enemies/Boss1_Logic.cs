@@ -6,46 +6,33 @@ public class Boss1_Logic : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject HitBox;
-    private float attackRange = 4;
     Collider2D playerCol;
-    GameObject player;
     
     Animator ass;
-    bool attack;
 
     int index = 0;
     // Start is called before the first frame update
     void Start()
     {
         playerCol = GameObject.FindGameObjectWithTag("Player").GetComponent<Collider2D>();
-        player = GameObject.FindGameObjectWithTag("Player");
         ass = GetComponent<Animator>();
-        hitBoxInactive();
+        HitBoxInactive();
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
-         
-    }
-    public void hitBoxActive()
+    public void HitBoxActive()
     {
         HitBox.SetActive(true);
     }
-    public void hitBoxInactive()
+    public void HitBoxInactive()
     {
         HitBox.SetActive(false);
     }
-    public float getAttackRange()
+    public float GetAttackRange()
     {
         return 4f;
     }
-    public void setAttackRange(float i)
-    {
-        attackRange = i;
-    }
-    public int randomNum(int[] ass)
+    public int RandomNum(int[] ass)
     {
         int enemyNum = Random.Range(0, ass.Length);
 
@@ -55,7 +42,7 @@ public class Boss1_Logic : MonoBehaviour
     {
         return index;
     }
-    public void setIndex(int i)
+    public void SetIndex(int i)
     {
         index = i;
     }
@@ -65,7 +52,7 @@ public class Boss1_Logic : MonoBehaviour
 
         if (ass.GetBool("Fall")) { ass.SetBool("Fall", false); }  //just to switch start state once
 
-        if (col.gameObject.tag == "Player")
+        if (col.gameObject.CompareTag( "Player"))
         {
             Physics2D.IgnoreCollision(playerCol, col.collider);
         }

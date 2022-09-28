@@ -29,7 +29,7 @@ public class ChargingEnemy : MonoBehaviour
     {
         distance = new Vector2(player.transform.position.x - gameObject.transform.position.x, 0); //track the distance from the player
 
-        switch(states.currentState()){
+        switch(states.CurrentState()){
             case EnemyAiController.State.MOVING:
                 MoveEnemy(enemy.moveSpeed);
                 break;
@@ -50,7 +50,7 @@ public class ChargingEnemy : MonoBehaviour
 
     //waits before attacking 
     IEnumerator Aiming() {
-        states.setState(2);
+        states.SetState(2);
 
         float timePassed = 0;
         while (timePassed < 2f){
@@ -65,7 +65,7 @@ public class ChargingEnemy : MonoBehaviour
         
         //if still in range after two seconds
         if (timePassed < 2f){
-            states.setState(0);
+            states.SetState(0);
         } else {
             ChargePlayer();
         }
@@ -74,7 +74,7 @@ public class ChargingEnemy : MonoBehaviour
     //Rams the player
     void ChargePlayer()
     {
-        states.setState(3); //ATTACKING
+        states.SetState(3); //ATTACKING
         rb.velocity = new Vector2(distance.normalized.x * chargeSpeed, rb.velocity.y);
         
         StartCoroutine(CooldownAttack());
@@ -82,10 +82,10 @@ public class ChargingEnemy : MonoBehaviour
 
 //cooldown period before entity can start moving again
     IEnumerator CooldownAttack(){
-        states.setState(4);//COOLDOWN
+        states.SetState(4);//COOLDOWN
         yield return new WaitForSecondsRealtime(2);
 
-        states.setState(0);//MOVING
+        states.SetState(0);//MOVING
     }
 
     void MoveEnemy(float speed){

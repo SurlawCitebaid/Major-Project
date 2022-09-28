@@ -96,8 +96,7 @@ public class PlayerAttack : MonoBehaviour {
             chargeTime += Time.deltaTime;
             hat.GetComponent<SpriteRenderer>().enabled = true;
 
-            if(chargeTime >= maxCharge)
-            hat.GetComponent<Animator>().enabled = true;
+            if (chargeTime >= maxCharge) { hat.GetComponent<Animator>().enabled = true; }
         }
         if(Input.GetMouseButtonUp(0) && chargeTime >= maxCharge)
         {

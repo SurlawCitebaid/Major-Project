@@ -28,9 +28,9 @@ public class Boss1_idle : StateMachineBehaviour
         bossControl = animator.GetComponent<BossController>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         rb = animator.GetComponent<Rigidbody2D>();
-        attackRange = boss.getAttackRange();
+        attackRange = boss.GetAttackRange();
         ass = boss.getIndex();
-        i = boss.randomNum(indexes);
+        i = boss.RandomNum(indexes);
     }
 
 
@@ -42,17 +42,15 @@ public class Boss1_idle : StateMachineBehaviour
         float yDistance = Mathf.Abs(rb.position.y - player.position.y);
         float xDistance = Mathf.Abs(rb.position.x - player.position.x);
 
-        float dist = Mathf.Abs(rb.position.x - player.transform.position.x);
-
         while (sameIndex)
         {
             if (i == ass)
             {
-                i = boss.randomNum(indexes);
+                i = boss.RandomNum(indexes);
             }
             else
             {
-                boss.setIndex(i);
+                boss.SetIndex(i);
                 sameIndex = false;
             }
         }
@@ -60,20 +58,20 @@ public class Boss1_idle : StateMachineBehaviour
         {
             if (yDistance > 5)
             {
-                bossControl.flip();
-                boss.setIndex(5);
+                bossControl.Flip();
+                boss.SetIndex(5);
                 animator.SetTrigger("Jump");
             }
             else
             {
-                bossControl.flip();
+                bossControl.Flip();
                 animator.SetBool("Attack", true);
             }
         } 
         
         else
         {
-            bossControl.flip();
+            bossControl.Flip();
             animator.SetBool("Chase", true);
         }
         

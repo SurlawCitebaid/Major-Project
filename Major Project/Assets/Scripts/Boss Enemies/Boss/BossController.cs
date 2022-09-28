@@ -28,7 +28,7 @@ public class BossController : MonoBehaviour
 
     // Update is called once per frame
     
-    public void flip()
+    public void Flip()
     {
         
         if (AngleDir() > 0)
@@ -50,7 +50,7 @@ public class BossController : MonoBehaviour
             return;
 
         health -= damage;
-        StartCoroutine(invulnerable());
+        StartCoroutine(Invulnerable());
 
         if (health <= 0)
         {
@@ -59,7 +59,7 @@ public class BossController : MonoBehaviour
 
         }
     }
-    public IEnumerator invulnerable()
+    public IEnumerator Invulnerable()
     {
         isInvulnerable = true;
         theScale.color = Color.grey;
@@ -70,10 +70,10 @@ public class BossController : MonoBehaviour
     public void Die()
     {
         EnemySpawner.enemiesAlive = false;
-        StartCoroutine(dieEffect());
+        StartCoroutine(DieEffect());
     }
 
-    public IEnumerator dieEffect()
+    public IEnumerator DieEffect()
     {
         //Wait 4 seconds then die
         yield return new WaitForSeconds(4f);

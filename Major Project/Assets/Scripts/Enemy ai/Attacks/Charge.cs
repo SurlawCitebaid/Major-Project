@@ -11,7 +11,7 @@ public class Charge : Attack
     GameObject parent;
     public override void DoAttack(EnemyAiController states, Vector2 distance, GameObject parent){
         
-        states.changeVelocity(new Vector2(distance.normalized.x * chargeSpeed, states.getYVelocity()));
+        states.ChangeVelocity(new Vector2(distance.normalized.x * chargeSpeed, states.GetYVelocity()));
 
         //animate
         this.parent = parent;

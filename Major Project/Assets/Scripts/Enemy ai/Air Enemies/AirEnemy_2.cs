@@ -11,8 +11,7 @@ public class AirEnemy_2 : MonoBehaviour
     private GameObject player;
     public Material m_Material;
     GameObject predLine;
-    int i = 0;
-    private bool attacked = false, movePos = false, shot = false;
+    private bool attacked = false, movePos = false;
     private int resetCount = 0;
     void Start()
     {
@@ -29,20 +28,20 @@ public class AirEnemy_2 : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        switch (states.currentState())
+        switch (states.CurrentState())
         {
             case EnemyAiController.State.MOVING:
-                 rePosition();
+                 RePosition();
                 break;
             case EnemyAiController.State.AIMING:
                 StartCoroutine(Aiming());
                 break;
             case EnemyAiController.State.ATTACKING:
-                StartCoroutine(fireProjectile());
+                StartCoroutine(FireProjectile());
                 break;
         }
     }
-    IEnumerator fireProjectile()
+    IEnumerator FireProjectile()
     {
         if (!attacked)
         {
@@ -66,7 +65,7 @@ public class AirEnemy_2 : MonoBehaviour
             resetCount++;
             movePos = false;
             predLine.SetActive(false);
-            states.setState(0);
+            states.SetState(0);
         }
         
     }
@@ -84,15 +83,15 @@ public class AirEnemy_2 : MonoBehaviour
         {
             attacked = false;
             yield return null;
-            Invoke("setStateAttack", 1f);
+            Invoke("SetStateAttack", 1f);
 
         }
     }
-    private void setStateAttack()
+    private void SetStateAttack()
     {
-        states.setState(3);
+        states.SetState(3);
     }
-    private void rePosition()
+    private void RePosition()
     {
         if (!movePos)
         {
@@ -109,7 +108,7 @@ public class AirEnemy_2 : MonoBehaviour
                 validPos = player.transform.position + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * (states.enemy.attack.range - 1f);
             }
             transform.position = validPos;
-            states.setState(2);
+            states.SetState(2);
             movePos = true;
 
         }

@@ -15,7 +15,6 @@ public class shopItemsScript : MonoBehaviour, ISelectHandler
     GameObject[] panels;
     private int rerollCounter = 3;
     int[] index;
-    Button ass;
     void Start()
     {
         resetButtonObject = transform.Find("Reset").gameObject;
@@ -44,11 +43,11 @@ public class shopItemsScript : MonoBehaviour, ISelectHandler
         if (rerollCounter != 0)
         {
             rerollCounter--;
-            updatePanel();
+            UpdatePanel();
             rerollDisplay.text = ("Reroll " + rerollCounter + "/3").ToString();
         }
     }
-    public void updatePanel()
+    public void UpdatePanel()
     {
         int size;
         for (int i = 0; i < items.Length; i++)
@@ -77,14 +76,14 @@ public class shopItemsScript : MonoBehaviour, ISelectHandler
             }
         }
     }
-    public void purchaseFromPanel()
+    public void PurchaseFromPanel()
     {
         if(EventSystem.current.currentSelectedGameObject.name == checkerString)
         {
-            purchase();
+            Purchase();
         }    
     }
-    public void purchase()
+    public void Purchase()
     {
         
         shopScript ass = this.transform.parent.GetComponent<shopScript>();          // change price

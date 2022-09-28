@@ -27,7 +27,7 @@ public class FlyingEnemy : MonoBehaviour
     // Update is called once per frame 
     void Update()
     {
-        switch(states.currentState())
+        switch(states.CurrentState())
         {
             case EnemyAiController.State.MOVING:
                 if (yPos <= player.transform.position.y)
@@ -36,7 +36,7 @@ public class FlyingEnemy : MonoBehaviour
                 }
                 else
                 {
-                    states.setState(1);
+                    states.SetState(1);
                 }
                 break;
             case EnemyAiController.State.CHASE:
@@ -47,7 +47,7 @@ public class FlyingEnemy : MonoBehaviour
                 }
                 else
                 {
-                    states.setState(2);
+                    states.SetState(2);
                 }
                 break;
             case EnemyAiController.State.AIMING:
@@ -62,10 +62,10 @@ public class FlyingEnemy : MonoBehaviour
                 }
 
                 lr.updateStartPoint(new Vector3(transform.position.x, transform.position.y, 1));
-                Invoke("attack", 1f);
+                Invoke("Attack", 1f);
                 break;
             case EnemyAiController.State.COOLDOWN:
-                Invoke("reset", 1f);
+                Invoke("Reset", 1f);
                 break;
             case EnemyAiController.State.STUNNED:
                 break;
@@ -82,7 +82,7 @@ public class FlyingEnemy : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * speed);
         if (dotProd == 1)
         {
-            states.setState(3);
+            states.SetState(3);
         }
     }
     private void attack()
@@ -117,7 +117,7 @@ public class FlyingEnemy : MonoBehaviour
         {
             flightHeight = Random.Range(1f, 9f);
             yPos = transform.position.y;
-            states.setState(0);
+            states.SetState(0);
             attacked = false;
             predictionLine = true;
         }
@@ -129,7 +129,7 @@ public class FlyingEnemy : MonoBehaviour
             rigid.velocity = Vector3.zero;
             rigid.angularVelocity = 0f;
             lr.destroyLine();
-            states.setState(4);
+            states.SetState(4);
         }
     }
 }

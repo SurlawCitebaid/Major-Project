@@ -7,7 +7,8 @@ public class CameraFollow : MonoBehaviour {
     public static bool updateRoomCamera = true;
     float xCentre, yCentre;
     Vector3 roomCentre;
-    Camera MainCamera;
+    static Camera MainCamera;
+    public static Vector2 topLeft, topRight, bottomLeft;
     float height, width, maxHeight, maxWidth;
     private void Start() {
         MainCamera = gameObject.GetComponent<Camera>();
@@ -27,7 +28,12 @@ public class CameraFollow : MonoBehaviour {
             xCentre = roomCentre.x;
             yCentre = roomCentre.y;
             transform.position = roomCentre;
-            
+
+            topLeft = new Vector2(Room.getTopLeftRoomPosition().x + 2.5f, Room.getTopLeftRoomPosition().y - 2.5f);
+            topRight = new Vector2(Room.getTopRightRoomPosition().x - 2.5f, Room.getTopRightRoomPosition().y - 2.5f);                     // get room centre cords 
+            bottomLeft = new Vector2(Room.getBottomLeftRoomPosition().x + 2.5f, Room.getBottomLeftRoomPosition().y + 2.5f);
+
+
             updateRoomCamera = false;
         }
         else
