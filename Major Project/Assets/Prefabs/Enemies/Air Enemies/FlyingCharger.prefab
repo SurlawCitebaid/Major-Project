@@ -128,7 +128,6 @@ MonoBehaviour:
     rgba: 4294967295
   enemy: {fileID: 11400000, guid: 9da80d4109f02b044b0e0adc78dfca26, type: 2}
   immune: 0
-  health: 0
 --- !u!70 &8326276401724702556
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -212,7 +211,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2017425716322635504
 Transform:
   m_ObjectHideFlags: 0

@@ -23,7 +23,6 @@ public class Boss1_Attack : StateMachineBehaviour
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Debug.Log(boss.getIndex());
         switch (boss.getIndex())
         {
             case 1:

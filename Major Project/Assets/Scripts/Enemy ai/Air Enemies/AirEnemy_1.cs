@@ -21,7 +21,7 @@ public class AirEnemy_1 : MonoBehaviour
         predLine = Instantiate(line, pivot.transform.position, pivot.transform.rotation);
         predLine.transform.parent = pivot.transform;
         predLine.transform.localScale = new Vector3 (.3f,50,0);
-        predLine.transform.position = new Vector2(predLine.transform.position.x, predLine.transform.position.y+37.5f);
+        predLine.transform.position = new Vector2(predLine.transform.position.x-37.5f, predLine.transform.position.y);
 
         fireAnim = pivot.transform.Find("AttackAnim").gameObject;
         
