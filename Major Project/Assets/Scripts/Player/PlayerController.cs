@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         health = playerScriptableObject.maxHealth;
+        _healthController.playerHealth = health;
+        _healthController.UpdateHealthStatus();
         sprite = gameObject.GetComponent<SpriteRenderer>();
     }
 

@@ -8,7 +8,7 @@ public class HealthManager : MonoBehaviour {
 
 
     private void Awake() {
-        maxHealth = 6;
+       // maxHealth = 6;
         health = maxHealth;
         //heartDisplay = GameObject.FindObjectOfType<HeartDisplay>();
     }

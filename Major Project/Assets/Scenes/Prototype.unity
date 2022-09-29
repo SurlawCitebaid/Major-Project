@@ -986,6 +986,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &371530800 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3410456798613797881, guid: e292895608f6885459da7f11ba9567e1, type: 3}
+  m_PrefabInstance: {fileID: 1803539728}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &484631760 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3276353233198758736, guid: e292895608f6885459da7f11ba9567e1, type: 3}
+  m_PrefabInstance: {fileID: 1803539728}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &491774941 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3557411036595386653, guid: e292895608f6885459da7f11ba9567e1, type: 3}
@@ -1259,6 +1281,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7593626137285083885, guid: 96b2f88626f3b6d41b1934944ffd264d, type: 3}
   m_PrefabInstance: {fileID: 1518865786}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &779488170 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2284207428471659055, guid: e292895608f6885459da7f11ba9567e1, type: 3}
+  m_PrefabInstance: {fileID: 1803539728}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &909187409
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1882,6 +1915,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1318366249 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8740388308759180827, guid: e292895608f6885459da7f11ba9567e1, type: 3}
+  m_PrefabInstance: {fileID: 1803539728}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1422882652
 GameObject:
   m_ObjectHideFlags: 0
@@ -2429,13 +2473,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8600023793598100250, guid: e292895608f6885459da7f11ba9567e1, type: 3}
-      propertyPath: playerHealth
-      value: 6
+    - target: {fileID: 8600023793598100249, guid: e292895608f6885459da7f11ba9567e1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8600023793598100250, guid: e292895608f6885459da7f11ba9567e1, type: 3}
+      propertyPath: playerHealth
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600023793598100250, guid: e292895608f6885459da7f11ba9567e1, type: 3}
+      propertyPath: playerScriptableObject
+      value: 
+      objectReference: {fileID: 11400000, guid: 532bd32f1f365ec4a97c0b4b80ed2f60, type: 2}
+    - target: {fileID: 8600023793598100250, guid: e292895608f6885459da7f11ba9567e1, type: 3}
       propertyPath: healthHearts.Array.size
-      value: 6
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8600023793598100250, guid: e292895608f6885459da7f11ba9567e1, type: 3}
       propertyPath: healthHearts.Array.data[5]
@@ -2444,7 +2496,19 @@ PrefabInstance:
     - target: {fileID: 8600023793598100250, guid: e292895608f6885459da7f11ba9567e1, type: 3}
       propertyPath: healthHearts.Array.data[6]
       value: 
-      objectReference: {fileID: 491774941}
+      objectReference: {fileID: 1318366249}
+    - target: {fileID: 8600023793598100250, guid: e292895608f6885459da7f11ba9567e1, type: 3}
+      propertyPath: healthHearts.Array.data[7]
+      value: 
+      objectReference: {fileID: 371530800}
+    - target: {fileID: 8600023793598100250, guid: e292895608f6885459da7f11ba9567e1, type: 3}
+      propertyPath: healthHearts.Array.data[8]
+      value: 
+      objectReference: {fileID: 779488170}
+    - target: {fileID: 8600023793598100250, guid: e292895608f6885459da7f11ba9567e1, type: 3}
+      propertyPath: healthHearts.Array.data[9]
+      value: 
+      objectReference: {fileID: 484631760}
     - target: {fileID: 8600023794129069659, guid: e292895608f6885459da7f11ba9567e1, type: 3}
       propertyPath: m_Name
       value: Health UI
