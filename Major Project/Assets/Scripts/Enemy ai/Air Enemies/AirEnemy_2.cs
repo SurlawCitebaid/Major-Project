@@ -96,7 +96,7 @@ public class AirEnemy_2 : MonoBehaviour
         if (!movePos)
         {
             float angle = Random.Range(0, 2f * Mathf.PI);
-            Vector2 validPos = player.transform.position + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * (states.enemy.attack.range - 1f);
+            Vector2 validPos = player.transform.position + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * (Random.Range(states.enemy.attack.range, states.enemy.attack.range * 2));
             while (!Room.enemyLocationValid(validPos))
             {
                 if (!Room.enemyLocationValid(player.transform.position))
@@ -105,7 +105,7 @@ public class AirEnemy_2 : MonoBehaviour
                     break;
                 }
                 angle = Random.Range(0, 2f * Mathf.PI);
-                validPos = player.transform.position + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * (states.enemy.attack.range - 1f);
+                validPos = player.transform.position + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * (Random.Range(states.enemy.attack.range, states.enemy.attack.range * 2));
             }
             transform.position = validPos;
             states.SetState(2);

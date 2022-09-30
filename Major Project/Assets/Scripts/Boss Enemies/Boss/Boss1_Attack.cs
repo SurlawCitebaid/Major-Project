@@ -8,11 +8,9 @@ public class Boss1_Attack : StateMachineBehaviour
     BossController bossControl;
     Rigidbody2D rb;
     float ass;
-    Transform player;
     bool bass;
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
         bossControl = animator.GetComponent<BossController>();
         boss = animator.GetComponent<Boss1_Logic>();
         rb = animator.GetComponent<Rigidbody2D>();
@@ -42,11 +40,11 @@ public class Boss1_Attack : StateMachineBehaviour
                     {
                         if (bossControl.AngleDir() > 0)
                         {
-                            ass = ass - 10;
+                            ass += - 10;
                         }
                         else if (bossControl.AngleDir() < 0)
                         {
-                            ass = ass + 10;
+                            ass += 10;
                         }
                         bass = true;
                     }

@@ -6,11 +6,13 @@ public class BlowUp : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField]private GameObject parent;
-    private EnemyAiController control;
+    private EnemyAiController enemyAI;
+    private AirEnemy_3 control;
     private void Damage()
     {
-        control = parent.GetComponent<EnemyAiController>();
-        Collider2D[] array = Physics2D.OverlapCircleAll(transform.position, control.enemy.attack.range / 2);
+        enemyAI = parent.GetComponent<EnemyAiController>();
+        control = parent.GetComponent<AirEnemy_3>();
+        Collider2D[] array = Physics2D.OverlapCircleAll(transform.position, enemyAI.enemy.attack.range / 2);
         foreach (Collider2D coll in array)
         {
             PlayerController ass = coll.gameObject.GetComponent<PlayerController>();
@@ -18,11 +20,7 @@ public class BlowUp : MonoBehaviour
             {
                 ass.damage(1);
             }
-
-            control.Die();
-            
-               
-            
         }
+        control.KillSelf();
     }
 }

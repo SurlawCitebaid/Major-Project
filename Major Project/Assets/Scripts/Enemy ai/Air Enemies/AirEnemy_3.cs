@@ -15,6 +15,7 @@ public class AirEnemy_3 : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         BlastRange = transform.Find("BlastRange").gameObject;
         BlastRange.transform.localScale = new Vector2(states.enemy.attack.range, states.enemy.attack.range);
+        RePosition();
     }
 
     // Update is called once per frame
@@ -39,5 +40,25 @@ public class AirEnemy_3 : MonoBehaviour
                     break;
             }
         
+    }
+    public void KillSelf()
+    {
+        states.Die();
+    }
+    private void RePosition()
+    {
+            float angle = Random.Range(0, 2f * Mathf.PI);
+            Vector2 validPos = player.transform.position + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * (Random.Range(states.enemy.attack.range, states.enemy.attack.range*2));
+            while (!Room.enemyLocationValid(validPos))
+            {
+                if (!Room.enemyLocationValid(player.transform.position))
+                {
+                    states.Die();
+                    break;
+                }
+                angle = Random.Range(0, 2f * Mathf.PI);
+                validPos = player.transform.position + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * (Random.Range(states.enemy.attack.range, states.enemy.attack.range*2));
+            }
+            transform.position = validPos;
     }
 }

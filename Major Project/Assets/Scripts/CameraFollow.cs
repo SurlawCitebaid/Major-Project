@@ -13,8 +13,8 @@ public class CameraFollow : MonoBehaviour {
     private void Start() {
         MainCamera = gameObject.GetComponent<Camera>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        height = MainCamera.orthographicSize + 1;
-        width = (((height * 2) * MainCamera.aspect) / 2) - 1;
+        height = MainCamera.orthographicSize + 1.5f;
+        width = (((height * 2) * MainCamera.aspect) / 2) - 1.5f;
     }
 
     private void Update() {

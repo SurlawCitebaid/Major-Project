@@ -543,7 +543,7 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.5
-    functionName: hitBoxInactive
+    functionName: HitBoxInactive
     data: 
     objectReferenceParameter: {fileID: 11500000, guid: 1fc2312d011fdeb4db47f3bebe46de18, type: 3}
     floatParameter: 0
