@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2784106442713013165}
   - component: {fileID: 2784106442713013162}
   - component: {fileID: 2784106442713013163}
+  - component: {fileID: -7822364493270595693}
   m_Layer: 0
   m_Name: Item Pedestal
   m_TagString: Untagged
@@ -49,6 +50,7 @@ MonoBehaviour:
   item_list:
   - {fileID: 11400000, guid: 87c371bb3172fbf4e836d324dc131ce1, type: 2}
   - {fileID: 11400000, guid: 4e2cb522bfb0e264fad9dd2876873540, type: 2}
+  item: {fileID: 0}
 --- !u!212 &2784106442713013163
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -101,6 +103,32 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!61 &-7822364493270595693
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2784106442713013160}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &2784106443757877888
 GameObject:
   m_ObjectHideFlags: 0

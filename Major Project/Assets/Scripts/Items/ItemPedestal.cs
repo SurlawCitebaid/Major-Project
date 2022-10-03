@@ -5,22 +5,28 @@ using UnityEngine;
 public class ItemPedestal : MonoBehaviour {
     [SerializeField] private Item[] item_list;
     private Item item_scriptableObject;
+    private GameObject itemOnPedestal;
 
     private SpriteRenderer sprite_renderer;
-
-    [System.Obsolete]
+    private bool itemGot = false;
+    public Item item;
     private void Awake() {
-        sprite_renderer = transform.FindChild("Item").GetComponent<SpriteRenderer>();
+        itemOnPedestal = transform.Find("Item").gameObject;
+        sprite_renderer = itemOnPedestal.GetComponent<SpriteRenderer>();
     }
 
     private void Start() {
         item_scriptableObject = item_list[Random.Range(0, item_list.Length)];
         sprite_renderer.sprite = item_scriptableObject.sprite;
+        item = item_scriptableObject;
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        Inventory inventory = collision.gameObject.GetComponent<Inventory>();
-        if (inventory != null)
-            inventory.AddItem(item_scriptableObject);
+        if(!itemGot)
+        {
+            Inventory.instance.AddItem(item);
+            Destroy(itemOnPedestal);
+            itemGot = true;
+        }
     }
 }

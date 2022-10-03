@@ -5,13 +5,13 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour {
 
     private Transform firePoint;
-    private GameObject hat;
+    private GameObject hat, arrow;
+    private bool genArrow = false;
     public enum WeaponType { FIST, SWORD, FIREBALL};
     [Header("General")][Space]
     public movement_Mario m_movementController;
     [SerializeField] private WeaponType weapon = WeaponType.FIREBALL;
-    private Vector3 attackLocation;
-    private float attackDir = 1f;
+
     private bool canAttack = true;
     private bool isAttacking = false;
     private bool isCombo = false;
@@ -22,10 +22,8 @@ public class PlayerAttack : MonoBehaviour {
 
     // Sword Variables
     [Header("Sword Variables")]
-    [SerializeField] private Transform pfSwordSlash;
-    [SerializeField] private float attackDuration = 0.5f;
-    [SerializeField] private float attackRange = 2f;
-    [SerializeField] private float attackDamage = 5f;
+    [SerializeField] private GameObject Arrow;
+    [SerializeField] private GameObject Sword;
     [Space]
     [Space]
     private float chargeTime = 0;
@@ -40,10 +38,34 @@ public class PlayerAttack : MonoBehaviour {
         hat = transform.Find("Hat").gameObject;
     }
     private void Update() {
+        if (!genArrow && weapon == WeaponType.SWORD)                                        //check if weapon is sword and arrow is not spawned
+        {
+            arrow = Instantiate(Arrow, firePoint.transform.position, firePoint.transform.rotation);
+            genArrow = true;
+        } else if (weapon == WeaponType.SWORD && genArrow) {                                //check if weapon is sword and arrow spawned is true           
+            Vector3 wPos = Input.mousePosition;
+            wPos.z = transform.position.z - Camera.main.transform.position.z;
+            wPos = Camera.main.ScreenToWorldPoint(wPos);
+            Vector3 direction = wPos - transform.position;                                  //pos on circumference
+            float radius = 1;
+            direction = Vector3.Normalize(direction) * radius;
+
+            Vector3 dir = transform.position - arrow.transform.position;                    //rotate the arrow
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
+            arrow.transform.position = transform.position + direction;
+            arrow.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+        } else if(weapon != WeaponType.SWORD && genArrow)                                   //check if weapon changed and arrow spawned is true
+        {
+            Destroy(arrow);
+            genArrow = false;
+        }
+
         if (canAttack)                                   // adds delay
         {
             Attack();
         }
+
 
         // if no attack input in 2 seconds from last attack. reset combo
         if (isCombo)
@@ -117,33 +139,31 @@ public class PlayerAttack : MonoBehaviour {
 
     }
     private void SwordAttack() {
-        //if (cam.ScreenToWorldPoint(Input.mousePosition).x > this.gameObject.transform.position.x)
-        //    attackDir = 1f;
-        //if (cam.ScreenToWorldPoint(Input.mousePosition).x < this.gameObject.transform.position.x)
-        //    attackDir = -1f;
+        
+        Vector3 direction = arrow.transform.position - transform.position;                                  //pos on circumference
+        float radius = 3f;
+        direction = Vector3.Normalize(direction) * radius;
 
-        attackLocation = new Vector3(this.gameObject.transform.position.x - attackDir * 0.5f, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
 
-        Transform swordSlash = Instantiate(pfSwordSlash, firePoint.position, firePoint.rotation, gameObject.transform); //this.gameObject.transform
-        //swordSlash.localScale = new Vector3(1 * attackDir, 1, 1);
+        if (Input.GetMouseButton(0) && chargeTime < maxCharge)
+        {
+            chargeTime += Time.deltaTime;
+        }
+        if (Input.GetMouseButtonUp(0) && chargeTime >= maxCharge)
+        {
+            chargeTime = 0;
+            canAttack = false;
+            StartCoroutine(attackDelay(.5f));
 
-        Collider2D[] hits = Physics2D.OverlapAreaAll(attackLocation, new Vector2(attackLocation.x + attackRange * attackDir, 0), lm_enemies);
-        Collider2D[] hit = Physics2D.OverlapBoxAll(swordSlash.transform.position, swordSlash.transform.localScale, 0, lm_enemies);
-        foreach (Collider2D enemy in hits) {
-            if (enemy.GetComponent<BossController>() != null)
-            {
-                enemy.GetComponent<BossController>().Damage(1);
-                Debug.Log("Hit boss");
-                
-            }
-             else if(enemy.GetComponent<EnemyAiController>() != null)
-            {
-                enemy.GetComponent<EnemyAiController>().Damage(attackDamage, 5, attackDir);
-                Debug.Log("SHiiit");
-                //EnemyController merged with other AI behaviour
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            chargeTime = 0;
+            canAttack = false;
+            GameObject bass = Instantiate(Sword, transform.position + direction, arrow.transform.rotation * Quaternion.Euler(0f, 0f, 270f));
 
-            }
-            //enemy.GetComponent<EnemyController>().Damage(attackDamage, 5, attackDir);//Dans code works on this
+
+            StartCoroutine(attackDelay(.5f));
         }
     }
 
@@ -180,21 +200,6 @@ public class PlayerAttack : MonoBehaviour {
             comboCount = 0;
             canAttack = false;
             StartCoroutine(attackDelay(1.0f));  // 1.5 sec cd at the end of combo
-        }
-    }
-
-    
-
-    public void setAttackDirection(string dir)         // set attack direction based on character facing
-    {
-        switch (dir)
-        {
-            case "left":
-                attackDir = -1f;
-                break;
-            case "right":
-                attackDir = 1f;
-                break;
         }
     }
 

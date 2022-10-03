@@ -20,7 +20,6 @@ public class Door : MonoBehaviour
         Room room = GenerateLevel.rooms[(int)GenerateLevel.currentPlayerRoom.x, (int)GenerateLevel.currentPlayerRoom.y];
         foreach(Door door in room.getDoors())
         {
-            Debug.Log("UNCLOKC");
             door.unlockDoor();
         }
     }
