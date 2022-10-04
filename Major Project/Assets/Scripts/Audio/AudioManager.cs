@@ -145,7 +145,7 @@ public class AudioManager : MonoBehaviour
             else
                 currentIntro.source.volume -= speed;
 
-            yield return new WaitForSeconds(timeToFade/speed);
+            yield return new WaitForSeconds(speed/timeToFade);
         }
     }
 }
