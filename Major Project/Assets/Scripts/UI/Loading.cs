@@ -25,7 +25,6 @@ public class Loading : MonoBehaviour
         {
             float progress = Mathf.Clamp01(operation.progress / .9f);
             
-            Debug.Log(progress);
             progressSlider.value = progress;
 
             yield return null;

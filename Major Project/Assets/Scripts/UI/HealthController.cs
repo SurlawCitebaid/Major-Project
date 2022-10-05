@@ -5,67 +5,73 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-using System.Diagnostics;
 
 public class HealthController : MonoBehaviour
 {
-    [SerializeField] PlayerSO playerScriptableObject;
-    public int playerHealth;
-    private int activeHearts;
+    [SerializeField] PlayerController PlayerController;
+    private int playerHealth;
+    private int maxHearts;
+    private int currentActiveHearts;
 
     //public Color pink = Color.FromArgb(255, 105, 249);
 
-    [SerializeField] public Image[] healthHearts;
-
+    [SerializeField] public GameObject[] healthHearts;
     private void Start()
     {
+        
+        currentActiveHearts = healthHearts.Length;
+    }
+    private void Update()
+    {
+        maxHearts = PlayerController.maxHealth;
+        // get Player current health
         UpdateHealthStatus();
         UpdateMaxHealth();
-        activeHearts = playerScriptableObject.maxHealth;
-    }
 
+    }
     public void UpdateMaxHealth()
     {
         // to reduce hearts
-        if (playerScriptableObject.maxHealth < activeHearts)
+
+        if (maxHearts != currentActiveHearts)
         {
             for (int i = 0; i < healthHearts.Length; i++)
             {
-                if (i > playerScriptableObject.maxHealth)
-                {
-                    healthHearts[i].gameObject.SetActive(false);
-                    activeHearts--;
-                }
+                healthHearts[i].SetActive(false);
+                currentActiveHearts--;  
             }
-        }
-
-        // to increase hearts
-        if (playerScriptableObject.maxHealth > activeHearts)
-        {
-            for (int i = 0; i < healthHearts.Length; i++)
+            for(int i = 0; i < maxHearts; i++)
             {
-                if (i < playerScriptableObject.maxHealth)
-                {
-                    healthHearts[i].gameObject.SetActive(true);
-                    activeHearts++;
-                }
+                healthHearts[i].SetActive(true);
+                currentActiveHearts++;
             }
         }
+        //else if (maxHearts > currentActiveHearts)
+        //{
+        //    for (int i = maxHearts; i > healthHearts.Length; i++)
+        //    {
+        //        if (i < maxHearts)
+        //        {
+        //            healthHearts[i].SetActive(true);
+        //            currentActiveHearts++;
+        //        }
+        //    }
+        //}
 
-        UpdateHealthStatus();
     }
 
     public void UpdateHealthStatus()
     {
+        playerHealth = PlayerController.Instance.health;
         for (int i = 0; i < healthHearts.Length; i++)
         {
             if (i < playerHealth)
             {
-                healthHearts[i].color = new Color32(224,71,71,255); // RGBA
+                healthHearts[i].GetComponent<SpriteRenderer>().color = new Color32(224,71,71,255); // RGBA
             }
             else
             {
-                healthHearts[i].color = Color.black;
+                healthHearts[i].GetComponent<SpriteRenderer>().color = Color.black;
             }
         }
     }

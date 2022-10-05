@@ -17,13 +17,13 @@ public class PlayerController : MonoBehaviour
     [Space]
 
     public static PlayerController Instance;
+    public int maxHealth;
     public int health;
     public bool isInvincible;
     private int currency = 0;
     SpriteRenderer sprite;
     Color originalColor;
 
-    [SerializeField] private HealthController _healthController;
 
     // Start is called before the first frame update
     private void Awake()
@@ -32,19 +32,12 @@ public class PlayerController : MonoBehaviour
     }
     void Start()
     {
-        health = playerScriptableObject.maxHealth;
-        
-        _healthController.playerHealth = health;
-        _healthController.UpdateHealthStatus();
+        maxHealth = playerScriptableObject.maxHealth;               // change this after start to change UI maxHearts
+        health = maxHealth;
         sprite = gameObject.GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        _healthController.UpdateHealthStatus();
-    }
-
     public void damage(int damageAmount)
     {
         
@@ -55,8 +48,6 @@ public class PlayerController : MonoBehaviour
             health -= damageAmount;
 
             // health hearts status
-            _healthController.playerHealth = health;
-            _healthController.UpdateHealthStatus();
 
             originalColor = sprite.color;
             sprite.color = Color.red;

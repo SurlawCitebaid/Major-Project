@@ -12,7 +12,7 @@ public class SettingsMenu : MonoBehaviour
     // Sets volume as slider moves
     public AudioMixer aM;
 
-    private void start()
+    void Start()
     {
         float currentLevel;
         aM.GetFloat("MasterVolume", out currentLevel);
