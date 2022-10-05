@@ -21,8 +21,16 @@ public class AirEnemy_3 : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (Input.GetMouseButton(0))
+        {
+            states.SetState(5);
+        }
+
+
+
             switch (states.CurrentState())
             {
+
                 case EnemyAiController.State.MOVING:
                     float dist = Vector3.Distance(this.transform.position, player.transform.position);
                     if (dist < states.enemy.attack.range)
@@ -32,14 +40,16 @@ public class AirEnemy_3 : MonoBehaviour
                     if (enraged)
                     {
                         transform.position = Vector3.MoveTowards(transform.position, player.transform.position, Time.deltaTime * states.enemy.moveSpeed);
-                        if (dist < (states.enemy.attack.range /2))
+                        if (dist < (states.enemy.attack.range / 2))
                         {
                             BlastRange.SetActive(true);
                         }
                     }
                     break;
-            }
-        
+             }
+
+            
+
     }
     public void KillSelf()
     {
@@ -58,6 +68,7 @@ public class AirEnemy_3 : MonoBehaviour
                 }
                 angle = Random.Range(0, 2f * Mathf.PI);
                 validPos = player.transform.position + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * (Random.Range(states.enemy.attack.range, states.enemy.attack.range*2));
+                
             }
             transform.position = validPos;
     }

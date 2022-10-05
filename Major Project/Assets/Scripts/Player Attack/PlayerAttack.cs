@@ -140,9 +140,6 @@ public class PlayerAttack : MonoBehaviour {
     }
     private void SwordAttack() {
         
-        Vector3 direction = arrow.transform.position - transform.position;                                  //pos on circumference
-        float radius = 3f;
-        direction = Vector3.Normalize(direction) * radius;
 
 
         if (Input.GetMouseButton(0) && chargeTime < maxCharge)
@@ -153,14 +150,15 @@ public class PlayerAttack : MonoBehaviour {
         {
             chargeTime = 0;
             canAttack = false;
+
             StartCoroutine(attackDelay(.5f));
 
         }
-        else if (Input.GetMouseButtonUp(0))
+        else if (Input.GetMouseButtonUp(0) && chargeTime < maxCharge)
         {
             chargeTime = 0;
             canAttack = false;
-            GameObject bass = Instantiate(Sword, transform.position + direction, arrow.transform.rotation * Quaternion.Euler(0f, 0f, 270f));
+            Instantiate(Sword, arrow.transform.position, arrow.transform.rotation * Quaternion.Euler(0f, 0f, 270f));
 
 
             StartCoroutine(attackDelay(.5f));

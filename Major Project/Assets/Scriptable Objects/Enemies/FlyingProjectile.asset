@@ -21,5 +21,5 @@ MonoBehaviour:
   enemyDeathParticles: {fileID: 2381159102021600246, guid: 2f35a116104cb3c4d98f8c0880b1bdd2, type: 3}
   moveSpeed: 5
   slowSpeed: 0.5
-  stunSpeed: 0
+  stunSpeed: 1
   jumpHeight: 0

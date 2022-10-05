@@ -13,8 +13,10 @@ public class PlayerController : MonoBehaviour
 
     [Header("Variables")][Space]
 	[Range(0, 5)][SerializeField] private float m_invicibleTime = 2.0f;
-	[Space][Space]
+    [Space]
+    [Space]
 
+    public static PlayerController Instance;
     public int health;
     public bool isInvincible;
     private int currency = 0;
@@ -24,9 +26,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private HealthController _healthController;
 
     // Start is called before the first frame update
+    private void Awake()
+    {
+        Instance = this;
+    }
     void Start()
     {
         health = playerScriptableObject.maxHealth;
+        
         _healthController.playerHealth = health;
         _healthController.UpdateHealthStatus();
         sprite = gameObject.GetComponent<SpriteRenderer>();
@@ -35,6 +42,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        _healthController.UpdateHealthStatus();
     }
 
     public void damage(int damageAmount)

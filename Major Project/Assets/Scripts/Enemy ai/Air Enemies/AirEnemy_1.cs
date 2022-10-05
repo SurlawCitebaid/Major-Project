@@ -34,49 +34,50 @@ public class AirEnemy_1 : MonoBehaviour
 
     void FixedUpdate()
     {
-        Collider2D[] array = Physics2D.OverlapCircleAll(transform.position, .5f);
-        foreach (Collider2D coll in array)
+        if(states.CurrentState() != EnemyAiController.State.STUNNED)
         {
-            PlayerController ass = coll.gameObject.GetComponent<PlayerController>();
-
-            if (ass != null && states.CurrentState() == EnemyAiController.State.ATTACKING)
+            Collider2D[] array = Physics2D.OverlapCircleAll(transform.position, .5f);
+            foreach (Collider2D coll in array)
             {
-                ass.damage(1);
+                PlayerController ass = coll.gameObject.GetComponent<PlayerController>();
+
+                if (ass != null && states.CurrentState() == EnemyAiController.State.ATTACKING)
+                {
+                    ass.damage(1);
+                }
+            }
+            switch (states.CurrentState())
+            {
+                case EnemyAiController.State.MOVING:
+                    float dist = Vector3.Distance(pivot.transform.position, player.transform.position);
+                    if (dist > states.enemy.attack.range && !attackReady || invalid)
+                    {
+                        rePosition();
+                        invalid = false;
+                    }
+                    else
+                    {
+                        states.SetState(2);
+                    }
+                    break;
+                case EnemyAiController.State.AIMING:
+                    StartCoroutine(Aiming());
+                    break;
+                case EnemyAiController.State.ATTACKING:
+
+                
+                    if(!predictionLine)
+                    {
+                        light2d.SetActive(true);
+                        predLine.SetActive(true);
+                        predictionLine = true;
+                    }
+                
+                    Invoke("Attack", 1f);
+                    break;
             }
         }
-        switch (states.CurrentState())
-        {
-            case EnemyAiController.State.MOVING:
-                float dist = Vector3.Distance(pivot.transform.position, player.transform.position);
-                if (dist > states.enemy.attack.range && !attackReady || invalid)
-                {
-                    rePosition();
-                    invalid = false;
-                }
-                else
-                {
-                    states.SetState(2);
-                }
-                break;
-            case EnemyAiController.State.AIMING:
-                StartCoroutine(Aiming());
-                break;
-            case EnemyAiController.State.ATTACKING:
 
-                
-                if(!predictionLine)
-                {
-                    light2d.SetActive(true);
-                    predLine.SetActive(true);
-                    predictionLine = true;
-                }
-                
-                Invoke("Attack", 1f);
-                break;
-            case EnemyAiController.State.COOLDOWN:
-                Reset();
-                break;
-        }
     }
     void Reset()
     {
@@ -111,8 +112,11 @@ public class AirEnemy_1 : MonoBehaviour
             transform.Translate(pivot.transform.up * flightSpeed);
             fireAnim.SetActive(true);
         }
+        if(!Room.enemyLocationValid(transform.position))
+        {
+            setStateCooldown();
+        }
         
-        Invoke("setStateCooldown", 2f);
     }
     IEnumerator Aiming()
     {
@@ -167,12 +171,11 @@ public class AirEnemy_1 : MonoBehaviour
             return;
         }     else
         {
+            fireAnim.SetActive(false);
             states.SetState(4);
         }
 
     }
-
-
     void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.CompareTag( "Wall"))

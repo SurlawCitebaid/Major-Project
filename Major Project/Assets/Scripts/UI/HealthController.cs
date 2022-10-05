@@ -53,9 +53,6 @@ public class HealthController : MonoBehaviour
         }
 
         UpdateHealthStatus();
-        UnityEngine.Debug.Log("active " + activeHearts);
-        UnityEngine.Debug.Log(healthHearts.Length);
-        UnityEngine.Debug.Log(playerScriptableObject.maxHealth);
     }
 
     public void UpdateHealthStatus()

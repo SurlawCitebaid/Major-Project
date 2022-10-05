@@ -72,7 +72,7 @@ public class shopItemsScript : MonoBehaviour, ISelectHandler
                 TextMeshProUGUI ass = panels[i].GetComponentInChildren<TextMeshProUGUI>();
                 Image dd = panels[i].transform.Find("Image").GetComponent<Image>();
                 ass.text = items[index[i]].name + "\n " + items[index[i]].description;
-                dd.sprite = items[index[i]].sprite;
+                dd.sprite = items[index[i]].GetSprite();
             }
         }
     }

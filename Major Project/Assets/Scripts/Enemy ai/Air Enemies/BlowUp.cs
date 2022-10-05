@@ -8,6 +8,8 @@ public class BlowUp : MonoBehaviour
     [SerializeField]private GameObject parent;
     private EnemyAiController enemyAI;
     private AirEnemy_3 control;
+
+
     private void Damage()
     {
         enemyAI = parent.GetComponent<EnemyAiController>();
