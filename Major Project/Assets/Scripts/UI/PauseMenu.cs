@@ -10,6 +10,9 @@ public class PauseMenu : MonoBehaviour
     public static bool paused = false;
 
     [SerializeField] GameObject pausedUI;
+    [SerializeField] GameObject Settings;
+    [SerializeField] GameObject Credit;
+    [SerializeField] GameObject howToPlay;
 
     // Update is called once per frame
     void Update()
@@ -29,6 +32,9 @@ public class PauseMenu : MonoBehaviour
     public void ResumeGame()
     {
         pausedUI.SetActive(false);
+        Settings.SetActive(false);
+        Credit.SetActive(false);
+        howToPlay.SetActive(false);
         Time.timeScale = 1f;
         paused = false;
     }

@@ -38,34 +38,36 @@ public class PlayerAttack : MonoBehaviour {
         hat = transform.Find("Hat").gameObject;
     }
     private void Update() {
-        if (!genArrow && weapon == WeaponType.SWORD)                                        //check if weapon is sword and arrow is not spawned
+        if (Time.timeScale == 1)
         {
-            arrow = Instantiate(Arrow, firePoint.transform.position, firePoint.transform.rotation);
-            genArrow = true;
-        } else if (weapon == WeaponType.SWORD && genArrow) {                                //check if weapon is sword and arrow spawned is true           
-            Vector3 wPos = Input.mousePosition;
-            wPos.z = transform.position.z - Camera.main.transform.position.z;
-            wPos = Camera.main.ScreenToWorldPoint(wPos);
-            Vector3 direction = wPos - transform.position;                                  //pos on circumference
-            float radius = 1;
-            direction = Vector3.Normalize(direction) * radius;
+            if (!genArrow && weapon == WeaponType.SWORD)                                        //check if weapon is sword and arrow is not spawned
+            {
+                arrow = Instantiate(Arrow, firePoint.transform.position, firePoint.transform.rotation);
+                genArrow = true;
+            } else if (weapon == WeaponType.SWORD && genArrow) {                                //check if weapon is sword and arrow spawned is true           
+                Vector3 wPos = Input.mousePosition;
+                wPos.z = transform.position.z - Camera.main.transform.position.z;
+                wPos = Camera.main.ScreenToWorldPoint(wPos);
+                Vector3 direction = wPos - transform.position;                                  //pos on circumference
+                float radius = 1;
+                direction = Vector3.Normalize(direction) * radius;
 
-            Vector3 dir = transform.position - arrow.transform.position;                    //rotate the arrow
-            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+                Vector3 dir = transform.position - arrow.transform.position;                    //rotate the arrow
+                float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
-            arrow.transform.position = transform.position + direction;
-            arrow.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
-        } else if(weapon != WeaponType.SWORD && genArrow)                                   //check if weapon changed and arrow spawned is true
-        {
-            Destroy(arrow);
-            genArrow = false;
+                arrow.transform.position = transform.position + direction;
+                arrow.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+            } else if (weapon != WeaponType.SWORD && genArrow)                                   //check if weapon changed and arrow spawned is true
+            {
+                Destroy(arrow);
+                genArrow = false;
+            }
+
+            if (canAttack)                                   // adds delay
+            {
+                Attack();
+            }
         }
-
-        if (canAttack)                                   // adds delay
-        {
-            Attack();
-        }
-
 
         // if no attack input in 2 seconds from last attack. reset combo
         if (isCombo)

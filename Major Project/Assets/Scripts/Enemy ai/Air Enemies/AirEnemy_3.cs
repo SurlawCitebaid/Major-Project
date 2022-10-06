@@ -21,35 +21,26 @@ public class AirEnemy_3 : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (Input.GetMouseButton(0))
+
+        switch (states.CurrentState())
         {
-            states.SetState(5);
-        }
 
-
-
-            switch (states.CurrentState())
+            case EnemyAiController.State.MOVING:
+            float dist = Vector3.Distance(this.transform.position, player.transform.position);
+            if (dist < states.enemy.attack.range)
             {
-
-                case EnemyAiController.State.MOVING:
-                    float dist = Vector3.Distance(this.transform.position, player.transform.position);
-                    if (dist < states.enemy.attack.range)
-                    {
-                        enraged = true;
-                    }
-                    if (enraged)
-                    {
-                        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, Time.deltaTime * states.enemy.moveSpeed);
-                        if (dist < (states.enemy.attack.range / 2))
-                        {
-                            BlastRange.SetActive(true);
-                        }
-                    }
-                    break;
-             }
-
-            
-
+                enraged = true;
+            }
+            if (enraged)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, player.transform.position, Time.deltaTime * states.enemy.moveSpeed);
+                if (dist < (states.enemy.attack.range / 2))
+                {
+                    BlastRange.SetActive(true);
+                }
+            }
+            break;
+        }
     }
     public void KillSelf()
     {

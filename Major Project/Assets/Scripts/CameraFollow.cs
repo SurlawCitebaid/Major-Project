@@ -8,18 +8,28 @@ public class CameraFollow : MonoBehaviour {
     float xCentre, yCentre;
     Vector3 roomCentre;
     static Camera MainCamera;
+    private Vector2 currentRes;
     public static Vector2 topLeft, topRight, bottomLeft;
     float height, width, maxHeight, maxWidth;
     private void Start() {
+        currentRes = new Vector2(Screen.width, Screen.height);
         MainCamera = gameObject.GetComponent<Camera>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        height = MainCamera.orthographicSize + 1.5f;
-        width = (((height * 2) * MainCamera.aspect) / 2) - 1.5f;
+
     }
 
     private void Update() {
+        if (currentRes.x != Screen.width || currentRes.y != Screen.height)
+        {
+            updateRoomCamera = true;
+            currentRes = new Vector2(Screen.width, Screen.height);
+        }
+            
+        
         if(updateRoomCamera)
         {
+            height = MainCamera.orthographicSize + 1.5f;
+            width = (((height * 2) * MainCamera.aspect) / 2) - 1.5f;
             xCentre = (Room.getTopRightRoomPosition().x - Room.getBottomLeftRoomPosition().x) / 2;
             yCentre = (Room.getTopRightRoomPosition().y - Room.getBottomLeftRoomPosition().y) / 2;
             roomCentre = new Vector3(Room.getTopRightRoomPosition().x - xCentre, Room.getTopRightRoomPosition().y - yCentre, -10);
