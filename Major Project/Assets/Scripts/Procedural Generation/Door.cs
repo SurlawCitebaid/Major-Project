@@ -10,12 +10,17 @@ public class Door : MonoBehaviour
     //Unlock door transition
     bool unlock;
     bool unlockedOnce = false;
+    //Lock door only for boss
+    public static bool lockD = false;
+    public static bool lockOnce = false;
 
     //For animated door
     public float doorOpenTime = 3f;
     GameObject childStoneSlab;
     Vector2 originalPosition;
+    //Time since start of door animation
     float currentTime;
+    float currentTime2;
     float lerpTime;
 
     private void Start()
@@ -56,6 +61,8 @@ public class Door : MonoBehaviour
             {
                 unlock = false;
                 unlockedOnce = true;
+                currentTime = 0;
+                lerpTime = 0;
             }
             else
             {
@@ -63,16 +70,51 @@ public class Door : MonoBehaviour
                 switch (type)
                 {
                     case doorType.Up:
-                        childStoneSlab.transform.position = new Vector2(Mathf.Lerp(originalPosition.y, originalPosition.y + 4, lerpTime), childStoneSlab.transform.position.y);
+                        childStoneSlab.transform.position = new Vector2(Mathf.Lerp(originalPosition.x, originalPosition.x + 4, lerpTime), childStoneSlab.transform.position.y);
                         break;
                     case doorType.Down:
-                        childStoneSlab.transform.position = new Vector2(Mathf.Lerp(originalPosition.y, originalPosition.y + 4, lerpTime), childStoneSlab.transform.position.y);
+                        childStoneSlab.transform.position = new Vector2(Mathf.Lerp(originalPosition.x, originalPosition.x + 4, lerpTime), childStoneSlab.transform.position.y);
                         break;
                     case doorType.Left:
                         childStoneSlab.transform.position = new Vector2(childStoneSlab.transform.position.x, Mathf.Lerp(originalPosition.y, originalPosition.y + 4, lerpTime));
                         break;
                     case doorType.Right:
                         childStoneSlab.transform.position = new Vector2(childStoneSlab.transform.position.x, Mathf.Lerp(originalPosition.y, originalPosition.y + 4, lerpTime));
+                        break;
+                }
+            }
+        }
+
+        //Lock door only for boss
+        if (lockD && !lockOnce)
+        {
+            currentTime2 += Time.deltaTime;
+            lerpTime = currentTime2 / doorOpenTime;
+
+            //Door no longer needs to be unlocked
+            if (lerpTime == 1)
+            {
+                lockD = false;
+                lockOnce = true;
+                currentTime2 = 0;
+                lerpTime = 0;
+            }
+            else
+            {
+                //Depending on door type lerp it and it will open
+                switch (type)
+                {
+                    case doorType.Up:
+                        childStoneSlab.transform.position = new Vector2(Mathf.Lerp(originalPosition.x + 4, originalPosition.x, lerpTime), childStoneSlab.transform.position.y);
+                        break;
+                    case doorType.Down:
+                        childStoneSlab.transform.position = new Vector2(Mathf.Lerp(originalPosition.x + 4, originalPosition.x, lerpTime), childStoneSlab.transform.position.y);
+                        break;
+                    case doorType.Left:
+                        childStoneSlab.transform.position = new Vector2(childStoneSlab.transform.position.x, Mathf.Lerp(originalPosition.y + 4, originalPosition.y, lerpTime));
+                        break;
+                    case doorType.Right:
+                        childStoneSlab.transform.position = new Vector2(childStoneSlab.transform.position.x, Mathf.Lerp(originalPosition.y + 4, originalPosition.y, lerpTime));
                         break;
                 }
             }
@@ -107,6 +149,7 @@ public class Door : MonoBehaviour
     public void lockDoor()
     {
         gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
+        lockD = true;
     }
 
 

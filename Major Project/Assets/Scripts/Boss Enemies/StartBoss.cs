@@ -46,10 +46,16 @@ public class StartBoss : MonoBehaviour
         //Press E to start boss
         if (inTrigger && Input.GetKeyDown(KeyCode.E))
         {
+            //Disable interact
+            GameObject.Find("interact").gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            
             //Start the stone boss effect
             startEffect = true;
             if (!spawnedOnce)
             {
+                //Lock doors on start of fight
+                EnemySpawner.enemiesAlive = true;
+                Door.lockDoors();
                 //Turns on the particles
                 transform.Find("Stone Shatter Effect").gameObject.SetActive(true);
                 FindObjectOfType<AudioManager>().PlayMusic("MusicBossBattleLoop", "MusicBossBattleIntro");
@@ -64,7 +70,7 @@ public class StartBoss : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             //Interactable Notfication
-            collision.transform.Find("interact").gameObject.GetComponent<SpriteRenderer>().enabled = true;
+            GameObject.Find("interact").gameObject.GetComponent<SpriteRenderer>().enabled = true;
             inTrigger = true;
         }
     }
@@ -74,7 +80,7 @@ public class StartBoss : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             //Interactable Notfication
-            collision.transform.Find("interact").gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            GameObject.Find("interact").gameObject.GetComponent<SpriteRenderer>().enabled = false;
             inTrigger = false;
         }
     }
@@ -83,6 +89,7 @@ public class StartBoss : MonoBehaviour
 
     IEnumerator delayBossSpawn()
     {
+        EnemySpawner.enemiesAlive = true;
         //Delayed to match intro
         yield return new WaitForSeconds(6.5f);
 
