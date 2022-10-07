@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SuicideAttack
   m_EditorClassIdentifier: 
   damage: 1
-  range: 10
+  range: 5
   maxRange: 0
   minRange: 0
   cooldownTime: 0

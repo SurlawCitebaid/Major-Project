@@ -13,9 +13,10 @@ public class AirEnemy_1 : MonoBehaviour
     private GameObject player, fireAnim;
     public Material m_Material;
     SpriteRenderer theScale;
+    Rigidbody2D rb;
+
     
-    
-    private bool movePos = false, attackReady = false, moving = false, predictionLine = false, invalid = false;
+    private bool movePos = true, Aim = false, attack = false, predictionLine = false, invalid = false;
     void Start()
     {
         predLine = Instantiate(line, pivot.transform.position, pivot.transform.rotation);
@@ -28,161 +29,134 @@ public class AirEnemy_1 : MonoBehaviour
         states = this.transform.GetComponent<EnemyAiController>();                                             // enemy state machine
         player = GameObject.FindGameObjectWithTag("Player");                                    // variable to track player
         theScale = GetComponent<SpriteRenderer>();
+
         light2d.SetActive(false);
         predLine.SetActive(false);
+
+        rb = GetComponent<Rigidbody2D>();
+        states.SetState(4);
     }
 
     void FixedUpdate()
     {
-        if(states.CurrentState() != EnemyAiController.State.STUNNED)
+        
+        if (states.CurrentState()!= EnemyAiController.State.ATTACKING)
         {
-            Collider2D[] array = Physics2D.OverlapCircleAll(transform.position, .5f);
-            foreach (Collider2D coll in array)
-            {
-                PlayerController ass = coll.gameObject.GetComponent<PlayerController>();
+            rb.velocity = Vector3.zero;
 
-                if (ass != null && states.CurrentState() == EnemyAiController.State.ATTACKING)
-                {
-                    ass.damage(1);
-                }
-            }
-            switch (states.CurrentState())
-            {
-                case EnemyAiController.State.MOVING:
-                    float dist = Vector3.Distance(pivot.transform.position, player.transform.position);
-                    if (dist > states.enemy.attack.range && !attackReady || invalid)
-                    {
-                        rePosition();
-                        invalid = false;
-                    }
-                    else
-                    {
-                        states.SetState(2);
-                    }
-                    break;
-                case EnemyAiController.State.AIMING:
-                    StartCoroutine(Aiming());
-                    break;
-                case EnemyAiController.State.ATTACKING:
-
-                
-                    if(!predictionLine)
-                    {
-                        light2d.SetActive(true);
-                        predLine.SetActive(true);
-                        predictionLine = true;
-                    }
-                
-                    Invoke("Attack", 1f);
-                    break;
-            }
+            fireAnim.SetActive(false);
         }
+        if(!Room.enemyLocationValid(this.transform.position))
+        {
+            StartCoroutine(Reset());
+        }
+        switch (states.CurrentState())
+        {
+            case EnemyAiController.State.MOVING:
+
+                Movement();
+            break;
+            case EnemyAiController.State.AIMING:
+            StartCoroutine(Aiming());
+                
+                break;
+            case EnemyAiController.State.ATTACKING:
+            StartCoroutine(Attack());
+                break;
+            case EnemyAiController.State.COOLDOWN:
+                StartCoroutine(Reset());
+                break;
+        }
+        
 
     }
-    void Reset()
+    void Movement()
     {
-        if(!Room.enemyLocationValid(transform.position))
+        if (movePos)
         {
-            invalid = true;
+            float angle = Random.Range(0, 2f * Mathf.PI);
+            Vector2 validPos = player.transform.position + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * (states.enemy.attack.range - 1f);
+            if (!Room.enemyLocationValid(validPos))
+            {
+                while (!Room.enemyLocationValid(validPos))
+                {
+                    if (!Room.enemyLocationValid(player.transform.position))
+                    {
+                        states.Die();
+                        break;
+                    }
+                    angle = Random.Range(0, 2f * Mathf.PI);
+                    validPos = player.transform.position + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * (states.enemy.attack.range - 1f);
+                }
+            }
+            transform.position = validPos;
+            movePos = false;
         }
-        predictionLine = false;
+        StartCoroutine(movementDelay());
+
+
+
+    }
+    IEnumerator movementDelay()
+    {
+        yield return new WaitForSeconds(2);
+        states.SetState(2);
+    }
+    IEnumerator Reset()
+    {
+        movePos = true;
+        Aim = false;
+        light2d.SetActive(false);
+        yield return new WaitForSeconds(2);
         states.SetState(0);
-        attackReady = false;
-        movePos = false;
-        moving = true;
+
     }
     public float AngleDir(Vector2 A, Vector2 B)
     {
         return -A.x * B.y + A.y * B.x;
     }
 
-    private void Attack()
+    IEnumerator Attack()
     {
-        if (!moving)
+        yield return null;
+        Collider2D[] array = Physics2D.OverlapCircleAll(transform.position, .5f);
+        foreach (Collider2D coll in array)
         {
-            if (flightSpeed > 2f)
+            PlayerController ass = coll.gameObject.GetComponent<PlayerController>();
+
+            if (ass != null)                // checks player
             {
-                flightSpeed = 2;
+                ass.damage(1);
             }
-            else if (flightSpeed < 0.1f)
-            {
-                flightSpeed = 0.1f;
-            }
-            predLine.SetActive(false);
-            transform.Translate(pivot.transform.up * flightSpeed);
-            fireAnim.SetActive(true);
         }
-        if(!Room.enemyLocationValid(transform.position))
-        {
-            setStateCooldown();
-        }
+        rb.velocity = pivot.transform.up * 20f;
+        fireAnim.SetActive(true);
         
     }
     IEnumerator Aiming()
     {
-        if (AngleDir(player.transform.position, this.transform.position) < 0)
+        
+        if (!Aim)
         {
-            theScale.flipX = true;
-        }
-        else if (AngleDir(player.transform.position, this.transform.position) > 0)
-        {
-            theScale.flipX = false;
-        }
-        Vector3 dirFromAtoB = (player.transform.position - pivot.transform.position).normalized;
-        Vector3 vectorToTarget = player.transform.position - pivot.transform.position;
-        float dotProd = Vector3.Dot(dirFromAtoB, pivot.transform.up);
-        float angle;
-        angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg - 90f;
-        Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
-        pivot.transform.rotation = Quaternion.Slerp(pivot.transform.rotation, q, Time.deltaTime * 5f);
-        if (dotProd >= .99)
-        {
-            yield return null;
-            moving = false;
-            states.SetState(3);
-        }
-    }
-    private void rePosition()
-    {
-        if (!movePos)
-        {
-            float angle = Random.Range(0, 2f * Mathf.PI);
-            Vector2 validPos = player.transform.position + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * (states.enemy.attack.range - 1f);
-            while (!Room.enemyLocationValid(validPos))
+            if (AngleDir(player.transform.position, this.transform.position) < 0)
             {
-                if(!Room.enemyLocationValid(player.transform.position))
-                {
-                    states.Die();
-                    break;
-                }
-                angle = Random.Range(0, 2f * Mathf.PI);
-                validPos = player.transform.position + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * (states.enemy.attack.range - 1f);
+                theScale.flipX = true;
             }
-            transform.position = validPos;
-            movePos = true;
-
+            else if (AngleDir(player.transform.position, this.transform.position) > 0)
+            {
+                theScale.flipX = false;
+            }
+            Vector3 vectorToTarget = player.transform.position - pivot.transform.position;
+            float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
+            pivot.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+            Aim = true;
         }
+        predLine.SetActive(true);
+        light2d.SetActive(true);
+        yield return new WaitForSeconds(2);
+        predLine.SetActive(false);
 
-    }
-    private void setStateCooldown()
-    {
-        if(states.CurrentState() == EnemyAiController.State.COOLDOWN)
-        {
-            return;
-        }     else
-        {
-            fireAnim.SetActive(false);
-            states.SetState(4);
-        }
-
-    }
-    void OnTriggerEnter2D(Collider2D col)
-    {
-        if (col.gameObject.CompareTag( "Wall"))
-        {
-            fireAnim.SetActive(false);
-            light2d.SetActive(false);
-            moving = true;
-        }
+        states.SetState(3);
+        
     }
 }
