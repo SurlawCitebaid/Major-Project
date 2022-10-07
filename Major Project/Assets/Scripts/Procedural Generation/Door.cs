@@ -144,12 +144,14 @@ public class Door : MonoBehaviour
     {
         gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
         unlock = true;
+        unlockedOnce = false;
     }
 
     public void lockDoor()
     {
         gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
-        lockD = true;
+        lockD = false;
+        lockOnce = false;
     }
 
 
