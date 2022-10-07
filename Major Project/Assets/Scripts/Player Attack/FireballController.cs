@@ -5,7 +5,7 @@ using UnityEngine;
 public class FireballController : MonoBehaviour {
 
     public GameObject ass;
-    [SerializeField] private int damage;
+    public float damage;
     Rigidbody2D rb;
 
     private void Start() {
@@ -34,7 +34,7 @@ public class FireballController : MonoBehaviour {
 
             }
         }
-        if(other.tag == "Wall")
+        if(other.CompareTag( "Wall"))
         {
             Destroy(gameObject);
             Instantiate(ass, this.transform.position, transform.rotation);

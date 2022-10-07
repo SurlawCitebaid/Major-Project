@@ -4,7 +4,6 @@ using UnityEngine;
 public class AirEnemy_1 : MonoBehaviour
 {
     //0:MOVING 1:CHASE 2:AIMING 3:ATTACKING 4:COOLDOWN 5:STUNNED
-    [SerializeField] float flightSpeed = .5f;
     private EnemyAiController states;
     [SerializeField] private GameObject pivot;
     [SerializeField] private GameObject line;
@@ -15,8 +14,8 @@ public class AirEnemy_1 : MonoBehaviour
     SpriteRenderer theScale;
     Rigidbody2D rb;
 
-    
-    private bool movePos = true, Aim = false, attack = false, predictionLine = false, invalid = false;
+
+    private bool movePos = true, Aim = false;
     void Start()
     {
         predLine = Instantiate(line, pivot.transform.position, pivot.transform.rotation);
@@ -92,12 +91,12 @@ public class AirEnemy_1 : MonoBehaviour
             transform.position = validPos;
             movePos = false;
         }
-        StartCoroutine(movementDelay());
+        StartCoroutine(MovementDelay());
 
 
 
     }
-    IEnumerator movementDelay()
+    IEnumerator MovementDelay()
     {
         yield return new WaitForSeconds(2);
         states.SetState(2);

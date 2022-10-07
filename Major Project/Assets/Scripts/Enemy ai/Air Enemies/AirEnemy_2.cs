@@ -5,7 +5,6 @@ using UnityEngine;
 public class AirEnemy_2 : MonoBehaviour
 {
     [SerializeField] private Transform projectile;
-    [SerializeField] float flightSpeed = .5f;
     [SerializeField] private GameObject line;
     private EnemyAiController states;
     private GameObject player;
@@ -54,10 +53,10 @@ public class AirEnemy_2 : MonoBehaviour
             Vector3 shootDir = transform.up;
             bullet.GetComponent<Projectile>().Setup(shootDir);
 
-            StartCoroutine(reset()); // determines attack delay
+            StartCoroutine(Reset()); // determines attack delay
         }
     }
-    IEnumerator reset()
+    IEnumerator Reset()
     {
         yield return new WaitForSeconds(4f);
         if (resetCount != 5)

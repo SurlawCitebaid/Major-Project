@@ -5,6 +5,7 @@ using UnityEngine;
 public class SwordDmg : MonoBehaviour
 {
     Collider2D swordCol;
+    public float damage;
     private void Start()
     {
         swordCol = GetComponent<Collider2D>();
@@ -16,11 +17,11 @@ public class SwordDmg : MonoBehaviour
         {
             if (col.GetComponent<BossController>() != null)
             {
-                col.GetComponent<BossController>().Damage(1);
+                col.GetComponent<BossController>().Damage(damage);
             }
             else if (col.GetComponent<EnemyAiController>() != null)
             {
-                col.GetComponent<EnemyAiController>().Damage(1, 5, 0);
+                col.GetComponent<EnemyAiController>().Damage(damage, 5, 0);
 
             }
         }

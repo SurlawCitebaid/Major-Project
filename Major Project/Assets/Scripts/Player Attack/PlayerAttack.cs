@@ -5,44 +5,42 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour {
 
     private Transform firePoint;
-    private GameObject hat, arrow;
+    private GameObject hat, arrow, fireBallArrow;
     private bool genArrow = false;
     public enum WeaponType { FIST, SWORD, FIREBALL};
     [Header("General")][Space]
-    public movement_Mario m_movementController;
     [SerializeField] private WeaponType weapon = WeaponType.FIREBALL;
 
     private bool canAttack = true;
     private bool isAttacking = false;
     private bool isCombo = false;
     private int comboCount = 0;
-    [SerializeField] private Camera cam;
-    [SerializeField] private LayerMask lm_enemies;
-    [Space][Space]
+    public float damage;
 
     // Sword Variables
     [Header("Sword Variables")]
-    [SerializeField] private GameObject Arrow;
-    [SerializeField] private GameObject Sword;
-    [Space]
-    [Space]
-    private float chargeTime = 0;
-    private float comboResetTime = 0;
-    private float maxCharge = 2f;
+    [SerializeField] private GameObject Arrow, Sword, ChargedSword;
+    private float chargeTime = 0, comboResetTime = 0, maxCharge = 2f;
+
+    private SpriteRenderer arrowColor, fireBallArrowColor;
     // Fireball Variables
     [Header("Fireball Variables")]
     [SerializeField] private Transform pfFireball, pfBigFireball;
     private void Start()
     {
         firePoint = transform.Find("FirePoint");
-        hat = transform.Find("Hat").gameObject;
+        fireBallArrow = firePoint.transform.Find("Arrow").gameObject;
+        fireBallArrowColor = fireBallArrow.GetComponent<SpriteRenderer>();
     }
     private void Update() {
         if (Time.timeScale == 1)
         {
+            damage = transform.GetComponent<PlayerController>().baseDamage;
             if (!genArrow && weapon == WeaponType.SWORD)                                        //check if weapon is sword and arrow is not spawned
             {
                 arrow = Instantiate(Arrow, firePoint.transform.position, firePoint.transform.rotation);
+                arrowColor = arrow.transform.Find("Arrow").GetComponent<SpriteRenderer>();
+
                 genArrow = true;
             } else if (weapon == WeaponType.SWORD && genArrow) {                                //check if weapon is sword and arrow spawned is true           
                 Vector3 wPos = Input.mousePosition;
@@ -57,12 +55,19 @@ public class PlayerAttack : MonoBehaviour {
 
                 arrow.transform.position = transform.position + direction;
                 arrow.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
-            } else if (weapon != WeaponType.SWORD && genArrow)                                   //check if weapon changed and arrow spawned is true
+
+                if (chargeTime >= maxCharge){arrowColor.color = Color.red;}
+                else{arrowColor.color = Color.white;}                                           //checks if charged attack is ready or not
+
+            } else if (weapon != WeaponType.SWORD && genArrow)                                  //check if weapon changed and arrow spawned is true
             {
                 Destroy(arrow);
                 genArrow = false;
             }
-
+            if(weapon != WeaponType.FIREBALL)
+            {
+                fireBallArrow.SetActive(false);
+            } 
             if (canAttack)                                   // adds delay
             {
                 Attack();
@@ -87,13 +92,11 @@ public class PlayerAttack : MonoBehaviour {
     }
     IEnumerator attackDelay(float delayTime)
     {
-        
         yield return new WaitForSeconds(delayTime);
         isAttacking = false;
         canAttack = true;
     }
     private void Attack() {
-
         switch (weapon) {
             case WeaponType.FIST:
                 fistAttack();
@@ -102,6 +105,7 @@ public class PlayerAttack : MonoBehaviour {
                 SwordAttack();
                 break;
             case WeaponType.FIREBALL:
+                fireBallArrow.SetActive(true);
                 FireballAttack();
                 break;
             default:
@@ -116,17 +120,16 @@ public class PlayerAttack : MonoBehaviour {
         {
             isAttacking = true;
             chargeTime += Time.deltaTime;
-            hat.GetComponent<SpriteRenderer>().enabled = true;
 
-            if (chargeTime >= maxCharge) { hat.GetComponent<Animator>().enabled = true; }
+            if (chargeTime >= maxCharge) { fireBallArrowColor.color = Color.red; }
         }
         if(Input.GetMouseButtonUp(0) && chargeTime >= maxCharge)
         {
             chargeTime = 0;
-            Instantiate(pfBigFireball, firePoint.position, firePoint.rotation);
+            Transform bigBall = Instantiate(pfBigFireball, firePoint.position, firePoint.rotation);
+            bigBall.GetComponent<FireballController>().damage = 50f;
             canAttack = false;
-            hat.GetComponent<Animator>().enabled = false;
-            hat.GetComponent<SpriteRenderer>().enabled = false;
+            fireBallArrowColor.color = Color.white;
             StartCoroutine(attackDelay(.5f));
 
         } else if (Input.GetMouseButtonUp(0) && chargeTime < maxCharge)
@@ -134,16 +137,12 @@ public class PlayerAttack : MonoBehaviour {
             chargeTime = 0;
             Instantiate(pfFireball, firePoint.position, firePoint.rotation);
             canAttack = false;
-            hat.GetComponent<Animator>().enabled = false;
-            hat.GetComponent<SpriteRenderer>().enabled = false;
+            fireBallArrowColor.color = Color.white;
             StartCoroutine(attackDelay(.5f));
         }
 
     }
     private void SwordAttack() {
-        
-
-
         if (Input.GetMouseButton(0) && chargeTime < maxCharge)
         {
             chargeTime += Time.deltaTime;
@@ -152,21 +151,18 @@ public class PlayerAttack : MonoBehaviour {
         {
             chargeTime = 0;
             canAttack = false;
-
+            Instantiate(ChargedSword, this.transform);
             StartCoroutine(attackDelay(.5f));
-
         }
         else if (Input.GetMouseButtonUp(0) && chargeTime < maxCharge)
         {
             chargeTime = 0;
             canAttack = false;
-            Instantiate(Sword, arrow.transform.position, arrow.transform.rotation * Quaternion.Euler(0f, 0f, 270f));
-
-
+            GameObject sword = Instantiate(Sword, arrow.transform.position, arrow.transform.rotation * Quaternion.Euler(0f, 0f, 270f));
+            sword.GetComponent<SwordDmg>().damage = damage;
             StartCoroutine(attackDelay(.5f));
         }
     }
-
     private void fistAttack()
     {
         

@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     public int maxHealth;
     public int health;
     public bool isInvincible;
+    public float baseDamage;
     private int currency = 0;
     SpriteRenderer sprite;
     Color originalColor;
@@ -32,6 +33,7 @@ public class PlayerController : MonoBehaviour
     }
     void Start()
     {
+        baseDamage = playerScriptableObject.damage;
         maxHealth = playerScriptableObject.maxHealth;               // change this after start to change UI maxHearts
         health = maxHealth;
         sprite = gameObject.GetComponent<SpriteRenderer>();

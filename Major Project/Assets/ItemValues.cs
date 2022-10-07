@@ -11,19 +11,19 @@ public class ItemValues
     {
         currentItem = item;
     }
-    public int getItemID()
+    public int GetItemID()
     {
         return currentItem.item_id;
     }
-    public Item getItem()
+    public Item GetItem()
     {
         return currentItem;
     }
-    public Sprite getSprite()
+    public Sprite GetSprite()
     {
         return currentItem.GetSprite();
     }
-    public int getAmount()
+    public int GetAmount()
     {
         return amount;
     }

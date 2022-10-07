@@ -1627,6 +1627,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1630894086983248580, guid: 65bff973e8bbe504bb29c25835ac2f82, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.448
+      objectReference: {fileID: 0}
+    - target: {fileID: 1630894086983248580, guid: 65bff973e8bbe504bb29c25835ac2f82, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1630894086983248580, guid: 65bff973e8bbe504bb29c25835ac2f82, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1630894086983248580, guid: 65bff973e8bbe504bb29c25835ac2f82, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1630894086983248580, guid: 65bff973e8bbe504bb29c25835ac2f82, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2572837388139638580, guid: 65bff973e8bbe504bb29c25835ac2f82, type: 3}
       propertyPath: m_Name
       value: Player 3
@@ -1663,6 +1683,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 269.90698
       objectReference: {fileID: 0}
+    - target: {fileID: 5142429782126666616, guid: 65bff973e8bbe504bb29c25835ac2f82, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5146834318614802656, guid: 65bff973e8bbe504bb29c25835ac2f82, type: 3}
       propertyPath: cam
       value: 
@@ -1677,8 +1701,12 @@ PrefabInstance:
       objectReference: {fileID: 969971334853011123, guid: 6769582650337e1459951a084e9dcf0a, type: 3}
     - target: {fileID: 5146834318614802656, guid: 65bff973e8bbe504bb29c25835ac2f82, type: 3}
       propertyPath: weapon
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5146834318614802656, guid: 65bff973e8bbe504bb29c25835ac2f82, type: 3}
+      propertyPath: ChargedSword
+      value: 
+      objectReference: {fileID: 5151885727116534040, guid: 722f7ac8d6c807e4f800a796a1b11527, type: 3}
     - target: {fileID: 8058410701950631224, guid: 65bff973e8bbe504bb29c25835ac2f82, type: 3}
       propertyPath: gameOverUI
       value: 

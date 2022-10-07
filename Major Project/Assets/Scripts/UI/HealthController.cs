@@ -23,7 +23,17 @@ public class HealthController : MonoBehaviour
     }
     private void Update()
     {
-        maxHearts = PlayerController.maxHealth;
+        if(PlayerController.maxHealth > 10)
+        {
+            maxHearts = 10;
+        } else if(PlayerController.maxHealth < 3)
+        {
+            maxHearts = 3;
+        } else
+        {
+            maxHearts = PlayerController.maxHealth;
+        }
+        
         // get Player current health
         UpdateHealthStatus();
         UpdateMaxHealth();
@@ -46,17 +56,6 @@ public class HealthController : MonoBehaviour
                 currentActiveHearts++;
             }
         }
-        //else if (maxHearts > currentActiveHearts)
-        //{
-        //    for (int i = maxHearts; i > healthHearts.Length; i++)
-        //    {
-        //        if (i < maxHearts)
-        //        {
-        //            healthHearts[i].SetActive(true);
-        //            currentActiveHearts++;
-        //        }
-        //    }
-        //}
 
     }
 

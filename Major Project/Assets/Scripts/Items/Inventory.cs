@@ -24,9 +24,9 @@ public class Inventory : MonoBehaviour {
     public void AddItem(Item item) {
         foreach (ItemValues ass in inventory)
         {
-            if(ass.getItemID() == item.item_id)
+            if(ass.GetItemID() == item.item_id)
             {
-                ass.SetAmount(ass.getAmount() + 1);
+                ass.SetAmount(ass.GetAmount() + 1);
                 return;
             }
         }

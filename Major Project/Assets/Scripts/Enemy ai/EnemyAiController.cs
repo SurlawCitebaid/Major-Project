@@ -8,8 +8,8 @@ public class EnemyAiController : MonoBehaviour
 
     private State state = State.MOVING;
     [SerializeField] private Color32 defaultColour = new Color32();
-    [SerializeField] public EnemyScriptableObject enemy;
     [SerializeField] private bool immune; //enemy immune to stun, during attack
+    public EnemyScriptableObject enemy;
     private SpriteRenderer sr;
     private Rigidbody2D rb;
 
