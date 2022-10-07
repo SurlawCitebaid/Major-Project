@@ -50,6 +50,6 @@ MonoBehaviour:
   - {fileID: 7464682554475860058, guid: bd44ceec96d6d8b4a86f51ea70d9dcf3, type: 3}
   - {fileID: -556950729535240203, guid: aaff11e6360a11d49b99c4c9be13984d, type: 3}
   - {fileID: 5365525956094547218, guid: ef5a04122d86b0245899660514a2b1db, type: 3}
-  timeBetweenSpawns: 0
+  timeBetweenSpawns: 5
   startSpawns: 10
   difficultyValue: 30

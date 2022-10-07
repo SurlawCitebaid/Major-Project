@@ -469,7 +469,21 @@ public class Room
 
     void placeBossTotem()
     {
-        roomGrid[roomSizeX / 2, 2] = 8;
+        bool invalidLocation = true;
+        //Centre X of room
+        int startX = roomSizeX / 2;
+        //Loop over and make sure not above door
+        while (invalidLocation)
+        {
+            //If there is ground below then spawn it here
+            if (roomGrid[startX, 1] == 1)
+            {
+                roomGrid[startX+1, 2] = 8;
+                invalidLocation = false;
+            }
+            startX++;
+        }
+        
     }
 
     //Rocks, Bushes, Flowers ID 6
