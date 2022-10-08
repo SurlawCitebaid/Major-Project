@@ -13,6 +13,7 @@ public class EnemySpawner : MonoBehaviour
     public static int currentSpawned = 0;
     public static int totalEnemiesAlive;
     public static bool enemiesAlive = true;
+    public static bool unlockDoorsOnce = false;
     float countdown;//current time till spawn
 
     //Spawning Scaling
@@ -35,8 +36,14 @@ public class EnemySpawner : MonoBehaviour
 
         if(!enemiesAlive)
         {
-            Door.unlockDoors();
+            if (unlockDoorsOnce)
+            {
+                unlockDoorsOnce = false;
+                Door.unlockDoors();
+            }
+            
             currentSpawned = 0;
+            totalEnemiesAlive = 0;
             maxSpawns = (int)scalingMaxSpawns;
         }
         //enemies alive

@@ -12,7 +12,7 @@ public class Door : MonoBehaviour
     bool unlockedOnce = false;
     //Lock door only for boss
     public static bool lockD = false;
-    public static bool lockOnce = false;
+    public static bool lockOnce = true;
 
     //For animated door
     public float doorOpenTime = 3f;
@@ -55,10 +55,10 @@ public class Door : MonoBehaviour
         {
             currentTime += Time.deltaTime;
             lerpTime = currentTime / doorOpenTime;
-            
             //Door no longer needs to be unlocked
-            if (lerpTime == 1)
+            if (lerpTime > 1f)
             {
+                Debug.Log("Door unlocked");
                 unlock = false;
                 unlockedOnce = true;
                 currentTime = 0;
@@ -92,7 +92,7 @@ public class Door : MonoBehaviour
             lerpTime = currentTime2 / doorOpenTime;
 
             //Door no longer needs to be unlocked
-            if (lerpTime == 1)
+            if (lerpTime > 1f)
             {
                 lockD = false;
                 lockOnce = true;
@@ -124,6 +124,7 @@ public class Door : MonoBehaviour
     //Unlocks doors of current room
     public static void unlockDoors()
     {
+        Debug.Log("Doors Unlocking");
         Room room = GenerateLevel.rooms[(int)GenerateLevel.currentPlayerRoom.x, (int)GenerateLevel.currentPlayerRoom.y];
         foreach(Door door in room.getDoors())
         {
@@ -133,6 +134,8 @@ public class Door : MonoBehaviour
 
     public static void lockDoors()
     {
+        EnemySpawner.unlockDoorsOnce = true;
+        Debug.Log("Doors Locking");
         Room room = GenerateLevel.rooms[(int)GenerateLevel.currentPlayerRoom.x, (int)GenerateLevel.currentPlayerRoom.y];
         foreach (Door door in room.getDoors())
         {
@@ -150,7 +153,7 @@ public class Door : MonoBehaviour
     public void lockDoor()
     {
         gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
-        lockD = false;
+        lockD = true;
         lockOnce = false;
     }
 
