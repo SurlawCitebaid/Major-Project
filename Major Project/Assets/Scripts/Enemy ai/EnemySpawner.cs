@@ -13,7 +13,7 @@ public class EnemySpawner : MonoBehaviour
     public static int currentSpawned = 0;
     public static int totalEnemiesAlive;
     public static bool enemiesAlive = true;
-    public static bool unlockDoorsOnce = false;
+    public static bool unlockDoorsOnce = true;
     float countdown;//current time till spawn
 
     //Spawning Scaling
