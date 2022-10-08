@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4997d6650931d9a428949ce16d8660f3, type: 3}
-  m_Name: HealthPot
+  m_Name: MagnifyingGlass
   m_EditorClassIdentifier: 
-  item_id: 2
-  name: Cordial
-  price: 50
-  description: Increases max health
+  item_id: 3
+  name: Magnifying Glass
+  price: 25
+  description: Increases weapon size slightly

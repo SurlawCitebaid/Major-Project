@@ -15,7 +15,7 @@ public class PlayerAttack : MonoBehaviour {
     private bool isAttacking = false;
     private bool isCombo = false;
     private int comboCount = 0;
-    public float damage, delayTime;
+    public float damage, delayTime, attackSize = 0;
 
     // Sword Variables
     [Header("Sword Variables")]
@@ -35,11 +35,15 @@ public class PlayerAttack : MonoBehaviour {
     private void Update() {
         foreach (ItemValues item in Inventory.instance.inventory)
         {
-            if (item.GetName() == "Pill")
+            if (item.GetName() == "Pill" || item.GetName() == "Magnifying Glass")
             {
                 if (item.GetName() == "Pill")
                 {
-                    delayTime = item.GetAmount() * .1f;
+                    delayTime = item.GetAmount() * .2f;
+                }
+                if (item.GetName() == "Magnifying Glass")
+                {
+                    attackSize = item.GetAmount() * .2f;
                 }
             }
         }
@@ -137,7 +141,8 @@ public class PlayerAttack : MonoBehaviour {
         {
             chargeTime = 0;
             Transform bigBall = Instantiate(pfBigFireball, firePoint.position, firePoint.rotation);
-            bigBall.GetComponent<FireballController>().damage = 50f;
+            bigBall.GetComponent<FireballController>().damage = damage;
+            bigBall.localScale = new Vector2(bigBall.transform.localScale.x + attackSize, bigBall.transform.localScale.y + attackSize);
             canAttack = false;
             fireBallArrowColor.color = Color.white;
             StartCoroutine(attackDelay(1f - delayTime));
@@ -145,7 +150,10 @@ public class PlayerAttack : MonoBehaviour {
         } else if (Input.GetMouseButtonUp(0) && chargeTime < maxCharge)
         {
             chargeTime = 0;
-            Instantiate(pfFireball, firePoint.position, firePoint.rotation);
+            Transform smallBall = Instantiate(pfFireball, firePoint.position, firePoint.rotation);
+
+            smallBall.GetComponent<FireballController>().damage = damage;
+            smallBall.localScale = new Vector2(smallBall.transform.localScale.x + attackSize, smallBall.transform.localScale.y + attackSize);
             canAttack = false;
             fireBallArrowColor.color = Color.white;
             StartCoroutine(attackDelay(1f - delayTime));
@@ -161,7 +169,8 @@ public class PlayerAttack : MonoBehaviour {
         {
             chargeTime = 0;
             canAttack = false;
-            Instantiate(ChargedSword, this.transform);
+            GameObject sword = Instantiate(ChargedSword, this.transform);
+            sword.transform.localScale = new Vector2(sword.transform.localScale.x + attackSize, sword.transform.localScale.y + attackSize);
             StartCoroutine(attackDelay(1f - delayTime));
         }
         else if (Input.GetMouseButtonUp(0) && chargeTime < maxCharge)
@@ -169,6 +178,7 @@ public class PlayerAttack : MonoBehaviour {
             chargeTime = 0;
             canAttack = false;
             GameObject sword = Instantiate(Sword, arrow.transform.position, arrow.transform.rotation * Quaternion.Euler(0f, 0f, 270f));
+            sword.transform.localScale = new Vector2(sword.transform.localScale.x + attackSize, sword.transform.localScale.y + attackSize);
             sword.GetComponent<SwordDmg>().damage = damage;
             StartCoroutine(attackDelay(1f - delayTime));
         }

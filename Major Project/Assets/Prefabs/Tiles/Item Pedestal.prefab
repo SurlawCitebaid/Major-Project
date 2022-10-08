@@ -50,6 +50,8 @@ MonoBehaviour:
   item_list:
   - {fileID: 11400000, guid: 87c371bb3172fbf4e836d324dc131ce1, type: 2}
   - {fileID: 11400000, guid: 4e2cb522bfb0e264fad9dd2876873540, type: 2}
+  - {fileID: 11400000, guid: 2a6db8e77ed2d624d87c3f5fe6e8736a, type: 2}
+  - {fileID: 11400000, guid: d853c2da807d0334b83bb3279d4f4b8a, type: 2}
   item: {fileID: 0}
 --- !u!212 &2784106442713013163
 SpriteRenderer:
