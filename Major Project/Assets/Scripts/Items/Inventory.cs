@@ -12,10 +12,6 @@ public class Inventory : MonoBehaviour {
         inventory = new List<ItemValues>();
     }
 
-    private void Update()
-    {
-        
-    }
 
     private void Awake()
     {

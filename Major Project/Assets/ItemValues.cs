@@ -15,6 +15,10 @@ public class ItemValues
     {
         return currentItem.item_id;
     }
+    public string GetName()
+    {
+        return currentItem.name;
+    }
     public Item GetItem()
     {
         return currentItem;

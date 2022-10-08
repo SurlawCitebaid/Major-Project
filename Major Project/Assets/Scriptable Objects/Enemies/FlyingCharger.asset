@@ -16,7 +16,7 @@ MonoBehaviour:
   description: 
   boss: 0
   sprite: {fileID: -1995865228, guid: a55b96c1050809f418700e73e60e62af, type: 3}
-  health: 10
+  health: 25
   attack: {fileID: 11400000, guid: 475898afebe8f324d807dd93feda7eb4, type: 2}
   enemyDeathParticles: {fileID: 7836414155200100958, guid: 26b145a728c8fc641b0269e0b8157b7c, type: 3}
   moveSpeed: 5

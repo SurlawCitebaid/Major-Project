@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour {
 
     private Transform firePoint;
-    private GameObject hat, arrow, fireBallArrow;
+    private GameObject arrow, fireBallArrow;
     private bool genArrow = false;
     public enum WeaponType { FIST, SWORD, FIREBALL};
     [Header("General")][Space]
@@ -15,7 +15,7 @@ public class PlayerAttack : MonoBehaviour {
     private bool isAttacking = false;
     private bool isCombo = false;
     private int comboCount = 0;
-    public float damage;
+    public float damage, delayTime;
 
     // Sword Variables
     [Header("Sword Variables")]
@@ -33,7 +33,17 @@ public class PlayerAttack : MonoBehaviour {
         fireBallArrowColor = fireBallArrow.GetComponent<SpriteRenderer>();
     }
     private void Update() {
-        if (Time.timeScale == 1)
+        foreach (ItemValues item in Inventory.instance.inventory)
+        {
+            if (item.GetName() == "Pill")
+            {
+                if (item.GetName() == "Pill")
+                {
+                    delayTime = item.GetAmount() * .1f;
+                }
+            }
+        }
+            if (Time.timeScale == 1)
         {
             damage = transform.GetComponent<PlayerController>().baseDamage;
             if (!genArrow && weapon == WeaponType.SWORD)                                        //check if weapon is sword and arrow is not spawned
@@ -130,7 +140,7 @@ public class PlayerAttack : MonoBehaviour {
             bigBall.GetComponent<FireballController>().damage = 50f;
             canAttack = false;
             fireBallArrowColor.color = Color.white;
-            StartCoroutine(attackDelay(.5f));
+            StartCoroutine(attackDelay(1f - delayTime));
 
         } else if (Input.GetMouseButtonUp(0) && chargeTime < maxCharge)
         {
@@ -138,7 +148,7 @@ public class PlayerAttack : MonoBehaviour {
             Instantiate(pfFireball, firePoint.position, firePoint.rotation);
             canAttack = false;
             fireBallArrowColor.color = Color.white;
-            StartCoroutine(attackDelay(.5f));
+            StartCoroutine(attackDelay(1f - delayTime));
         }
 
     }
@@ -152,7 +162,7 @@ public class PlayerAttack : MonoBehaviour {
             chargeTime = 0;
             canAttack = false;
             Instantiate(ChargedSword, this.transform);
-            StartCoroutine(attackDelay(.5f));
+            StartCoroutine(attackDelay(1f - delayTime));
         }
         else if (Input.GetMouseButtonUp(0) && chargeTime < maxCharge)
         {
@@ -160,7 +170,7 @@ public class PlayerAttack : MonoBehaviour {
             canAttack = false;
             GameObject sword = Instantiate(Sword, arrow.transform.position, arrow.transform.rotation * Quaternion.Euler(0f, 0f, 270f));
             sword.GetComponent<SwordDmg>().damage = damage;
-            StartCoroutine(attackDelay(.5f));
+            StartCoroutine(attackDelay(1f - delayTime));
         }
     }
     private void fistAttack()

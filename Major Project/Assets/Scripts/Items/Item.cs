@@ -15,6 +15,7 @@ public class Item : ScriptableObject {
             default:
             case 0: return ItemSprites.instance.WorryDoll;
             case 1: return ItemSprites.instance.Pill;
+            case 2: return ItemSprites.instance.HealthPot;
 
         }
     }

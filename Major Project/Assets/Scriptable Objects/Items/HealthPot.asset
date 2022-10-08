@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4997d6650931d9a428949ce16d8660f3, type: 3}
-  m_Name: Pill
+  m_Name: HealthPot
   m_EditorClassIdentifier: 
-  item_id: 1
-  name: Pill
-  price: 30
-  description: Its a pill
+  item_id: 0
+  name: Worry Doll
+  price: 25
+  description: does stuff
+  sprite: {fileID: 21300000, guid: 3caff24f0a1bd634c9c667b4a6d09882, type: 3}
