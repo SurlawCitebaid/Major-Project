@@ -17,11 +17,13 @@ public class PlayerController : MonoBehaviour
     [Space]
 
     public static PlayerController Instance;
-    public int maxHealth;
-    public int health;
+    public float playerSpeed;
     public bool isInvincible;
     public float baseDamage;
-    private int currency = 0, inventorySize = 0;
+    public int maxHealth;
+    public int health;
+
+    private int currency = 0;
     SpriteRenderer sprite;
     Color originalColor;
 
@@ -33,6 +35,8 @@ public class PlayerController : MonoBehaviour
     }
     void Start()
     {
+        GetComponent<movement_Mario>().setMoveSpeed(playerScriptableObject.speed);
+        playerSpeed = playerScriptableObject.speed;
         baseDamage = playerScriptableObject.damage;
         maxHealth = playerScriptableObject.maxHealth;               // change this after start to change UI maxHearts
         health = maxHealth;
@@ -42,7 +46,7 @@ public class PlayerController : MonoBehaviour
     {
         foreach(ItemValues item in Inventory.instance.inventory)
         {
-            if (item.GetName() == "Worry Doll" || item.GetName() == "Cordial")
+            if (item.GetName() == "Worry Doll" || item.GetName() == "Cordial" || item.GetName() == "Feather")
             {
                 if(item.GetName() == "Cordial")
                 {
@@ -51,6 +55,11 @@ public class PlayerController : MonoBehaviour
                 if(item.GetName() == "Worry Doll")
                 {
                     baseDamage = (1+item.GetAmount()) * playerScriptableObject.damage;
+                }
+                if (item.GetName() == "Feather")
+                {
+                    playerSpeed = (50 * item.GetAmount()) + playerScriptableObject.speed;
+                    GetComponent<movement_Mario>().setMoveSpeed(playerSpeed);
                 }
             }
             else continue;

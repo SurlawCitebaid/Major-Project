@@ -14,7 +14,7 @@ public class movement_Mario : MonoBehaviour
 	[Space][Space]
 
 	[Header("Movement")][Space]
-	[Range(0, 1000)] [SerializeField] private float m_MoveSpeed = 200f;
+	[Range(0, 1000)] private float m_MoveSpeed;
 	[Range(0, .3f)] [SerializeField] private float m_MovementSlippery = 0.05f;
 	private bool m_DisableMovement = false;
 	[Space][Space]

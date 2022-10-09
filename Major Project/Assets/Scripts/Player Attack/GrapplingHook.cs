@@ -76,7 +76,7 @@ public class GrapplingHook : MonoBehaviour {
         Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0;
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, mousePos - transform.position, 6f, lm_walls);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, mousePos - transform.position, 10f, lm_walls);
         if (hit.collider != null)
         {
             hookPos = hit.point;

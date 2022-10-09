@@ -21,7 +21,7 @@ public class SwordDmg : MonoBehaviour
             }
             else if (col.GetComponent<EnemyAiController>() != null)
             {
-                col.GetComponent<EnemyAiController>().Damage(damage, 5, 0);
+                col.GetComponent<EnemyAiController>().Damage(damage);
 
             }
         }

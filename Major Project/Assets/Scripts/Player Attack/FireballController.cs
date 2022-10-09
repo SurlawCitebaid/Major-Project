@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FireballController : MonoBehaviour {
 
-    public GameObject ass;
+    public GameObject fireBall;
     public float damage;
     Rigidbody2D rb;
 
@@ -23,13 +23,13 @@ public class FireballController : MonoBehaviour {
             {
                 enemy.GetComponent<BossController>().Damage(damage);
                 Destroy(gameObject);
-                Instantiate(ass, this.transform.position, transform.rotation);
+                Instantiate(fireBall, this.transform.position, transform.rotation);
             }
             else if (enemy.GetComponent<EnemyAiController>() != null)
             {
-                enemy.GetComponent<EnemyAiController>().Damage(damage, 5, 0);
+                enemy.GetComponent<EnemyAiController>().Damage(damage);
                 Destroy(gameObject);
-                Instantiate(ass, this.transform.position, transform.rotation);
+                Instantiate(fireBall, this.transform.position, transform.rotation);
                 //EnemyController merged with other AI behaviour
 
             }
@@ -37,7 +37,7 @@ public class FireballController : MonoBehaviour {
         if(other.CompareTag( "Wall"))
         {
             Destroy(gameObject);
-            Instantiate(ass, this.transform.position, transform.rotation);
+            Instantiate(fireBall, this.transform.position, transform.rotation);
         }
 
     }

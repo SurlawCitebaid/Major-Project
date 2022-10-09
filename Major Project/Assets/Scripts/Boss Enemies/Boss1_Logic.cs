@@ -16,7 +16,6 @@ public class Boss1_Logic : MonoBehaviour
     {
         playerCol = GameObject.FindGameObjectWithTag("Player").GetComponent<Collider2D>();
         ass = GetComponent<Animator>();
-        HitBoxInactive();
     }
 
     // Update is called once per frame

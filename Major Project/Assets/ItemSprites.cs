@@ -14,4 +14,5 @@ public class ItemSprites : MonoBehaviour
     public Sprite WorryDoll;
     public Sprite HealthPot;
     public Sprite MagnifyingGlass;
+    public Sprite Feather;
 }

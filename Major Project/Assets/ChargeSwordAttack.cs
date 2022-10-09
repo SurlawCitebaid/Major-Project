@@ -21,7 +21,7 @@ public class ChargeSwordAttack : MonoBehaviour
             }
             else if (enemy.GetComponent<EnemyAiController>() != null)
             {
-                enemy.GetComponent<EnemyAiController>().Damage(damage, 5, 0);
+                enemy.GetComponent<EnemyAiController>().Damage(damage);
                 Instantiate(slash, enemy.transform.position, Quaternion.Euler(0, 0, Random.Range(0, 360)), enemy.transform);
                 //EnemyController merged with other AI behaviour
 

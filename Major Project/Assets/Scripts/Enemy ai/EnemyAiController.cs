@@ -93,22 +93,14 @@ public class EnemyAiController : MonoBehaviour
         yield return new WaitForSeconds(enemy.attack.immunityTime);
         immune = false;
     }
-    public void Damage(float damageAmount, float knockbackForce, float knockbackDirection)
+    public void Damage(float damageAmount)
     {
         if (immune) return;
 
         health -= (int)damageAmount;//damageAmount may be changed to int
-        if (knockbackForce != 0)
-        {
-            Knockback(knockbackForce, knockbackDirection);
-        }
         StartCoroutine(DamageIndicator(sr, defaultColour));
 
         if (health < 0)
             Die();
-    }
-    public void Knockback(float knockbackForce, float knockbackDirection)
-    {
-        rb.AddForce(Vector2.right * knockbackDirection * knockbackForce, ForceMode2D.Impulse);
     }
 }

@@ -8639,6 +8639,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pausedUI: {fileID: 6236882589456239807}
+  Settings: {fileID: 0}
+  Credit: {fileID: 0}
+  howToPlay: {fileID: 0}
 --- !u!1 &6236882590128395310
 GameObject:
   m_ObjectHideFlags: 0
