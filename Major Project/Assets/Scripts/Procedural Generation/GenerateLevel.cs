@@ -38,6 +38,11 @@ public class GenerateLevel : MonoBehaviour
     [SerializeField]
     int platformMinSize;
 
+    [Header("Item Spawn Chance")]
+    [SerializeField]
+    [Range(0, 1)]
+    float itemSpawnChance;
+
     [Header("Details")]
     [SerializeField]
     [Range(0, 1)]
@@ -66,7 +71,8 @@ public class GenerateLevel : MonoBehaviour
         {
             Random.seed = seed;
         }
-        
+
+        itemSpawnChance *= 100;
 
         populateGrid();
         placeRooms();
@@ -174,7 +180,7 @@ public class GenerateLevel : MonoBehaviour
                     int randomRoomSizeY = Random.Range(minRoomSize, Mathf.FloorToInt(maxRoomSize * roomDescalerY));
                     //Wall is a scriptable tile
                     Room room = new Room(roomPosition,randomRoomSizeX, randomRoomSizeY, tiles, transform, maxNumberOfPlatforms, 
-                        platformMaxSize, platformMinSize, grid, x, y, this, tileMap, detailSpawnChance, false);
+                        platformMaxSize, platformMinSize, grid, x, y, this, tileMap, detailSpawnChance, false, itemSpawnChance);
                     room.createRoom();
                     room.fillRoomData();
                     rooms[x, y] = room;
@@ -188,7 +194,7 @@ public class GenerateLevel : MonoBehaviour
                     int randomRoomSizeY = maxRoomSize;
                     //Set sized boss room
                     Room room = new Room(roomPostion, 32, 16, tiles, transform, maxNumberOfPlatforms,
-                        platformMaxSize, platformMinSize, grid, x, y, this, tileMap, detailSpawnChance, true);
+                        platformMaxSize, platformMinSize, grid, x, y, this, tileMap, detailSpawnChance, true, itemSpawnChance);
                     room.createRoom();
                     room.fillRoomData();
                     rooms[x, y] = room;

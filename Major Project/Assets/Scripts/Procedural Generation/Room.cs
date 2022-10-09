@@ -44,7 +44,7 @@ public class Room
 
     public Room(Vector2 spawnPosition, int roomSizeX, int roomSizeY, List<TileBase> tiles, Transform parent, 
         int maxNumberOfPlatforms, int maxPlatformSize, int minPlatformSize, int[,] levelLayoutGrid, int gridX, 
-        int gridY, GenerateLevel generateLevelScript, Tilemap tileMap, float detailChance, bool bossRoom)
+        int gridY, GenerateLevel generateLevelScript, Tilemap tileMap, float detailChance, bool bossRoom, float itemSpawnChance)
     {
         this.spawnPosition = spawnPosition;
         this.roomSizeX = roomSizeX;
@@ -69,6 +69,9 @@ public class Room
         this.detailChance = detailChance;
 
         this.bossRoom = bossRoom;
+
+        //Chance to spawn item in room
+        this.itemSpawnChance = itemSpawnChance;
     }
 
     public void createRoom()
@@ -490,16 +493,33 @@ public class Room
     void placeDetails()
     {
         int aboveGroundHeight = 2;
+        int belowCeilingHeight = roomSizeY - 8;
+        ////Ground Details
+        //for(int x = 0; x < roomSizeX-1; x++)
+        //{
+        //    //If the chance is met and there is an empty air block above the ground
+        //    if (Random.Range(0f,1f) < detailChance && roomGrid[x,aboveGroundHeight] == 0 && roomGrid[x, aboveGroundHeight-1] == 1)
+        //    {
+        //        roomGrid[x, aboveGroundHeight] = 6;
+        //    }
+        //}
+
         //Ground Details
-        for(int x = 0; x < roomSizeX-1; x++)
+        for (int x = 0; x < roomSizeX - 1; x++)
         {
-            //If the chance is met and there is an empty air block above the ground
-            if (Random.Range(0f,1f) < detailChance && roomGrid[x,aboveGroundHeight] == 0 && roomGrid[x, aboveGroundHeight-1] == 1)
-            {
-                roomGrid[x, aboveGroundHeight] = 6;
-            }
+            for (int y = 0; y < roomSizeY - 1; y++) {
+                //Within the correct y
+                if (Random.Range(0f, 1f) < detailChance && y < belowCeilingHeight && y > aboveGroundHeight-1)
+                {
+                    //If the chance is met and there is an empty air block above the ground
+                    if ((roomGrid[x, y] == 0 && (roomGrid[x, y - 1] == 1 || roomGrid[x, y - 1] == 2)) || (roomGrid[x, y] == 0 && (roomGrid[x, y - 1] == 1 || roomGrid[x, y-1] == 2)))
+                    {
+                        roomGrid[x, y] = 6;
+                    }
+                }
+                
+            } 
         }
-        //Ceiling Details
     }
 
     public int getRoomSizeX()
