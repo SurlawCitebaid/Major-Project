@@ -26,7 +26,7 @@ public class GroundEnemyController : MonoBehaviour
         if(distance.normalized.x > 0)
             facingRight = true;
         else {
-            facingRight = false;
+            facingRight = true;
             Flip();
         }
     }
@@ -135,7 +135,7 @@ public class GroundEnemyController : MonoBehaviour
 
     void Flip(){
         Vector3 scale = gameObject.transform.localScale;
-        scale.x *= -1;
+        scale.x *= - 1;
         facingRight = !facingRight;
         transform.localScale = scale;
         dust.Play();

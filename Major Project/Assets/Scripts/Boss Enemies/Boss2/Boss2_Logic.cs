@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boss1_Logic : MonoBehaviour
+public class Boss2_Logic : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject HitBox;
     Collider2D playerCol;
+    public GameObject spear;
+    GameObject player;
+    Rigidbody2D rb;
     
     Animator ass;
 
@@ -14,8 +17,11 @@ public class Boss1_Logic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerCol = GameObject.FindGameObjectWithTag("Player").GetComponent<Collider2D>();
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerCol = player.GetComponent<Collider2D>();
         ass = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+        
     }
 
     // Update is called once per frame
@@ -30,7 +36,7 @@ public class Boss1_Logic : MonoBehaviour
 
     public float GetAttackRange()
     {
-        return 4f;
+        return 3f;
     }
     public int RandomNum(int[] ass)
     {
@@ -60,5 +66,14 @@ public class Boss1_Logic : MonoBehaviour
     void OnCollisionStay2D(Collision2D col)
     {
         if (ass.GetBool("Fall")) { ass.SetBool("Fall", false); }  //checks if the colliders already colliding
+    }
+
+    public void SpawnSpear(){
+        Vector2 direction = player.GetComponent<Rigidbody2D>().position - rb.position;
+        //Vector2 forward = new Vector2(1, 0);
+        //Vector2 spawnPos = new Vector2(0.5f, 0) + (Vector2) rb.transform.position;
+        //float angle = Vector2.SignedAngle(player.GetComponent<Rigidbody2D>().position, rb.position);
+        GameObject thrownSpear = Instantiate(spear, rb.transform.position, Quaternion.identity);
+        thrownSpear.GetComponent<Rigidbody2D>().velocity = (30f * direction.normalized);
     }
 }

@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boss1_Logic : MonoBehaviour
+public class Boss1_Logic1 : MonoBehaviour
 {
     // Start is called before the first frame update
-    public GameObject HitBox;
+    //public GameObject HitBox;
     Collider2D playerCol;
     
     Animator ass;
@@ -16,18 +16,18 @@ public class Boss1_Logic : MonoBehaviour
     {
         playerCol = GameObject.FindGameObjectWithTag("Player").GetComponent<Collider2D>();
         ass = GetComponent<Animator>();
+        HitBoxInactive();
     }
 
     // Update is called once per frame
     public void HitBoxActive()
     {
-        HitBox.SetActive(true);
+        //HitBox.SetActive(true);
     }
     public void HitBoxInactive()
     {
-        HitBox.SetActive(false);
+        //HitBox.SetActive(false);
     }
-
     public float GetAttackRange()
     {
         return 4f;
@@ -35,6 +35,7 @@ public class Boss1_Logic : MonoBehaviour
     public int RandomNum(int[] ass)
     {
         int enemyNum = Random.Range(0, ass.Length);
+
         return ass[enemyNum];
     }
     public int getIndex()
