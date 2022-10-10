@@ -18,6 +18,7 @@ public class Item : ScriptableObject {
             case 2: return ItemSprites.instance.HealthPot;
             case 3: return ItemSprites.instance.MagnifyingGlass;
             case 4: return ItemSprites.instance.Feather;
+            case 5: return ItemSprites.instance.Spring;
 
         }
     }

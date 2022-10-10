@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     [Space]
 
     public static PlayerController Instance;
-    public float playerSpeed;
+    public float playerSpeed, playerJumpForce;
     public bool isInvincible;
     public float baseDamage;
     public int maxHealth;
@@ -35,18 +35,24 @@ public class PlayerController : MonoBehaviour
     }
     void Start()
     {
+        sprite = gameObject.GetComponent<SpriteRenderer>();
         GetComponent<movement_Mario>().setMoveSpeed(playerScriptableObject.speed);
+        GetComponent<movement_Mario>().SetJumpForce(playerScriptableObject.jumpForce);
+
         playerSpeed = playerScriptableObject.speed;
         baseDamage = playerScriptableObject.damage;
-        maxHealth = playerScriptableObject.maxHealth;               // change this after start to change UI maxHearts
+        maxHealth = playerScriptableObject.maxHealth;                                       //base values
+        playerJumpForce = playerScriptableObject.jumpForce;
         health = maxHealth;
-        sprite = gameObject.GetComponent<SpriteRenderer>();
+
+
+
     }
     private void Update()
     {
         foreach(ItemValues item in Inventory.instance.inventory)
         {
-            if (item.GetName() == "Worry Doll" || item.GetName() == "Cordial" || item.GetName() == "Feather")
+            if (item.GetName() == "Worry Doll" || item.GetName() == "Cordial" || item.GetName() == "Feather" || item.GetName() == "Spring")
             {
                 if(item.GetName() == "Cordial")
                 {
@@ -60,6 +66,11 @@ public class PlayerController : MonoBehaviour
                 {
                     playerSpeed = (50 * item.GetAmount()) + playerScriptableObject.speed;
                     GetComponent<movement_Mario>().setMoveSpeed(playerSpeed);
+                }
+                if (item.GetName() == "Spring")
+                {
+                    playerJumpForce = item.GetAmount() + playerScriptableObject.jumpForce;
+                    GetComponent<movement_Mario>().SetJumpForce(playerJumpForce);
                 }
             }
             else continue;

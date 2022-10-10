@@ -8,8 +8,8 @@ public class movement_Mario : MonoBehaviour
 
 	//variables
 	[Header("General")][Space]
-	public PlayerController m_playerController;
 	public PlayerAttack m_playerAttack;
+	public PlayerController m_playerController;
 	[Range(0, .5f)] [SerializeField] private float m_CollisionRadius = 0.1f;
 	[Space][Space]
 
@@ -21,9 +21,9 @@ public class movement_Mario : MonoBehaviour
 
 	[Header("Jump")][Space]
 	[SerializeField] private LayerMask m_GroundLayer; // all things character can land on - can be set to multiple
-	[SerializeField] private float m_JumpForce = 9f;
 	[SerializeField] private int m_JumpStack = 2;
 	[SerializeField] float m_JumpDuration = 0.35f;
+	private float m_JumpForce;
 	private int jumpCount = 0;
 	[Space][Space]
 
@@ -237,6 +237,10 @@ public class movement_Mario : MonoBehaviour
 				break;
 		}
 	}
+	public void SetJumpForce(float value)
+    {
+		m_JumpForce = value;
+    }
 	public void setMoveSpeed(float value)
 	{
 		// bruh somebody want dat speed limit shit so fucking cringe lmaoooooooooooooo

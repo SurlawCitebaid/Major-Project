@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Player", menuName = "ScriptableObjects/Player")]
 public class PlayerSO : ScriptableObject
 {
     public int maxHealth;
@@ -15,4 +14,6 @@ public class PlayerSO : ScriptableObject
     public float jumpAmount;
     public float dashTime;
     public float dashCooldown;
+
+
 }

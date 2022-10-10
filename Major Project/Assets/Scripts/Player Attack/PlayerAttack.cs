@@ -47,7 +47,7 @@ public class PlayerAttack : MonoBehaviour {
                 }
             }
         }
-            if (Time.timeScale == 1)
+        if (Time.timeScale == 1)
         {
             damage = transform.GetComponent<PlayerController>().baseDamage;
             if (!genArrow && weapon == WeaponType.SWORD)                                        //check if weapon is sword and arrow is not spawned

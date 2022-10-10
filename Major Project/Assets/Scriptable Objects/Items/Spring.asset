@@ -9,16 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c9d52bd8068293459aa1b5cffded4f6, type: 3}
-  m_Name: Player
+  m_Script: {fileID: 11500000, guid: 4997d6650931d9a428949ce16d8660f3, type: 3}
+  m_Name: Spring
   m_EditorClassIdentifier: 
-  maxHealth: 10000
-  damage: 5
-  damageResistance: 0
-  speed: 300
-  attackCooldown: 0
-  grappleCoolDown: 0
-  jumpForce: 9
-  jumpAmount: 0
-  dashTime: 0
-  dashCooldown: 0
+  item_id: 5
+  name: Spring
+  price: 30
+  description: jump height +1

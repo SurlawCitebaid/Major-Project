@@ -4,28 +4,67 @@ using UnityEngine;
 
 public class ItemPedestal : MonoBehaviour {
     [SerializeField] private Item[] item_list;
+    [SerializeField] private Sprite OpenChest;
     private Item item_scriptableObject;
-    private GameObject itemOnPedestal;
-    private SpriteRenderer sprite_renderer;
-    private bool itemGot = false;
+    private GameObject itemOnPedestal, interact;
+    private SpriteRenderer itemSprite ,chestSprite;
+    private bool itemGot = false, inTrigger = false, itemOut = false, open = false;
     public Item item;
     private void Awake() {
         itemOnPedestal = transform.Find("Item").gameObject;
-        sprite_renderer = itemOnPedestal.GetComponent<SpriteRenderer>();
+        interact = transform.Find("interact").gameObject;
+        itemSprite = itemOnPedestal.GetComponent<SpriteRenderer>();
+        chestSprite = GetComponent<SpriteRenderer>();
     }
+    private void Update()
+    {
+        if(!itemGot)
+        {
+            if (!open && inTrigger && Input.GetKeyDown(KeyCode.E))
+            {
+                open = true;
+                StartCoroutine(genItem());
 
-    private void Start() {
+            }
+            if (itemOut && Input.GetKeyDown(KeyCode.E))
+            {
+                interact.SetActive(false);
+                Inventory.instance.AddItem(item);
+                Destroy(itemOnPedestal);
+                itemGot = true;
+            }
+        }
+        
+    }
+    IEnumerator genItem()
+    {
+        chestSprite.sprite = OpenChest;
         item_scriptableObject = item_list[Random.Range(0, item_list.Length)];
-        sprite_renderer.sprite = item_scriptableObject.GetSprite();
+        itemSprite.sprite = item_scriptableObject.GetSprite();
         item = item_scriptableObject;
+        yield return new WaitForSeconds(1);
+        itemOut = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if(!itemGot && collision.gameObject.CompareTag("Player"))
+        if(collision.gameObject.CompareTag("Player"))
         {
-            Inventory.instance.AddItem(item);
-            Destroy(itemOnPedestal);
-            itemGot = true;
+            if(!itemGot)
+            {
+                interact.SetActive(true);
+            }       
+            inTrigger = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            if (!itemGot)
+            {
+                interact.SetActive(false);
+            }
+            inTrigger = false;
         }
     }
 }
