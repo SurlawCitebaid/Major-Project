@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfc3ee0f122199b459857277c1de2d2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zap: {fileID: 2526946361807361233, guid: 21f1aea7ed4346943860e78e41620536, type: 3}
+  zapEffect: {fileID: 4538949351324568050, guid: a2e5b61767e95244a992b11d8d123636, type: 3}
   damage: 0
 --- !u!114 &374452454015188416
 MonoBehaviour:

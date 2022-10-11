@@ -7,7 +7,6 @@ public class Swipe : Attack
 {
     public override void DoAttack(EnemyAiController states, Vector2 distance, GameObject parent)
     {
-        Debug.Log("Swiper swiped");
 
         Vector2 direction = new Vector2(distance.normalized.x,0);
         Vector2 attackLocation = (Vector2)parent.transform.position + direction;

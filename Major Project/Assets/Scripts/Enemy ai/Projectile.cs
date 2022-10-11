@@ -21,7 +21,7 @@ public class Projectile : MonoBehaviour
                 Destroy(gameObject);
                 ass.damage(1);
             }
-            if(coll.gameObject.tag == "Wall")           //checks wall
+            if(coll.gameObject.CompareTag("Wall"))           //checks wall
             {
                 Destroy(gameObject);
 

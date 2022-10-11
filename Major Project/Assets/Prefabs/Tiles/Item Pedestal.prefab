@@ -55,6 +55,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d853c2da807d0334b83bb3279d4f4b8a, type: 2}
   - {fileID: 11400000, guid: c26780f8304aad642a47a62a33e821de, type: 2}
   - {fileID: 11400000, guid: 33e7a35c0e1313b478e115182ad7f64b, type: 2}
+  - {fileID: 11400000, guid: f275b02daa4be884db789bea3441cc4f, type: 2}
   OpenChest: {fileID: 21300004, guid: d2b06b9585b35ce4e82fd92926ea4eca, type: 3}
   item: {fileID: 0}
 --- !u!212 &2784106442713013163

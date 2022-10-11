@@ -5,6 +5,7 @@ using UnityEngine;
 public class ChargeSwordAttack : MonoBehaviour
 {
     [SerializeField] private GameObject slash;
+    public GameObject zapEffect;
     private float radius;
     public void Damage()
     {
@@ -14,18 +15,26 @@ public class ChargeSwordAttack : MonoBehaviour
         Collider2D[] array = Physics2D.OverlapCircleAll(transform.position, radius);
         foreach (Collider2D enemy in array)
         {
-            if (enemy.GetComponent<BossController>() != null)
+            if(enemy.CompareTag("Enemy"))
             {
-                enemy.GetComponent<BossController>().Damage(damage);
-                Instantiate(slash, enemy.transform.position, Quaternion.Euler(0,0,Random.Range(0,360)), enemy.transform);
-            }
-            else if (enemy.GetComponent<EnemyAiController>() != null)
-            {
-                enemy.GetComponent<EnemyAiController>().Damage(damage);
-                Instantiate(slash, enemy.transform.position, Quaternion.Euler(0, 0, Random.Range(0, 360)), enemy.transform);
-                //EnemyController merged with other AI behaviour
+                if (PlayerController.Instance.zapOn)
+                {
+                    Instantiate(zapEffect, enemy.transform.position, enemy.transform.rotation);
+                }
+                if (enemy.GetComponent<BossController>() != null)
+                {
+                    enemy.GetComponent<BossController>().Damage(damage);
+                    Instantiate(slash, enemy.transform.position, Quaternion.Euler(0, 0, Random.Range(0, 360)), enemy.transform);
+                }
+                else if (enemy.GetComponent<EnemyAiController>() != null)
+                {
+                    enemy.GetComponent<EnemyAiController>().Damage(damage);
+                    Instantiate(slash, enemy.transform.position, Quaternion.Euler(0, 0, Random.Range(0, 360)), enemy.transform);
+                    //EnemyController merged with other AI behaviour
 
+                }
             }
+            
         }
     }
    

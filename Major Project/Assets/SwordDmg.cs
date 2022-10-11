@@ -5,6 +5,8 @@ using UnityEngine;
 public class SwordDmg : MonoBehaviour
 {
     Collider2D swordCol;
+    public GameObject zapEffect;
+    bool zapOn = true;
     public float damage;
     private void Start()
     {
@@ -13,8 +15,13 @@ public class SwordDmg : MonoBehaviour
     // Start is called before the first frame update
     void OnTriggerEnter2D(Collider2D col)
     {
+        
         if (col.gameObject.CompareTag("Enemy"))
         {
+            if (PlayerController.Instance.zapOn)
+            {
+                Instantiate(zapEffect, col.transform.position, col.transform.rotation);
+            }
             if (col.GetComponent<BossController>() != null)
             {
                 col.GetComponent<BossController>().Damage(damage);
@@ -22,6 +29,7 @@ public class SwordDmg : MonoBehaviour
             else if (col.GetComponent<EnemyAiController>() != null)
             {
                 col.GetComponent<EnemyAiController>().Damage(damage);
+                
 
             }
         }

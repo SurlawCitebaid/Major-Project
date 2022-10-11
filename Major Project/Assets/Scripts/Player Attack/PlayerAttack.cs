@@ -47,8 +47,10 @@ public class PlayerAttack : MonoBehaviour {
                 }
             }
         }
+
         if (Time.timeScale == 1)
         {
+
             damage = transform.GetComponent<PlayerController>().baseDamage;
             if (!genArrow && weapon == WeaponType.SWORD)                                        //check if weapon is sword and arrow is not spawned
             {
@@ -81,7 +83,21 @@ public class PlayerAttack : MonoBehaviour {
             if(weapon != WeaponType.FIREBALL)
             {
                 fireBallArrow.SetActive(false);
-            } 
+            }
+            if (isCombo)
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    comboResetTime = 0;
+                }
+                comboResetTime += Time.deltaTime;
+                if (comboResetTime >= 2.0f)
+                {
+                    comboResetTime = 0;
+                    comboCount = 0;
+                    isCombo = false;
+                }
+            }
             if (canAttack)                                   // adds delay
             {
                 Attack();
@@ -89,20 +105,7 @@ public class PlayerAttack : MonoBehaviour {
         }
 
         // if no attack input in 2 seconds from last attack. reset combo
-        if (isCombo)
-        {
-            if(Input.GetMouseButtonDown(0))
-            {
-                comboResetTime = 0;
-            }
-            comboResetTime += Time.deltaTime;
-            if(comboResetTime >= 2.0f)
-            {
-                comboResetTime = 0;
-                comboCount = 0;
-                isCombo = false;
-            }
-        }
+       
     }
     IEnumerator attackDelay(float delayTime)
     {
@@ -141,7 +144,7 @@ public class PlayerAttack : MonoBehaviour {
         {
             chargeTime = 0;
             Transform bigBall = Instantiate(pfBigFireball, firePoint.position, firePoint.rotation);
-            bigBall.GetComponent<FireballController>().damage = damage;
+            bigBall.GetComponent<FireballController>().damage = damage*2;
             bigBall.localScale = new Vector2(bigBall.transform.localScale.x + attackSize, bigBall.transform.localScale.y + attackSize);
             canAttack = false;
             fireBallArrowColor.color = Color.white;

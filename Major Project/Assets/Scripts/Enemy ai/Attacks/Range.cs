@@ -6,7 +6,6 @@ public class Range : Attack
 {
     public override void DoAttack(EnemyAiController states, Vector2 distance, GameObject parent)
     {
-        Debug.Log("Ranger threw");
 
         Vector2 direction = new Vector2(distance.normalized.x,0);
         Vector2 attackLocation = (Vector2)parent.transform.position + new Vector2(states.enemy.attack.maxRange/2 - 0.5f, 0);
@@ -17,8 +16,7 @@ public class Range : Attack
         Collider2D[] hitbox = Physics2D.OverlapBoxAll((Vector2)parent.transform.position + direction, new Vector2(1f, 10f),0,LayerMask.GetMask("Player"));
         foreach (var item in hitbox)
         {
-            if(item.tag == "Player"){
-                Debug.Log("Ranger HIT!");
+            if(item.CompareTag("Player")){
                 var player = item.gameObject.GetComponent<PlayerController>();
                 player.damage(states.enemy.attack.damage);
                 break;

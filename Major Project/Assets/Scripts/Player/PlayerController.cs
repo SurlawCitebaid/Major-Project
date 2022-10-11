@@ -18,9 +18,9 @@ public class PlayerController : MonoBehaviour
 
     public static PlayerController Instance;
     public float playerSpeed, playerJumpForce;
-    public bool isInvincible;
+    public bool isInvincible ,zapOn;
     public float baseDamage;
-    public int maxHealth;
+    public int maxHealth, zaps;
     public int health;
 
     private int currency = 0;
@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
     {
         foreach(ItemValues item in Inventory.instance.inventory)
         {
-            if (item.GetName() == "Worry Doll" || item.GetName() == "Cordial" || item.GetName() == "Feather" || item.GetName() == "Spring")
+            if (item.GetName() == "Worry Doll" || item.GetName() == "Cordial" || item.GetName() == "Feather" || item.GetName() == "Spring" || item.GetName() == "Battery")
             {
                 if(item.GetName() == "Cordial")
                 {
@@ -71,6 +71,12 @@ public class PlayerController : MonoBehaviour
                 {
                     playerJumpForce = item.GetAmount() + playerScriptableObject.jumpForce;
                     GetComponent<movement_Mario>().SetJumpForce(playerJumpForce);
+                }
+                if (item.GetName() == "Battery")
+                {            
+                    zapOn = true;
+                    zaps = item.GetAmount()+3;
+
                 }
             }
             else continue;
