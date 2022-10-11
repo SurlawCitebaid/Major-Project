@@ -15,13 +15,15 @@ public class SettingsMenu : MonoBehaviour
     public List<ResolutionItem> resolutions = new List<ResolutionItem>();
     private int selectedResolution;
     public TMP_Text resolutionLabel;
+    public Toggle fullScreenToggle;
 
     void Start()
     {
         float currentLevel;
         aM.GetFloat("MasterVolume", out currentLevel);
         SetVolume(currentLevel);
-        Screen.SetResolution(1920, 1080, false);
+        Screen.SetResolution(1920, 1080, true);
+        fullScreenToggle.isOn = Screen.fullScreen;
     }
 
     public void SetVolume (float vol)
@@ -56,7 +58,7 @@ public class SettingsMenu : MonoBehaviour
 
     public void UpdateOnOk()
     {
-        Screen.SetResolution(resolutions[selectedResolution].horizontal, resolutions[selectedResolution].vertical, false);
+        Screen.SetResolution(resolutions[selectedResolution].horizontal, resolutions[selectedResolution].vertical, fullScreenToggle.isOn);
     }
 }
 
