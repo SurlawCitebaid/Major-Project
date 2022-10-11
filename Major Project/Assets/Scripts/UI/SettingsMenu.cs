@@ -21,6 +21,7 @@ public class SettingsMenu : MonoBehaviour
         float currentLevel;
         aM.GetFloat("MasterVolume", out currentLevel);
         SetVolume(currentLevel);
+        Screen.SetResolution(1920, 1080, false);
     }
 
     public void SetVolume (float vol)
