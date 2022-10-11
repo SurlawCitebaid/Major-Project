@@ -6,6 +6,8 @@ public class StartBoss : MonoBehaviour
 {
     [SerializeField]
     GameObject boss;
+    [SerializeField]
+    int bossNumber = 1;
     bool spawnedOnce = false;
     [SerializeField]
     GameObject bossStartParticles;
@@ -23,7 +25,21 @@ public class StartBoss : MonoBehaviour
     private void Start()
     {
         EnemySpawner.enemiesAlive = false;
-        transform.localScale = new Vector3(6f,6f,1f);
+
+        switch (bossNumber)
+        {
+            case 1:
+                transform.localScale = new Vector3(6f,6f,1f);
+                break;
+            case 2:
+                transform.localScale = new Vector3(2f,2f,1f);
+                transform.position += new Vector3(0f, 0.5f, 0f);
+                break;
+            default:
+            break;
+        }
+
+        //transform.localScale = new Vector3(6f,6f,1f);
         originalPosition = transform.position;
         spawnLocation = new Vector2(transform.position.x, transform.position.y + 4);
     }

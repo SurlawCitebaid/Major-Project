@@ -4939,6 +4939,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boss: {fileID: 4405719626352530676, guid: 9b7bcee4598cf484a8aa37005e6b02a3, type: 3}
+  bossNumber: 2
   bossStartParticles: {fileID: 8938417637332380712, guid: 428bac38b1a5e40489ac3aafe7f65ca9, type: 3}
   levelChangeDoor: {fileID: 4219162437274860985, guid: 2620609c68d20a340a8fc9e535c20af0, type: 3}
 --- !u!1001 &6583810296462425153
