@@ -226,4 +226,17 @@ public class PlayerAttack : MonoBehaviour {
     {
         return isAttacking;
     }
+    public string getWeaponType()
+    {
+        string wep = "";
+        if(weapon == WeaponType.FIST)
+        {
+            wep = "FIST"; 
+        }
+        return wep;
+    }
+    public int getComboCount()
+    {
+        return comboCount;
+    }
 }

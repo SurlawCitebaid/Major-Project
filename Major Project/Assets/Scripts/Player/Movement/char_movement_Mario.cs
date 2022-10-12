@@ -13,6 +13,8 @@ public class char_movement_Mario : MonoBehaviour
     bool crouch = false;
     bool dash = false;
     float jumpDuration;
+    string weapon;
+    int comboCount;
 
 
     void Update()
@@ -35,6 +37,24 @@ public class char_movement_Mario : MonoBehaviour
         if (isAttacking)                                              // invincible when dashing
         {
             animator.SetBool("isAttacking", true);
+            weapon = m_playerAttack.getWeaponType();
+            comboCount = m_playerAttack.getComboCount();
+            if (weapon.Equals("FIST"))
+            {
+                animator.SetInteger("WeaponType", 1);
+                if (comboCount == 0)
+                {
+                    animator.SetInteger("ComboCount", 0);
+                } else if (comboCount == 1)
+                {
+                    animator.SetInteger("ComboCount", 1);
+                } else if (comboCount == 2)
+                {
+                    animator.SetInteger("ComboCount", 2);
+                } else {
+                    animator.SetInteger("ComboCount", 0);
+                }
+            }
         } else {
             animator.SetBool("isAttacking", false);
         }

@@ -291,15 +291,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58e10ea9d08877c41a35136f8561a914, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_playerController: {fileID: 8058410701950631224}
   m_playerAttack: {fileID: 5146834318614802656}
+  m_playerController: {fileID: 8058410701950631224}
   m_CollisionRadius: 0.05
-  m_MoveSpeed: 300
   m_MovementSlippery: 0
   m_GroundLayer:
     serializedVersion: 2
     m_Bits: 1536
-  m_JumpForce: 9
   m_JumpStack: 2
   m_JumpDuration: 0.35
   m_CrouchMultiplier: 0.4
@@ -326,10 +324,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: 2
+  damage: 0
+  delayTime: 0
+  attackSize: 0
   Arrow: {fileID: 0}
   Sword: {fileID: 0}
   ChargedSword: {fileID: 0}
-  damage: 0
   pfFireball: {fileID: 4951525452834015375, guid: b1dd51bb6af3e1246a8d83df8e4544b6, type: 3}
   pfBigFireball: {fileID: 4951525452834015375, guid: 956da3f22637e404da0f992cc3ffa965, type: 3}
 --- !u!114 &8058410701950631224
@@ -347,10 +347,14 @@ MonoBehaviour:
   gameOverUI: {fileID: 0}
   playerScriptableObject: {fileID: 11400000, guid: 532bd32f1f365ec4a97c0b4b80ed2f60, type: 2}
   m_invicibleTime: 5
-  maxHealth: 0
-  health: 0
+  playerSpeed: 0
+  playerJumpForce: 0
   isInvincible: 0
+  zapOn: 0
   baseDamage: 0
+  maxHealth: 0
+  zaps: 0
+  health: 0
 --- !u!95 &8345553104755940640
 Animator:
   serializedVersion: 4
