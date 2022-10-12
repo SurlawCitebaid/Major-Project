@@ -4,18 +4,19 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour {
 
-    private Transform firePoint;
+    private bool canAttack = true, isAttacking = false, isCombo = false, genArrow = false;
     private GameObject arrow, fireBallArrow;
-    private bool genArrow = false;
+    private Transform firePoint;
+    private int comboCount = 0;
+
     public enum WeaponType { FIST, SWORD, FIREBALL};
     [Header("General")][Space]
     [SerializeField] private WeaponType weapon = WeaponType.FIREBALL;
 
-    private bool canAttack = true;
-    private bool isAttacking = false;
-    private bool isCombo = false;
-    private int comboCount = 0;
+
     public float damage, delayTime, attackSize = 0;
+
+
 
     // Sword Variables
     [Header("Sword Variables")]
@@ -50,7 +51,6 @@ public class PlayerAttack : MonoBehaviour {
 
         if (Time.timeScale == 1)
         {
-
             damage = transform.GetComponent<PlayerController>().baseDamage;
             if (!genArrow && weapon == WeaponType.SWORD)                                        //check if weapon is sword and arrow is not spawned
             {
@@ -83,6 +83,28 @@ public class PlayerAttack : MonoBehaviour {
             if(weapon != WeaponType.FIREBALL)
             {
                 fireBallArrow.SetActive(false);
+            } else
+            {
+                if (Input.GetKeyDown(KeyCode.W))
+                {
+                    firePoint.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + 1);
+                    firePoint.transform.rotation = Quaternion.Euler(0, 0, 90);
+                }
+                else if(!Input.GetKey(KeyCode.W))
+                {
+                    
+                    if (gameObject.transform.rotation.y > 0)
+                    {    
+                        firePoint.position = new Vector2(gameObject.transform.position.x + .5f, gameObject.transform.position.y);
+                        firePoint.transform.rotation = Quaternion.Euler(0, 0, 0);
+                    }
+                    if (gameObject.transform.rotation.y < 0)
+                    {
+                        firePoint.position = new Vector2(gameObject.transform.position.x - .5f, gameObject.transform.position.y);
+                        firePoint.transform.rotation = Quaternion.Euler(0, 0, 180);
+                    }
+                }
+                
             }
             if (isCombo)
             {
@@ -165,7 +187,6 @@ public class PlayerAttack : MonoBehaviour {
             smallBall.GetComponent<FireballController>().damage = damage;
             smallBall.localScale = new Vector2(smallBall.transform.localScale.x + attackSize, smallBall.transform.localScale.y + attackSize);
             canAttack = false;
-            fireBallArrowColor.color = Color.white;
             StartCoroutine(attackDelay(1f - delayTime));
         }
 

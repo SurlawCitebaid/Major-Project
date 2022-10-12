@@ -28,17 +28,17 @@ public class ItemZapEffect : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(PlayerController.Instance.zaps != maxjumps)
+        if(PlayerController.Instance.zaps != maxjumps)                              //updates when maxjumps is changed via item pickup
         {
             maxjumps = PlayerController.Instance.zaps;
             jumps = maxjumps;
         }
-        if(totalEnemies < maxjumps)
+        if(totalEnemies < maxjumps)                                                 //if the total enemies is less than the amount of enemies present
         {
-            jumps = totalEnemies;
+            jumps = totalEnemies;                   
         }
-        Debug.Log(loops + " " + maxjumps);
-        if (loops >= jumps)                      //runs when hits maximum or if not enough enemies runs when reached enemy limit
+        
+        if (loops >= jumps)                                                         //runs when position of all enemies information processed reaches max enemies present or jump limit
         {
             if (enemyPositions.Count == 0)
             {
@@ -58,7 +58,7 @@ public class ItemZapEffect : MonoBehaviour
                 }
             }
             else
-            {
+            {                                                           // moves the 
                 Ball.transform.position = Vector2.MoveTowards(
                 Ball.transform.position,
                 enemyPositions[index].transform.position,
