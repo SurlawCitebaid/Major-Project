@@ -110,12 +110,15 @@ public class PlayerAttack : MonoBehaviour {
     IEnumerator attackDelay(float delayTime)
     {
         yield return new WaitForSeconds(delayTime);
-        isAttacking = false;
-        canAttack = true;
-        if (weapon == WeaponType.FIST)
+        if (weapon == WeaponType.FIST && comboCount < 2)
         {
             comboCount++;
+        } else if (weapon == WeaponType.FIST && comboCount == 2)
+        {
+            comboCount = 0;
         }
+        isAttacking = false;
+        canAttack = true;
     }
     private void Attack() {
         switch (weapon) {
@@ -218,7 +221,6 @@ public class PlayerAttack : MonoBehaviour {
             //  need animator control here ()  //
             // ------------------------------- //
             isAttacking = true;
-            comboCount = 0;
             canAttack = false;
             StartCoroutine(attackDelay(1.0f));  // 1.5 sec cd at the end of combo
         }

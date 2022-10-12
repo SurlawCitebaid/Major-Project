@@ -14,7 +14,7 @@ public class char_movement_Mario : MonoBehaviour
     bool dash = false;
     float jumpDuration;
     string weapon;
-    int comboCount;
+    int comboCount = 0;
 
 
     void Update()
@@ -52,8 +52,6 @@ public class char_movement_Mario : MonoBehaviour
                 } else if (comboCount == 2)
                 {
                     animator.SetInteger("ComboCount", 2);
-                } else {
-                    animator.SetInteger("ComboCount", 0);
                 }
             } else {
                 animator.SetBool("isUsingFist", false);
