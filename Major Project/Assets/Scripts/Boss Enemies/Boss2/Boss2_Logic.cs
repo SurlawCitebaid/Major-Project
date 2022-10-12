@@ -34,6 +34,10 @@ public class Boss2_Logic : MonoBehaviour
         HitBox.SetActive(false);
     }
 
+    public void PlaySound(string name){
+        FindObjectOfType<AudioManager>().Play(name);
+    }
+
     public float GetAttackRange()
     {
         return 3f;
@@ -70,9 +74,6 @@ public class Boss2_Logic : MonoBehaviour
 
     public void SpawnSpear(){
         Vector2 direction = player.GetComponent<Rigidbody2D>().position - rb.position;
-        //Vector2 forward = new Vector2(1, 0);
-        //Vector2 spawnPos = new Vector2(0.5f, 0) + (Vector2) rb.transform.position;
-        //float angle = Vector2.SignedAngle(player.GetComponent<Rigidbody2D>().position, rb.position);
         GameObject thrownSpear = Instantiate(spear, rb.transform.position, Quaternion.identity);
         thrownSpear.GetComponent<Rigidbody2D>().velocity = (30f * direction.normalized);
     }

@@ -108,4 +108,25 @@ MonoBehaviour:
     loop: 1
     isMusic: 1
     source: {fileID: 0}
+  - name: Boss1Slash1
+    clip: {fileID: 8300000, guid: 1fd263f547425744586f06d8f3a7c180, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    isMusic: 0
+    source: {fileID: 0}
+  - name: Fuse
+    clip: {fileID: 8300000, guid: 505d31aa6f25bd84d97fb51d895f4757, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    isMusic: 0
+    source: {fileID: 0}
+  - name: Boom
+    clip: {fileID: 8300000, guid: 3bee683ba592be148be76ff9fc43a725, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    isMusic: 0
+    source: {fileID: 0}
   mainMixer: {fileID: 24300002, guid: 78449e906dc3e4e46b1315b2ed8489f7, type: 2}

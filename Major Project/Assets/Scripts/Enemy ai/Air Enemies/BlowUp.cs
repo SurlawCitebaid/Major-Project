@@ -12,6 +12,8 @@ public class BlowUp : MonoBehaviour
 
     private void Damage()
     {
+        FindObjectOfType<AudioManager>().Play("Boom");
+
         enemyAI = parent.GetComponent<EnemyAiController>();
         control = parent.GetComponent<AirEnemy_3>();
         Collider2D[] array = Physics2D.OverlapCircleAll(transform.position, enemyAI.enemy.attack.range / 2);
@@ -24,5 +26,9 @@ public class BlowUp : MonoBehaviour
             }
         }
         control.KillSelf();
+    }
+
+    public void PlaySound(string name){
+        FindObjectOfType<AudioManager>().Play(name);
     }
 }

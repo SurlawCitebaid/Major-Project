@@ -28,6 +28,10 @@ public class Boss1_Logic : MonoBehaviour
         HitBox.SetActive(false);
     }
 
+    public void PlaySound(string name){
+        FindObjectOfType<AudioManager>().Play(name);
+    }
+
     public float GetAttackRange()
     {
         return 4f;
