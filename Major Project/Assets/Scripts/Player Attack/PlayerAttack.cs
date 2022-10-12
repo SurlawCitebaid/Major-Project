@@ -112,6 +112,10 @@ public class PlayerAttack : MonoBehaviour {
         yield return new WaitForSeconds(delayTime);
         isAttacking = false;
         canAttack = true;
+        if (weapon == WeaponType.FIST)
+        {
+            comboCount++;
+        }
     }
     private void Attack() {
         switch (weapon) {
@@ -196,7 +200,6 @@ public class PlayerAttack : MonoBehaviour {
             // ------------------------------- //
             isAttacking = true;
             isCombo = true;
-            comboCount++;
             canAttack = false;
             StartCoroutine(attackDelay(.2f)); // 0.2 sec cd between punches
         }
@@ -206,7 +209,6 @@ public class PlayerAttack : MonoBehaviour {
             //  need animator control here ()  //
             // ------------------------------- //
             isAttacking = true;
-            comboCount++;
             canAttack = false;
             StartCoroutine(attackDelay(.2f)); 
         }
