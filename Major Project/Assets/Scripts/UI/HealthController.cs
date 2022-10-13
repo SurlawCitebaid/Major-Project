@@ -5,10 +5,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using TMPro;
 
 public class HealthController : MonoBehaviour
 {
     [SerializeField] PlayerController PlayerController;
+    [SerializeField] public GameObject currencyObject;
+    public int currency;
     private int playerHealth;
     private int maxHearts;
     private int currentActiveHearts;
@@ -18,12 +21,15 @@ public class HealthController : MonoBehaviour
     [SerializeField] public GameObject[] healthHearts;
     private void Start()
     {
-        
         currentActiveHearts = healthHearts.Length;
+        currency = PlayerController.currency;
     }
     private void Update()
     {
-        if(PlayerController.maxHealth > 10)
+        currencyObject.GetComponent<TMP_Text>().text = "$ "+PlayerController.Instance.getCurrency().ToString();
+        Debug.Log(PlayerController.Instance.currency);
+        Debug.Log(currency);
+        if (PlayerController.maxHealth > 10)
         {
             maxHearts = 10;
         } else if(PlayerController.maxHealth < 3)

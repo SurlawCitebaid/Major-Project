@@ -22,19 +22,14 @@ public class PlayerController : MonoBehaviour
     public float baseDamage;
     public int maxHealth, zaps;
     public int health;
-
-    private int currency = 0;
+    public int currency;
     SpriteRenderer sprite;
     Color originalColor;
 
-
-    // Start is called before the first frame update
-    private void Awake()
+    void Awake()
     {
         Instance = this;
-    }
-    void Start()
-    {
+
         sprite = gameObject.GetComponent<SpriteRenderer>();
         GetComponent<movement_Mario>().setMoveSpeed(playerScriptableObject.speed);
         GetComponent<movement_Mario>().SetJumpForce(playerScriptableObject.jumpForce);
@@ -42,11 +37,12 @@ public class PlayerController : MonoBehaviour
         playerSpeed = playerScriptableObject.speed;
         baseDamage = playerScriptableObject.damage;
         maxHealth = playerScriptableObject.maxHealth;                                       //base values
+        currency = playerScriptableObject.currency;
         playerJumpForce = playerScriptableObject.jumpForce;
         health = maxHealth;
 
 
-
+        currency += 100;
     }
     private void Update()
     {
@@ -126,4 +122,12 @@ public class PlayerController : MonoBehaviour
 		yield return new WaitForSeconds(0.3f);
         sprite.color = originalColor;
 	}
+    public int getCurrency()
+    {
+        return currency;
+    }
+    public void SetCurrency(int value)
+    {
+        currency = value;
+    }
 }

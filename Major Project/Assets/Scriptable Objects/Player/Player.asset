@@ -22,3 +22,4 @@ MonoBehaviour:
   jumpAmount: 0
   dashTime: 0
   dashCooldown: 0
+  currency: 0

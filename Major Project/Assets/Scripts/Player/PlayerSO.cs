@@ -14,6 +14,7 @@ public class PlayerSO : ScriptableObject
     public float jumpAmount;
     public float dashTime;
     public float dashCooldown;
+    public int currency;
 
 
 }

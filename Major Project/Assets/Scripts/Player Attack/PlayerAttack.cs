@@ -21,7 +21,7 @@ public class PlayerAttack : MonoBehaviour {
     // Sword Variables
     [Header("Sword Variables")]
     [SerializeField] private GameObject Arrow, Sword, ChargedSword;
-    private float chargeTime = 0, comboResetTime = 0, maxCharge = 2f;
+    private float chargeTime = 0, comboResetTime = 0, maxCharge = 1.5f;
 
     private SpriteRenderer arrowColor, fireBallArrowColor;
     // Fireball Variables
@@ -87,7 +87,7 @@ public class PlayerAttack : MonoBehaviour {
             {
                 if (Input.GetKeyDown(KeyCode.W))
                 {
-                    firePoint.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + 1);
+                    firePoint.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + 1);                     //face up
                     firePoint.transform.rotation = Quaternion.Euler(0, 0, 90);
                 }
                 else if(!Input.GetKey(KeyCode.W))
@@ -95,12 +95,12 @@ public class PlayerAttack : MonoBehaviour {
                     
                     if (gameObject.transform.rotation.y > 0)
                     {    
-                        firePoint.position = new Vector2(gameObject.transform.position.x + .5f, gameObject.transform.position.y);
+                        firePoint.position = new Vector2(gameObject.transform.position.x + .5f, gameObject.transform.position.y);               //face right
                         firePoint.transform.rotation = Quaternion.Euler(0, 0, 0);
                     }
                     if (gameObject.transform.rotation.y < 0)
                     {
-                        firePoint.position = new Vector2(gameObject.transform.position.x - .5f, gameObject.transform.position.y);
+                        firePoint.position = new Vector2(gameObject.transform.position.x - .5f, gameObject.transform.position.y);               //face left
                         firePoint.transform.rotation = Quaternion.Euler(0, 0, 180);
                     }
                 }

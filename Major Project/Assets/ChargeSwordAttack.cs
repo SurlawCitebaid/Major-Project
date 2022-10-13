@@ -11,7 +11,6 @@ public class ChargeSwordAttack : MonoBehaviour
     {
         float damage = transform.GetComponentInParent<PlayerAttack>().damage;
         radius = transform.localScale.x / 2;
-        Debug.Log(radius);
         Collider2D[] array = Physics2D.OverlapCircleAll(transform.position, radius);
         foreach (Collider2D enemy in array)
         {
