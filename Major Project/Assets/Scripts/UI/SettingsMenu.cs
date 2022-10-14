@@ -1,4 +1,5 @@
 // Juliet Gobran
+// Script for Settings Menu UI
 
 using System.Collections;
 using System.Collections.Generic;
@@ -10,7 +11,6 @@ using TMPro;
 
 public class SettingsMenu : MonoBehaviour
 {
-    // Sets volume as slider moves
     public AudioMixer aM;
     public List<ResolutionItem> resolutions = new List<ResolutionItem>();
     private int selectedResolution;
@@ -19,18 +19,22 @@ public class SettingsMenu : MonoBehaviour
 
     void Start()
     {
+        // Get current volume & reflect in slider
         float currentLevel;
         aM.GetFloat("MasterVolume", out currentLevel);
         SetVolume(currentLevel);
+        // Sets resolution as most common
         Screen.SetResolution(1920, 1080, true);
         fullScreenToggle.isOn = Screen.fullScreen;
     }
 
+    // Sets volume 
     public void SetVolume (float vol)
     {
         aM.SetFloat("MasterVolume", vol);
     }
 
+    // Resolution left arrow
     public void ResolutionLeft()
     {
         selectedResolution--;
@@ -41,6 +45,7 @@ public class SettingsMenu : MonoBehaviour
         UpdateResLabel();
     }
 
+    // Resolution right arrow
     public void ResolutionRight()
     {
         selectedResolution++;
@@ -51,17 +56,20 @@ public class SettingsMenu : MonoBehaviour
         UpdateResLabel();
     }
 
+    // Changes label using array
     public void UpdateResLabel()
     {
         resolutionLabel.text = resolutions[selectedResolution].horizontal.ToString() + " x " + resolutions[selectedResolution].vertical.ToString();
     }
 
+    // Screen resolution is updates on OK
     public void UpdateOnOk()
     {
         Screen.SetResolution(resolutions[selectedResolution].horizontal, resolutions[selectedResolution].vertical, fullScreenToggle.isOn);
     }
 }
 
+// Class to hold resolution information
 [System.Serializable]
 public class ResolutionItem
 {
