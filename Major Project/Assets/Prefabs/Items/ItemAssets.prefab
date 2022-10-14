@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &175300757645991567
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 175300757645991565}
+  - component: {fileID: 175300757645991564}
+  - component: {fileID: 175300757645991562}
+  m_Layer: 0
+  m_Name: ItemAssets
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &175300757645991565
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 175300757645991567}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &175300757645991564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 175300757645991567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40c0017aed852f64abd34ed9545eea36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Pill: {fileID: 21300000, guid: ee9c4d1fae9bec6499356589bb3b61cc, type: 3}
+  WorryDoll: {fileID: 21300000, guid: 3caff24f0a1bd634c9c667b4a6d09882, type: 3}
+  HealthPot: {fileID: 21300000, guid: 968c8b12be7612e46b65ae9010dd7b3e, type: 3}
+  MagnifyingGlass: {fileID: 21300000, guid: 61049159b01affd468473f6074d90c03, type: 3}
+  Feather: {fileID: 21300000, guid: 630c45d0ecac44b448d57efe338038f3, type: 3}
+  Spring: {fileID: 21300000, guid: 286e378382d6ff246bf6c90f88cd51e1, type: 3}
+  Battery: {fileID: 21300000, guid: ab32aa7e2cf4d8643a6fd3fc54b8ac52, type: 3}
+--- !u!114 &175300757645991562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 175300757645991567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9301a6ba3e63b548bd9dc1f91e40d13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  possibleDrops:
+  - {fileID: 2646399163113016342, guid: 9b915643a8c9d9d46844253036957034, type: 3}
+  - {fileID: 2646399163113016342, guid: e3f99bc594a27f84faa0a093132f48aa, type: 3}
+  dropChance: 0.2

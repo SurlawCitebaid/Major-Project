@@ -124,7 +124,6 @@ GameObject:
   - component: {fileID: 7464682554475860006}
   - component: {fileID: 6867805195426571619}
   - component: {fileID: 7464682553353457533}
-  - component: {fileID: -1065898505798097466}
   m_Layer: 8
   m_Name: FlyingProjectile
   m_TagString: Enemy
@@ -269,19 +268,3 @@ MonoBehaviour:
   projectile: {fileID: 8968486420765280106, guid: d9486297c20d0ff40b5282055263b129, type: 3}
   line: {fileID: 2065824933680345744, guid: c8d960fd24d639d47832a03d9d328ac6, type: 3}
   m_Material: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
---- !u!114 &-1065898505798097466
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7464682554475860058}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9301a6ba3e63b548bd9dc1f91e40d13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  possibleDrops:
-  - {fileID: 2646399163113016342, guid: 9b915643a8c9d9d46844253036957034, type: 3}
-  - {fileID: 2646399163113016342, guid: e3f99bc594a27f84faa0a093132f48aa, type: 3}
-  dropChance: 0.2

@@ -156,7 +156,6 @@ GameObject:
   - component: {fileID: 5658419804608735699}
   - component: {fileID: 2907236684830940721}
   - component: {fileID: 1680037001}
-  - component: {fileID: 8622918657934583145}
   m_Layer: 8
   m_Name: EnemyCharger
   m_TagString: Enemy
@@ -329,22 +328,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animation: {fileID: 7599007100304888172, guid: 4141ce4df9298e84fbd136235a7f7dcd, type: 3}
---- !u!114 &8622918657934583145
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5658419804608735529}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9301a6ba3e63b548bd9dc1f91e40d13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  possibleDrops:
-  - {fileID: 2646399163113016342, guid: 9b915643a8c9d9d46844253036957034, type: 3}
-  - {fileID: 2646399163113016342, guid: e3f99bc594a27f84faa0a093132f48aa, type: 3}
-  dropChance: 0.2
 --- !u!1001 &703762860571178642
 PrefabInstance:
   m_ObjectHideFlags: 0

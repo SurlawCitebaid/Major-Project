@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 5428061368323000856}
   - component: {fileID: 5428061368323000857}
   - component: {fileID: 8326276401724702556}
-  - component: {fileID: 4747552237698848792}
   - component: {fileID: 7362542641272270080}
   m_Layer: 8
   m_Name: FlyingCharger
@@ -145,22 +144,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 1.0000001}
   m_Direction: 0
---- !u!114 &4747552237698848792
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: -556950729535240203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9301a6ba3e63b548bd9dc1f91e40d13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  possibleDrops:
-  - {fileID: 2646399163113016342, guid: 9b915643a8c9d9d46844253036957034, type: 3}
-  - {fileID: 2646399163113016342, guid: e3f99bc594a27f84faa0a093132f48aa, type: 3}
-  dropChance: 0.2
 --- !u!114 &7362542641272270080
 MonoBehaviour:
   m_ObjectHideFlags: 0
