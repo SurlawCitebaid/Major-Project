@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 188282402990007033}
   - component: {fileID: 188282402990007038}
   - component: {fileID: 1435017550}
+  - component: {fileID: 5386359595585448125}
   m_Layer: 8
   m_Name: EnemySwiper
   m_TagString: Enemy
@@ -154,9 +155,8 @@ MonoBehaviour:
   defaultColour:
     serializedVersion: 2
     rgba: 4294967295
-  enemy: {fileID: 11400000, guid: 2eb419e7cb2fe6344b791c242d5883fe, type: 2}
   immune: 0
-  health: 0
+  enemy: {fileID: 11400000, guid: 2eb419e7cb2fe6344b791c242d5883fe, type: 2}
 --- !u!114 &188282402990007038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,6 +188,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animation: {fileID: 7599007100304888172, guid: 4141ce4df9298e84fbd136235a7f7dcd, type: 3}
+--- !u!114 &5386359595585448125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188282402990007035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9301a6ba3e63b548bd9dc1f91e40d13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  possibleDrops:
+  - {fileID: 2646399163113016342, guid: 9b915643a8c9d9d46844253036957034, type: 3}
+  - {fileID: 2646399163113016342, guid: e3f99bc594a27f84faa0a093132f48aa, type: 3}
+  dropChance: 0.2
 --- !u!1 &1276858729087455052
 GameObject:
   m_ObjectHideFlags: 0

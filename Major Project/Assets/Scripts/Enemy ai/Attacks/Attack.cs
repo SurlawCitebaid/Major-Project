@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//[CreateAssetMenu (menuName = "ScriptableObjects/Enemy Attack/Default")]
 /*
     Children of this contain the logic for the attacks
 */

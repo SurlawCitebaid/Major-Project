@@ -52,6 +52,7 @@ public class AirEnemy_2 : MonoBehaviour
             Transform bullet = Instantiate(projectile, transform.position, Quaternion.identity).transform;
             Vector3 shootDir = transform.up;
             bullet.GetComponent<Projectile>().Setup(shootDir);
+            //sound effect
 
             StartCoroutine(Reset()); // determines attack delay
         }

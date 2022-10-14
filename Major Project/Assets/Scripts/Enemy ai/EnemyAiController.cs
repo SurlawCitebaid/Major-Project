@@ -64,6 +64,7 @@ public class EnemyAiController : MonoBehaviour
             GameObject.Instantiate(enemy.enemyDeathParticles, gameObject.transform.position, Quaternion.identity);
         }
         
+        FindObjectOfType<DropItem>().Drop(gameObject);
         Destroy(gameObject);
     }
     public IEnumerator HitFlash(SpriteRenderer sprite , Color32 originalColor)

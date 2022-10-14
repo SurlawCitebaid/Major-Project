@@ -130,4 +130,15 @@ public class PlayerController : MonoBehaviour
     {
         currency = value;
     }
+
+    public void AddCurrency(int amount){ //can be used with negative values too
+        currency += amount;
+    }
+
+    public void RegenHealth(){ //heal 1 heart
+        health++;
+        if(health > maxHealth){
+            health = maxHealth;
+        }
+    }
 }
