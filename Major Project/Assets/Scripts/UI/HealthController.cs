@@ -1,4 +1,5 @@
 // Juliet Gobran
+// Script for Health status
 
 using System.Collections;
 using System.Collections.Generic;
@@ -16,14 +17,14 @@ public class HealthController : MonoBehaviour
     private int maxHearts;
     private int currentActiveHearts;
 
-    //public Color pink = Color.FromArgb(255, 105, 249);
+    [SerializeField] public GameObject[] healthHearts; // displayed hearts array 
 
-    [SerializeField] public GameObject[] healthHearts;
     private void Start()
     {
         currentActiveHearts = healthHearts.Length;
         currency = PlayerController.currency;
     }
+
     private void Update()
     {
         currencyObject.GetComponent<TMP_Text>().text = "$ "+PlayerController.Instance.getCurrency().ToString();
@@ -45,17 +46,19 @@ public class HealthController : MonoBehaviour
         UpdateMaxHealth();
 
     }
+
+
     public void UpdateMaxHealth()
     {
-        // to reduce hearts
-
         if (maxHearts != currentActiveHearts)
         {
+            // increase max health
             for (int i = 0; i < healthHearts.Length; i++)
             {
                 healthHearts[i].SetActive(false);
                 currentActiveHearts--;  
             }
+            // decrease max health
             for(int i = 0; i < maxHearts; i++)
             {
                 healthHearts[i].SetActive(true);
@@ -68,6 +71,8 @@ public class HealthController : MonoBehaviour
     public void UpdateHealthStatus()
     {
         playerHealth = PlayerController.Instance.health;
+
+        // update displayed hearts
         for (int i = 0; i < healthHearts.Length; i++)
         {
             if (i < playerHealth)

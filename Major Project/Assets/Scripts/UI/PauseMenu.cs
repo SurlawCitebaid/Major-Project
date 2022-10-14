@@ -1,4 +1,5 @@
 // Juliet Gobran
+// Script for Pause menu
 
 using System.Collections;
 using System.Collections.Generic;
