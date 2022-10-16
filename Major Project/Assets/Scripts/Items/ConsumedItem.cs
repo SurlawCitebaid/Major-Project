@@ -10,12 +10,15 @@ public class ConsumedItem : MonoBehaviour
         {
             switch (id){
                 case 0:
-                    other.gameObject.GetComponent<PlayerController>().AddCurrency(10);//add currency to player
-                    //play sound effect and collect particles
+                    int value = Random.Range(1, 10);
+                    other.gameObject.GetComponent<PlayerController>().AddCurrency(value);//add currency to player
+                    FindObjectOfType<AudioManager>().Play("CoinCollect");
+                    //play collect particles
                     break;
                 case 1:
                     other.gameObject.GetComponent<PlayerController>().RegenHealth(); //heal
-                    //play sound effect and collect particles
+                    FindObjectOfType<AudioManager>().Play("Heal");
+                    //play collect particles
                     break;
                 default:
                 break;

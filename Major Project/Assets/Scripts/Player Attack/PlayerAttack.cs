@@ -200,6 +200,7 @@ public class PlayerAttack : MonoBehaviour {
         {
             chargeTime = 0;
             canAttack = false;
+            FindObjectOfType<AudioManager>().Play("SwordAttack");
             GameObject sword = Instantiate(ChargedSword, this.transform);
             sword.transform.localScale = new Vector2(sword.transform.localScale.x + attackSize, sword.transform.localScale.y + attackSize);
             StartCoroutine(attackDelay(1f - delayTime));
@@ -208,6 +209,7 @@ public class PlayerAttack : MonoBehaviour {
         {
             chargeTime = 0;
             canAttack = false;
+            FindObjectOfType<AudioManager>().Play("SwordAttack");
             GameObject sword = Instantiate(Sword, arrow.transform.position, arrow.transform.rotation * Quaternion.Euler(0f, 0f, 270f));
             sword.transform.localScale = new Vector2(sword.transform.localScale.x + attackSize, sword.transform.localScale.y + attackSize);
             sword.GetComponent<SwordDmg>().damage = damage;

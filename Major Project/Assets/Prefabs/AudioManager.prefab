@@ -59,6 +59,13 @@ MonoBehaviour:
     loop: 0
     isMusic: 0
     source: {fileID: 0}
+  - name: SwordAttack
+    clip: {fileID: 8300000, guid: 0552ec1c399b6b04591d550b310ea45a, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    isMusic: 0
+    source: {fileID: 0}
   - name: MusicBossRoom
     clip: {fileID: 8300000, guid: 727408a5dacd38d499ea980acc7277d9, type: 3}
     volume: 0.5
@@ -125,6 +132,34 @@ MonoBehaviour:
   - name: Boom
     clip: {fileID: 8300000, guid: 3bee683ba592be148be76ff9fc43a725, type: 3}
     volume: 1
+    pitch: 1
+    loop: 0
+    isMusic: 0
+    source: {fileID: 0}
+  - name: Heal
+    clip: {fileID: 8300000, guid: 9c15a7b6cc67e8f49844d579357f71c8, type: 3}
+    volume: 0.9
+    pitch: 1
+    loop: 0
+    isMusic: 0
+    source: {fileID: 0}
+  - name: CoinCollect
+    clip: {fileID: 8300000, guid: ff6cd6036f16cf64790fec04ab5adf49, type: 3}
+    volume: 0.8
+    pitch: 1
+    loop: 0
+    isMusic: 0
+    source: {fileID: 0}
+  - name: FireballSmall
+    clip: {fileID: 8300000, guid: fa8b524c2b71440488e982355183ed22, type: 3}
+    volume: 0.4
+    pitch: 1
+    loop: 0
+    isMusic: 0
+    source: {fileID: 0}
+  - name: FireballLarge
+    clip: {fileID: 8300000, guid: fa8b524c2b71440488e982355183ed22, type: 3}
+    volume: 0.8
     pitch: 1
     loop: 0
     isMusic: 0
