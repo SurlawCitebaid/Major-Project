@@ -45,13 +45,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40c0017aed852f64abd34ed9545eea36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Pill: {fileID: 21300000, guid: ee9c4d1fae9bec6499356589bb3b61cc, type: 3}
-  WorryDoll: {fileID: 21300000, guid: 3caff24f0a1bd634c9c667b4a6d09882, type: 3}
-  HealthPot: {fileID: 21300000, guid: 968c8b12be7612e46b65ae9010dd7b3e, type: 3}
+  Pill: {fileID: 21300000, guid: 3790105d667e1664eb3b7d29cb327a10, type: 3}
+  WorryDoll: {fileID: 21300000, guid: 5945399e23dd52c4fba651d91b825285, type: 3}
+  HealthPot: {fileID: 21300000, guid: 450e83560d350424d92c8d7a9cc604f3, type: 3}
   MagnifyingGlass: {fileID: 21300000, guid: 61049159b01affd468473f6074d90c03, type: 3}
-  Feather: {fileID: 21300000, guid: 630c45d0ecac44b448d57efe338038f3, type: 3}
-  Spring: {fileID: 21300000, guid: 286e378382d6ff246bf6c90f88cd51e1, type: 3}
-  Battery: {fileID: 21300000, guid: ab32aa7e2cf4d8643a6fd3fc54b8ac52, type: 3}
+  Feather: {fileID: 21300000, guid: 9eeeaab0294f9f247a8e35979155574e, type: 3}
+  Spring: {fileID: 21300000, guid: 8c2bb1753095bd946b54d25a197ebae9, type: 3}
+  Battery: {fileID: 21300000, guid: aa0a4d6cf1c41c54abd613d8f22df022, type: 3}
 --- !u!114 &175300757645991562
 MonoBehaviour:
   m_ObjectHideFlags: 0

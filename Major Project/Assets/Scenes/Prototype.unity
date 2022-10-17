@@ -2216,6 +2216,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 175300757645991564, guid: 7742d2817ee01904c8c1f28a6b3a946e, type: 3}
+      propertyPath: Pill
+      value: 
+      objectReference: {fileID: 21300000, guid: 3790105d667e1664eb3b7d29cb327a10, type: 3}
+    - target: {fileID: 175300757645991564, guid: 7742d2817ee01904c8c1f28a6b3a946e, type: 3}
+      propertyPath: Spring
+      value: 
+      objectReference: {fileID: 21300000, guid: 8c2bb1753095bd946b54d25a197ebae9, type: 3}
+    - target: {fileID: 175300757645991564, guid: 7742d2817ee01904c8c1f28a6b3a946e, type: 3}
+      propertyPath: Battery
+      value: 
+      objectReference: {fileID: 21300000, guid: aa0a4d6cf1c41c54abd613d8f22df022, type: 3}
+    - target: {fileID: 175300757645991564, guid: 7742d2817ee01904c8c1f28a6b3a946e, type: 3}
+      propertyPath: Feather
+      value: 
+      objectReference: {fileID: 21300000, guid: 9eeeaab0294f9f247a8e35979155574e, type: 3}
+    - target: {fileID: 175300757645991564, guid: 7742d2817ee01904c8c1f28a6b3a946e, type: 3}
+      propertyPath: HealthPot
+      value: 
+      objectReference: {fileID: 21300000, guid: 450e83560d350424d92c8d7a9cc604f3, type: 3}
+    - target: {fileID: 175300757645991564, guid: 7742d2817ee01904c8c1f28a6b3a946e, type: 3}
+      propertyPath: WorryDoll
+      value: 
+      objectReference: {fileID: 21300000, guid: 5945399e23dd52c4fba651d91b825285, type: 3}
     - target: {fileID: 175300757645991565, guid: 7742d2817ee01904c8c1f28a6b3a946e, type: 3}
       propertyPath: m_RootOrder
       value: 9
