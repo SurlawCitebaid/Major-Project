@@ -268,4 +268,21 @@ public class PlayerAttack : MonoBehaviour {
     {
         return comboCount;
     }
+    public void cycleWeapon()
+    {
+        switch(weapon)
+        {
+            case WeaponType.FIST:
+                weapon = WeaponType.SWORD;
+                break;
+            case WeaponType.SWORD:
+                weapon = WeaponType.FIREBALL;
+                break;
+            case WeaponType.FIREBALL:
+                weapon = WeaponType.FIST;
+                break;
+            default:
+                break;
+        }
+    }
 }

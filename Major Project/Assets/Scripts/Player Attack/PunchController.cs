@@ -14,7 +14,7 @@ public class PunchController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        selfDestruct(time);
+        StartCoroutine(selfDestruct(time));
     }
     private void OnTriggerEnter2D(Collider2D other)
     {

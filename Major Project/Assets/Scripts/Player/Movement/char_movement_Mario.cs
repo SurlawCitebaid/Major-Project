@@ -124,11 +124,23 @@ public class char_movement_Mario : MonoBehaviour
         } else if (Input.GetButtonUp("Rush_B")) {
             dash = false;
         }
+
+        if (Input.GetButtonDown("Swap"))
+        {
+            StartCoroutine(cycle());
+        }
     }
 
     private void FixedUpdate()
     {
         m_movementController.Move(move_horizontal * Time.fixedDeltaTime, crouch, dash);
     }
+
+    IEnumerator cycle()
+    {
+      yield return new WaitUntil(() => isAttacking == false);
+      m_playerAttack.cycleWeapon();
+    }
+
 
 }
