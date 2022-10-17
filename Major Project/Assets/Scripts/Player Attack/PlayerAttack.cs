@@ -27,6 +27,9 @@ public class PlayerAttack : MonoBehaviour {
     // Fireball Variables
     [Header("Fireball Variables")]
     [SerializeField] private Transform pfFireball, pfBigFireball;
+
+    [Header("Punch Variables")]
+    [SerializeField] private GameObject Punch;
     private void Start()
     {
         firePoint = transform.Find("FirePoint");
@@ -221,34 +224,33 @@ public class PlayerAttack : MonoBehaviour {
         
         if (Input.GetMouseButtonDown(0) && comboCount == 0 && canAttack)
         {
-            // ------------------------------- //
-            //  need animator control here ()  //
-            // ------------------------------- //
             isAttacking = true;
             isCombo = true;
             canAttack = false;
+            GameObject punch = Instantiate(Punch, firePoint.transform.position, this.transform.rotation);
+            punch.GetComponent<PunchController>().time = 0.2f;
+            punch.GetComponent<PunchController>().damage = damage;
             StartCoroutine(attackDelay(.2f)); // 0.2 sec cd between punches
         }
         if (Input.GetMouseButtonDown(0) && comboCount == 1 && canAttack)
         {
-            // ------------------------------- //
-            //  need animator control here ()  //
-            // ------------------------------- //
             isAttacking = true;
             canAttack = false;
+            GameObject punch = Instantiate(Punch, firePoint.transform.position, this.transform.rotation);
+            punch.GetComponent<PunchController>().time = 0.2f;
+            punch.GetComponent<PunchController>().damage = damage;
             StartCoroutine(attackDelay(.2f)); 
         }
         if (Input.GetMouseButtonDown(0) && comboCount == 2 && canAttack)
         {
-            // ------------------------------- //
-            //  need animator control here ()  //
-            // ------------------------------- //
             isAttacking = true;
             canAttack = false;
-            StartCoroutine(attackDelay(1.0f));  // 1.5 sec cd at the end of combo
+            GameObject punch = Instantiate(Punch, firePoint.transform.position, this.transform.rotation);
+            punch.GetComponent<PunchController>().time = 1.0f;
+            punch.GetComponent<PunchController>().damage = damage * 2;
+            StartCoroutine(attackDelay(1f)); 
         }
     }
-
     public bool getAttacking()
     {
         return isAttacking;

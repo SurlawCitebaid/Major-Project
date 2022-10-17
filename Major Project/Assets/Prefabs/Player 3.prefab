@@ -323,7 +323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad05e1567dfdca14987ab666b3d60e1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: 0
+  weapon: 1
   damage: 0
   delayTime: 0
   attackSize: 0
@@ -332,6 +332,7 @@ MonoBehaviour:
   ChargedSword: {fileID: 0}
   pfFireball: {fileID: 4951525452834015375, guid: b1dd51bb6af3e1246a8d83df8e4544b6, type: 3}
   pfBigFireball: {fileID: 4951525452834015375, guid: 956da3f22637e404da0f992cc3ffa965, type: 3}
+  Punch: {fileID: 8013930392231480310, guid: b5770daa62361b5409479f4391acce76, type: 3}
 --- !u!114 &8058410701950631224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -355,6 +356,7 @@ MonoBehaviour:
   maxHealth: 0
   zaps: 0
   health: 0
+  currency: 0
 --- !u!95 &8345553104755940640
 Animator:
   serializedVersion: 4
