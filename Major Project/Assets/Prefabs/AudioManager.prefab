@@ -159,7 +159,35 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: FireballLarge
     clip: {fileID: 8300000, guid: fa8b524c2b71440488e982355183ed22, type: 3}
-    volume: 0.8
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    isMusic: 0
+    source: {fileID: 0}
+  - name: En_SwipeAttack
+    clip: {fileID: 8300000, guid: 766d227bc71a95e4283e410419d7262a, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    isMusic: 0
+    source: {fileID: 0}
+  - name: Bang
+    clip: {fileID: 8300000, guid: 8acce9b168e3d0e41b43fe7289a45072, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    isMusic: 0
+    source: {fileID: 0}
+  - name: PlayerFireballBig
+    clip: {fileID: 8300000, guid: f91fef8fc1bd1fa4a81b90470da384de, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    isMusic: 0
+    source: {fileID: 0}
+  - name: PlayerFireballSmall
+    clip: {fileID: 8300000, guid: f91fef8fc1bd1fa4a81b90470da384de, type: 3}
+    volume: 0.5
     pitch: 1
     loop: 0
     isMusic: 0

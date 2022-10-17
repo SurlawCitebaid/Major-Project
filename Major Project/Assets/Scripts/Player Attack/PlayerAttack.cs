@@ -180,6 +180,7 @@ public class PlayerAttack : MonoBehaviour {
             bigBall.localScale = new Vector2(bigBall.transform.localScale.x + attackSize, bigBall.transform.localScale.y + attackSize);
             canAttack = false;
             fireBallArrowColor.color = Color.white;
+            FindObjectOfType<AudioManager>().Play("PlayerFireballBig");
             StartCoroutine(attackDelay(1f - delayTime));
 
         } else if (Input.GetMouseButtonUp(0) && chargeTime < maxCharge)
@@ -190,6 +191,7 @@ public class PlayerAttack : MonoBehaviour {
             smallBall.GetComponent<FireballController>().damage = damage;
             smallBall.localScale = new Vector2(smallBall.transform.localScale.x + attackSize, smallBall.transform.localScale.y + attackSize);
             canAttack = false;
+            FindObjectOfType<AudioManager>().Play("PlayerFireballSmall");
             StartCoroutine(attackDelay(1f - delayTime));
         }
 

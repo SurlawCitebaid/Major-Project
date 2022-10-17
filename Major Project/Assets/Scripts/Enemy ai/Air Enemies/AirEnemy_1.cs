@@ -13,6 +13,7 @@ public class AirEnemy_1 : MonoBehaviour
     public Material m_Material;
     SpriteRenderer theScale;
     Rigidbody2D rb;
+    bool soundPlayed = false;
 
 
     private bool movePos = true, Aim = false;
@@ -130,11 +131,17 @@ public class AirEnemy_1 : MonoBehaviour
         }
         rb.velocity = pivot.transform.up * 20f;
         fireAnim.SetActive(true);
+
+        if (!soundPlayed){
+            FindObjectOfType<AudioManager>().Play("FireballLarge");
+            soundPlayed = true;
+        }
         
     }
     IEnumerator Aiming()
     {
-        
+        soundPlayed = false;
+
         if (!Aim)
         {
             if (AngleDir(player.transform.position, this.transform.position) < 0)
