@@ -45,27 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - name: PlayerHurt
-    clip: {fileID: 8300000, guid: a9e1ee59bc6c3ff459596a9a1066bc12, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
-    isMusic: 0
-    source: {fileID: 0}
-  - name: PlayerDash
-    clip: {fileID: 8300000, guid: a77218af09ad8b345814b775b7150cc3, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
-    isMusic: 0
-    source: {fileID: 0}
-  - name: SwordAttack
-    clip: {fileID: 8300000, guid: 0552ec1c399b6b04591d550b310ea45a, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
-    isMusic: 0
-    source: {fileID: 0}
   - name: MusicBossRoom
     clip: {fileID: 8300000, guid: 727408a5dacd38d499ea980acc7277d9, type: 3}
     volume: 0.5
@@ -114,6 +93,27 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     isMusic: 1
+    source: {fileID: 0}
+  - name: PlayerHurt
+    clip: {fileID: 8300000, guid: a9e1ee59bc6c3ff459596a9a1066bc12, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    isMusic: 0
+    source: {fileID: 0}
+  - name: PlayerDash
+    clip: {fileID: 8300000, guid: a77218af09ad8b345814b775b7150cc3, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    isMusic: 0
+    source: {fileID: 0}
+  - name: SwordAttack
+    clip: {fileID: 8300000, guid: 0552ec1c399b6b04591d550b310ea45a, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    isMusic: 0
     source: {fileID: 0}
   - name: Boss1Slash1
     clip: {fileID: 8300000, guid: 1fd263f547425744586f06d8f3a7c180, type: 3}
@@ -188,6 +188,27 @@ MonoBehaviour:
   - name: PlayerFireballSmall
     clip: {fileID: 8300000, guid: f91fef8fc1bd1fa4a81b90470da384de, type: 3}
     volume: 0.5
+    pitch: 1
+    loop: 0
+    isMusic: 0
+    source: {fileID: 0}
+  - name: EnemyDeath
+    clip: {fileID: 8300000, guid: 953e255535c7b9f4698d8c5bb4c54029, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    isMusic: 0
+    source: {fileID: 0}
+  - name: StoneSlide
+    clip: {fileID: 8300000, guid: c857a02d06e1d49429a8e1fb13b449a3, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    isMusic: 0
+    source: {fileID: 0}
+  - name: ChestOpen
+    clip: {fileID: 8300000, guid: 7af63b9ff958ec84883a7cc714205420, type: 3}
+    volume: 1
     pitch: 1
     loop: 0
     isMusic: 0

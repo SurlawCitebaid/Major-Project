@@ -57,6 +57,7 @@ public class EnemyAiController : MonoBehaviour
         if(EnemySpawner.totalEnemiesAlive == 0)
         {
             EnemySpawner.enemiesAlive = false;
+            FindObjectOfType<AudioManager>().Play("StoneSlide");
         }
         //if the scriptable object death particles have been set do explosion
         if (enemy.enemyDeathParticles != null)
@@ -65,6 +66,7 @@ public class EnemyAiController : MonoBehaviour
         }
         
         FindObjectOfType<DropItem>().Drop(gameObject);
+        FindObjectOfType<AudioManager>().Play("EnemyDeath");
         Destroy(gameObject);
     }
     public IEnumerator HitFlash(SpriteRenderer sprite , Color32 originalColor)

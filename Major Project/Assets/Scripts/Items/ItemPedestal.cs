@@ -39,6 +39,7 @@ public class ItemPedestal : MonoBehaviour {
             {
                 if (inTrigger && Input.GetKeyDown(KeyCode.E))
                 {
+                    FindObjectOfType<AudioManager>().Play("ChestOpen");
                     StartCoroutine(genItem());
                 }
             }
@@ -59,7 +60,7 @@ public class ItemPedestal : MonoBehaviour {
                     if (currencyObject.getCurrency() > Price)
                     {
 
-
+                        //sound effect
                         currencyObject.SetCurrency( currencyObject.currency -  Price);
                         
                         item_scriptableObject = item_list[Random.Range(0, item_list.Length)];
