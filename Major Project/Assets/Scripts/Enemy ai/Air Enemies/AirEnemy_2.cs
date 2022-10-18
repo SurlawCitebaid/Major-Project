@@ -9,6 +9,7 @@ public class AirEnemy_2 : MonoBehaviour
     private EnemyAiController states;
     private GameObject player;
     public Material m_Material;
+    Quaternion q;
     GameObject predLine;
     private bool attacked = false, movePos = false;
     private int resetCount = 0;
@@ -16,8 +17,8 @@ public class AirEnemy_2 : MonoBehaviour
     {
         predLine = Instantiate(line, this.transform.position, this.transform.rotation);
         predLine.transform.parent = this.transform;
-        predLine.transform.localScale = new Vector3(.3f, 10, 0);
-        predLine.transform.position = new Vector2(transform.position.x, transform.position.y+12f);
+        predLine.transform.localScale = new Vector3(.3f, 30, 0);
+        predLine.transform.position = new Vector3(transform.position.x, transform.position.y+23, 0);
         states = GetComponent<EnemyAiController>();                                             // enemy state machine
 
         player = GameObject.FindGameObjectWithTag("Player");                                    // variable to track player
@@ -60,32 +61,31 @@ public class AirEnemy_2 : MonoBehaviour
     IEnumerator Reset()
     {
         yield return new WaitForSeconds(4f);
-        if (resetCount != 5)
+        if (resetCount != 3)
         {
             resetCount++;
             movePos = false;
             predLine.SetActive(false);
             states.SetState(0);
+        } else
+        {
+            states.Die();
         }
         
     }
     IEnumerator Aiming()
     {
         predLine.SetActive(false);
-        Vector3 dirFromAtoB = (player.transform.position - transform.position).normalized;
         Vector3 vectorToTarget = player.transform.position - transform.position;
-        float dotProd = Vector3.Dot(dirFromAtoB, transform.up);
         float angle;
         angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg - 90f;
-        Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
-        transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * 3f);
-        if (dotProd >= .90)
-        {
-            attacked = false;
-            yield return null;
-            Invoke("SetStateAttack", 1f);
+        q = Quaternion.AngleAxis(angle, Vector3.forward);
+        transform.rotation = q;
+        attacked = false;
+        yield return new WaitForSeconds(1f);
+        SetStateAttack();
 
-        }
+        
     }
     private void SetStateAttack()
     {

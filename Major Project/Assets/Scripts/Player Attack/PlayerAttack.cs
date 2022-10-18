@@ -176,7 +176,7 @@ public class PlayerAttack : MonoBehaviour {
         {
             chargeTime = 0;
             Transform bigBall = Instantiate(pfBigFireball, firePoint.position, firePoint.rotation);
-            bigBall.GetComponent<FireballController>().damage = damage*2;
+            bigBall.GetComponent<FireballController>().damage = damage*4;
             bigBall.localScale = new Vector2(bigBall.transform.localScale.x + attackSize, bigBall.transform.localScale.y + attackSize);
             canAttack = false;
             fireBallArrowColor.color = Color.white;
@@ -207,7 +207,7 @@ public class PlayerAttack : MonoBehaviour {
             canAttack = false;
             FindObjectOfType<AudioManager>().Play("SwordAttack");
             GameObject sword = Instantiate(ChargedSword, this.transform);
-            sword.transform.localScale = new Vector2(sword.transform.localScale.x + attackSize, sword.transform.localScale.y + attackSize);
+            sword.transform.localScale = new Vector2((sword.transform.localScale.x + attackSize)*2, (sword.transform.localScale.y + attackSize)*2);
             StartCoroutine(attackDelay(1f - delayTime));
         }
         else if (Input.GetMouseButtonUp(0) && chargeTime < maxCharge)
