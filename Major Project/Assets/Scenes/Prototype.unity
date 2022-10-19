@@ -889,8 +889,16 @@ PrefabInstance:
       value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 4272103348483566791, guid: 4d132dcb2198a634ea6495c1f208035f, type: 3}
+      propertyPath: itemSpawnChance
+      value: 0.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 4272103348483566791, guid: 4d132dcb2198a634ea6495c1f208035f, type: 3}
       propertyPath: tiles.Array.size
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4272103348483566791, guid: 4d132dcb2198a634ea6495c1f208035f, type: 3}
+      propertyPath: detailSpawnChance
+      value: 0.39
       objectReference: {fileID: 0}
     - target: {fileID: 4272103348483566791, guid: 4d132dcb2198a634ea6495c1f208035f, type: 3}
       propertyPath: tiles.Array.data[7]
