@@ -23,4 +23,8 @@ public class EnemyScriptableObject : ScriptableObject
     public float stunSpeed = 0.0f; //speed multiplier when stunned
     public float jumpHeight; //how high the entity can jump, if cannot jump set to 0
 
+    //Gore Effects
+    [Header("Gore")]
+    public Color goreColor;
+    public GameObject goreChunks;
 }

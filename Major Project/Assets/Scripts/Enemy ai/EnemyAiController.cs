@@ -19,6 +19,7 @@ public class EnemyAiController : MonoBehaviour
     //Camera Shake
     CameraShake cameraShake;
 
+    
     // Update is called once per frame
     private void Start()
     {
@@ -57,7 +58,14 @@ public class EnemyAiController : MonoBehaviour
     }
     public void Die()
     {
+        //More death effects
         cameraShake.CamShake();
+        GameObject goreChunk1 = GameObject.Instantiate(enemy.goreChunks,transform.position,Quaternion.identity);
+        GameObject goreChunk2 = GameObject.Instantiate(enemy.goreChunks, transform.position, Quaternion.identity);
+        GameObject goreChunk3 = GameObject.Instantiate(enemy.goreChunks, transform.position, Quaternion.identity);
+        goreChunk1.GetComponent<SpriteRenderer>().color = enemy.goreColor;
+        goreChunk2.GetComponent<SpriteRenderer>().color = enemy.goreColor;
+        goreChunk3.GetComponent<SpriteRenderer>().color = enemy.goreColor;
         //Minus an enemy alive
         EnemySpawner.totalEnemiesAlive--;
         if(EnemySpawner.totalEnemiesAlive == 0)
