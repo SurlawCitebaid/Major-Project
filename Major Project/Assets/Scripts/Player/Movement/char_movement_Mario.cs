@@ -9,7 +9,7 @@ public class char_movement_Mario : MonoBehaviour
     public Animator animator;
     float move_horizontal = 0f;
     bool jump = false;
-    bool isGrounded, isTouchingWall, isWallGrabing, isfalling, isDashing, isAttacking, canCharge;
+    public bool isGrounded, isTouchingWall, isWallGrabing, isfalling, isDashing, isAttacking, canCharge;
     bool canSwap = true;
     bool crouch = false;
     bool dash = false;
