@@ -15,9 +15,14 @@ public class EnemyAiController : MonoBehaviour
 
     //Local Enemy Values
     private int health;
+
+    //Camera Shake
+    CameraShake cameraShake;
+
     // Update is called once per frame
     private void Start()
     {
+        cameraShake = GameObject.FindGameObjectWithTag("Camera Shaker").GetComponent<CameraShake>();
         rb = GetComponent<Rigidbody2D>();
 
         health = enemy.health;
@@ -52,6 +57,7 @@ public class EnemyAiController : MonoBehaviour
     }
     public void Die()
     {
+        cameraShake.CamShake();
         //Minus an enemy alive
         EnemySpawner.totalEnemiesAlive--;
         if(EnemySpawner.totalEnemiesAlive == 0)

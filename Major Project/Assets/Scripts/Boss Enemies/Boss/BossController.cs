@@ -13,10 +13,13 @@ public class BossController : MonoBehaviour
 
     [SerializeField]
     GameObject deathParticles;
+    //Camera Shake
+    CameraShake cameraShake;
 
     // Start is called before the first frame update
     void Start()
     {
+        cameraShake = GameObject.FindGameObjectWithTag("Camera Shaker").GetComponent<CameraShake>();
         ass = GetComponent<Animator>();
         theScale = GetComponent<SpriteRenderer>();
         player = GameObject.FindGameObjectWithTag("Player");
@@ -80,6 +83,7 @@ public class BossController : MonoBehaviour
         //Die effect
         if(gameObject != null)
         {
+            cameraShake.CamShake();
             GameObject.Instantiate(deathParticles, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }

@@ -13,7 +13,7 @@ public class CameraFollow : MonoBehaviour {
     float height, width, maxHeight, maxWidth;
     private void Start() {
         currentRes = new Vector2(Screen.width, Screen.height);
-        MainCamera = gameObject.GetComponent<Camera>();
+        MainCamera = Camera.main;
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
     }
