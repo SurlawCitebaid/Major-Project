@@ -316,6 +316,9 @@ MonoBehaviour:
   pfFireball: {fileID: 4951525452834015375, guid: b1dd51bb6af3e1246a8d83df8e4544b6, type: 3}
   pfBigFireball: {fileID: 4951525452834015375, guid: 956da3f22637e404da0f992cc3ffa965, type: 3}
   Punch: {fileID: 8013930392231480310, guid: b5770daa62361b5409479f4391acce76, type: 3}
+  m_Fireball: {fileID: 3123809098374092780, guid: 1c3a131b0fb5bf240b4c139ce546a05f, type: 3}
+  m_Ranged: {fileID: 3941026952929304925, guid: aeb4d46da483aa244a92774743ba12a1, type: 3}
+  m_Fist: {fileID: 3123809098374092780, guid: 4c7fd4fc14f3a7d46b576dd5982584e5, type: 3}
 --- !u!114 &8058410701950631224
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ public class char_movement_Mario : MonoBehaviour
     float move_horizontal = 0f;
     bool jump = false;
     bool isGrounded, isTouchingWall, isWallGrabing, isfalling, isDashing, isAttacking, canCharge;
+    bool canSwap = true;
     bool crouch = false;
     bool dash = false;
     float jumpDuration;
@@ -127,7 +128,11 @@ public class char_movement_Mario : MonoBehaviour
 
         if (Input.GetButtonDown("Swap"))
         {
-            StartCoroutine(cycle());
+            if (canSwap)
+            {
+                canSwap = false;
+                StartCoroutine(cycle());
+            }
         }
     }
 
@@ -140,7 +145,7 @@ public class char_movement_Mario : MonoBehaviour
     {
       yield return new WaitUntil(() => isAttacking == false);
       m_playerAttack.cycleWeapon();
+      yield return new WaitForSeconds(1);
+      canSwap = true;
     }
-
-
 }

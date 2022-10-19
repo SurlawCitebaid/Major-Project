@@ -13,11 +13,7 @@ public class PlayerAttack : MonoBehaviour {
     [Header("General")][Space]
     [SerializeField] private WeaponType weapon = WeaponType.FIREBALL;
 
-
     public float damage, delayTime, attackSize = 0;
-
-
-
     // Sword Variables
     [Header("Sword Variables")]
     [SerializeField] private GameObject Arrow, Sword, ChargedSword;
@@ -30,6 +26,11 @@ public class PlayerAttack : MonoBehaviour {
 
     [Header("Punch Variables")]
     [SerializeField] private GameObject Punch;
+
+    [Header("Icon")][Space]
+    public GameObject m_Fireball;
+    public GameObject m_Ranged;
+    public GameObject m_Fist;
     private void Start()
     {
         firePoint = transform.Find("FirePoint");
@@ -276,15 +277,27 @@ public class PlayerAttack : MonoBehaviour {
         {
             case WeaponType.FIST:
                 weapon = WeaponType.SWORD;
+                StartCoroutine(DisplayWeaponIcon(m_Ranged));
                 break;
             case WeaponType.SWORD:
                 weapon = WeaponType.FIREBALL;
+                StartCoroutine(DisplayWeaponIcon(m_Fireball));
                 break;
             case WeaponType.FIREBALL:
                 weapon = WeaponType.FIST;
+                StartCoroutine(DisplayWeaponIcon(m_Fist));
                 break;
             default:
                 break;
         }
+    }
+    IEnumerator DisplayWeaponIcon(GameObject Icon)
+    {
+        Vector3 position = new Vector3();
+        position.Set(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1, this.gameObject.transform.position.z);
+        GameObject icon = Instantiate(Icon, position, this.transform.rotation);
+        icon.transform.SetParent(this.gameObject.transform);
+        yield return new WaitForSeconds(1);
+        Destroy(icon);
     }
 }
