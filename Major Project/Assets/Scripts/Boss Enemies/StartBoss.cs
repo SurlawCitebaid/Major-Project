@@ -70,6 +70,7 @@ public class StartBoss : MonoBehaviour
             if (!spawnedOnce)
             {
                 //Lock doors on start of fight
+                Door.bossStart = true;
                 EnemySpawner.enemiesAlive = true;
                 Door.lockDoors();
                 //Turns on the particles
@@ -105,6 +106,7 @@ public class StartBoss : MonoBehaviour
 
     IEnumerator delayBossSpawn()
     {
+       
         EnemySpawner.enemiesAlive = true;
         //Delayed to match intro
         yield return new WaitForSeconds(6.5f);

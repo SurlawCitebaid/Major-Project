@@ -46,8 +46,8 @@ public class EnemySpawner : MonoBehaviour
             totalEnemiesAlive = 0;
             maxSpawns = (int)scalingMaxSpawns;
         }
-        //enemies alive
-        else if(enemiesAlive)
+        //enemies alive and current room isn't visted
+        else if(enemiesAlive && !Door.isVisted(GenerateLevel.currentPlayerRoom))
         {
             //Spawn until the max is reached
             if(currentSpawned < maxSpawns)

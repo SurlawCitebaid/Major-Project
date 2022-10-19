@@ -23,8 +23,13 @@ public class Door : MonoBehaviour
     float currentTime2;
     float lerpTime;
 
+    //List of visited room
+    public static List<Vector2> vistedRooms;
+    public static bool bossStart = false;
+
     private void Start()
     {
+        vistedRooms = new List<Vector2>();
         //Lock doors at begining
         gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
         childStoneSlab = transform.Find("stoneSlabDoor").gameObject;
@@ -51,16 +56,23 @@ public class Door : MonoBehaviour
 
     private void Update()
     {
-        if (unlock && !unlockedOnce)
+
+        doorUnlockingAnimation();
+        doorLockingAnimation();
+        
+    }
+
+    public void doorUnlockingAnimation()
+    {
+        if (unlock)
         {
             currentTime += Time.deltaTime;
             lerpTime = currentTime / doorOpenTime;
             //Door no longer needs to be unlocked
             if (lerpTime > 1f)
             {
-                Debug.Log("Door unlocked");
                 unlock = false;
-                unlockedOnce = true;
+                //unlockedOnce = true;
                 currentTime = 0;
                 lerpTime = 0;
             }
@@ -84,9 +96,12 @@ public class Door : MonoBehaviour
                 }
             }
         }
+    }
 
+    public void doorLockingAnimation()
+    {
         //Lock door only for boss
-        if (lockD && !lockOnce)
+        if (lockD && isDoorInThisRoom())
         {
             currentTime2 += Time.deltaTime;
             lerpTime = currentTime2 / doorOpenTime;
@@ -94,8 +109,8 @@ public class Door : MonoBehaviour
             //Door no longer needs to be unlocked
             if (lerpTime > 1f)
             {
+                Debug.Log("Door anim");
                 lockD = false;
-                lockOnce = true;
                 currentTime2 = 0;
                 lerpTime = 0;
             }
@@ -121,9 +136,24 @@ public class Door : MonoBehaviour
         }
     }
 
+    public bool isDoorInThisRoom()
+    {
+        foreach (Door door in GenerateLevel.rooms[(int)GenerateLevel.currentPlayerRoom.x, (int)GenerateLevel.currentPlayerRoom.y].getDoors())
+        {
+            if(door == this)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     //Unlocks doors of current room
     public static void unlockDoors()
     {
+        //Add to visited rooms because this room was unlocked
+        vistedRooms.Add(GenerateLevel.currentPlayerRoom);
+
         Debug.Log("Doors Unlocking");
         Room room = GenerateLevel.rooms[(int)GenerateLevel.currentPlayerRoom.x, (int)GenerateLevel.currentPlayerRoom.y];
         foreach(Door door in room.getDoors())
@@ -134,12 +164,18 @@ public class Door : MonoBehaviour
 
     public static void lockDoors()
     {
-        EnemySpawner.unlockDoorsOnce = true;
-        Debug.Log("Doors Locking");
-        Room room = GenerateLevel.rooms[(int)GenerateLevel.currentPlayerRoom.x, (int)GenerateLevel.currentPlayerRoom.y];
-        foreach (Door door in room.getDoors())
+        //If boss room then ignore
+        if (Door.bossStart || !isVisted(GenerateLevel.currentPlayerRoom))
         {
-            door.lockDoor();
+            EnemySpawner.unlockDoorsOnce = true;
+            Debug.Log("Doors Locking");
+            Room room = GenerateLevel.rooms[(int)GenerateLevel.currentPlayerRoom.x, (int)GenerateLevel.currentPlayerRoom.y];
+            Debug.Log(room.roomSizeX);
+            Debug.Log(room.roomSizeY);
+            foreach (Door door in room.getDoors())
+            {
+                door.lockDoor();
+            }
         }
     }
 
@@ -147,28 +183,38 @@ public class Door : MonoBehaviour
     {
         gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
         unlock = true;
-        unlockedOnce = false;
     }
 
     public void lockDoor()
     {
         gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
         lockD = true;
-        lockOnce = false;
     }
 
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    public static bool isVisted(Vector2 currentRoom)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        foreach(Vector2 vistedRoom in vistedRooms)
         {
-            collision.transform.position = getDoorToTravelTo();
-            lockDoors();
-            EnemySpawner.enemiesAlive = true;
-            CameraFollow.updateRoomCamera = true;
+            if(currentRoom == vistedRoom)
+            {
+                return true;
+            }
         }
-
+        return false;
     }
+
+
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Player"))
+    //    {
+    //        collision.transform.position = getDoorToTravelTo();
+    //        lockDoors();
+    //        EnemySpawner.enemiesAlive = true;
+    //        CameraFollow.updateRoomCamera = true;
+    //    }
+
+    //}
 
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -176,7 +222,10 @@ public class Door : MonoBehaviour
         {
             collision.transform.position = getDoorToTravelTo();
             lockDoors();
-            EnemySpawner.enemiesAlive = true;
+            if (!isVisted(GenerateLevel.currentPlayerRoom))
+            {
+                EnemySpawner.enemiesAlive = true;
+            }
             CameraFollow.updateRoomCamera = true;
         }
     }

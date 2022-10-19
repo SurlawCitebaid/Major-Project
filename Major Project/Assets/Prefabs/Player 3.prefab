@@ -126,7 +126,6 @@ GameObject:
   - component: {fileID: 8189460115910226537}
   - component: {fileID: 5145062432410317}
   - component: {fileID: 428982391941556551}
-  - component: {fileID: 930555887957522440}
   - component: {fileID: 874585582565191162}
   - component: {fileID: 3309582777347614161}
   - component: {fileID: 2580433044254193292}
@@ -232,22 +231,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!70 &930555887957522440
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2572837388139638580}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 6200000, guid: e8270beb6af5b154aa57e85dc7af6a50, type: 2}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.008101861, y: 0.20680103}
-  m_Size: {x: 0.5086694, y: 0.5086694}
-  m_Direction: 0
 --- !u!70 &874585582565191162
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -261,8 +244,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.008101861, y: -0.24596414}
-  m_Size: {x: 0.5086694, y: 0.5086694}
+  m_Offset: {x: 0.008101868, y: -0.015111724}
+  m_Size: {x: 0.5086694, y: 0.9703743}
   m_Direction: 0
 --- !u!114 &3309582777347614161
 MonoBehaviour:
@@ -301,7 +284,7 @@ MonoBehaviour:
   m_JumpStack: 2
   m_JumpDuration: 0.35
   m_CrouchMultiplier: 0.4
-  m_CrouchDisableCollider: {fileID: 930555887957522440}
+  m_CrouchDisableCollider: {fileID: 0}
   m_DashDistance: 20
   m_DashDuration: 0.2
   m_DashCooldown: 1

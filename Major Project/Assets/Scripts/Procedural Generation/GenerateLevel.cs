@@ -48,7 +48,7 @@ public class GenerateLevel : MonoBehaviour
     [Range(0, 1)]
     float detailSpawnChance;
 
-    int[,] grid;
+    public static int[,] grid;
     public static Room[,] rooms;
     //Room the player is in      
     public static Vector2 currentPlayerRoom;

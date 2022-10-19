@@ -28,8 +28,6 @@ public class HealthController : MonoBehaviour
     private void Update()
     {
         currencyObject.GetComponent<TMP_Text>().text = "$ "+PlayerController.Instance.getCurrency().ToString();
-        Debug.Log(PlayerController.Instance.currency);
-        Debug.Log(currency);
         if (PlayerController.maxHealth > 10)
         {
             maxHearts = 10;

@@ -17,8 +17,6 @@ public class BossController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        EnemySpawner.enemiesAlive = true;
-        Door.lockDoors();
         ass = GetComponent<Animator>();
         theScale = GetComponent<SpriteRenderer>();
         player = GameObject.FindGameObjectWithTag("Player");
@@ -69,6 +67,7 @@ public class BossController : MonoBehaviour
     }
     public void Die()
     {
+        Door.bossStart = false;
         EnemySpawner.enemiesAlive = false;
         StartCoroutine(DieEffect());
     }
