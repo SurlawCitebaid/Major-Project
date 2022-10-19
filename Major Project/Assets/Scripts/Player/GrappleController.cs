@@ -104,4 +104,9 @@ public class GrappleController : MonoBehaviour
         line.SetPosition(1, target);
         retracting = true;
     }
+    
+    public bool getGrappling()
+    {
+        return isGrappling;
+    }
 }

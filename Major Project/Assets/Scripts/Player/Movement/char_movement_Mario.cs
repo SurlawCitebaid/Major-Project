@@ -5,11 +5,12 @@ using UnityEngine;
 public class char_movement_Mario : MonoBehaviour
 {
     public movement_Mario m_movementController;
+    public GrappleController m_grappleController;
     public PlayerAttack m_playerAttack;
     public Animator animator;
     float move_horizontal = 0f;
     bool jump = false;
-    public bool isGrounded, isTouchingWall, isWallGrabing, isfalling, isDashing, isAttacking, canCharge;
+    public bool isGrounded, isTouchingWall, isWallGrabing, isfalling, isDashing, isAttacking, canCharge, isGrappling;
     bool canSwap = true;
     bool crouch = false;
     bool dash = false;
@@ -27,6 +28,7 @@ public class char_movement_Mario : MonoBehaviour
         isfalling = m_movementController.getFalling();
         isDashing = m_movementController.getDashing();
         isAttacking = m_playerAttack.getAttacking();
+        isGrappling = m_grappleController.getGrappling();
 
         //////////////animation part//////////////
         if (isDashing)                                              // invincible when dashing
@@ -85,6 +87,12 @@ public class char_movement_Mario : MonoBehaviour
             animator.SetBool("isGrabing", true);
         } else {
             animator.SetBool("isGrabing", false);
+        }
+        if (isGrappling)
+        {
+            animator.SetBool("isGrappling", true);
+        } else {
+            animator.SetBool("isGrappling", false);
         }
         //////////////////////////////////////////
 
