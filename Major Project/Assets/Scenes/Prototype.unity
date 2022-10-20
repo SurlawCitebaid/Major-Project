@@ -379,34 +379,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
-    - target: {fileID: 4587726708043455572, guid: 7071cdfff551a3940a2e9e76f61cec39, type: 3}
-      propertyPath: sounds.Array.size
-      value: 27
-      objectReference: {fileID: 0}
-    - target: {fileID: 4587726708043455572, guid: 7071cdfff551a3940a2e9e76f61cec39, type: 3}
-      propertyPath: sounds.Array.data[25].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: e13b96df558b9534c833a44dce8ecac0, type: 3}
-    - target: {fileID: 4587726708043455572, guid: 7071cdfff551a3940a2e9e76f61cec39, type: 3}
-      propertyPath: sounds.Array.data[25].name
-      value: StaffSwing
-      objectReference: {fileID: 0}
-    - target: {fileID: 4587726708043455572, guid: 7071cdfff551a3940a2e9e76f61cec39, type: 3}
-      propertyPath: sounds.Array.data[26].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 82cd150b7b2a80b40b8f53f91d1c2fce, type: 3}
-    - target: {fileID: 4587726708043455572, guid: 7071cdfff551a3940a2e9e76f61cec39, type: 3}
-      propertyPath: sounds.Array.data[26].name
-      value: StaffSwing2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4587726708043455572, guid: 7071cdfff551a3940a2e9e76f61cec39, type: 3}
-      propertyPath: sounds.Array.data[25].pitch
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4587726708043455572, guid: 7071cdfff551a3940a2e9e76f61cec39, type: 3}
-      propertyPath: sounds.Array.data[25].volume
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6556396043184807832, guid: 7071cdfff551a3940a2e9e76f61cec39, type: 3}
       propertyPath: m_RootOrder
       value: 4

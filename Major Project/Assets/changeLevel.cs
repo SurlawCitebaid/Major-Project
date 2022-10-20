@@ -21,7 +21,8 @@ public class changeLevel : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        SceneManager.LoadScene(sceneName);
+        if(!collision.CompareTag("Magnet"))
+            SceneManager.LoadScene(sceneName);
     }
 
     IEnumerator activatePortal()
