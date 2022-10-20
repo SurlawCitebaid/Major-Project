@@ -66,6 +66,7 @@ public class EnemyAiController : MonoBehaviour
         goreChunk1.GetComponent<SpriteRenderer>().color = enemy.goreColor;
         goreChunk2.GetComponent<SpriteRenderer>().color = enemy.goreColor;
         goreChunk3.GetComponent<SpriteRenderer>().color = enemy.goreColor;
+
         //Minus an enemy alive
         EnemySpawner.totalEnemiesAlive--;
         if(EnemySpawner.totalEnemiesAlive == 0)
@@ -80,6 +81,7 @@ public class EnemyAiController : MonoBehaviour
         }
         
         FindObjectOfType<DropItem>().Drop(gameObject);
+        FindObjectOfType<AudioManager>().Play("EnemyDeathGore");
         FindObjectOfType<AudioManager>().Play("EnemyDeath");
         Destroy(gameObject);
     }

@@ -199,6 +199,13 @@ MonoBehaviour:
     loop: 0
     isMusic: 0
     source: {fileID: 0}
+  - name: EnemyDeathGore
+    clip: {fileID: 8300000, guid: 8343cbc6e2c41da428034cc4cd3401f0, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    isMusic: 0
+    source: {fileID: 0}
   - name: StoneSlide
     clip: {fileID: 8300000, guid: c857a02d06e1d49429a8e1fb13b449a3, type: 3}
     volume: 1
