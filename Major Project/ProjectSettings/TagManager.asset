@@ -9,6 +9,7 @@ TagManager:
   - Hazard
   - Platform
   - Camera Shaker
+  - Magnet
   layers:
   - Default
   - TransparentFX
