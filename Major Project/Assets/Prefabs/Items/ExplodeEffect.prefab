@@ -44,4 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a97efcccb8e089c4b8fb2d5114ec99ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 20
+  willOWispParticles: {fileID: 8671345106309071871, guid: 9236347384d8a5842bf8615998c51d46, type: 3}
+  radius: 3
+  explosionChance: 60
