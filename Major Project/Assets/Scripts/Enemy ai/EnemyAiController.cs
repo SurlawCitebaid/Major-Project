@@ -121,5 +121,7 @@ public class EnemyAiController : MonoBehaviour
 
         if (health < 0)
             Die();
+        else 
+            FindObjectOfType<AudioManager>().Play("EnemyHit");
     }
 }

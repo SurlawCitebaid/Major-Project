@@ -119,11 +119,11 @@ public class GroundEnemyController : MonoBehaviour
     void Attack()
     {
         states.SetState(3); //ATTACKING
-        states.SetImmune(true);
+        //states.SetImmune(true);
 
         attack.DoAttack(states, distance, gameObject);
 
-        StartCoroutine(states.Immunity());
+        //StartCoroutine(states.Immunity());
         StartCoroutine(states.CooldownAttack(states.enemy.attack.cooldownTime,0));
     }
     
