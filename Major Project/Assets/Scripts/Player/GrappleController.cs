@@ -9,7 +9,7 @@ public class GrappleController : MonoBehaviour
     [Header("General")][Space]
     [SerializeField] LayerMask grapplableLayer;
     [SerializeField] float maxDistance = 10f;
-    [SerializeField] float grappleSpeed = 10f;
+    [SerializeField] float grappleSpeed = 5f;
     [SerializeField] float grappleShootSpeed = 20f;
     public GameObject grapplingHook;
 
@@ -48,7 +48,8 @@ public class GrappleController : MonoBehaviour
             {
                 transform.position = grapplePos;
             }
-            rb.gravityScale = 0.0f;
+            rb.velocity = Vector2.zero;
+            rb.gravityScale = 0f;
             line.SetPosition(0, transform.position);
 
             if (Input.GetMouseButton(0) || (Input.GetButtonUp("Grapple") || Input.GetButtonDown("Rush_B") || Input.GetButtonDown("Jump")) || (canReach == false && dist > 3)) 
