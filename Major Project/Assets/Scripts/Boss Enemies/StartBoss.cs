@@ -17,7 +17,6 @@ public class StartBoss : MonoBehaviour
     //Shake effect
     Vector2 originalPosition;
     bool startEffect = false;
-    float bossShakeSpeed = 10f;
     Vector2 spawnLocation;
     float currentTime;
     bool inTrigger = false;
@@ -81,7 +80,7 @@ public class StartBoss : MonoBehaviour
                 //Turns on the particles
                 transform.Find("Stone Shatter Effect").gameObject.SetActive(true);
                 FindObjectOfType<AudioManager>().PlayMusic("MusicBossBattleLoop", "MusicBossBattleIntro");
-                StartCoroutine(delayBossSpawn());
+                StartCoroutine(DelayBossSpawn());
             }
             spawnedOnce = true;
         }
@@ -109,7 +108,7 @@ public class StartBoss : MonoBehaviour
 
     
 
-    IEnumerator delayBossSpawn()
+    IEnumerator DelayBossSpawn()
     {
        
         EnemySpawner.enemiesAlive = true;

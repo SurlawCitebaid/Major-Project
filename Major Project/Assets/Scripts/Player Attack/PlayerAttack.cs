@@ -13,11 +13,11 @@ public class PlayerAttack : MonoBehaviour {
     [Header("General")][Space]
     [SerializeField] private WeaponType weapon = WeaponType.FIREBALL;
 
-    public float damage, delayTime, attackSize = 0;
+    public float maxCharge,damage, delayTime, attackSize = 0;
     // Sword Variables
     [Header("Sword Variables")]
     [SerializeField] private GameObject Arrow, Sword, ChargedSword;
-    private float chargeTime = 0, comboResetTime = 0, maxCharge = 1.5f;
+    private float chargeTime = 0, comboResetTime = 0, maxChargeTime = 1.5f;
 
     private SpriteRenderer arrowColor, fireBallArrowColor;
     // Fireball Variables
@@ -44,6 +44,7 @@ public class PlayerAttack : MonoBehaviour {
             delayTime = PlayerController.Instance.delayTime;
             attackSize = PlayerController.Instance.attackSize;
             damage = PlayerController.Instance.baseDamage;
+            maxCharge = maxChargeTime - delayTime;
 
             if (!genArrow && weapon == WeaponType.SWORD)                                        //check if weapon is sword and arrow is not spawned
             {
@@ -62,8 +63,7 @@ public class PlayerAttack : MonoBehaviour {
                 Vector3 dir = transform.position - arrow.transform.position;                    //rotate the arrow
                 float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
-                arrow.transform.position = transform.position + direction;
-                arrow.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+                arrow.transform.SetPositionAndRotation(transform.position + direction, Quaternion.AngleAxis(angle - 90, Vector3.forward));
 
                 if (chargeTime >= maxCharge){arrowColor.color = Color.red;}
                 else{arrowColor.color = Color.white;}                                           //checks if charged attack is ready or not
@@ -78,6 +78,7 @@ public class PlayerAttack : MonoBehaviour {
                 fireBallArrow.SetActive(false);
             } else
             {
+                if (chargeTime >= maxCharge) { fireBallArrowColor.color = Color.red; }
                 if (Input.GetKeyDown(KeyCode.W))
                 {
                     firePoint.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + 1);                     //face up
@@ -160,7 +161,7 @@ public class PlayerAttack : MonoBehaviour {
             isAttacking = true;
             chargeTime += Time.deltaTime;
 
-            if (chargeTime >= maxCharge) { fireBallArrowColor.color = Color.red; }
+            
         }
         if(Input.GetMouseButtonUp(0) && chargeTime >= maxCharge)
         {

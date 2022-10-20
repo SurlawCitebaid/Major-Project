@@ -7,7 +7,7 @@ using TMPro;
 public class Inventory : MonoBehaviour {
     public static Inventory instance;
     public GameObject itemDisplay;
-    [SerializeField] public List<ItemValues> inventory;
+    public List<ItemValues> inventory;
     private int invSize;
 
     public Inventory()
@@ -23,11 +23,11 @@ public class Inventory : MonoBehaviour {
     {
         if(invSize != inventory.Count)
         {
-            showItem(inventory[inventory.Count-1]);
+            ShowItem(inventory[inventory.Count-1]);
             invSize = inventory.Count;
         }
     }
-    private void showItem(ItemValues item)
+    private void ShowItem(ItemValues item)
     {
         GameObject panel = Instantiate(itemDisplay, Camera.main.transform);
         SpriteRenderer picture = panel.transform.Find("Picture").GetComponent<SpriteRenderer>();

@@ -7,7 +7,6 @@ public class SwordDmg : MonoBehaviour
     Collider2D swordCol;
     public GameObject zapEffect;
     public GameObject explodeEffect;
-    bool zapOn = true;
     public float damage;
     private void Start()
     {

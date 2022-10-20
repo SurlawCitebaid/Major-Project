@@ -21,7 +21,7 @@ public class ItemZapEffect : MonoBehaviour
         Enemies = new List<GameObject>();
         enemyPositions = new List<GameObject>();
         array = Physics2D.OverlapCircleAll(this.transform.position, 1000);
-        convertEnemy(array);
+        ConvertEnemy(array);
         currentPos = this.transform.position;
     }
 
@@ -51,7 +51,7 @@ public class ItemZapEffect : MonoBehaviour
                 if(index != enemyPositions.Count -1)
                 {
                     enemyPositions[index].GetComponent<EnemyAiController>().Damage(PlayerController.Instance.baseDamage/2);
-                    index = (index + 1);
+                    index = index++;
                 } else
                 {
                     Destroy(gameObject);            //reaches last position
@@ -104,7 +104,7 @@ public class ItemZapEffect : MonoBehaviour
             }
         }
     }
-    void convertEnemy(Collider2D[] EnemiesArray)
+    void ConvertEnemy(Collider2D[] EnemiesArray)
     {
         foreach (Collider2D Enemy in EnemiesArray)
         {

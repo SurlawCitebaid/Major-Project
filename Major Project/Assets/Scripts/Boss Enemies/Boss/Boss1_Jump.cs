@@ -25,7 +25,7 @@ public class Boss1_Jump : StateMachineBehaviour
         Vector2 target = new Vector2(rb.position.x, yPos);
         Vector2 newPos = Vector2.MoveTowards(rb.position, target, 30 * Time.fixedDeltaTime);
         rb.MovePosition(newPos);
-        animator.SetBool("Attack1", true);
+        animator.SetBool("Attack", true);
 
     }
 

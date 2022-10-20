@@ -8,12 +8,10 @@ public class GroundEnemyController : MonoBehaviour
     //0:MOVING 1:CHASE 2:AIMING 3:ATTACKING 4:COOLDOWN 5:STUNNED
     GameObject player;
     Vector2 distance;
-    bool isGrounded;
     bool facingRight;
     [SerializeField] private LayerMask lm_ground;
     [SerializeField] private Transform groundCheckPos;
     [SerializeField] private ParticleSystem dust;
-    EnemyScriptableObject enemy;
     [SerializeField] Attack attack;
 
     private void Awake() {
@@ -67,15 +65,6 @@ public class GroundEnemyController : MonoBehaviour
 
         
         
-    }
-
-    private void GroundCheck() {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(new Vector2(groundCheckPos.position.x, groundCheckPos.position.y), 0.1f, lm_ground);
-        if (hits.Length > 0)
-            isGrounded = true;
-        else {
-            isGrounded = false;
-        }
     }
 
     void MoveEnemy(float speed){

@@ -40,7 +40,7 @@ public class ItemPedestal : MonoBehaviour {
                 if (inTrigger && Input.GetKeyDown(KeyCode.E))
                 {
                     FindObjectOfType<AudioManager>().Play("ChestOpen");
-                    StartCoroutine(genItem());
+                    StartCoroutine(GenItem());
                 }
             }
             else
@@ -81,7 +81,7 @@ public class ItemPedestal : MonoBehaviour {
             reroll.SetActive(false);
         }
     }
-    IEnumerator genItem()
+    IEnumerator GenItem()
     {
         itemOut = true;
         PriceText.text = Price.ToString();

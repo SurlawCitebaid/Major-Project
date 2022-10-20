@@ -35,6 +35,6 @@ public class Projectile : MonoBehaviour
             }
         }
         float moveSpeed = 20f;
-        transform.Translate(shootDir * moveSpeed * Time.deltaTime);
+        transform.Translate((shootDir * moveSpeed) * Time.deltaTime);
     }
 }

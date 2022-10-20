@@ -15,6 +15,7 @@ public class ConsumedItem : MonoBehaviour
         {
             PickUpItem(id);
             Destroy(gameObject);
+
         } else if (other.gameObject.CompareTag("Magnet")){
             timeStamp = Time.time;
             magnet = other.gameObject.transform;
@@ -25,9 +26,15 @@ public class ConsumedItem : MonoBehaviour
     }
 
     private void Update() {
-        if (inside) {
+
+        if (inside)
+        {
             Vector2 magnetDir = (magnet.position - transform.position);
-            GetComponent<Rigidbody2D>().velocity = magnetDir.normalized * force * (Time.time + timeStamp)/timeStamp;
+            GetComponent<Rigidbody2D>().velocity = magnetDir.normalized * force * (Time.time + timeStamp) / timeStamp;
+        }
+        if (!Room.enemyLocationValid(transform.position))
+        {
+                Destroy(gameObject,1);
         }
     }
 
