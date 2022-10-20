@@ -23,3 +23,5 @@ MonoBehaviour:
   slowSpeed: 0.5
   stunSpeed: 0
   jumpHeight: 5
+  goreColor: {r: 0, g: 0, b: 0, a: 0}
+  goreChunks: {fileID: 8067943008802209201, guid: 49997bfdd4df98a4c80f96c5d882f1fc, type: 3}

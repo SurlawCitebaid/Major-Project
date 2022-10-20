@@ -262,6 +262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_movementController: {fileID: 2580433044254193292}
+  m_grappleController: {fileID: 2987722294195859667}
   m_playerAttack: {fileID: 5146834318614802656}
   animator: {fileID: 8345553104755940640}
   isGrounded: 0
@@ -271,6 +272,7 @@ MonoBehaviour:
   isDashing: 0
   isAttacking: 0
   canCharge: 0
+  isGrappling: 0
 --- !u!114 &2580433044254193292
 MonoBehaviour:
   m_ObjectHideFlags: 0

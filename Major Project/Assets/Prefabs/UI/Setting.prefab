@@ -974,7 +974,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aM: {fileID: 24100000, guid: 78449e906dc3e4e46b1315b2ed8489f7, type: 2}
-  resolutions: []
+  resolutions:
+  - horizontal: 1920
+    vertical: 1080
+  - horizontal: 1600
+    vertical: 900
+  - horizontal: 1366
+    vertical: 768
+  - horizontal: 800
+    vertical: 600
+  - horizontal: 640
+    vertical: 480
   resolutionLabel: {fileID: 4061524853220725346}
   fullScreenToggle: {fileID: 959697941766406861}
 --- !u!1 &1458673443284013301
