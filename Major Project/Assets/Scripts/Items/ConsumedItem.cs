@@ -19,6 +19,7 @@ public class ConsumedItem : MonoBehaviour
             timeStamp = Time.time;
             magnet = other.gameObject.transform;
             inside = true;
+            GetComponent<BoxCollider2D>().enabled = false;
             GetComponent<Rigidbody2D>().gravityScale = 0;
         }
     }
