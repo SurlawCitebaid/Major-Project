@@ -220,4 +220,25 @@ MonoBehaviour:
     loop: 0
     isMusic: 0
     source: {fileID: 0}
+  - name: CoinJingle
+    clip: {fileID: 8300000, guid: 6a44f245d9ad36f41a23c04b56267982, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    isMusic: 0
+    source: {fileID: 0}
+  - name: StaffSwing
+    clip: {fileID: 8300000, guid: e13b96df558b9534c833a44dce8ecac0, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    isMusic: 0
+    source: {fileID: 0}
+  - name: StaffSwing2
+    clip: {fileID: 8300000, guid: 82cd150b7b2a80b40b8f53f91d1c2fce, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    isMusic: 0
+    source: {fileID: 0}
   mainMixer: {fileID: 24300002, guid: 78449e906dc3e4e46b1315b2ed8489f7, type: 2}

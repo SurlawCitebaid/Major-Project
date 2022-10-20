@@ -379,6 +379,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4587726708043455572, guid: 7071cdfff551a3940a2e9e76f61cec39, type: 3}
+      propertyPath: sounds.Array.size
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 4587726708043455572, guid: 7071cdfff551a3940a2e9e76f61cec39, type: 3}
+      propertyPath: sounds.Array.data[25].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: e13b96df558b9534c833a44dce8ecac0, type: 3}
+    - target: {fileID: 4587726708043455572, guid: 7071cdfff551a3940a2e9e76f61cec39, type: 3}
+      propertyPath: sounds.Array.data[25].name
+      value: StaffSwing
+      objectReference: {fileID: 0}
+    - target: {fileID: 4587726708043455572, guid: 7071cdfff551a3940a2e9e76f61cec39, type: 3}
+      propertyPath: sounds.Array.data[26].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 82cd150b7b2a80b40b8f53f91d1c2fce, type: 3}
+    - target: {fileID: 4587726708043455572, guid: 7071cdfff551a3940a2e9e76f61cec39, type: 3}
+      propertyPath: sounds.Array.data[26].name
+      value: StaffSwing2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4587726708043455572, guid: 7071cdfff551a3940a2e9e76f61cec39, type: 3}
+      propertyPath: sounds.Array.data[25].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4587726708043455572, guid: 7071cdfff551a3940a2e9e76f61cec39, type: 3}
+      propertyPath: sounds.Array.data[25].volume
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6556396043184807832, guid: 7071cdfff551a3940a2e9e76f61cec39, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -731,6 +759,54 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &604282077
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 604282078}
+  - component: {fileID: 604282079}
+  m_Layer: 7
+  m_Name: Magnet
+  m_TagString: Magnet
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &604282078
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 604282077}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1375352150}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &604282079
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 604282077}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 2
 --- !u!1 &653733635
 GameObject:
   m_ObjectHideFlags: 0
@@ -1675,6 +1751,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a14b707db913fbe43ae685f51172c2d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1375352150 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8189460115910226537, guid: 65bff973e8bbe504bb29c25835ac2f82, type: 3}
+  m_PrefabInstance: {fileID: 1819194388}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1422882652
 GameObject:
   m_ObjectHideFlags: 0

@@ -80,6 +80,7 @@ public class BossController : MonoBehaviour
         //Wait 4 seconds then die
         yield return new WaitForSeconds(4f);
         FindObjectOfType<AudioManager>().ScenePlayMusic(true);//restarts scene music
+        FindObjectOfType<DropItem>().DropBoss(gameObject);
         //Die effect
         if(gameObject != null)
         {

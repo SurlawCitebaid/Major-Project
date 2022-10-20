@@ -13,7 +13,6 @@ public class ConsumedItem : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.CompareTag("Player"))
         {
-            
             PickUpItem(id);
             Destroy(gameObject);
         } else if (other.gameObject.CompareTag("Magnet")){

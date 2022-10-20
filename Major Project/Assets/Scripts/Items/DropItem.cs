@@ -18,6 +18,15 @@ public class DropItem : MonoBehaviour
             int toDrop = Random.Range(0, possibleDrops.Length);
             SpawnDrop(possibleDrops[toDrop], fromObject);
         }
+
+        FindObjectOfType<AudioManager>().Play("CoinJingle");
+    }
+
+    public void DropBoss(GameObject fromObject){
+        for(int i = 0; i < 20; i++)
+            SpawnDrop(moneyDrop, fromObject);
+
+        FindObjectOfType<AudioManager>().Play("CoinJingle");
     }
 
     void SpawnDrop(GameObject drop, GameObject from){ //instantiate item
