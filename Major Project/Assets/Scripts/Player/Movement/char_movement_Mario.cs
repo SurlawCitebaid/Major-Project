@@ -42,7 +42,6 @@ public class char_movement_Mario : MonoBehaviour
             animator.SetBool("isAttacking", true);
             weapon = m_playerAttack.getWeaponType();
             comboCount = m_playerAttack.getComboCount();
-            Debug.Log(comboCount);
             if (weapon.Equals("FIST"))
             {
                 animator.SetBool("isUsingFist", true);

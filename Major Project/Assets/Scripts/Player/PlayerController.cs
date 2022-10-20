@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     public int maxHealth, zaps;
     public int health;
     public int currency;
+    public float attackSize, delayTime;
     SpriteRenderer sprite;
     Color originalColor;
 
@@ -41,45 +42,41 @@ public class PlayerController : MonoBehaviour
         playerJumpForce = playerScriptableObject.jumpForce;
         health = maxHealth;
 
-
-        currency += 100;
     }
     private void Update()
     {
         foreach(ItemValues item in Inventory.instance.inventory)
         {
-            if (item.GetName() == "Worry Doll" || item.GetName() == "Cordial" || item.GetName() == "Feather" || item.GetName() == "Spring" || item.GetName() == "Battery")
+            switch(item.GetName())
             {
-                if(item.GetName() == "Cordial")
-                {
+                case "Pill":
+                    delayTime = item.GetAmount() * .2f;
+                    break;
+                case "Magnifying Glass":
+                    attackSize = item.GetAmount() * .2f;
+                    break;
+                case "Cordial":
                     maxHealth = item.GetAmount() + playerScriptableObject.maxHealth;
-                }
-                if(item.GetName() == "Worry Doll")
-                {
-                    baseDamage = (1+item.GetAmount()) * playerScriptableObject.damage;
-                }
-                if (item.GetName() == "Feather")
-                {
+                    break;
+                case "Worry Doll":
+                    baseDamage = (1 + item.GetAmount()) * playerScriptableObject.damage;
+                    break;
+                case "Feather":
                     playerSpeed = (50 * item.GetAmount()) + playerScriptableObject.speed;
                     GetComponent<movement_Mario>().setMoveSpeed(playerSpeed);
-                }
-                if (item.GetName() == "Spring")
-                {
+                    break;
+                case "Spring":
                     playerJumpForce = item.GetAmount() + playerScriptableObject.jumpForce;
                     GetComponent<movement_Mario>().SetJumpForce(playerJumpForce);
-                }
-                if (item.GetName() == "Battery")
-                {            
+                    break;
+                case "Battery":
                     zapOn = true;
-                    zaps = item.GetAmount()+3;
-
-                }
-                if (item.GetName() == "WillOWisp")
-                {
+                    zaps = item.GetAmount() + 3;
+                    break;
+                case "WillOWisp":
                     ExplodeOn = true;
-                }
+                    break;
             }
-            else continue;
         }
 
         

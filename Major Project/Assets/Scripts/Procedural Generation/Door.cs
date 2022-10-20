@@ -168,10 +168,7 @@ public class Door : MonoBehaviour
         if (Door.bossStart || !isVisted(GenerateLevel.currentPlayerRoom))
         {
             EnemySpawner.unlockDoorsOnce = true;
-            Debug.Log("Doors Locking");
             Room room = GenerateLevel.rooms[(int)GenerateLevel.currentPlayerRoom.x, (int)GenerateLevel.currentPlayerRoom.y];
-            Debug.Log(room.roomSizeX);
-            Debug.Log(room.roomSizeY);
             foreach (Door door in room.getDoors())
             {
                 door.lockDoor();

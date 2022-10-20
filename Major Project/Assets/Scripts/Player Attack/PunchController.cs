@@ -5,6 +5,7 @@ using UnityEngine;
 public class PunchController : MonoBehaviour
 {
     public float damage, time;
+    public GameObject zapEffect;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +24,10 @@ public class PunchController : MonoBehaviour
         {
             if (enemy.CompareTag("Enemy"))
             {
+                if (PlayerController.Instance.zapOn)
+                {
+                    Instantiate(zapEffect, enemy.transform.position, enemy.transform.rotation);
+                }
                 if (enemy.GetComponent<BossController>() != null)
                 {
                     enemy.GetComponent<BossController>().Damage(damage);

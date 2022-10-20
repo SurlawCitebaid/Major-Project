@@ -38,24 +38,13 @@ public class PlayerAttack : MonoBehaviour {
         fireBallArrowColor = fireBallArrow.GetComponent<SpriteRenderer>();
     }
     private void Update() {
-        foreach (ItemValues item in Inventory.instance.inventory)
-        {
-            if (item.GetName() == "Pill" || item.GetName() == "Magnifying Glass")
-            {
-                if (item.GetName() == "Pill")
-                {
-                    delayTime = item.GetAmount() * .2f;
-                }
-                if (item.GetName() == "Magnifying Glass")
-                {
-                    attackSize = item.GetAmount() * .2f;
-                }
-            }
-        }
 
         if (Time.timeScale == 1)
         {
-            damage = transform.GetComponent<PlayerController>().baseDamage;
+            delayTime = PlayerController.Instance.delayTime;
+            attackSize = PlayerController.Instance.attackSize;
+            damage = PlayerController.Instance.baseDamage;
+
             if (!genArrow && weapon == WeaponType.SWORD)                                        //check if weapon is sword and arrow is not spawned
             {
                 arrow = Instantiate(Arrow, firePoint.transform.position, firePoint.transform.rotation);

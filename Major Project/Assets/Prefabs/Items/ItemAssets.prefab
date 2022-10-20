@@ -52,6 +52,7 @@ MonoBehaviour:
   Feather: {fileID: 21300000, guid: 9eeeaab0294f9f247a8e35979155574e, type: 3}
   Spring: {fileID: 21300000, guid: 8c2bb1753095bd946b54d25a197ebae9, type: 3}
   Battery: {fileID: 21300000, guid: aa0a4d6cf1c41c54abd613d8f22df022, type: 3}
+  WillOWisp: {fileID: 21300000, guid: 34d7c3febb3f44346af27f9db9717bbb, type: 3}
 --- !u!114 &175300757645991562
 MonoBehaviour:
   m_ObjectHideFlags: 0

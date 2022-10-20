@@ -72,3 +72,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
+  time: 0
+  zapEffect: {fileID: 4538949351324568050, guid: a2e5b61767e95244a992b11d8d123636, type: 3}
