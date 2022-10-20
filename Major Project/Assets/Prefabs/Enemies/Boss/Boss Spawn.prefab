@@ -4938,8 +4938,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69de8af674f765f48a03fbaff6a69f86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scale: {x: 6, y: 6, z: 1}
-  boss: {fileID: 1036946578753653217, guid: 16ed919c3e9ebdb4aaf39ff5b502ebba, type: 3}
+  boss:
+  - {fileID: 1036946578753653217, guid: 16ed919c3e9ebdb4aaf39ff5b502ebba, type: 3}
+  - {fileID: 4405719626352530676, guid: 9b7bcee4598cf484a8aa37005e6b02a3, type: 3}
+  bossSR:
+  - {fileID: -79808034, guid: 6dd4f0b5d0f46f649aad7392ca99e4a6, type: 3}
+  - {fileID: 21300000, guid: b63c12e4b646609468f22462e4e7a019, type: 3}
   bossStartParticles: {fileID: 8938417637332380712, guid: 428bac38b1a5e40489ac3aafe7f65ca9, type: 3}
   levelChangeDoor: {fileID: 4219162437274860985, guid: 2620609c68d20a340a8fc9e535c20af0, type: 3}
 --- !u!1001 &6583810296462425153

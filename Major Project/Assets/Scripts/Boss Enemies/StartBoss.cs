@@ -5,8 +5,9 @@ using UnityEngine;
 public class StartBoss : MonoBehaviour
 {
     [SerializeField]
-    GameObject boss;
+    List<GameObject> boss;
     [SerializeField]
+    List<Sprite> bossSR;
     int bossNumber = 1;
     bool spawnedOnce = false;
     [SerializeField]
@@ -25,14 +26,18 @@ public class StartBoss : MonoBehaviour
     private void Start()
     {
         EnemySpawner.enemiesAlive = false;
+        bossNumber = Random.Range(0, boss.Count);
+        gameObject.GetComponent<SpriteRenderer>().sprite = bossSR[bossNumber];
 
         switch (bossNumber)
         {
-            case 1:
+            case 0:
                 transform.localScale = new Vector3(6f,6f,1f);
                 break;
-            case 2:
+            case 1:
                 transform.localScale = new Vector3(2f,2f,1f);
+                transform.GetChild(1).localScale = new Vector3(0.2f, 0.2f, 1f);
+                transform.GetChild(1).localPosition = new Vector3(transform.GetChild(1).localPosition.x-0.1f, transform.GetChild(1).localPosition.y+0.3f, 1f);
                 transform.position += new Vector3(0f, 0.5f, 0f);
                 break;
             default:
@@ -113,7 +118,7 @@ public class StartBoss : MonoBehaviour
 
         
         GameObject.Instantiate(bossStartParticles, spawnLocation, Quaternion.identity);
-        GameObject.Instantiate(boss, spawnLocation, Quaternion.identity);
+        GameObject.Instantiate(boss[bossNumber], spawnLocation, Quaternion.identity);
 
         GameObject.Instantiate(levelChangeDoor, new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z), Quaternion.identity);
         
