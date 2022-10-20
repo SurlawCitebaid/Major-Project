@@ -14,7 +14,7 @@ public class EnemyAiController : MonoBehaviour
     private Rigidbody2D rb;
 
     //Local Enemy Values
-    private int health;
+    public int health;
 
     //Camera Shake
     CameraShake cameraShake;

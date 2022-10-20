@@ -21,7 +21,7 @@ public class EnemySpawner : MonoBehaviour
     float playerFactor = 1f + 0.3f * (1 - 1);
     float timeFactor;
     float constantFactor = 1.15f;
-    float spawnCoeff;
+    public float spawnCoeff;
 
     void Start() {
         countdown = timeBetweenSpawns;
@@ -69,8 +69,10 @@ public class EnemySpawner : MonoBehaviour
 
         if (Room.enemyLocationValid(transform.position))
         {
-            Instantiate(enemies[enemyNum], transform.position, transform.rotation);
-
+            GameObject enemySpawned =Instantiate(enemies[enemyNum], transform.position, transform.rotation);
+            //int newHealth = (int)(enemySpawned.GetComponent<EnemyAiController>().health * (1f * ((1 + scalingMaxSpawns / 30f) * 10f) / 10f));
+            //enemySpawned.GetComponent<EnemyAiController>().health = newHealth;
+            //Debug.Log("Spawn Coeff " + newHealth);
             currentSpawned++;
             totalEnemiesAlive++;
         }

@@ -17,4 +17,5 @@ public class ItemSprites : MonoBehaviour
     public Sprite Feather;
     public Sprite Spring;
     public Sprite Battery;
+    public Sprite WillOWisp;
 }

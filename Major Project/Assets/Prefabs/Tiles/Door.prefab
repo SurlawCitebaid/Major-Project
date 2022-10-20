@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4215026629506330108}
   - component: {fileID: 5179563464798202701}
   - component: {fileID: 1626518144356312065}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Door
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c28b20400e884a4b86df654918fd21c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doorOpenTime: 3
 --- !u!61 &1626518144356312065
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -82,7 +83,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2320392289890533554}
   - component: {fileID: 2866865683450380348}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: stoneSlabDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}

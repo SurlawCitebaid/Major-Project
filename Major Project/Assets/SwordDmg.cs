@@ -6,12 +6,14 @@ public class SwordDmg : MonoBehaviour
 {
     Collider2D swordCol;
     public GameObject zapEffect;
+    public GameObject explodeEffect;
     bool zapOn = true;
     public float damage;
     private void Start()
     {
         swordCol = GetComponent<Collider2D>();
     }
+
     // Start is called before the first frame update
     void OnTriggerEnter2D(Collider2D col)
     {
@@ -21,6 +23,10 @@ public class SwordDmg : MonoBehaviour
             if (PlayerController.Instance.zapOn)
             {
                 Instantiate(zapEffect, col.transform.position, col.transform.rotation);
+            }
+           if (PlayerController.Instance.ExplodeOn)
+            {
+                Instantiate(explodeEffect, col.transform.position, col.transform.rotation);
             }
             if (col.GetComponent<BossController>() != null)
             {

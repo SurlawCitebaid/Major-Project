@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
 
     public static PlayerController Instance;
     public float playerSpeed, playerJumpForce;
-    public bool isInvincible ,zapOn;
+    public bool isInvincible ,zapOn, ExplodeOn;
     public float baseDamage;
     public int maxHealth, zaps;
     public int health;
@@ -73,6 +73,10 @@ public class PlayerController : MonoBehaviour
                     zapOn = true;
                     zaps = item.GetAmount()+3;
 
+                }
+                if (item.GetName() == "WillOWisp")
+                {
+                    ExplodeOn = true;
                 }
             }
             else continue;
