@@ -22,7 +22,7 @@ public class Boss1_Jump : StateMachineBehaviour
             yPos = player.position.y + 2;
             jumping = true;
         }
-        Vector2 target = new Vector2(rb.position.x, yPos);
+        Vector2 target = new (rb.position.x, yPos) ;
         Vector2 newPos = Vector2.MoveTowards(rb.position, target, 30 * Time.fixedDeltaTime);
         rb.MovePosition(newPos);
         animator.SetBool("Attack", true);

@@ -7,7 +7,7 @@ public class EnemyAiController : MonoBehaviour
     public enum State { MOVING, CHASE, AIMING, ATTACKING, COOLDOWN, STUNNED };
 
     private State state = State.MOVING;
-    [SerializeField] private Color32 defaultColour = new Color32();
+    [SerializeField] private Color32 defaultColour = new();
     [SerializeField] private bool immune; //enemy immune to stun, during attack
     public EnemyScriptableObject enemy;
     private SpriteRenderer sr;

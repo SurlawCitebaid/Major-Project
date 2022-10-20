@@ -21,7 +21,7 @@ public class Room
     int maxPlatformSize;
     int minPlatformSize;
 
-    Transform parent;
+    //Transform parent;
 
     //Chance of an item spawning in a room
     float itemSpawnChance = 50f;
@@ -53,7 +53,7 @@ public class Room
         this.tiles = tiles;
         this.tileMap = tileMap;
 
-        this.parent = parent;
+        //this.parent = parent;
         this.maxNumberOfPlatforms = maxNumberOfPlatforms;
         this.maxPlatformSize = maxPlatformSize;
         this.minPlatformSize = minPlatformSize;

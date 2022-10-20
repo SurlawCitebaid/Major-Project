@@ -27,8 +27,8 @@ public class char_movement_Mario : MonoBehaviour
         isWallGrabing = m_movementController.getWallGrabing();
         isfalling = m_movementController.getFalling();
         isDashing = m_movementController.getDashing();
-        isAttacking = m_playerAttack.getAttacking();
-        isGrappling = m_grappleController.getGrappling();
+        isAttacking = m_playerAttack.GetAttacking();
+        isGrappling = m_grappleController.GetGrappling();
 
         //////////////animation part//////////////
         if (isDashing)                                              // invincible when dashing
@@ -40,8 +40,8 @@ public class char_movement_Mario : MonoBehaviour
         if (isAttacking)                                              // invincible when dashing
         {
             animator.SetBool("isAttacking", true);
-            weapon = m_playerAttack.getWeaponType();
-            comboCount = m_playerAttack.getComboCount();
+            weapon = m_playerAttack.weapon.ToString();
+            comboCount = m_playerAttack.GetComboCount();
             if (weapon.Equals("FIST"))
             {
                 animator.SetBool("isUsingFist", true);

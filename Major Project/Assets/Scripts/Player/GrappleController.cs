@@ -106,7 +106,7 @@ public class GrappleController : MonoBehaviour
         retracting = true;
     }
     
-    public bool getGrappling()
+    public bool GetGrappling()
     {
         return isGrappling;
     }

@@ -11,7 +11,7 @@ public class PlayerAttack : MonoBehaviour {
 
     public enum WeaponType { FIST, SWORD, FIREBALL};
     [Header("General")][Space]
-    [SerializeField] private WeaponType weapon = WeaponType.FIREBALL;
+    public WeaponType weapon = WeaponType.FIREBALL;
 
     public float maxCharge,damage, delayTime, attackSize = 0;
     // Sword Variables
@@ -158,7 +158,6 @@ public class PlayerAttack : MonoBehaviour {
         
         if (Input.GetMouseButton(0) && chargeTime < maxCharge)
         {
-            isAttacking = true;
             chargeTime += Time.deltaTime;
 
             
@@ -244,20 +243,11 @@ public class PlayerAttack : MonoBehaviour {
             StartCoroutine(attackDelay(1f)); 
         }
     }
-    public bool getAttacking()
+    public bool GetAttacking()
     {
         return isAttacking;
     }
-    public string getWeaponType()
-    {
-        string wep = "";
-        if(weapon == WeaponType.FIST)
-        {
-            wep = "FIST"; 
-        }
-        return wep;
-    }
-    public int getComboCount()
+    public int GetComboCount()
     {
         return comboCount;
     }
@@ -283,7 +273,7 @@ public class PlayerAttack : MonoBehaviour {
     }
     IEnumerator DisplayWeaponIcon(GameObject Icon)
     {
-        Vector3 position = new Vector3();
+        Vector3 position = new();
         position.Set(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1, this.gameObject.transform.position.z);
         GameObject icon = Instantiate(Icon, position, this.transform.rotation);
         icon.transform.SetParent(this.gameObject.transform);

@@ -11,13 +11,11 @@ using TMPro;
 public class HealthController : MonoBehaviour
 {
     [SerializeField] PlayerController PlayerController;
-    [SerializeField] public GameObject currencyObject;
+    public GameObject currencyObject;
     public int currency;
-    private int playerHealth;
-    private int maxHearts;
-    private int currentActiveHearts;
+    private int playerHealth, maxHearts, currentActiveHearts;
 
-    [SerializeField] public GameObject[] healthHearts; // displayed hearts array 
+    public GameObject[] healthHearts; // displayed hearts array 
 
     private void Start()
     {

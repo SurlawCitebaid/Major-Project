@@ -12,7 +12,7 @@ using TMPro;
 public class SettingsMenu : MonoBehaviour
 {
     public AudioMixer aM;
-    public List<ResolutionItem> resolutions = new List<ResolutionItem>();
+    public List<ResolutionItem> resolutions = new();
     private int selectedResolution;
     public TMP_Text resolutionLabel;
     public Toggle fullScreenToggle;
