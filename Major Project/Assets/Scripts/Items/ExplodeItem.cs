@@ -23,7 +23,14 @@ public class ExplodeItem : MonoBehaviour
                     if (enemy.CompareTag("Enemy"))
                     {
                         Instantiate(willOWispParticles, enemy.transform.position, Quaternion.identity);
-                        enemy.gameObject.GetComponent<EnemyAiController>().Damage(PlayerController.Instance.baseDamage);
+                        if (enemy.gameObject.GetComponent<EnemyAiController>() != null)
+                        {
+                            enemy.gameObject.GetComponent<EnemyAiController>().Damage(PlayerController.Instance.baseDamage);
+                        }
+                        else
+                        {
+                            enemy.gameObject.GetComponent<BossController>().Damage(PlayerController.Instance.baseDamage);
+                        }
                     }
                 }
             }
