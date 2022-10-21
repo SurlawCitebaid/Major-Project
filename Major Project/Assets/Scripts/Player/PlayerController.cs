@@ -22,13 +22,20 @@ public class PlayerController : MonoBehaviour
     public int maxHealth, zaps;
     public int health;
     public int currency;
-    public float attackSize, delayTime;
+    public float attackSize, delayTime, timeAlive;
     SpriteRenderer sprite;
     Color originalColor;
 
     void Awake()
     {
-        Instance = this;
+        if (Instance == null){
+            Instance = this;
+        } else {
+            Destroy(gameObject);
+            return;
+        }
+
+        DontDestroyOnLoad(gameObject);
 
         sprite = gameObject.GetComponent<SpriteRenderer>();
         GetComponent<movement_Mario>().setMoveSpeed(playerScriptableObject.speed);
@@ -40,6 +47,7 @@ public class PlayerController : MonoBehaviour
         currency = playerScriptableObject.currency;
         playerJumpForce = playerScriptableObject.jumpForce;
         health = maxHealth;
+        timeAlive = 0;
 
     }
     private void Update()
@@ -78,7 +86,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        
+        timeAlive += Time.deltaTime;
     }
     // Update is called once per frame
     public void damage(int damageAmount)
