@@ -9,7 +9,7 @@ public class Boss1_idle : StateMachineBehaviour
     Transform player;
     Rigidbody2D rb;
     float attackRange;
-    int ass;
+    int index;
     int i;
     int[] indexes = {1,1,1,1,1,1,2,2,2,4};
     bool sameIndex;
@@ -29,22 +29,19 @@ public class Boss1_idle : StateMachineBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         rb = animator.GetComponent<Rigidbody2D>();
         attackRange = boss.GetAttackRange();
-        ass = boss.getIndex();
+        index = boss.getIndex();
         i = boss.RandomNum(indexes);
     }
 
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
-
-
         float yDistance = Mathf.Abs(rb.position.y - player.position.y);
         float xDistance = Mathf.Abs(rb.position.x - player.position.x);
 
         while (sameIndex)
         {
-            if (i == ass)
+            if (i == index)
             {
                 i = boss.RandomNum(indexes);
             }
@@ -73,8 +70,6 @@ public class Boss1_idle : StateMachineBehaviour
         {
             bossControl.Flip();
             animator.SetBool("Chase", true);
-        }
-        
-        
+        } 
     }
 }

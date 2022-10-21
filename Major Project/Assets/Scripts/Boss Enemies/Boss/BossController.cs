@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public class BossController : MonoBehaviour
 {
-    Animator ass;
+    Animator anim;
     GameObject player;
     [SerializeField] int health = 25;
     public bool isInvulnerable = false;
@@ -21,7 +21,7 @@ public class BossController : MonoBehaviour
     {
         health = 25;
         cameraShake = GameObject.FindGameObjectWithTag("Camera Shaker").GetComponent<CameraShake>();
-        ass = GetComponent<Animator>();
+        anim = GetComponent<Animator>();
         theScale = GetComponent<SpriteRenderer>();
         player = GameObject.FindGameObjectWithTag("Player");
         leftFacing = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
@@ -59,7 +59,7 @@ public class BossController : MonoBehaviour
         if (health <= 0)
         {
             Die();
-            ass.SetTrigger("Death");
+            anim.SetTrigger("Death");
 
         } else {
             FindObjectOfType<AudioManager>().Play("EnemyHit");

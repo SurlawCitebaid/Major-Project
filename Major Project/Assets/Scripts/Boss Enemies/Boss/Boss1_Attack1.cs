@@ -34,10 +34,4 @@ public class Boss1_Attack1 : StateMachineBehaviour
         }
         
     }
-
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-
-    }
-
 }
