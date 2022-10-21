@@ -14,19 +14,21 @@ public class EnemyAiController : MonoBehaviour
     private Rigidbody2D rb;
 
     //Local Enemy Values
-    public int health;
+    private int health;
 
     //Camera Shake
     CameraShake cameraShake;
 
-    
+    public int Health { get => health; set => health = value; }
+
+
     // Update is called once per frame
     private void Start()
     {
         cameraShake = GameObject.FindGameObjectWithTag("Camera Shaker").GetComponent<CameraShake>();
         rb = GetComponent<Rigidbody2D>();
 
-        health = enemy.health;
+        Health = enemy.health;
         sr = GetComponent<SpriteRenderer>();
         sr.color = defaultColour;
         sr.sprite = enemy.sprite;
@@ -116,12 +118,14 @@ public class EnemyAiController : MonoBehaviour
     {
         if (immune) return;
 
-        health -= (int)damageAmount;//damageAmount may be changed to int
+        Health -= (int)damageAmount;//damageAmount may be changed to int
         StartCoroutine(DamageIndicator(sr, defaultColour));
 
-        if (health < 0)
+        if (Health < 0)
             Die();
         else 
             FindObjectOfType<AudioManager>().Play("EnemyHit");
     }
+
+    
 }

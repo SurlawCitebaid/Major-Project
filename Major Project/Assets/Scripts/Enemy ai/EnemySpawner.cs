@@ -19,22 +19,27 @@ public class EnemySpawner : MonoBehaviour
     //Spawning Scaling
     float scalingMaxSpawns = 0;
     float playerFactor = 1f + 0.3f * (1 - 1);
-    float timeFactor;
+    float timeFactor, timeFactor1;
     float constantFactor = 1.15f;
     public float spawnCoeff;
+    public float heathScaler = 1;
 
     void Start() {
         countdown = timeBetweenSpawns;
         timeFactor = 0.0506f * difficultyValue * 1 * 0.2f;
+        timeFactor1 = 0.0506f * difficultyValue/10 * 1 * 0.2f;
         maxSpawns = startSpawns;
         unlockDoorsOnce = true;
     }
 
     void Update() {
         //Updates coeficient for spawning
-        spawnCoeff = (playerFactor + Time.realtimeSinceStartup / 60 * timeFactor) * constantFactor;
+        spawnCoeff = (playerFactor + PlayerController.Instance.timeAlive / 60 * timeFactor) * constantFactor;
         scalingMaxSpawns = startSpawns * spawnCoeff;
 
+        //Scales health
+        spawnCoeff = (playerFactor + PlayerController.Instance.timeAlive / 60 * timeFactor1) * constantFactor;
+        heathScaler = 1 * spawnCoeff;
         if(!enemiesAlive)
         {
             if (unlockDoorsOnce)
@@ -70,14 +75,21 @@ public class EnemySpawner : MonoBehaviour
 
         if (Room.enemyLocationValid(transform.position))
         {
-            GameObject enemySpawned =Instantiate(enemies[enemyNum], transform.position, transform.rotation);
-            //int newHealth = (int)(enemySpawned.GetComponent<EnemyAiController>().health * (1f * ((1 + scalingMaxSpawns / 30f) * 10f) / 10f));
-            //enemySpawned.GetComponent<EnemyAiController>().health = newHealth;
-            //Debug.Log("Spawn Coeff " + newHealth);
+            GameObject enemySpawned = Instantiate(enemies[enemyNum], transform.position, transform.rotation);
+            StartCoroutine(delayScalingHealth(enemySpawned));
             currentSpawned++;
             totalEnemiesAlive++;
         }
         
     }
 
+    IEnumerator delayScalingHealth(GameObject enemySpawned)
+    {
+        yield return new WaitForSeconds(0.1f);
+        float newHealth = (enemySpawned.GetComponent<EnemyAiController>().Health * heathScaler);
+        enemySpawned.GetComponent<EnemyAiController>().Health = (int)newHealth;
+        Debug.Log("New Heath " + newHealth);
+    }
+
+    
 }
