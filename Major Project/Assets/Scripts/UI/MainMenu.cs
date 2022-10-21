@@ -11,6 +11,7 @@ public class MainMenu : MonoBehaviour
     // loads game scene
    public void PlayGame ()
    {
+        Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
    }
 
