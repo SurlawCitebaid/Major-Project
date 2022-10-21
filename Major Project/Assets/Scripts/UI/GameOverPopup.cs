@@ -11,11 +11,17 @@ using TMPro;
 public class GameOverPopup : MonoBehaviour
 {
     public TMP_Text timeValue; // access text UI
+    public GameObject gameOverScreen;
 
     // Displays final play time
     void Update() 
     {
-        timeValue.text = Time.time.ToString("0.00");
+        if(PlayerController.Instance.dead)
+        {
+            gameOverScreen.SetActive(true);
+            timeValue.text = Time.time.ToString("0.00");
+        }
+        
     }
 
     // Loads game again

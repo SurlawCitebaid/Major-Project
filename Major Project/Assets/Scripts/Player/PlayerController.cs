@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] GameObject gameOverUI;
 
     [Header("Player Object")][Space]
     [SerializeField] PlayerSO playerScriptableObject;
@@ -18,7 +17,7 @@ public class PlayerController : MonoBehaviour
 
     public static PlayerController Instance;
     public float playerSpeed, playerJumpForce;
-    public bool isInvincible ,zapOn, ExplodeOn;
+    public bool isInvincible ,zapOn, ExplodeOn, dead = false;
     public float baseDamage;
     public int maxHealth, zaps;
     public int health;
@@ -107,7 +106,7 @@ public class PlayerController : MonoBehaviour
     public void Die()
     {
         // added in gameOver UI active here & paused time
-        gameOverUI.SetActive(true);
+        dead = true;
         Time.timeScale = 0f;
     }
 
