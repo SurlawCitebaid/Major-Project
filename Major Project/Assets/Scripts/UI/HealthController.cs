@@ -21,20 +21,21 @@ public class HealthController : MonoBehaviour
     {
         currentActiveHearts = healthHearts.Length;
         currency = PlayerController.currency;
+        
     }
 
     private void Update()
     {
         currencyObject.GetComponent<TMP_Text>().text = "$ "+PlayerController.Instance.getCurrency().ToString();
-        if (PlayerController.maxHealth > 10)
+        if (PlayerController.Instance.maxHealth > 10)
         {
             maxHearts = 10;
-        } else if(PlayerController.maxHealth < 3)
+        } else if(PlayerController.Instance.maxHealth < 3)
         {
             maxHearts = 3;
         } else
         {
-            maxHearts = PlayerController.maxHealth;
+            maxHearts = PlayerController.Instance.maxHealth;
         }
         
         // get Player current health
