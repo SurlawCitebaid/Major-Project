@@ -34,6 +34,7 @@ public class ItemPedestal : MonoBehaviour {
                 interact.transform.position = new Vector2(xPos , transform.position.y+2);
                 interact.SetActive(true);
                 reroll.SetActive(true);
+                Text.SetActive(true);
             }
             if (!itemOut)
             {
@@ -45,7 +46,6 @@ public class ItemPedestal : MonoBehaviour {
             }
             else
             {
-                
                 if (itemOut && inTrigger && Input.GetKeyDown(KeyCode.E))
                 {
                     interact.SetActive(false);
@@ -69,8 +69,6 @@ public class ItemPedestal : MonoBehaviour {
                             item = item_scriptableObject;
                         Price *= 2;
                         PriceText.text = Price.ToString();
-
-
 
                     }
                         
