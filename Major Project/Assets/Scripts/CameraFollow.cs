@@ -11,11 +11,11 @@ public class CameraFollow : MonoBehaviour {
     private Vector2 currentRes;
     public static Vector2 topLeft, topRight, bottomLeft;
     float height, width, maxHeight, maxWidth;
+    public static Vector2 centre;
     private void Start() {
         currentRes = new Vector2(Screen.width, Screen.height);
         MainCamera = Camera.main;
         player = GameObject.FindGameObjectWithTag("Player").transform;
-
     }
 
     private void Update() {
@@ -25,7 +25,6 @@ public class CameraFollow : MonoBehaviour {
             currentRes = new Vector2(Screen.width, Screen.height);
         }
             
-        
         if(updateRoomCamera)
         {
             height = MainCamera.orthographicSize + 1.5f;
@@ -48,7 +47,7 @@ public class CameraFollow : MonoBehaviour {
         }
         else
         {
-            
+            centre = new(xCentre, yCentre);
             float xChecker = (new Vector2(player.position.x, 0) - new Vector2(xCentre, 0)).x;
             float yChecker = (new Vector2(0, player.position.y) - new Vector2(0, yCentre)).y;
             float playerPosFromCentX = (new Vector2(xCentre, 0) - new Vector2(player.position.x, 0)).magnitude;

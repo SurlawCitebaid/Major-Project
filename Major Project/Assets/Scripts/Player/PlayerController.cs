@@ -56,6 +56,10 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
+        if(!Room.enemyLocationValid(transform.position))
+        {
+            transform.position = CameraFollow.centre;
+        }
         foreach(ItemValues item in Inventory.instance.inventory)
         {
             switch(item.GetName())
