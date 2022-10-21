@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
     SpriteRenderer sprite;
     Color originalColor;
 
+    public int stages = 1;
+
     void Awake()
     {
         if (Instance == null){
@@ -48,7 +50,7 @@ public class PlayerController : MonoBehaviour
         playerJumpForce = playerScriptableObject.jumpForce;
         health = maxHealth;
         timeAlive = 0;
-
+        stages = 1;
     }
     private void Update()
     {

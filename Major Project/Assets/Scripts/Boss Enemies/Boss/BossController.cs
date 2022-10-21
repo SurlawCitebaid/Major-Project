@@ -5,7 +5,7 @@ public class BossController : MonoBehaviour
 {
     Animator ass;
     GameObject player;
-    [SerializeField] int health = 50;
+    [SerializeField] int health = 25;
     public bool isInvulnerable = false;
     SpriteRenderer theScale;
     Vector3 leftFacing;
@@ -19,12 +19,15 @@ public class BossController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        health = 25;
         cameraShake = GameObject.FindGameObjectWithTag("Camera Shaker").GetComponent<CameraShake>();
         ass = GetComponent<Animator>();
         theScale = GetComponent<SpriteRenderer>();
         player = GameObject.FindGameObjectWithTag("Player");
         leftFacing = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
         rightFacing = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+        health *= PlayerController.Instance.stages * 2;
+        Debug.Log("Boss Health " + health);
     }
 
     // Update is called once per frame
