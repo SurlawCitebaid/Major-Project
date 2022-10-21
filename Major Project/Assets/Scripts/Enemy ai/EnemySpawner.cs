@@ -27,6 +27,7 @@ public class EnemySpawner : MonoBehaviour
         countdown = timeBetweenSpawns;
         timeFactor = 0.0506f * difficultyValue * 1 * 0.2f;
         maxSpawns = startSpawns;
+        unlockDoorsOnce = true;
     }
 
     void Update() {
