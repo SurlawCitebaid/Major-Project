@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     Color originalColor;
 
     public int stages = 1;
+    public float explodeRadius;
 
     void Awake()
     {
@@ -51,6 +52,7 @@ public class PlayerController : MonoBehaviour
         health = maxHealth;
         timeAlive = 0;
         stages = 1;
+
     }
     private void Update()
     {
@@ -84,6 +86,7 @@ public class PlayerController : MonoBehaviour
                     break;
                 case "WillOWisp":
                     ExplodeOn = true;
+                    explodeRadius = 3 * item.GetAmount();
                     break;
             }
         }

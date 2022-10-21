@@ -15,7 +15,7 @@ public class ExplodeItem : MonoBehaviour
         if (Random.Range(0f, 100f) < explosionChance)
         {
             FindObjectOfType<AudioManager>().Play("WillOWisp");
-            Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, radius);
+            Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, PlayerController.Instance.explodeRadius);
             if (enemies != null)
             {
                 foreach (Collider2D enemy in enemies)
