@@ -5,12 +5,8 @@ using UnityEngine;
 public class PunchController : MonoBehaviour
 {
     public float damage, time;
-    public GameObject zapEffect;
+    public GameObject zapEffect, explodeEffect;
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -27,6 +23,10 @@ public class PunchController : MonoBehaviour
                 if (PlayerController.Instance.zapOn)
                 {
                     Instantiate(zapEffect, enemy.transform.position, enemy.transform.rotation);
+                }
+                if (PlayerController.Instance.ExplodeOn)
+                {
+                    Instantiate(explodeEffect, enemy.transform.position, enemy.transform.rotation);
                 }
                 if (enemy.GetComponent<BossController>() != null)
                 {

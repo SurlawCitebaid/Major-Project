@@ -119,6 +119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slash: {fileID: 5763315840127046869, guid: 698cc9bfd0f7775498f2ca1573c7f47c, type: 3}
   zapEffect: {fileID: 4538949351324568050, guid: a2e5b61767e95244a992b11d8d123636, type: 3}
+  explodeEffect: {fileID: 5423140913884148669, guid: 9015dd4ad2a20ee47a500b2ac7225d8c, type: 3}
 --- !u!95 &5151885727116534034
 Animator:
   serializedVersion: 4

@@ -5,17 +5,21 @@ using UnityEngine;
 public class ChargeSwordAttack : MonoBehaviour
 {
     [SerializeField] private GameObject slash;
-    public GameObject zapEffect;
+    public GameObject zapEffect, explodeEffect;
     private float radius;
     public void Damage()
     {
-        float damage = transform.GetComponentInParent<PlayerAttack>().damage;
+        float damage = transform.GetComponentInParent<PlayerAttack>().damage/2;
         radius = transform.localScale.x / 2;
         Collider2D[] array = Physics2D.OverlapCircleAll(transform.position, radius);
         foreach (Collider2D enemy in array)
         {
             if(enemy.CompareTag("Enemy"))
             {
+                if (PlayerController.Instance.ExplodeOn)
+                {
+                    Instantiate(explodeEffect, enemy.transform.position, enemy.transform.rotation);
+                }
                 if (PlayerController.Instance.zapOn)
                 {
                     Instantiate(zapEffect, enemy.transform.position, enemy.transform.rotation);

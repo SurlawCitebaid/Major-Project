@@ -253,7 +253,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4272103348483566786}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -279,14 +279,15 @@ MonoBehaviour:
   maxRooms: 10
   gridSizeX: 20
   gridSizeY: 20
-  maxRoomSize: 50
-  minRoomSize: 15
+  maxRoomSize: 40
+  minRoomSize: 26
   roomDescalerX: 0.75
   roomDescalerY: 0.5
-  maxNumberOfPlatforms: 5
-  platformMaxSize: 50
-  platformMinSize: 5
-  detailSpawnChance: 0.15
+  maxNumberOfPlatforms: 3
+  platformMaxSize: 20
+  platformMinSize: 10
+  itemSpawnChance: 1
+  detailSpawnChance: 0.779
   tileMap: {fileID: 3714907076293624730}
   tiles:
   - {fileID: 11400000, guid: f18a254a0e2386a40ad5731b63d97f21, type: 2}
@@ -296,3 +297,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3cce9df858c4b7942bbf6678a3e93b7c, type: 2}
   - {fileID: 11400000, guid: 4d82bd1aec82fdc49b7acd1736e9d292, type: 2}
   - {fileID: 11400000, guid: a4a48e5f21141c34186cd4fc54113da2, type: 2}
+  - {fileID: 11400000, guid: a4a48e5f21141c34186cd4fc54113da2, type: 2}
+  - {fileID: 11400000, guid: 2d4f46b082e8693468bab20ae2181765, type: 2}

@@ -50,6 +50,7 @@ public class ItemPedestal : MonoBehaviour {
                 {
                     interact.SetActive(false);
                     reroll.SetActive(false);
+                    Text.SetActive(false);
                     Inventory.instance.AddItem(item);
                     Destroy(itemOnPedestal);
                     itemGot = true;
@@ -57,7 +58,7 @@ public class ItemPedestal : MonoBehaviour {
                 else if (itemOut && inTrigger && Input.GetKeyDown(KeyCode.R))
                 {
                     
-                    if (currencyObject.getCurrency() > Price)
+                    if (currencyObject.getCurrency() >= Price)
                     {
 
                         //sound effect
@@ -79,6 +80,7 @@ public class ItemPedestal : MonoBehaviour {
         {
             interact.SetActive(false);
             reroll.SetActive(false);
+            Text.SetActive(false);
         }
     }
     IEnumerator GenItem()

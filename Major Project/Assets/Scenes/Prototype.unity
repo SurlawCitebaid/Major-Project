@@ -1042,30 +1042,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level Gen Proto
       objectReference: {fileID: 0}
-    - target: {fileID: 4272103348483566791, guid: 4d132dcb2198a634ea6495c1f208035f, type: 3}
-      propertyPath: minRoomSize
-      value: 26
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272103348483566791, guid: 4d132dcb2198a634ea6495c1f208035f, type: 3}
-      propertyPath: itemSpawnChance
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272103348483566791, guid: 4d132dcb2198a634ea6495c1f208035f, type: 3}
-      propertyPath: tiles.Array.size
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272103348483566791, guid: 4d132dcb2198a634ea6495c1f208035f, type: 3}
-      propertyPath: detailSpawnChance
-      value: 0.754
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272103348483566791, guid: 4d132dcb2198a634ea6495c1f208035f, type: 3}
-      propertyPath: tiles.Array.data[7]
-      value: 
-      objectReference: {fileID: 11400000, guid: a4a48e5f21141c34186cd4fc54113da2, type: 2}
-    - target: {fileID: 4272103348483566791, guid: 4d132dcb2198a634ea6495c1f208035f, type: 3}
-      propertyPath: tiles.Array.data[8]
-      value: 
-      objectReference: {fileID: 11400000, guid: 2d4f46b082e8693468bab20ae2181765, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d132dcb2198a634ea6495c1f208035f, type: 3}
 --- !u!1 &1010297792
@@ -1952,6 +1928,18 @@ PrefabInstance:
     - target: {fileID: 2580433044254193292, guid: 65bff973e8bbe504bb29c25835ac2f82, type: 3}
       propertyPath: m_JumpForce
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2987722294195859667, guid: 65bff973e8bbe504bb29c25835ac2f82, type: 3}
+      propertyPath: maxDistance
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2987722294195859667, guid: 65bff973e8bbe504bb29c25835ac2f82, type: 3}
+      propertyPath: grappleSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2987722294195859667, guid: 65bff973e8bbe504bb29c25835ac2f82, type: 3}
+      propertyPath: grappleShootSpeed
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 4619997421930827680, guid: 65bff973e8bbe504bb29c25835ac2f82, type: 3}
       propertyPath: m_LocalPosition.y

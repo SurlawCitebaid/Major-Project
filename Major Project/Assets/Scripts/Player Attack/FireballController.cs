@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FireballController : MonoBehaviour {
 
-    public GameObject fireBall, zapEffect;
+    public GameObject fireBall, zapEffect, explodeEffect;
     public float damage;
     Rigidbody2D rb;
 
@@ -24,6 +24,10 @@ public class FireballController : MonoBehaviour {
                 if (PlayerController.Instance.zapOn)
                 {
                     Instantiate(zapEffect, enemy.transform.position, enemy.transform.rotation);
+                }
+                if (PlayerController.Instance.ExplodeOn)
+                {
+                    Instantiate(explodeEffect, enemy.transform.position, enemy.transform.rotation);
                 }
                 if (enemy.GetComponent<BossController>() != null)
                 {

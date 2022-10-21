@@ -198,7 +198,7 @@ public class PlayerAttack : MonoBehaviour {
             FindObjectOfType<AudioManager>().Play("SwordAttack");
             GameObject sword = Instantiate(ChargedSword, this.transform);
             sword.transform.localScale = new Vector2((sword.transform.localScale.x + attackSize)*2, (sword.transform.localScale.y + attackSize)*2);
-            StartCoroutine(attackDelay(1f - delayTime));
+            StartCoroutine(attackDelay(.6f - delayTime));
         }
         else if (Input.GetMouseButtonUp(0) && chargeTime < maxCharge)
         {
@@ -207,8 +207,8 @@ public class PlayerAttack : MonoBehaviour {
             FindObjectOfType<AudioManager>().Play("SwordAttack");
             GameObject sword = Instantiate(Sword, arrow.transform.position, arrow.transform.rotation * Quaternion.Euler(0f, 0f, 270f));
             sword.transform.localScale = new Vector2(sword.transform.localScale.x + attackSize, sword.transform.localScale.y + attackSize);
-            sword.GetComponent<SwordDmg>().damage = damage;
-            StartCoroutine(attackDelay(1f - delayTime));
+            sword.GetComponent<SwordDmg>().damage = damage/2;
+            StartCoroutine(attackDelay(.6f - delayTime));
         }
     }
     private void fistAttack()

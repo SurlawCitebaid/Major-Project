@@ -15,6 +15,7 @@ public class ItemZapEffect : MonoBehaviour
     int closestEnemyIndex;
     float minDist = Mathf.Infinity;
     int counter = 0, jumps;
+    bool attacked;
     // Start is called before the first frame update
     void Start()
     {
@@ -48,10 +49,10 @@ public class ItemZapEffect : MonoBehaviour
                 Destroy(gameObject);
             } else if (Vector2.Distance(Ball.transform.position, enemyPositions[index].transform.position) < 0.01f)
             {
-                if(index != enemyPositions.Count -1)
+                if(index != enemyPositions.Count - 1)
                 {
-                    enemyPositions[index].GetComponent<EnemyAiController>().Damage(PlayerController.Instance.baseDamage/2);
-                    index = index++;
+                    enemyPositions[index].GetComponent<EnemyAiController>().Damage(PlayerController.Instance.baseDamage / 2);
+                    index = index+ 1;
                 } else
                 {
                     Destroy(gameObject);            //reaches last position

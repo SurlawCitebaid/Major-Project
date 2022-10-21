@@ -23,7 +23,7 @@ public class SwordDmg : MonoBehaviour
             {
                 Instantiate(zapEffect, col.transform.position, col.transform.rotation);
             }
-           if (PlayerController.Instance.ExplodeOn)
+            if (PlayerController.Instance.ExplodeOn)
             {
                 Instantiate(explodeEffect, col.transform.position, col.transform.rotation);
             }

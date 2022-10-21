@@ -74,3 +74,4 @@ MonoBehaviour:
   damage: 0
   time: 0
   zapEffect: {fileID: 4538949351324568050, guid: a2e5b61767e95244a992b11d8d123636, type: 3}
+  explodeEffect: {fileID: 5423140913884148669, guid: 9015dd4ad2a20ee47a500b2ac7225d8c, type: 3}
