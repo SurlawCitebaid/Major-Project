@@ -49,6 +49,7 @@ public class PauseMenu : MonoBehaviour
 
     public void LoadMainMenu()
     {
+        FindObjectOfType<Inventory>().DestroyOnMainMenu();
         SceneManager.LoadScene(0);
     }
 }
