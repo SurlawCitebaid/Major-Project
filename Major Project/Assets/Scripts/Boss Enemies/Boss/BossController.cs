@@ -61,6 +61,8 @@ public class BossController : MonoBehaviour
             Die();
             ass.SetTrigger("Death");
 
+        } else {
+            FindObjectOfType<AudioManager>().Play("EnemyHit");
         }
     }
     public IEnumerator Invulnerable()

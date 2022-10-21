@@ -236,7 +236,14 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: EnemyHit
     clip: {fileID: 8300000, guid: 95a5125dd0526154290b28a9d0146b33, type: 3}
-    volume: 0.3
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    isMusic: 0
+    source: {fileID: 0}
+  - name: WillOWisp
+    clip: {fileID: 8300000, guid: 9357b4befe086ab4f9f692cc9aa17d80, type: 3}
+    volume: 0.858
     pitch: 1
     loop: 0
     isMusic: 0
