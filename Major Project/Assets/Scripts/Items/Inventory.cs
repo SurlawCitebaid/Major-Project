@@ -16,15 +16,7 @@ public class Inventory : MonoBehaviour {
     }
     private void Awake()
     {
-        
-        if (instance == null){
-            instance = this;
-        } else {
-            Destroy(gameObject);
-            return;
-        }
-
-        DontDestroyOnLoad(gameObject);
+        instance = this;
         invSize = inventory.Count;
     }
     private void Update()
@@ -54,10 +46,6 @@ public class Inventory : MonoBehaviour {
             }
         }
         inventory.Add(new ItemValues(item));
-    }
-
-    public void DestroyOnMainMenu(){
-        Destroy(gameObject);
     }
 }
 

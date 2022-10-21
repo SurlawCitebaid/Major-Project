@@ -9,7 +9,7 @@ public class PlayerAttack : MonoBehaviour {
     private Transform firePoint;
     private int comboCount = 0;
 
-    public enum WeaponType { SWORD, FIST, FIREBALL};
+    public enum WeaponType { FIST, SWORD, FIREBALL};
     [Header("General")][Space]
     public WeaponType weapon = WeaponType.FIREBALL;
 
@@ -48,7 +48,7 @@ public class PlayerAttack : MonoBehaviour {
 
             if (!genArrow && weapon == WeaponType.SWORD)                                        //check if weapon is sword and arrow is not spawned
             {
-                arrow = Instantiate(Arrow, transform);
+                arrow = Instantiate(Arrow, firePoint.transform.position, firePoint.transform.rotation);
                 arrowColor = arrow.transform.Find("Arrow").GetComponent<SpriteRenderer>();
 
                 genArrow = true;

@@ -19,7 +19,7 @@ public class GameOverPopup : MonoBehaviour
         if(PlayerController.Instance.dead)
         {
             gameOverScreen.SetActive(true);
-            timeValue.text = PlayerController.Instance.timeAlive.ToString("0.00");
+            timeValue.text = Time.time.ToString("0.00");
         }
         
     }
@@ -28,7 +28,6 @@ public class GameOverPopup : MonoBehaviour
     public void Restart()
     {
         Time.timeScale = 1f;
-        FindObjectOfType<Inventory>().DestroyOnMainMenu();
         SceneManager.LoadScene(1);
     }
 
@@ -36,7 +35,6 @@ public class GameOverPopup : MonoBehaviour
     public void MainMenu()
     {
         Time.timeScale = 1f;
-        FindObjectOfType<Inventory>().DestroyOnMainMenu();
         SceneManager.LoadScene(0);
     }
 }
