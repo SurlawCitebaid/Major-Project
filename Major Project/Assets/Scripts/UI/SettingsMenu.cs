@@ -31,7 +31,7 @@ public class SettingsMenu : MonoBehaviour
     // Sets volume 
     public void SetVolume (float vol)
     {
-        aM.SetFloat("MasterVolume", vol);
+        aM.SetFloat("MasterVolume", Mathf.Log10(vol) * 20);
     }
 
     // Resolution left arrow
