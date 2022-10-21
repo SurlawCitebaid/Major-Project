@@ -27,6 +27,9 @@ public class PlayerController : MonoBehaviour
     SpriteRenderer sprite;
     Color originalColor;
 
+    //Explode effect Item
+    public float explodeRadius = 3f;
+
     void Awake()
     {
         Instance = this;
@@ -75,6 +78,7 @@ public class PlayerController : MonoBehaviour
                     break;
                 case "WillOWisp":
                     ExplodeOn = true;
+                    explodeRadius = item.GetAmount() * 3;
                     break;
             }
         }
