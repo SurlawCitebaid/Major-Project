@@ -155,12 +155,9 @@ public class PlayerAttack : MonoBehaviour {
     }
     private void FireballAttack()
     {
-        
         if (Input.GetMouseButton(0) && chargeTime < maxCharge)
         {
             chargeTime += Time.deltaTime;
-
-            
         }
         if(Input.GetMouseButtonUp(0) && chargeTime >= maxCharge)
         {

@@ -15,4 +15,4 @@ MonoBehaviour:
   item_id: 3
   name: Magnifying Glass
   price: 25
-  description: Increases weapon size slightly
+  description: Weapons Size +1

@@ -15,4 +15,4 @@ MonoBehaviour:
   item_id: 6
   name: Battery
   price: 25
-  description: Lightning damage +1
+  description: Lightning +1

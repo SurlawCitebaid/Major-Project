@@ -15,4 +15,4 @@ MonoBehaviour:
   item_id: 7
   name: WillOWisp
   price: 25
-  description: Explodes them when they die
+  description: Explosions +1

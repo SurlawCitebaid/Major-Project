@@ -15,4 +15,4 @@ MonoBehaviour:
   item_id: 1
   name: Pill
   price: 30
-  description: Its a pill
+  description: Attack Speed +1

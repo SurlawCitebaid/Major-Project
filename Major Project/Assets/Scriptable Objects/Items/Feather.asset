@@ -15,4 +15,4 @@ MonoBehaviour:
   item_id: 4
   name: Feather
   price: 25
-  description: Increases speed a small amount
+  description: Speed +1

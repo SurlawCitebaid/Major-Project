@@ -15,4 +15,4 @@ MonoBehaviour:
   item_id: 2
   name: Cordial
   price: 50
-  description: Increases max health
+  description: Max Health +1
